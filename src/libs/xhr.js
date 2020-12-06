@@ -31,9 +31,9 @@ async function getMockResponse (args) {
 
   // simulate latency
   await new Promise(resolve => {
-    // fake latency from 1 to 2 seconds
-    const min = 1000;
-    const max = 2000;
+    // fake latency from 1 to 3 seconds
+    const min = 3000;
+    const max = 5000;
     const latency = Math.floor(Math.random() * (max - min) + min);
     setTimeout(resolve, latency);
   });
@@ -41,7 +41,7 @@ async function getMockResponse (args) {
   const { path, method } = args;
   const responseHandlers = mockResponses[`_${method}`];
 
-  console.log('mockResponse handling:', path);
+  console.log('mockResponse handling:', path, method);
 
   const responseHandler = responseHandlers.find(({ isMatch }) => isMatch(path));
 

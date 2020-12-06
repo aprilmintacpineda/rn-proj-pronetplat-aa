@@ -1,7 +1,7 @@
 import React from 'react';
 import { xhrWithParams } from 'libs/xhr';
 
-function useDataFetch ({ endpoint, params = null, prefetch = false }) {
+function useDataFetch ({ endpoint, params = null, prefetch = true }) {
   const [{ data, status, currentPage, error, canFetchMore }, setState] = React.useState({
     data: null,
     status: 'initial',
@@ -12,6 +12,7 @@ function useDataFetch ({ endpoint, params = null, prefetch = false }) {
 
   const isFetching = status === 'fetching';
   const isInitial = status === 'initial';
+  const isFirstFetch = isInitial || isFetching && !data;
 
   const fetchData = React.useCallback(
     async refresh => {
@@ -33,10 +34,12 @@ function useDataFetch ({ endpoint, params = null, prefetch = false }) {
         });
 
         responseData = await responseData.json();
+        const isDataArray = responseData.constructor === Array;
+        const canFetchMore = Boolean(isDataArray && responseData.length);
 
         const newData = isRefresh
           ? responseData
-          : responseData.constructor === Array
+          : isDataArray
           ? (data || []).concat(responseData)
           : responseData;
 
@@ -45,7 +48,7 @@ function useDataFetch ({ endpoint, params = null, prefetch = false }) {
           status: 'fetchSuccess',
           data: newData,
           currentPage: nextPage,
-          canFetchMore: responseData.length > 0
+          canFetchMore
         }));
       } catch (error) {
         console.log('useDataFetch', error);
@@ -75,6 +78,7 @@ function useDataFetch ({ endpoint, params = null, prefetch = false }) {
     currentPage,
     isFetching,
     isInitial,
+    isFirstFetch,
     error,
     refreshData,
     fetchData

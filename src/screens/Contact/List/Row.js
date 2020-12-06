@@ -4,20 +4,40 @@ import { Text, useTheme } from 'react-native-paper';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import {
+  Placeholder,
+  PlaceholderMedia,
+  PlaceholderLine,
+  ShineOverlay
+} from 'rn-placeholder';
+
 import TouchableButtonLink from 'components/TouchableButtonLink';
 import UserAvatar from 'components/UserAvatar';
 import { getFullName, renderContactTitle } from 'helpers/contact';
 
 function ContactListRow (contactData) {
   const {
-    hasEmail,
-    hasMobile,
-    hasTelephone
-  } = contactData;
-
-  const {
     colors: { primary }
   } = useTheme();
+
+  const { isLoading } = contactData;
+
+  if (isLoading) {
+    return (
+      <Placeholder Animation={ShineOverlay} style={{ padding: 15 }}>
+        <View style={{ flexDirection: 'row' }}>
+          <PlaceholderMedia style={{ borderRadius: 100 }} size={60} />
+          <View style={{ marginLeft: 15, flex: 1 }}>
+            <PlaceholderLine width={70} />
+            <PlaceholderLine width={50} />
+            <PlaceholderLine width={20} />
+          </View>
+        </View>
+      </Placeholder>
+    );
+  }
+
+  const { hasEmail, hasMobile, hasTelephone } = contactData;
 
   const fullName = getFullName(contactData);
 
