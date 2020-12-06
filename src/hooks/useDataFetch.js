@@ -12,6 +12,7 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
 
   const isFetching = status === 'fetching';
   const isInitial = status === 'initial';
+  const isRefreshing = status === 'refreshing';
   const isFirstFetch = isInitial || isFetching && !data;
 
   const fetchData = React.useCallback(
@@ -78,6 +79,7 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
     currentPage,
     isFetching,
     isInitial,
+    isRefreshing,
     isFirstFetch,
     error,
     refreshData,

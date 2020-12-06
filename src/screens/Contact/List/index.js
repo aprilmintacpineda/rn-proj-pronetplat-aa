@@ -31,7 +31,9 @@ const loadingData = [
 ];
 
 function ContactList () {
-  const { data, isFirstFetch } = useDataFetch({ endpoint: '/contacts' });
+  const { data, isFirstFetch, refreshData, isRefreshing } = useDataFetch({
+    endpoint: '/contacts'
+  });
 
   if (isFirstFetch) {
     return (
@@ -46,6 +48,8 @@ function ContactList () {
 
   return (
     <FlatList
+      onRefresh={refreshData}
+      refreshing={isRefreshing}
       ListEmptyComponent={ContactListEmpty}
       ItemSeparatorComponent={ListItemSeparator}
       data={data}
