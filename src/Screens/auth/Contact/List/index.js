@@ -1,10 +1,9 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 
-import ListItemSeparator from 'components/ListItemSeparator';
-
 import ContactListEmpty from './Empty';
 import ContactListRow from './Row';
+import ListItemSeparator from 'components/ListItemSeparator';
 import useDataFetch from 'hooks/useDataFetch';
 
 function keyExtractor ({ id }) {

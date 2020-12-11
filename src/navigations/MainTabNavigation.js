@@ -1,13 +1,13 @@
-import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
-import ContactList from 'screens/Contact/List';
-import MyCode from 'screens/MyCode';
-import ScanCode from 'screens/ScanCode';
+import ContactList from 'Screens/auth/Contact/List';
+import MyCode from 'Screens/auth/MyCode';
+import ScanCode from 'Screens/auth/ScanCode';
 
 function MainTabNavigation () {
   return (

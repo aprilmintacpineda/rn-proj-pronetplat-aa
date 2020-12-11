@@ -1,17 +1,16 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { Caption, Divider, Headline, Text } from 'react-native-paper';
-
 import {
   Placeholder,
-  PlaceholderMedia,
   PlaceholderLine,
+  PlaceholderMedia,
   ShineOverlay
 } from 'rn-placeholder';
 
+import ContactDetailRow from './Row';
 import UserAvatar from 'components/UserAvatar';
 import { getFullName, renderContactTitle } from 'helpers/contact';
-import ContactDetailRow from './Row';
 import useDataFetch from 'hooks/useDataFetch';
 
 function ContactProfile ({ route: { params: contactData } }) {

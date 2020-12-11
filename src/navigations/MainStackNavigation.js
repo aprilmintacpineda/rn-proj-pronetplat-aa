@@ -1,15 +1,13 @@
+import { TransitionPresets, createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import { Appbar } from 'react-native-paper';
 
-import ContactProfile from 'screens/Contact/Profile';
 import MainTabNavigation from './MainTabNavigation';
+import ContactProfile from 'Screens/auth/Contact/Profile';
 
 const Stack = createStackNavigator();
 
 function header (props) {
-  console.log(props);
-
   const { scene, navigation } = props;
   const { goBack, canGoBack } = navigation;
   const { isMainScreen, title } = scene.descriptor.options;
@@ -19,9 +17,8 @@ function header (props) {
       style={{
         backgroundColor: '#fff',
         elevation: 2
-      }}
-    >
-      {!isMainScreen && canGoBack () ? <Appbar.BackAction onPress={goBack} /> : null}
+      }}>
+      {!isMainScreen && canGoBack() ? <Appbar.BackAction onPress={goBack} /> : null}
       <Appbar.Content
         title={title}
         style={{
@@ -48,8 +45,7 @@ function MainNavigation () {
     <Stack.Navigator
       initialRouteName="MainTabNavigation"
       headerMode="screen"
-      screenOptions={screenOptions}
-    >
+      screenOptions={screenOptions}>
       <Stack.Screen
         name="MainTabNavigation"
         component={MainTabNavigation}

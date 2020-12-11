@@ -38,6 +38,15 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
+    'import/order': [
+      'error',
+      {
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true
+        }
+      }
+    ],
     'react/jsx-closing-tag-location': 'error',
     'module-resolver/use-alias': 2,
     'react-hooks/exhaustive-deps': 'error',

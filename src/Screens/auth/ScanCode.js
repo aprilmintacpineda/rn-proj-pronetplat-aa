@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button, Text } from 'react-native-paper';
 import { CameraKitCamera } from 'react-native-camera-kit';
+import { Button, Text } from 'react-native-paper';
 import { openSettings } from 'react-native-permissions';
 
-import useCameraPermission from 'hooks/useCameraPermissions';
 import CenteredSurface from 'components/CenteredSurface';
+import useCameraPermission from 'hooks/useCameraPermissions';
 
 function ScanCode () {
   const { isAllowed, isDoneChecking } = useCameraPermission();
@@ -23,7 +23,9 @@ function ScanCode () {
           You need to give the app permissions to use the camera and microphone to start
           scanning QR codes.
         </Text>
-        <Button mode="contained" onPress={openSettings}>Open Settings</Button>
+        <Button mode="contained" onPress={openSettings}>
+          Open Settings
+        </Button>
       </CenteredSurface>
     );
   }

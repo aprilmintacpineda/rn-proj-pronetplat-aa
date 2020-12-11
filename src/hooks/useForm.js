@@ -43,7 +43,7 @@ function useForm ({
   const isSubmitting = status === 'submitting';
   const isSuccess = status === 'submitSuccess';
   const isError = status === 'submitError';
-  const disabled = isSubmitting || (isSuccess && stayDisabledOnSuccess);
+  const disabled = isSubmitting || isSuccess && stayDisabledOnSuccess;
   const operation = targetRecordId ? 'update' : 'create';
 
   const validateField = React.useCallback(
@@ -190,7 +190,7 @@ function useForm ({
       console.error('useForm confirmSubmit', error);
 
       if (onSubmitError)
-        await onSubmitError(error, { formValues, formContext, setContext });
+        await onSubmitError({ error, formValues, formContext, setContext });
 
       setState(oldState => ({
         ...oldState,

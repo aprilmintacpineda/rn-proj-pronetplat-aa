@@ -1,8 +1,8 @@
-import CenteredSurface from 'components/CenteredSurface';
 import React from 'react';
 import { useWindowDimensions } from 'react-native';
 import { Text } from 'react-native-paper';
 import QRCode from 'react-native-qrcode-svg';
+import CenteredSurface from 'components/CenteredSurface';
 
 function MyCode () {
   const { width } = useWindowDimensions();

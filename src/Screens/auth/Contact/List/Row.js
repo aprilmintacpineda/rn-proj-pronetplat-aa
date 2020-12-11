@@ -3,11 +3,10 @@ import { View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import {
   Placeholder,
-  PlaceholderMedia,
   PlaceholderLine,
+  PlaceholderMedia,
   ShineOverlay
 } from 'rn-placeholder';
 

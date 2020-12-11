@@ -1,7 +1,6 @@
 import { store } from 'fluxible-js';
-import { API_BASE_URL, USE_MOCK_RESPONSES } from 'env';
-
 import File from 'classes/File';
+import { API_BASE_URL, USE_MOCK_RESPONSES } from 'env';
 import mockResponses from 'mockResponses';
 
 function clean (path) {
