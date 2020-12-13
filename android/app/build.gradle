@@ -224,8 +224,7 @@ project.ext.vectoricons = [
         'AntDesign.ttf',
         'Entypo.ttf',
         'MaterialCommunityIcons.ttf',
-        'Feather.ttf',
-        'FontAwesome.ttf'
+        'Feather.ttf'
     ]
 ]
 
