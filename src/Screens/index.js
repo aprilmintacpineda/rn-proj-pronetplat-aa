@@ -1,7 +1,7 @@
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import GuestStackNavigation from 'navigations/GuestStackNavigation';
-import MainStackNavigation from 'navigations/MainStackNavigation';
+import MainDrawerNavigation from 'navigations/MainDrawerNavigation';
 
 function mapStates ({ authUser }) {
   return { authUser };
@@ -9,7 +9,7 @@ function mapStates ({ authUser }) {
 
 function Screens () {
   const { authUser } = useFluxibleStore(mapStates);
-  if (authUser) return <MainStackNavigation />;
+  if (authUser) return <MainDrawerNavigation />;
   return <GuestStackNavigation />;
 }
 

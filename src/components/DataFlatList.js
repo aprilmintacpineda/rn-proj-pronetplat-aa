@@ -40,7 +40,7 @@ function DataFlatList ({
       data={data}
       keyExtractor={keyExtractor}
       onEndReached={fetchData}
-      onEndReachedThreshold={0.8}
+      onEndReachedThreshold={0.9}
       ListFooterComponent={
         <LoadingPlaceHolder isFetching={isFetching} isFirstFetch={isFirstFetch} />
       }
