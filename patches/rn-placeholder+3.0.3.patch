@@ -1,0 +1,42 @@
+diff --git a/node_modules/rn-placeholder/lib/animations/ShineOverlay.js b/node_modules/rn-placeholder/lib/animations/ShineOverlay.js
+index ecf8842..797fd7d 100644
+--- a/node_modules/rn-placeholder/lib/animations/ShineOverlay.js
++++ b/node_modules/rn-placeholder/lib/animations/ShineOverlay.js
+@@ -23,9 +23,10 @@ exports.ShineOverlay = void 0;
+ var react_1 = __importStar(require("react"));
+ var react_native_1 = require("react-native");
+ var START_VALUE = 0;
+-var END_VALUE = 100;
++var END_VALUE = 1;
+ var isInteraction = false;
+ exports.ShineOverlay = function (_a) {
++    var dimensions = react_native_1.useWindowDimensions();
+     var duration = _a.duration, children = _a.children, reverse = _a.reverse;
+     var animation = react_1.useRef(new react_native_1.Animated.Value(START_VALUE));
+     var start = function () {
+@@ -34,7 +35,7 @@ exports.ShineOverlay = function (_a) {
+             duration: duration || 750,
+             isInteraction: isInteraction,
+             toValue: END_VALUE,
+-            useNativeDriver: false
++            useNativeDriver: true
+         }).start(function (e) {
+             if (e.finished) {
+                 start();
+@@ -44,13 +45,13 @@ exports.ShineOverlay = function (_a) {
+     react_1.useEffect(function () {
+         start();
+     }, []);
+-    var left = animation.current.interpolate({
++    var translateX = animation.current.interpolate({
+         inputRange: [START_VALUE, END_VALUE],
+-        outputRange: reverse ? ["100%", "0%"] : ["0%", "100%"]
++        outputRange: reverse ? [dimensions.width, 0] : [0, dimensions.width]
+     });
+     return (react_1["default"].createElement(react_native_1.View, null,
+         children,
+-        react_1["default"].createElement(react_native_1.Animated.View, { style: [styles.shine, { left: left }] })));
++        react_1["default"].createElement(react_native_1.Animated.View, { style: [styles.shine, { transform: [ { translateX: translateX } ] }] })));
+ };
+ var styles = react_native_1.StyleSheet.create({
+     shine: {

@@ -9,7 +9,8 @@
     "test": "jest",
     "eslint": "eslint \"*.js\" \"src/**/*.js\" --fix",
     "prettier": "prettier \"*.js\" \"src/**/*.js\" --write",
-    "lint": "npm run prettier && npm run eslint"
+    "lint": "npm run prettier && npm run eslint",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
@@ -17,6 +18,7 @@
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.8",
     "fluxible-js": "^5.0.9",
+    "patch-package": "^6.2.2",
     "react": "16.13.1",
     "react-fluxible": "^5.0.3",
     "react-native": "0.63.4",
