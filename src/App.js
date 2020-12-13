@@ -14,11 +14,15 @@ import Screens from 'Screens';
 
 export const navigationRef = React.createRef();
 
+const paperTheme = {
+  ...paperDefaultTheme
+};
+
 const navigationTheme = {
   ...navigationDefaultTheme,
   colors: {
     ...navigationDefaultTheme.colors,
-    primary: paperDefaultTheme.colors.primary
+    primary: paperTheme.colors.primary
   }
 };
 
@@ -41,7 +45,7 @@ function App () {
         behavior={avoidBehavior}
         keyboardVerticalOffset={avoidOffset}>
         <NavigationContainer ref={navigationRef} theme={navigationTheme}>
-          <PaperProvider>
+          <PaperProvider theme={paperTheme}>
             <FullSafeAreaView>
               <Screens />
             </FullSafeAreaView>

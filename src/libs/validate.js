@@ -12,14 +12,14 @@ const validationRules = {
     return '';
   },
   required (value) {
-    if (!value || value.length) return 'Required.';
+    if (!value || !value.length) return 'Required.';
     return '';
   },
   maxLength (value, max) {
     if (value.length > max) return `Should be less than ${max} characters.`;
     return '';
   },
-  options (value, ...options) {
+  options (value, options) {
     if (value.constructor === Array) {
       if (value.find(val => !options.includes(val)))
         return 'Please select from the options.';
@@ -29,7 +29,7 @@ const validationRules = {
 
     return '';
   },
-  matches (value, payload, fieldName) {
+  matches (value, [payload, fieldName]) {
     if (value !== payload) return `${fieldName} must match.`;
     return '';
   }
@@ -52,9 +52,11 @@ function validate (value, rules) {
       payload = _payload.split(',');
     }
 
-    const error = validationRules[rule](value, ...payload);
+    const error = validationRules[rule](value, payload);
     if (error) return error;
   }
+
+  return '';
 }
 
 export default validate;

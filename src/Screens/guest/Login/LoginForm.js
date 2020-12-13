@@ -15,6 +15,7 @@ function LoginForm () {
       </GuestFormContainer>
       <View style={{ margin: 20 }}>
         <Button to="Register">Register</Button>
+        <Button to="ForgotPassword">Forgot password</Button>
       </View>
     </>
   );
