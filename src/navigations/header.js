@@ -1,8 +1,10 @@
 import React from 'react';
 import { Appbar } from 'react-native-paper';
+import { camelToTitleCase } from 'libs/strings';
 
 function header (props) {
   const { scene, navigation } = props;
+  const { name } = scene.route;
   const { goBack, canGoBack } = navigation;
   const { isMainScreen = false, title } = scene.descriptor.options;
 
@@ -14,7 +16,7 @@ function header (props) {
       }}>
       {!isMainScreen && canGoBack() ? <Appbar.BackAction onPress={goBack} /> : null}
       <Appbar.Content
-        title={title}
+        title={title || camelToTitleCase(name)}
         style={{
           position: 'absolute',
           left: 0,

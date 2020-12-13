@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import { HelperText, TextInput as RNPTextInput } from 'react-native-paper';
 
-const propsBasedOnType = {
+const propsBasedOnTypes = {
   password: {
     secureTextEntry: true,
     clearTextOnFocus: true,
@@ -44,8 +44,10 @@ const propsBasedOnType = {
 function TextInput ({ error, style, type, onPress = null, ..._textInputProps }) {
   const hasError = Boolean(error);
 
+  const propsBasedOnType = propsBasedOnTypes[type] || {};
+
   const textInputProps = {
-    ...propsBasedOnType[type],
+    ...propsBasedOnType,
     ..._textInputProps
   };
 

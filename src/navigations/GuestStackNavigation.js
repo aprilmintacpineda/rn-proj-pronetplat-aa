@@ -2,6 +2,7 @@ import { TransitionPresets, createStackNavigator } from '@react-navigation/stack
 import React from 'react';
 
 import header from './header';
+import ForgotPassword from 'Screens/guest/ForgotPassword';
 import Login from 'Screens/guest/Login';
 import Register from 'Screens/guest/Register';
 
@@ -25,6 +26,7 @@ function MainNavigation () {
         component={Register}
         options={{ title: 'Create Account' }}
       />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
     </Stack.Navigator>
   );
 }

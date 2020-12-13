@@ -3,6 +3,7 @@ import {
   DefaultTheme as navigationDefaultTheme
 } from '@react-navigation/native';
 import React from 'react';
+import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { KeyboardAvoidingView, Platform, StatusBar } from 'react-native';
 import {
   DefaultTheme as paperDefaultTheme,
@@ -10,6 +11,8 @@ import {
 } from 'react-native-paper';
 
 import FullSafeAreaView from 'components/FullSafeAreaView';
+import { initStore } from 'fluxible/store/init';
+import PopupManager from 'PopupManager';
 import Screens from 'Screens';
 
 export const navigationRef = React.createRef();
@@ -36,7 +39,19 @@ const avoidOffset = Platform.select({
   ios: 0
 });
 
+function mapStates ({ initComplete }) {
+  return { initComplete };
+}
+
 function App () {
+  const { initComplete } = useFluxibleStore(mapStates);
+
+  React.useEffect(() => {
+    initStore();
+  }, []);
+
+  if (!initComplete) return null;
+
   return (
     <>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -47,6 +62,7 @@ function App () {
         <NavigationContainer ref={navigationRef} theme={navigationTheme}>
           <PaperProvider theme={paperTheme}>
             <FullSafeAreaView>
+              <PopupManager />
               <Screens />
             </FullSafeAreaView>
           </PaperProvider>

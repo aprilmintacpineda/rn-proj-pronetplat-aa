@@ -21,6 +21,7 @@ const formOptions = {
     retypePassword: ({ retypePassword, password }) =>
       validate(retypePassword, ['required', `matches:${password},passwords`])
   },
+  ignoreResponse: true,
   endPoint: '/register',
   onSubmitError: unknownError
 };

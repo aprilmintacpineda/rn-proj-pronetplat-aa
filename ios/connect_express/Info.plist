@@ -60,6 +60,7 @@
 		<string>Entypo.ttf</string>
 		<string>MaterialCommunityIcons.ttf</string>
 		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
 	</array>
 	
   <key>NSCameraUsageDescription</key>

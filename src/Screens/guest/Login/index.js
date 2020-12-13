@@ -1,7 +1,7 @@
-import { updateStore } from 'fluxible-js';
 import React from 'react';
 import LoginForm from './LoginForm';
 import FormWithContext from 'components/FormWithContext';
+import { login } from 'fluxible/actions/user';
 import { unknownError } from 'libs/alerts';
 import validate from 'libs/validate';
 
@@ -16,12 +16,8 @@ const formOptions = {
   },
   endPoint: '/login',
   onSubmitSuccess: ({ data }) => {
-    const { authUser, token } = data;
-
-    updateStore({
-      authUser,
-      token
-    });
+    const { authUser, authToken } = data;
+    login({ authUser, authToken });
   },
   onSubmitError: unknownError
 };

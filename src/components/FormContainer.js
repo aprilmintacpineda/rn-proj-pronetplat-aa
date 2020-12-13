@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Divider, Headline, Subheading, Surface } from 'react-native-paper';
 
-function GuestFormContainer ({ children }) {
+function FormContainer ({ children }) {
   return (
     <View style={{ padding: 20 }}>
       <Surface style={{ padding: 20, borderRadius: 4, elevation: 1 }}>
@@ -15,4 +15,4 @@ function GuestFormContainer ({ children }) {
   );
 }
 
-export default React.memo(GuestFormContainer);
+export default React.memo(FormContainer);

@@ -28,19 +28,27 @@ export function xhrWithParams (url, params = {}) {
 async function getMockResponse (args) {
   if (!USE_MOCK_RESPONSES) return null;
 
+  const { path, method } = args;
+  const responseHandlers = mockResponses[`_${method}`];
+  console.log('mockResponse handling:', path, method);
+
   // simulate latency
   await new Promise(resolve => {
     // fake latency from 1 to 3 seconds
-    const min = 3000;
-    const max = 5000;
+    let min = 3;
+    let max = 5;
+
+    if (method !== 'get') {
+      min = 1;
+      max = 3;
+    }
+
+    min *= 1000;
+    max *= 1000;
+
     const latency = Math.floor(Math.random() * (max - min) + min);
     setTimeout(resolve, latency);
   });
-
-  const { path, method } = args;
-  const responseHandlers = mockResponses[`_${method}`];
-
-  console.log('mockResponse handling:', path, method);
 
   const responseHandler = responseHandlers.find(({ isMatch }) => isMatch(path));
 

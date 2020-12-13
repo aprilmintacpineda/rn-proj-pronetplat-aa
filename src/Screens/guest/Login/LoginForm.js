@@ -1,23 +1,23 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
+import FormContainer from 'components/FormContainer';
 import Button from 'components/FormWithContext/Button';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
-import GuestFormContainer from 'components/GuestFormContainer';
 
 function LoginForm () {
   return (
-    <>
-      <GuestFormContainer>
+    <ScrollView>
+      <FormContainer>
         <TextInput field="email" type="email" />
         <TextInput field="password" type="password" />
         <SubmitButton>Submit</SubmitButton>
-      </GuestFormContainer>
+      </FormContainer>
       <View style={{ margin: 20 }}>
         <Button to="Register">Register</Button>
         <Button to="ForgotPassword">Forgot password</Button>
       </View>
-    </>
+    </ScrollView>
   );
 }
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
+import FormContainer from 'components/FormContainer';
 import Button from 'components/FormWithContext/Button';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
-import GuestFormContainer from 'components/GuestFormContainer';
 
 function RegisterForm () {
   return (
     <ScrollView>
-      <GuestFormContainer>
+      <FormContainer>
         <TextInput field="email" type="email" />
         <TextInput field="password" type="password" />
         <TextInput field="retypePassword" type="password" />
@@ -16,7 +16,7 @@ function RegisterForm () {
         <Button to="Login" color="red">
           Cancel
         </Button>
-      </GuestFormContainer>
+      </FormContainer>
     </ScrollView>
   );
 }

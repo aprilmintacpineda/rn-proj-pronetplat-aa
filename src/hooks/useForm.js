@@ -13,7 +13,7 @@ function useForm ({
   onSubmitSuccess = null,
   transformInput = null,
   onBeforeSaveConfirm = null,
-  skipResponseData = false,
+  ignoreResponse = false,
   stayDisabledOnSuccess = false
 }) {
   const [
@@ -41,10 +41,11 @@ function useForm ({
 
   const isInitial = status === 'initial';
   const isSubmitting = status === 'submitting';
-  const isSuccess = status === 'submitSuccess';
-  const isError = status === 'submitError';
-  const disabled = isSubmitting || isSuccess && stayDisabledOnSuccess;
-  const operation = targetRecordId ? 'update' : 'create';
+  const isSubmitSuccess = status === 'submitSuccess';
+  const isSubmitError = status === 'submitError';
+  const disabled = isSubmitting || isSubmitSuccess && stayDisabledOnSuccess;
+  const operation = targetRecordId ? 'update' : 'others';
+  const isUpdate = operation === 'update';
 
   const validateField = React.useCallback(
     (field, values) => {
@@ -156,7 +157,7 @@ function useForm ({
         let method = null;
         let path = null;
 
-        if (operation === 'update') {
+        if (isUpdate) {
           method = 'patch';
           path = endPoint.replace(':id', targetRecordId);
         } else {
@@ -168,7 +169,7 @@ function useForm ({
           ? transformInput({ formValues, formContext })
           : formValues;
         const response = await xhr(path, { body, method });
-        if (!skipResponseData) responseData = await response.json();
+        if (!ignoreResponse) responseData = await response.json();
       }
 
       if (onSubmitSuccess) {
@@ -177,7 +178,8 @@ function useForm ({
           formValues,
           formContext,
           setContext,
-          operation
+          operation,
+          isUpdate
         });
       }
 
@@ -209,8 +211,9 @@ function useForm ({
     operation,
     targetRecordId,
     endPoint,
-    skipResponseData,
-    onBeforeSubmitEffect
+    ignoreResponse,
+    onBeforeSubmitEffect,
+    isUpdate
   ]);
 
   const cancelSubmit = React.useCallback(() => {
@@ -334,8 +337,9 @@ function useForm ({
     status,
     isSubmitting,
     isInitial,
-    isSuccess,
-    isError,
+    isSubmitSuccess,
+    isSubmitError,
+    isUpdate,
     disabled,
     submitHandler,
     setContext,

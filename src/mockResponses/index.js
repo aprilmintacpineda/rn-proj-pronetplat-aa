@@ -1,8 +1,19 @@
 import contactDetails from './_get/contactDetails';
 import contacts from './_get/contacts';
+import forgotPassword from './_post/forgotPassword';
+import resetPassword from './_post/resetPassword';
 
 export default {
-  _post: [],
+  _post: [
+    {
+      isMatch: path => /^\/?forgot-password$/gim.test(path),
+      handler: forgotPassword
+    },
+    {
+      isMatch: path => /^\/?reset-password$/gim.test(path),
+      handler: resetPassword
+    }
+  ],
   _get: [
     {
       isMatch: path => /^\/?contacts\/?(\?page=[0-9])?$/gim.test(path),
