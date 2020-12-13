@@ -24,7 +24,7 @@ function MainNavigation () {
         component={MainTabNavigation}
         options={{
           isMainScreen: true,
-          headerShown: false
+          title: ''
         }}
       />
       <Stack.Screen

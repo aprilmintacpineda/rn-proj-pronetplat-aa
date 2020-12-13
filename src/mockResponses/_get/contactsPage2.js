@@ -3,7 +3,7 @@ export default {
   json: () => ({
     data: [
       {
-        id: '1',
+        id: '11',
         firstName: 'Test',
         middleName: 'user',
         lastName: 'one',
@@ -16,7 +16,7 @@ export default {
           'Sole fullstack developer. I create web, android, and iOS apps using ReactJS, React-Native, NodeJS, AWS, and FaunaDB.'
       },
       {
-        id: '2',
+        id: '12',
         firstName: 'Test',
         middleName: 'user',
         lastName: 'two',
@@ -29,7 +29,7 @@ export default {
           'Sole fullstack developer. I create web, android, and iOS apps using ReactJS, React-Native, NodeJS, AWS, and FaunaDB.'
       },
       {
-        id: '3',
+        id: '13',
         firstName: 'Test',
         middleName: 'user',
         lastName: 'three',
@@ -42,7 +42,7 @@ export default {
           'Sole fullstack developer. I create web, android, and iOS apps using ReactJS, React-Native, NodeJS, AWS, and FaunaDB.'
       },
       {
-        id: '4',
+        id: '14',
         firstName: 'Test',
         middleName: 'user',
         lastName: 'four',
@@ -55,7 +55,7 @@ export default {
           'Sole fullstack developer. I create web, android, and iOS apps using ReactJS, React-Native, NodeJS, AWS, and FaunaDB.'
       },
       {
-        id: '5',
+        id: '15',
         firstName: 'Test',
         middleName: 'user',
         lastName: 'five',
@@ -68,7 +68,7 @@ export default {
           'Sole fullstack developer. I create web, android, and iOS apps using ReactJS, React-Native, NodeJS, AWS, and FaunaDB.'
       },
       {
-        id: '6',
+        id: '16',
         firstName: 'Test',
         middleName: 'user',
         lastName: 'five',
@@ -81,7 +81,7 @@ export default {
           'Sole fullstack developer. I create web, android, and iOS apps using ReactJS, React-Native, NodeJS, AWS, and FaunaDB.'
       },
       {
-        id: '7',
+        id: '17',
         firstName: 'Test',
         middleName: 'user',
         lastName: 'five',
@@ -94,7 +94,7 @@ export default {
           'Sole fullstack developer. I create web, android, and iOS apps using ReactJS, React-Native, NodeJS, AWS, and FaunaDB.'
       },
       {
-        id: '8',
+        id: '18',
         firstName: 'Test',
         middleName: 'user',
         lastName: 'five',
@@ -107,7 +107,7 @@ export default {
           'Sole fullstack developer. I create web, android, and iOS apps using ReactJS, React-Native, NodeJS, AWS, and FaunaDB.'
       },
       {
-        id: '9',
+        id: '19',
         firstName: 'Test',
         middleName: 'user',
         lastName: 'five',
@@ -120,7 +120,7 @@ export default {
           'Sole fullstack developer. I create web, android, and iOS apps using ReactJS, React-Native, NodeJS, AWS, and FaunaDB.'
       },
       {
-        id: '10',
+        id: '20',
         firstName: 'Test',
         middleName: 'user',
         lastName: 'five',
@@ -133,6 +133,6 @@ export default {
           'Sole fullstack developer. I create web, android, and iOS apps using ReactJS, React-Native, NodeJS, AWS, and FaunaDB.'
       }
     ],
-    nextToken: '123123123'
+    nextToken: null
   })
 };

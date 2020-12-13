@@ -1,3 +1,5 @@
+import 'customAnimations';
+
 import {
   NavigationContainer,
   DefaultTheme as navigationDefaultTheme

@@ -1,6 +1,8 @@
 import contactDetails from './_get/contactDetails';
 import contacts from './_get/contacts';
+import contactsPage2 from './_get/contactsPage2';
 import forgotPassword from './_post/forgotPassword';
+import login from './_post/login';
 import register from './_post/register';
 import resetPassword from './_post/resetPassword';
 
@@ -17,12 +19,20 @@ export default {
     {
       isMatch: path => /^\/?register$/gim.test(path),
       handler: register
+    },
+    {
+      isMatch: path => /^\/?login$/gim.test(path),
+      handler: login
     }
   ],
   _get: [
     {
-      isMatch: path => /^\/?contacts\/?(\?page=[0-9])?$/gim.test(path),
+      isMatch: path => /^\/?contacts\/?$/gim.test(path),
       handler: contacts
+    },
+    {
+      isMatch: path => /^\/?contacts\/?\?nextToken=([a-zA-Z0-9]+)$/gim.test(path),
+      handler: contactsPage2
     },
     {
       isMatch: path => /^\/?contacts\/[0-9]\/?$/gim.test(path),

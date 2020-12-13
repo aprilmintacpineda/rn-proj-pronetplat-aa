@@ -22,6 +22,7 @@ export function xhrWithParams (url, params = {}) {
 
   const search = searchParams.toString();
   const cleanPath = clean(url);
+
   return xhr(`/${cleanPath}${search ? `?${search}` : ''}`);
 }
 

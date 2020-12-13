@@ -2,10 +2,10 @@ import React from 'react';
 import { xhrWithParams } from 'libs/xhr';
 
 function useDataFetch ({ endpoint, params = null, prefetch = true }) {
-  const [{ data, status, currentPage, error, canFetchMore }, setState] = React.useState({
+  const [{ data, status, nextToken, error, canFetchMore }, setState] = React.useState({
     data: null,
     status: 'initial',
-    currentPage: 0,
+    nextToken: null,
     error: null,
     canFetchMore: true
   });
@@ -18,7 +18,7 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
   const fetchData = React.useCallback(
     async refresh => {
       const isRefresh = refresh === true;
-      if (!isRefresh && !canFetchMore) return;
+      if (!isRefresh && !canFetchMore || isFetching) return;
 
       try {
         setState(oldState => ({
@@ -27,30 +27,29 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
           error: null
         }));
 
-        const nextPage = isRefresh ? 1 : currentPage + 1;
-
-        let responseData = await xhrWithParams(endpoint, {
+        const response = await xhrWithParams(endpoint, {
           ...params,
-          page: nextPage > 1 ? nextPage : null
+          nextToken: isRefresh ? null : nextToken
         });
 
-        responseData = await responseData.json();
-        const isDataArray = responseData.constructor === Array;
-        const canFetchMore = Boolean(isDataArray && responseData.length);
+        const { data, nextToken: newNextToken } = await response.json();
+        const isDataArray = data.constructor === Array;
 
-        const newData = isRefresh
-          ? responseData
-          : isDataArray
-          ? (data || []).concat(responseData)
-          : responseData;
+        setState(oldState => {
+          const newData = isRefresh
+            ? data
+            : isDataArray
+            ? (oldState.data || []).concat(data || [])
+            : data;
 
-        setState(oldState => ({
-          ...oldState,
-          status: 'fetchSuccess',
-          data: newData,
-          currentPage: nextPage,
-          canFetchMore
-        }));
+          return {
+            ...oldState,
+            status: 'fetchSuccess',
+            data: newData || [],
+            nextToken: newNextToken,
+            canFetchMore: Boolean(newNextToken)
+          };
+        });
       } catch (error) {
         console.log('useDataFetch', error);
 
@@ -61,7 +60,7 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
         }));
       }
     },
-    [currentPage, endpoint, params, canFetchMore, data]
+    [endpoint, params, canFetchMore, nextToken, isFetching]
   );
 
   const refreshData = React.useCallback(() => {
@@ -76,7 +75,7 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
   return {
     data,
     status,
-    currentPage,
+    nextToken,
     isFetching,
     isInitial,
     isRefreshing,
