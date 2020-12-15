@@ -14,7 +14,7 @@ const screenOptions = {
   header
 };
 
-function MainNavigation () {
+function GuestStackNavigation () {
   return (
     <Stack.Navigator
       initialRouteName="Login"
@@ -31,4 +31,4 @@ function MainNavigation () {
   );
 }
 
-export default React.memo(MainNavigation);
+export default React.memo(GuestStackNavigation);

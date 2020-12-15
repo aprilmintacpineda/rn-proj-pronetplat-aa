@@ -35,7 +35,7 @@ function ContactProfile ({ route: { params: contactData } }) {
                   alignItems: 'center'
                 }}>
                 <PlaceholderLine width={50} />
-                <PlaceholderMedia style={{ borderRadius: 100 }} size={40} />
+                <PlaceholderMedia style={{ borderRadius: 100 }} size={50} />
               </View>
               <View
                 style={{
@@ -46,33 +46,7 @@ function ContactProfile ({ route: { params: contactData } }) {
                   alignItems: 'center'
                 }}>
                 <PlaceholderLine width={50} />
-                <PlaceholderMedia style={{ borderRadius: 100 }} size={40} />
-              </View>
-              <Divider />
-            </View>
-            <View style={{ margin: 15 }}>
-              <PlaceholderLine width={30} height={8} />
-              <View
-                style={{
-                  marginLeft: 15,
-                  marginBottom: 15,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}>
-                <PlaceholderLine width={50} />
-                <PlaceholderMedia style={{ borderRadius: 100 }} size={40} />
-              </View>
-              <View
-                style={{
-                  marginLeft: 15,
-                  marginBottom: 15,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}>
-                <PlaceholderLine width={50} />
-                <PlaceholderMedia style={{ borderRadius: 100 }} size={40} />
+                <PlaceholderMedia style={{ borderRadius: 100 }} size={50} />
               </View>
             </View>
           </Placeholder>

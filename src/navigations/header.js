@@ -3,6 +3,10 @@ import { Appbar } from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 import { camelToTitleCase } from 'libs/strings';
 
+function menuIcon (props) {
+  return <Feather name="menu" {...props} />;
+}
+
 function header (props) {
   const { scene, navigation } = props;
   const { name } = scene.route;
@@ -17,12 +21,9 @@ function header (props) {
       }}>
       {!isMainScreen && canGoBack() ?
         <Appbar.BackAction onPress={goBack} />
-       : (
-        <Appbar.Action
-          icon={props => <Feather name="menu" {...props} />}
-          onPress={openDrawer}
-        />
-      )}
+       :
+        <Appbar.Action icon={menuIcon} onPress={openDrawer} />
+      }
       <Appbar.Content
         title={title !== null ? title : camelToTitleCase(name)}
         style={{

@@ -13,7 +13,7 @@ const screenOptions = {
   gestureEnabled: true
 };
 
-function MainNavigation () {
+function MainStackNavigation () {
   return (
     <Stack.Navigator
       initialRouteName="MainTabNavigation"
@@ -38,4 +38,4 @@ function MainNavigation () {
   );
 }
 
-export default React.memo(MainNavigation);
+export default React.memo(MainStackNavigation);
