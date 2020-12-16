@@ -10,15 +10,14 @@
 		00E356F31AD99517003FC87E /* connect_expressTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* connect_expressTests.m */; };
 		040A2160844B1AAA2012E680 /* libPods-connect_express-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58C6D8C1E7047591456984AC /* libPods-connect_express-tvOS.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		270B78FB5ACF09BE6D9EEFFF /* libPods-connect_express-connect_expressTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 590D9E6BE71DC98C2DCE3194 /* libPods-connect_express-connect_expressTests.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* connect_expressTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* connect_expressTests.m */; };
 		61806444BB9271C47F88D634 /* libPods-connect_express.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F94BE4217E2C544DC968D2A9 /* libPods-connect_express.a */; };
 		7C679B2C258A3FBB006F2524 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C679B2B258A3FBB006F2524 /* BootSplash.storyboard */; };
+		7C679BB6258A4790006F2524 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C679BB5258A478F006F2524 /* Images.xcassets */; };
 		B39DCBA45804D015AE706DB7 /* libPods-connect_express-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 004BE8BC1CC82A79B32DC7D6 /* libPods-connect_express-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -49,7 +48,6 @@
 		13B07F961A680F5B00A75B9A /* Connect Express.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Connect Express.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = connect_express/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = connect_express/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = connect_express/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = connect_express/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = connect_express/main.m; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* connect_express-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "connect_express-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +55,7 @@
 		58C6D8C1E7047591456984AC /* libPods-connect_express-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-connect_express-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		590D9E6BE71DC98C2DCE3194 /* libPods-connect_express-connect_expressTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-connect_express-connect_expressTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C679B2B258A3FBB006F2524 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = connect_express/BootSplash.storyboard; sourceTree = "<group>"; };
+		7C679BB5258A478F006F2524 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = connect_express/Images.xcassets; sourceTree = "<group>"; };
 		7CA3BF0C257B424D00F19970 /* Connect Express.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Connect Express.entitlements"; path = "connect_express/Connect Express.entitlements"; sourceTree = "<group>"; };
 		91270AC226D1E5EEAEA397FA /* Pods-connect_express.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express.release.xcconfig"; path = "Target Support Files/Pods-connect_express/Pods-connect_express.release.xcconfig"; sourceTree = "<group>"; };
 		9EEAE16FACC903871D0CBCCF /* Pods-connect_express-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-connect_express-tvOSTests/Pods-connect_express-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -141,12 +140,12 @@
 		13B07FAE1A68108700A75B9A /* connect_express */ = {
 			isa = PBXGroup;
 			children = (
+				7C679BB5258A478F006F2524 /* Images.xcassets */,
 				7C679B2B258A3FBB006F2524 /* BootSplash.storyboard */,
 				7CA3BF0C257B424D00F19970 /* Connect Express.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -342,8 +341,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				7C679B2C258A3FBB006F2524 /* BootSplash.storyboard in Resources */,
+				7C679BB6258A4790006F2524 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +350,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
