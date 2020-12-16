@@ -7,6 +7,7 @@ import {
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { KeyboardAvoidingView, Platform, StatusBar } from 'react-native';
+import RNBootSplash from 'react-native-bootsplash';
 import {
   DefaultTheme as paperDefaultTheme,
   Provider as PaperProvider
@@ -51,6 +52,10 @@ function App () {
   React.useEffect(() => {
     initStore();
   }, []);
+
+  React.useEffect(() => {
+    if (initComplete) RNBootSplash.hide({ fade: true });
+  }, [initComplete]);
 
   if (!initComplete) return null;
 

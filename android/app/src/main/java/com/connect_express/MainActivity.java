@@ -1,11 +1,19 @@
 package com.connect_express;
 
+import android.os.Bundle;
+import com.zoontek.rnbootsplash.RNBootSplash;
+
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    RNBootSplash.init(R.drawable.bootsplash, MainActivity.this);
+  }
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
