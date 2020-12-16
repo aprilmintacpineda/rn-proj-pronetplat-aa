@@ -11,7 +11,7 @@
     "prettier": "prettier \"*.js\" \"src/**/*.js\" --write",
     "lint": "npm run prettier && npm run eslint",
     "postinstall": "patch-package",
-    "generate-bootsplash": "yarn react-native generate-bootsplash assets/bootsplash_logo_original.png --background-color=ffffff --logo-width=120 --assets-path=assets"
+    "generate-bootsplash": "react-native generate-bootsplash assets/bootsplash_logo_original.png --background-color=ffffff --logo-width=120"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
