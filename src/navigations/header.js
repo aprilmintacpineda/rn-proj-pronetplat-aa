@@ -12,6 +12,7 @@ function header (props) {
   const { name } = scene.route;
   const { goBack, canGoBack, openDrawer } = navigation;
   const { isMainScreen = false, title = null } = scene.descriptor.options;
+  const hasDrawerNavigation = Boolean(openDrawer);
 
   return (
     <Appbar.Header
@@ -21,9 +22,9 @@ function header (props) {
       }}>
       {!isMainScreen && canGoBack() ?
         <Appbar.BackAction onPress={goBack} />
-       :
+       : hasDrawerNavigation ?
         <Appbar.Action icon={menuIcon} onPress={openDrawer} />
-      }
+       : null}
       <Appbar.Content
         title={title !== null ? title : camelToTitleCase(name)}
         style={{
