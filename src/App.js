@@ -54,7 +54,7 @@ function App () {
   }, []);
 
   React.useEffect(() => {
-    if (initComplete) RNBootSplash.hide({ fade: true });
+    if (initComplete) RNBootSplash.hide();
   }, [initComplete]);
 
   if (!initComplete) return null;
