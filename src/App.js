@@ -16,7 +16,7 @@ import {
 import FullSafeAreaView from 'components/FullSafeAreaView';
 import { initStore } from 'fluxible/store/init';
 import PopupManager from 'PopupManager';
-import Screens from 'Screens';
+import Screens from 'screens';
 
 export const navigationRef = React.createRef();
 
@@ -62,19 +62,19 @@ function App () {
   return (
     <>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={avoidBehavior}
-        keyboardVerticalOffset={avoidOffset}>
-        <NavigationContainer ref={navigationRef} theme={navigationTheme}>
-          <PaperProvider theme={paperTheme}>
-            <FullSafeAreaView>
-              <PopupManager />
+      <NavigationContainer ref={navigationRef} theme={navigationTheme}>
+        <PaperProvider theme={paperTheme}>
+          <PopupManager />
+          <FullSafeAreaView>
+            <KeyboardAvoidingView
+              style={{ flex: 1 }}
+              behavior={avoidBehavior}
+              keyboardVerticalOffset={avoidOffset}>
               <Screens />
-            </FullSafeAreaView>
-          </PaperProvider>
-        </NavigationContainer>
-      </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
+          </FullSafeAreaView>
+        </PaperProvider>
+      </NavigationContainer>
     </>
   );
 }

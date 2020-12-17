@@ -2,9 +2,9 @@ import { TransitionPresets, createStackNavigator } from '@react-navigation/stack
 import React from 'react';
 
 import header from './header';
-import ForgotPassword from 'Screens/guest/ForgotPassword';
-import Login from 'Screens/guest/Login';
-import Register from 'Screens/guest/Register';
+import ForgotPassword from 'screens/guest/ForgotPassword';
+import Login from 'screens/guest/Login';
+import Register from 'screens/guest/Register';
 
 const Stack = createStackNavigator();
 

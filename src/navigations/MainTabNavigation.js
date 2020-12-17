@@ -5,9 +5,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
-import ContactList from 'Screens/auth/Contact/List';
-import MyCode from 'Screens/auth/MyCode';
-import ScanCode from 'Screens/auth/ScanCode';
+import ContactList from 'screens/auth/Contact/List';
+import MyCode from 'screens/auth/MyCode';
+import ScanCode from 'screens/auth/ScanCode';
 
 function MainTabNavigation () {
   return (

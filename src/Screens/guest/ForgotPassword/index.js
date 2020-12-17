@@ -1,49 +1,26 @@
 import React from 'react';
-import { ScrollView, useWindowDimensions, View } from 'react-native';
 import ResetPassword from './ResetPassword';
 import SendResetCode from './SendResetCode';
+import SlideView from 'components/SlideView';
 
 function ForgotPassword () {
-  const { width } = useWindowDimensions();
-  const scrollViewRef = React.useRef();
-  const [email, setEmail] = React.useState('');
+  const [{ email, page }, setState] = React.useState({
+    page: 1,
+    email: null
+  });
 
-  const scrollTo = React.useCallback(
-    page => {
-      scrollViewRef.current.scrollTo({
-        x: page * width,
-        animated: true
-      });
-    },
-    [width]
-  );
-
-  const onResetCodeSent = React.useCallback(
-    email => {
-      scrollTo(1);
-      setEmail(email);
-    },
-    [scrollTo]
-  );
+  const onResetCodeSent = React.useCallback(email => {
+    setState({
+      email,
+      page: 2
+    });
+  }, []);
 
   return (
-    <ScrollView
-      ref={scrollViewRef}
-      horizontal
-      pagingEnabled
-      showsHorizontalScrollIndicator={false}
-      decelerationRate="normal"
-      scrollEnabled={false}
-      contentOffset={{ x: 0 }}>
-      <View style={{ flexDirection: 'row' }}>
-        <View style={{ width }}>
-          <SendResetCode onResetCodeSent={onResetCodeSent} />
-        </View>
-        <View style={{ width }}>
-          <ResetPassword email={email} />
-        </View>
-      </View>
-    </ScrollView>
+    <SlideView page={page}>
+      <SendResetCode onResetCodeSent={onResetCodeSent} />
+      <ResetPassword email={email} />
+    </SlideView>
   );
 }
 
