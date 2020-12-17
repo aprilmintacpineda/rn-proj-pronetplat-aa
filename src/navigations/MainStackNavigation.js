@@ -3,7 +3,7 @@ import React from 'react';
 
 import header from './header';
 import MainTabNavigation from './MainTabNavigation';
-import ContactProfile from 'screens/auth/Contact/Profile';
+import ContactProfile from 'Screens/auth/Contact/Profile';
 
 const Stack = createStackNavigator();
 

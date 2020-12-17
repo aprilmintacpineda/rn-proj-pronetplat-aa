@@ -16,7 +16,7 @@ import {
 import FullSafeAreaView from 'components/FullSafeAreaView';
 import { initStore } from 'fluxible/store/init';
 import PopupManager from 'PopupManager';
-import Screens from 'screens';
+import Screens from 'Screens';
 
 export const navigationRef = React.createRef();
 
