@@ -10,6 +10,7 @@
     "eslint": "eslint \"*.js\" \"src/**/*.js\" --fix",
     "prettier": "prettier \"*.js\" \"src/**/*.js\" --write",
     "lint": "npm run prettier && npm run eslint",
+    "install-all": "yarn install && cd ios && pod-install && cd ..",
     "postinstall": "patch-package",
     "generate-bootsplash": "react-native generate-bootsplash assets/bootsplash_logo_original.png --background-color=ffffff --logo-width=120"
   },
