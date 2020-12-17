@@ -4,16 +4,15 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 platform :ios, '10.0'
 
 target 'connect_express' do
-  config = use_native_modules!
-
-  use_react_native!(:path => config["reactNativePath"])
-
   permissions_path = '../node_modules/react-native-permissions/ios'
 
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
   pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
   pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
-  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
+
+  config = use_native_modules!
+
+  use_react_native!(:path => config["reactNativePath"])
 
   target 'connect_expressTests' do
     inherit! :complete

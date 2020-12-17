@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { PERMISSIONS, checkMultiple } from 'react-native-permissions';
+import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 
 import useAppStateEffect from './useAppStateEffect';
 
@@ -22,7 +22,7 @@ function useCameraPermission () {
   const checkPermissions = React.useCallback(async () => {
     if (isAllowed) return;
 
-    const results = await checkMultiple(permissions);
+    const results = await requestMultiple(permissions);
 
     const allowed = !Object.keys(results).find(
       permission => results[permission].toLowerCase() !== 'granted'
