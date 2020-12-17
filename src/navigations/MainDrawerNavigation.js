@@ -1,5 +1,6 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
+import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { Drawer as RNPDrawer } from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -43,8 +44,19 @@ function drawerContent (props) {
   );
 }
 
-function MainDrawerNavigation () {
+function mapStates ({ authUser }) {
+  return { authUser };
+}
+
+function MainDrawerNavigation ({ navigation: { replace } }) {
+  const { authUser } = useFluxibleStore(mapStates);
   const { width } = useWindowDimensions();
+
+  React.useEffect(() => {
+    if (!authUser) replace('Login');
+  }, [authUser, replace]);
+
+  if (!authUser) return null;
 
   const drawerType = width >= 768 ? 'permanent' : 'slide';
 

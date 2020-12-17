@@ -5,6 +5,7 @@ import forgotPassword from './_post/forgotPassword';
 import login from './_post/login';
 import register from './_post/register';
 import resetPassword from './_post/resetPassword';
+import verifyEmail from './_post/verifyEmail';
 
 export default {
   _post: [
@@ -23,6 +24,10 @@ export default {
     {
       isMatch: path => /^\/?login$/gim.test(path),
       handler: login
+    },
+    {
+      isMatch: path => /^\/?verify-email$/gim.test(path),
+      handler: verifyEmail
     }
   ],
   _get: [

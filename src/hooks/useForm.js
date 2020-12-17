@@ -186,7 +186,8 @@ function useForm ({
       setState(oldState => ({
         ...oldState,
         status: 'submitSuccess',
-        touched: true
+        touched: true,
+        responseData: ignoreResponse ? null : responseData
       }));
     } catch (error) {
       console.error('useForm confirmSubmit', error);

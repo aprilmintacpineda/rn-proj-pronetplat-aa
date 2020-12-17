@@ -3,6 +3,11 @@ import { TouchableWithoutFeedback, View } from 'react-native';
 import { HelperText, TextInput as RNPTextInput } from 'react-native-paper';
 
 const propsBasedOnTypes = {
+  code: {
+    textContentType: 'oneTimeCode',
+    autoCapitalize: 'none',
+    autoCorrect: false
+  },
   password: {
     secureTextEntry: true,
     clearTextOnFocus: true,

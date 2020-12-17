@@ -1,32 +1,41 @@
+import { updateStore } from 'fluxible-js';
 import React from 'react';
-import LoginForm from './LoginForm';
-import FormWithContext from 'components/FormWithContext';
+import Authenticate from './Authenticate';
+import VerifyEmail from './VerifyEmail';
+import SlideView from 'components/SlideView';
 import { login } from 'fluxible/actions/user';
-import { unknownError } from 'libs/alerts';
-import validate from 'libs/validate';
 
-const formOptions = {
-  initialFormValues: {
-    email: '',
-    password: ''
-  },
-  validators: {
-    email: ({ email }) => validate(email, ['required', 'email']),
-    password: ({ password }) => validate(password, ['required'])
-  },
-  endPoint: '/login',
-  onSubmitSuccess: ({ data }) => {
-    const { authUser, authToken } = data;
-    login({ authUser, authToken });
-  },
-  onSubmitError: unknownError
-};
+function Login ({ navigation: { replace } }) {
+  const [page, setPage] = React.useState(1);
 
-function Login () {
+  const onCancel = React.useCallback(() => {
+    setPage(1);
+  }, []);
+
+  const onLogin = React.useCallback(({ authUser, authToken }) => {
+    const wasEmailVerified = Boolean(authUser.emailVerifiedAt);
+
+    if (!wasEmailVerified) {
+      updateStore({ authToken });
+      setPage(2);
+    } else {
+      login({ authUser, authToken });
+    }
+  }, []);
+
+  const onVerified = React.useCallback(
+    ({ authUser, authToken }) => {
+      login({ authUser, authToken });
+      replace('LoggedInStack');
+    },
+    [replace]
+  );
+
   return (
-    <FormWithContext formOptions={formOptions}>
-      <LoginForm />
-    </FormWithContext>
+    <SlideView page={page}>
+      <Authenticate onLogin={onLogin} />
+      <VerifyEmail onVerified={onVerified} onCancel={onCancel} />
+    </SlideView>
   );
 }
 

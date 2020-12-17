@@ -15,8 +15,8 @@ import {
 
 import FullSafeAreaView from 'components/FullSafeAreaView';
 import { initStore } from 'fluxible/store/init';
+import IndexStackNavigator from 'navigations/IndexStackNavigator';
 import PopupManager from 'PopupManager';
-import Screens from 'Screens';
 
 export const navigationRef = React.createRef();
 
@@ -70,7 +70,7 @@ function App () {
               style={{ flex: 1 }}
               behavior={avoidBehavior}
               keyboardVerticalOffset={avoidOffset}>
-              <Screens />
+              <IndexStackNavigator />
             </KeyboardAvoidingView>
           </FullSafeAreaView>
         </PaperProvider>
