@@ -60,3 +60,4 @@ buck-out/
 
 # others
 src/env.js
+.ignore_*
