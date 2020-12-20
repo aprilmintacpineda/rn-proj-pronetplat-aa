@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'connect_express' do
+target 'proj_pronetplat_aa' do
   permissions_path = '../node_modules/react-native-permissions/ios'
 
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
@@ -14,7 +14,7 @@ target 'connect_express' do
 
   use_react_native!(:path => config["reactNativePath"])
 
-  target 'connect_expressTests' do
+  target 'proj_pronetplat_aaTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -29,10 +29,10 @@ target 'connect_express' do
   end
 end
 
-target 'connect_express-tvOS' do
-  # Pods for connect_express-tvOS
+target 'proj_pronetplat_aa-tvOS' do
+  # Pods for proj_pronetplat_aa-tvOS
 
-  target 'connect_express-tvOSTests' do
+  target 'proj_pronetplat_aa-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

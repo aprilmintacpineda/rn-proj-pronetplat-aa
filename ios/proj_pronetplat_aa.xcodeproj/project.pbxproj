@@ -7,18 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* connect_expressTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* connect_expressTests.m */; };
-		040A2160844B1AAA2012E680 /* libPods-connect_express-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58C6D8C1E7047591456984AC /* libPods-connect_express-tvOS.a */; };
-		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		270B78FB5ACF09BE6D9EEFFF /* libPods-connect_express-connect_expressTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 590D9E6BE71DC98C2DCE3194 /* libPods-connect_express-connect_expressTests.a */; };
-		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2DCD954D1E0B4F2C00145EB5 /* connect_expressTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* connect_expressTests.m */; };
-		61806444BB9271C47F88D634 /* libPods-connect_express.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F94BE4217E2C544DC968D2A9 /* libPods-connect_express.a */; };
-		7C679B2C258A3FBB006F2524 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C679B2B258A3FBB006F2524 /* BootSplash.storyboard */; };
-		7C679BB6258A4790006F2524 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C679BB5258A478F006F2524 /* Images.xcassets */; };
-		B39DCBA45804D015AE706DB7 /* libPods-connect_express-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 004BE8BC1CC82A79B32DC7D6 /* libPods-connect_express-tvOSTests.a */; };
+		4EE4E4079579D7ABFBC711A1 /* libPods-proj_pronetplat_aa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 645383EEFDB8927941A1BE84 /* libPods-proj_pronetplat_aa.a */; };
+		577492C8CEB02CD1C9A666C9 /* libPods-proj_pronetplat_aa-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C96EC0D5CEEEABFEB80BD8D5 /* libPods-proj_pronetplat_aa-tvOSTests.a */; };
+		7CDC4811258F128D009DE44B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CDC480B258F128D009DE44B /* main.m */; };
+		7CDC4812258F128D009DE44B /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CDC480C258F128D009DE44B /* BootSplash.storyboard */; };
+		7CDC4813258F128D009DE44B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CDC480D258F128D009DE44B /* Images.xcassets */; };
+		7CDC4814258F128D009DE44B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CDC480E258F128D009DE44B /* AppDelegate.m */; };
+		7CDC49FF258F1934009DE44B /* proj_pronetplat_aaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CDC49FD258F1934009DE44B /* proj_pronetplat_aaTests.m */; };
+		7CDC4A00258F1934009DE44B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CDC49FE258F1934009DE44B /* Info.plist */; };
+		A71C89E0B7BC3269844F56D1 /* libPods-proj_pronetplat_aa-proj_pronetplat_aaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5CD5334F984B2419E359AE /* libPods-proj_pronetplat_aa-proj_pronetplat_aaTests.a */; };
+		AC7EE6CC58C2B8ADBD27F15D /* libPods-proj_pronetplat_aa-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5ED9EC6DF162B5A382267FA /* libPods-proj_pronetplat_aa-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,33 +37,41 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		004BE8BC1CC82A79B32DC7D6 /* libPods-connect_express-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-connect_express-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* connect_expressTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = connect_expressTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* connect_expressTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = connect_expressTests.m; sourceTree = "<group>"; };
+		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; name = main.jsbundle; path = ../main.jsbundle; sourceTree = "<group>"; };
+		00E356EE1AD99517003FC87E /* proj_pronetplat_aaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proj_pronetplat_aaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		09D2F3B0B074A3D3809D9020 /* Pods-connect_express-connect_expressTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express-connect_expressTests.debug.xcconfig"; path = "Target Support Files/Pods-connect_express-connect_expressTests/Pods-connect_express-connect_expressTests.debug.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* Connect Express.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Connect Express.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = connect_express/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = connect_express/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = connect_express/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = connect_express/main.m; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* connect_express-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "connect_express-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* connect_express-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "connect_express-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		58C6D8C1E7047591456984AC /* libPods-connect_express-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-connect_express-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		590D9E6BE71DC98C2DCE3194 /* libPods-connect_express-connect_expressTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-connect_express-connect_expressTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7C679B2B258A3FBB006F2524 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = connect_express/BootSplash.storyboard; sourceTree = "<group>"; };
-		7C679BB5258A478F006F2524 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = connect_express/Images.xcassets; sourceTree = "<group>"; };
-		7CA3BF0C257B424D00F19970 /* Connect Express.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Connect Express.entitlements"; path = "connect_express/Connect Express.entitlements"; sourceTree = "<group>"; };
-		91270AC226D1E5EEAEA397FA /* Pods-connect_express.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express.release.xcconfig"; path = "Target Support Files/Pods-connect_express/Pods-connect_express.release.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Quaint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quaint.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		184E065AE612CA9FC20B530C /* Pods-proj_pronetplat_aa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa.release.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa/Pods-proj_pronetplat_aa.release.xcconfig"; sourceTree = "<group>"; };
+		2D02E47B1E0B4A5D006451C7 /* proj_pronetplat_aa-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "proj_pronetplat_aa-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* proj_pronetplat_aa-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "proj_pronetplat_aa-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D3EEA05BA9CB32674C646C3 /* Pods-proj_pronetplat_aa-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOSTests/Pods-proj_pronetplat_aa-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5F5CD5334F984B2419E359AE /* libPods-proj_pronetplat_aa-proj_pronetplat_aaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-proj_pronetplat_aa-proj_pronetplat_aaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		645383EEFDB8927941A1BE84 /* libPods-proj_pronetplat_aa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-proj_pronetplat_aa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CDC480A258F128D009DE44B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		7CDC480B258F128D009DE44B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7CDC480C258F128D009DE44B /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BootSplash.storyboard; sourceTree = "<group>"; };
+		7CDC480D258F128D009DE44B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7CDC480E258F128D009DE44B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7CDC480F258F128D009DE44B /* proj_pronetplat_aa.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = proj_pronetplat_aa.entitlements; sourceTree = "<group>"; };
+		7CDC4810258F128D009DE44B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CDC49FD258F1934009DE44B /* proj_pronetplat_aaTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = proj_pronetplat_aaTests.m; sourceTree = "<group>"; };
+		7CDC49FE258F1934009DE44B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D9C43CD37BE55F6F6D3BEBF /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.debug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		91270AC226D1E5EEAEA397FA /* Pods-connect_express.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express.release.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aaPods-connect_express.release.xcconfig"; sourceTree = "<group>"; };
+		952C3AD9F3051AF901B4F1E3 /* Pods-proj_pronetplat_aa-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOS.release.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOS/Pods-proj_pronetplat_aa-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		97C4CAA3EA484CEA196BE12B /* Pods-proj_pronetplat_aa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa.debug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa/Pods-proj_pronetplat_aa.debug.xcconfig"; sourceTree = "<group>"; };
 		9EEAE16FACC903871D0CBCCF /* Pods-connect_express-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-connect_express-tvOSTests/Pods-connect_express-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A5ED9EC6DF162B5A382267FA /* libPods-proj_pronetplat_aa-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-proj_pronetplat_aa-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB6C0A04FAFFB39B1D93270D /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.release.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.release.xcconfig"; sourceTree = "<group>"; };
+		C3DD718FFBF2FA32EAF1F30E /* Pods-proj_pronetplat_aa-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOS/Pods-proj_pronetplat_aa-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		C96EC0D5CEEEABFEB80BD8D5 /* libPods-proj_pronetplat_aa-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-proj_pronetplat_aa-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9924AD272E1184FEE467FD4 /* Pods-connect_express-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-connect_express-tvOSTests/Pods-connect_express-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D8514F053905CC9E39D87B65 /* Pods-connect_express-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express-tvOS.release.xcconfig"; path = "Target Support Files/Pods-connect_express-tvOS/Pods-connect_express-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		E8EC91B3A52A1A442A8B25AB /* Pods-connect_express.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express.debug.xcconfig"; path = "Target Support Files/Pods-connect_express/Pods-connect_express.debug.xcconfig"; sourceTree = "<group>"; };
+		E48BBC9CB5A7BD7F7D52F5EC /* Pods-proj_pronetplat_aa-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOSTests/Pods-proj_pronetplat_aa-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		E8EC91B3A52A1A442A8B25AB /* Pods-connect_express.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express.debug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aaPods-connect_express.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F1B333EE95BE49997C60B818 /* Pods-connect_express-connect_expressTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express-connect_expressTests.release.xcconfig"; path = "Target Support Files/Pods-connect_express-connect_expressTests/Pods-connect_express-connect_expressTests.release.xcconfig"; sourceTree = "<group>"; };
-		F94BE4217E2C544DC968D2A9 /* libPods-connect_express.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-connect_express.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF88CB65FC0CAFF6C3AC6D74 /* Pods-connect_express-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-connect_express-tvOS/Pods-connect_express-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,7 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				270B78FB5ACF09BE6D9EEFFF /* libPods-connect_express-connect_expressTests.a in Frameworks */,
+				A71C89E0B7BC3269844F56D1 /* libPods-proj_pronetplat_aa-proj_pronetplat_aaTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61806444BB9271C47F88D634 /* libPods-connect_express.a in Frameworks */,
+				4EE4E4079579D7ABFBC711A1 /* libPods-proj_pronetplat_aa.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				040A2160844B1AAA2012E680 /* libPods-connect_express-tvOS.a in Frameworks */,
+				AC7EE6CC58C2B8ADBD27F15D /* libPods-proj_pronetplat_aa-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,30 +104,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B39DCBA45804D015AE706DB7 /* libPods-connect_express-tvOSTests.a in Frameworks */,
+				577492C8CEB02CD1C9A666C9 /* libPods-proj_pronetplat_aa-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* connect_expressTests */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F21AD99517003FC87E /* connect_expressTests.m */,
-				00E356F01AD99517003FC87E /* Supporting Files */,
-			);
-			path = connect_expressTests;
-			sourceTree = "<group>";
-		};
-		00E356F01AD99517003FC87E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F11AD99517003FC87E /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		0A7A7BD2E014E6434F6216AB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,23 +122,16 @@
 				D8514F053905CC9E39D87B65 /* Pods-connect_express-tvOS.release.xcconfig */,
 				9EEAE16FACC903871D0CBCCF /* Pods-connect_express-tvOSTests.debug.xcconfig */,
 				C9924AD272E1184FEE467FD4 /* Pods-connect_express-tvOSTests.release.xcconfig */,
+				97C4CAA3EA484CEA196BE12B /* Pods-proj_pronetplat_aa.debug.xcconfig */,
+				184E065AE612CA9FC20B530C /* Pods-proj_pronetplat_aa.release.xcconfig */,
+				8D9C43CD37BE55F6F6D3BEBF /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.debug.xcconfig */,
+				AB6C0A04FAFFB39B1D93270D /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.release.xcconfig */,
+				C3DD718FFBF2FA32EAF1F30E /* Pods-proj_pronetplat_aa-tvOS.debug.xcconfig */,
+				952C3AD9F3051AF901B4F1E3 /* Pods-proj_pronetplat_aa-tvOS.release.xcconfig */,
+				4D3EEA05BA9CB32674C646C3 /* Pods-proj_pronetplat_aa-tvOSTests.debug.xcconfig */,
+				E48BBC9CB5A7BD7F7D52F5EC /* Pods-proj_pronetplat_aa-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		13B07FAE1A68108700A75B9A /* connect_express */ = {
-			isa = PBXGroup;
-			children = (
-				7C679BB5258A478F006F2524 /* Images.xcassets */,
-				7C679B2B258A3FBB006F2524 /* BootSplash.storyboard */,
-				7CA3BF0C257B424D00F19970 /* Connect Express.entitlements */,
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB71A68108700A75B9A /* main.m */,
-			);
-			name = connect_express;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -157,12 +139,36 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				F94BE4217E2C544DC968D2A9 /* libPods-connect_express.a */,
-				590D9E6BE71DC98C2DCE3194 /* libPods-connect_express-connect_expressTests.a */,
-				58C6D8C1E7047591456984AC /* libPods-connect_express-tvOS.a */,
-				004BE8BC1CC82A79B32DC7D6 /* libPods-connect_express-tvOSTests.a */,
+				645383EEFDB8927941A1BE84 /* libPods-proj_pronetplat_aa.a */,
+				5F5CD5334F984B2419E359AE /* libPods-proj_pronetplat_aa-proj_pronetplat_aaTests.a */,
+				A5ED9EC6DF162B5A382267FA /* libPods-proj_pronetplat_aa-tvOS.a */,
+				C96EC0D5CEEEABFEB80BD8D5 /* libPods-proj_pronetplat_aa-tvOSTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7CDC4809258F128D009DE44B /* proj_pronetplat_aa */ = {
+			isa = PBXGroup;
+			children = (
+				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				7CDC480A258F128D009DE44B /* AppDelegate.h */,
+				7CDC480B258F128D009DE44B /* main.m */,
+				7CDC480C258F128D009DE44B /* BootSplash.storyboard */,
+				7CDC480D258F128D009DE44B /* Images.xcassets */,
+				7CDC480E258F128D009DE44B /* AppDelegate.m */,
+				7CDC480F258F128D009DE44B /* proj_pronetplat_aa.entitlements */,
+				7CDC4810258F128D009DE44B /* Info.plist */,
+			);
+			path = proj_pronetplat_aa;
+			sourceTree = "<group>";
+		};
+		7CDC49FC258F1934009DE44B /* proj_pronetplat_aaTests */ = {
+			isa = PBXGroup;
+			children = (
+				7CDC49FD258F1934009DE44B /* proj_pronetplat_aaTests.m */,
+				7CDC49FE258F1934009DE44B /* Info.plist */,
+			);
+			path = proj_pronetplat_aaTests;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -175,9 +181,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* connect_express */,
+				7CDC4809258F128D009DE44B /* proj_pronetplat_aa */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* connect_expressTests */,
+				7CDC49FC258F1934009DE44B /* proj_pronetplat_aaTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				0A7A7BD2E014E6434F6216AB /* Pods */,
@@ -190,10 +196,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Connect Express.app */,
-				00E356EE1AD99517003FC87E /* connect_expressTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* connect_express-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* connect_express-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* Quaint.app */,
+				00E356EE1AD99517003FC87E /* proj_pronetplat_aaTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* proj_pronetplat_aa-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* proj_pronetplat_aa-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -201,9 +207,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* connect_expressTests */ = {
+		00E356ED1AD99517003FC87E /* proj_pronetplat_aaTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "connect_expressTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "proj_pronetplat_aaTests" */;
 			buildPhases = (
 				7FB34975AD8AFCE7C81EA799 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -216,14 +222,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = connect_expressTests;
+			name = proj_pronetplat_aaTests;
 			productName = connect_expressTests;
-			productReference = 00E356EE1AD99517003FC87E /* connect_expressTests.xctest */;
+			productReference = 00E356EE1AD99517003FC87E /* proj_pronetplat_aaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* connect_express */ = {
+		13B07F861A680F5B00A75B9A /* proj_pronetplat_aa */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "connect_express" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "proj_pronetplat_aa" */;
 			buildPhases = (
 				2CC2C3B0C8590BEF4DF4C243 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -237,14 +243,14 @@
 			);
 			dependencies = (
 			);
-			name = connect_express;
+			name = proj_pronetplat_aa;
 			productName = connect_express;
-			productReference = 13B07F961A680F5B00A75B9A /* Connect Express.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Quaint.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* connect_express-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* proj_pronetplat_aa-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "connect_express-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "proj_pronetplat_aa-tvOS" */;
 			buildPhases = (
 				261E0DB2B323EE992DF7AD93 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
@@ -257,14 +263,14 @@
 			);
 			dependencies = (
 			);
-			name = "connect_express-tvOS";
+			name = "proj_pronetplat_aa-tvOS";
 			productName = "connect_express-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* connect_express-tvOS.app */;
+			productReference = 2D02E47B1E0B4A5D006451C7 /* proj_pronetplat_aa-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* connect_express-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* proj_pronetplat_aa-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "connect_express-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "proj_pronetplat_aa-tvOSTests" */;
 			buildPhases = (
 				0C69B1A22950EA6BF8EFBEB3 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -276,9 +282,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "connect_express-tvOSTests";
+			name = "proj_pronetplat_aa-tvOSTests";
 			productName = "connect_express-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* connect_express-tvOSTests.xctest */;
+			productReference = 2D02E4901E0B4A5D006451C7 /* proj_pronetplat_aa-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -308,7 +314,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "connect_express" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "proj_pronetplat_aa" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -321,10 +327,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* connect_express */,
-				00E356ED1AD99517003FC87E /* connect_expressTests */,
-				2D02E47A1E0B4A5D006451C7 /* connect_express-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* connect_express-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* proj_pronetplat_aa */,
+				00E356ED1AD99517003FC87E /* proj_pronetplat_aaTests */,
+				2D02E47A1E0B4A5D006451C7 /* proj_pronetplat_aa-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* proj_pronetplat_aa-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -334,6 +340,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CDC4A00258F1934009DE44B /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,8 +348,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C679B2C258A3FBB006F2524 /* BootSplash.storyboard in Resources */,
-				7C679BB6258A4790006F2524 /* Images.xcassets in Resources */,
+				7CDC4812258F128D009DE44B /* BootSplash.storyboard in Resources */,
+				7CDC4813258F128D009DE44B /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,7 +399,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-connect_express-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-proj_pronetplat_aa-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -414,7 +421,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-connect_express-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-proj_pronetplat_aa-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -436,7 +443,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-connect_express-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-proj_pronetplat_aa-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -463,7 +470,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-connect_express-connect_expressTests/Pods-connect_express-connect_expressTests-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -504,7 +511,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-connect_express-connect_expressTests/Pods-connect_express-connect_expressTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		79E4E26DAD7546B7D0C398F4 /* [CP] Copy Pods Resources */ = {
@@ -513,7 +520,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-connect_express/Pods-connect_express-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-proj_pronetplat_aa/Pods-proj_pronetplat_aa-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -554,7 +561,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-connect_express/Pods-connect_express-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-proj_pronetplat_aa/Pods-proj_pronetplat_aa-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7FB34975AD8AFCE7C81EA799 /* [CP] Check Pods Manifest.lock */ = {
@@ -572,7 +579,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-connect_express-connect_expressTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -624,7 +631,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* connect_expressTests.m in Sources */,
+				7CDC49FF258F1934009DE44B /* proj_pronetplat_aaTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,8 +639,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				7CDC4814258F128D009DE44B /* AppDelegate.m in Sources */,
+				7CDC4811258F128D009DE44B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,8 +648,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */,
-				2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,7 +655,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* connect_expressTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -659,12 +663,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* connect_express */;
+			target = 13B07F861A680F5B00A75B9A /* proj_pronetplat_aa */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* connect_express-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* proj_pronetplat_aa-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -672,7 +676,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 09D2F3B0B074A3D3809D9020 /* Pods-connect_express-connect_expressTests.debug.xcconfig */;
+			baseConfigurationReference = 8D9C43CD37BE55F6F6D3BEBF /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -689,13 +693,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/connect_express.app/connect_express";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proj_pronetplat_aa.app/proj_pronetplat_aa";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F1B333EE95BE49997C60B818 /* Pods-connect_express-connect_expressTests.release.xcconfig */;
+			baseConfigurationReference = AB6C0A04FAFFB39B1D93270D /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -709,29 +713,29 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/connect_express.app/connect_express";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proj_pronetplat_aa.app/proj_pronetplat_aa";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8EC91B3A52A1A442A8B25AB /* Pods-connect_express.debug.xcconfig */;
+			baseConfigurationReference = 97C4CAA3EA484CEA196BE12B /* Pods-proj_pronetplat_aa.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "connect_express/Connect Express.entitlements";
+				CODE_SIGN_ENTITLEMENTS = proj_pronetplat_aa/proj_pronetplat_aa.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L5F8T576SB;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = connect_express/Info.plist;
+				INFOPLIST_FILE = proj_pronetplat_aa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.connect-express";
-				PRODUCT_NAME = "Connect Express";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aprmp.proj-pronetplat-aa";
+				PRODUCT_NAME = Quaint;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -740,22 +744,22 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 91270AC226D1E5EEAEA397FA /* Pods-connect_express.release.xcconfig */;
+			baseConfigurationReference = 184E065AE612CA9FC20B530C /* Pods-proj_pronetplat_aa.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "connect_express/Connect Express.entitlements";
+				CODE_SIGN_ENTITLEMENTS = proj_pronetplat_aa/proj_pronetplat_aa.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L5F8T576SB;
-				INFOPLIST_FILE = connect_express/Info.plist;
+				INFOPLIST_FILE = proj_pronetplat_aa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.connect-express";
-				PRODUCT_NAME = "Connect Express";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aprmp.proj-pronetplat-aa";
+				PRODUCT_NAME = Quaint;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -763,7 +767,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF88CB65FC0CAFF6C3AC6D74 /* Pods-connect_express-tvOS.debug.xcconfig */;
+			baseConfigurationReference = C3DD718FFBF2FA32EAF1F30E /* Pods-proj_pronetplat_aa-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -791,7 +795,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D8514F053905CC9E39D87B65 /* Pods-connect_express-tvOS.release.xcconfig */;
+			baseConfigurationReference = 952C3AD9F3051AF901B4F1E3 /* Pods-proj_pronetplat_aa-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -819,7 +823,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9EEAE16FACC903871D0CBCCF /* Pods-connect_express-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 4D3EEA05BA9CB32674C646C3 /* Pods-proj_pronetplat_aa-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -839,14 +843,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.connect_express-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/connect_express-tvOS.app/connect_express-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proj_pronetplat_aa-tvOS.app/proj_pronetplat_aa-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C9924AD272E1184FEE467FD4 /* Pods-connect_express-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = E48BBC9CB5A7BD7F7D52F5EC /* Pods-proj_pronetplat_aa-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -866,7 +870,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.connect_express-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/connect_express-tvOS.app/connect_express-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proj_pronetplat_aa-tvOS.app/proj_pronetplat_aa-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -987,7 +991,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "connect_expressTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "proj_pronetplat_aaTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -996,7 +1000,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "connect_express" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "proj_pronetplat_aa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1005,7 +1009,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "connect_express-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "proj_pronetplat_aa-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -1014,7 +1018,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "connect_express-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "proj_pronetplat_aa-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -1023,7 +1027,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "connect_express" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "proj_pronetplat_aa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
