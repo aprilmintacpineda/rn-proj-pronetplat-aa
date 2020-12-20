@@ -1,4 +1,4 @@
-package com.connect_express;
+package com.aprmp.proj_pronetplat_aa;
 
 import android.os.Bundle;
 import com.zoontek.rnbootsplash.RNBootSplash;
@@ -21,7 +21,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "connect_express";
+    return "proj_pronetplat_aa";
   }
 
   @Override

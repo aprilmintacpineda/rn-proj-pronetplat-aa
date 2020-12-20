@@ -1,3 +1,3 @@
-rootProject.name = 'connect_express'
+rootProject.name = 'proj_pronetplat_aa'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
