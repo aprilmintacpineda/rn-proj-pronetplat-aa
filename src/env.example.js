@@ -1,2 +1,3 @@
-export const API_BASE_URL = '/';
+export const API_BASE_URL =
+  'https://luh5c5ormk.execute-api.ap-southeast-1.amazonaws.com/dev/';
 export const USE_MOCK_RESPONSES = true;

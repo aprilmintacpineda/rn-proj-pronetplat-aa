@@ -7,9 +7,11 @@ function clean (path) {
   return path.replace(/^\/+/, '').replace(/\/+$/, '');
 }
 
+const cleanAPiBaseUrl = clean(API_BASE_URL);
+
 function resolveUrl (path = '') {
   const cleanPath = clean(path);
-  return `${API_BASE_URL}${cleanPath}`;
+  return `${cleanAPiBaseUrl}/${cleanPath}`;
 }
 
 export function xhrWithParams (url, params = {}) {
@@ -30,7 +32,12 @@ async function getMockResponse (args) {
   if (!USE_MOCK_RESPONSES) return null;
 
   const { path, method } = args;
-  const responseHandlers = mockResponses[`_${method}`];
+  const responseHandler = mockResponses[`_${method}`].find(({ isMatch }) =>
+    isMatch(path)
+  );
+
+  if (!responseHandler) return false;
+
   console.log('mockResponse handling:', path, method);
 
   // simulate latency
@@ -51,10 +58,6 @@ async function getMockResponse (args) {
     setTimeout(resolve, latency);
   });
 
-  const responseHandler = responseHandlers.find(({ isMatch }) => isMatch(path));
-
-  if (!responseHandler) throw { status: 404 };
-
   const { handler } = responseHandler;
   const response = handler.constructor === Function ? handler(args) : handler;
 
@@ -65,7 +68,10 @@ async function getMockResponse (args) {
 }
 
 export async function xhr (path, { method = 'get', ...options } = {}) {
-  if (USE_MOCK_RESPONSES) return getMockResponse({ path, method, ...options });
+  if (USE_MOCK_RESPONSES) {
+    const mockResponse = await getMockResponse({ path, method, ...options });
+    if (mockResponse) return mockResponse;
+  }
 
   const url = resolveUrl(path);
   const config = {
@@ -89,7 +95,10 @@ export async function xhr (path, { method = 'get', ...options } = {}) {
 }
 
 export async function xhrUpload (path, { method = 'post', ...options } = {}) {
-  if (USE_MOCK_RESPONSES) return getMockResponse({ path, method, ...options });
+  if (USE_MOCK_RESPONSES) {
+    const mockResponse = await getMockResponse({ path, method, ...options });
+    if (mockResponse) return mockResponse;
+  }
 
   const url = resolveUrl(path);
   const headers = {

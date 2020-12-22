@@ -10,7 +10,6 @@ const propsBasedOnTypes = {
   },
   password: {
     secureTextEntry: true,
-    clearTextOnFocus: true,
     autoCapitalize: 'none',
     autoCorrect: false,
     autoCompleteType: 'password',
@@ -46,7 +45,14 @@ const propsBasedOnTypes = {
   }
 };
 
-function TextInput ({ error, style, type, onPress = null, ..._textInputProps }) {
+function TextInput ({
+  error,
+  style,
+  type,
+  onPress = null,
+  onChangeText,
+  ..._textInputProps
+}) {
   const hasError = Boolean(error);
 
   const propsBasedOnType = propsBasedOnTypes[type] || {};
@@ -56,6 +62,11 @@ function TextInput ({ error, style, type, onPress = null, ..._textInputProps }) 
     ..._textInputProps
   };
 
+  const onFocus = React.useCallback(() => {
+    const shouldClearText = type === 'password';
+    if (shouldClearText) onChangeText('');
+  }, [type, onChangeText]);
+
   return (
     <View>
       <View style={{ position: 'relative' }}>
@@ -64,6 +75,8 @@ function TextInput ({ error, style, type, onPress = null, ..._textInputProps }) 
           mode="outlined"
           style={[{ backgroundColor: '#fff' }, style]}
           editable={!onPress}
+          onFocus={onFocus}
+          onChangeText={onChangeText}
           {...textInputProps}
         />
         {onPress && (
