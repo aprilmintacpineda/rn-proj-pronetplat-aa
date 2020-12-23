@@ -1,7 +1,6 @@
 import { store } from 'fluxible-js';
 import File from 'classes/File';
-import { API_BASE_URL, USE_MOCK_RESPONSES } from 'env';
-import mockResponses from 'mockResponses';
+import { API_BASE_URL } from 'env';
 
 function clean (path) {
   return path.replace(/^\/+/, '').replace(/\/+$/, '');
@@ -28,51 +27,7 @@ export function xhrWithParams (url, params = {}) {
   return xhr(`/${cleanPath}${search ? `?${search}` : ''}`);
 }
 
-async function getMockResponse (args) {
-  if (!USE_MOCK_RESPONSES) return null;
-
-  const { path, method } = args;
-  const responseHandler = mockResponses[`_${method}`].find(({ isMatch }) =>
-    isMatch(path)
-  );
-
-  if (!responseHandler) return false;
-
-  console.log('mockResponse handling:', path, method);
-
-  // simulate latency
-  await new Promise(resolve => {
-    // fake latency from 1 to 3 seconds
-    let min = 3;
-    let max = 5;
-
-    if (method !== 'get') {
-      min = 1;
-      max = 3;
-    }
-
-    min *= 1000;
-    max *= 1000;
-
-    const latency = Math.floor(Math.random() * (max - min) + min);
-    setTimeout(resolve, latency);
-  });
-
-  const { handler } = responseHandler;
-  const response = handler.constructor === Function ? handler(args) : handler;
-
-  console.log('mockResponse response:', path, response);
-
-  if (response.status < 200 || response.status >= 300) throw response;
-  return response;
-}
-
 export async function xhr (path, { method = 'get', ...options } = {}) {
-  if (USE_MOCK_RESPONSES) {
-    const mockResponse = await getMockResponse({ path, method, ...options });
-    if (mockResponse) return mockResponse;
-  }
-
   const url = resolveUrl(path);
   const config = {
     ...options,
@@ -95,11 +50,6 @@ export async function xhr (path, { method = 'get', ...options } = {}) {
 }
 
 export async function xhrUpload (path, { method = 'post', ...options } = {}) {
-  if (USE_MOCK_RESPONSES) {
-    const mockResponse = await getMockResponse({ path, method, ...options });
-    if (mockResponse) return mockResponse;
-  }
-
   const url = resolveUrl(path);
   const headers = {
     'content-type': 'multipart/form-data',
