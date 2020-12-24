@@ -2,8 +2,7 @@ import React from 'react';
 import RegisterForm from './RegisterForm';
 import { navigationRef } from 'App';
 import FormWithContext from 'components/FormWithContext';
-import { showSuccessPopup } from 'fluxible/actions/popup';
-import { unknownError } from 'libs/alerts';
+import { showSuccessPopup, unknownError } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {

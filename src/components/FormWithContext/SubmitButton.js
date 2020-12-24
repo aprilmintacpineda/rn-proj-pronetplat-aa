@@ -6,7 +6,12 @@ function SubmitButton ({ children, ...btnProps }) {
   const { submitHandler, disabled } = React.useContext(FormContext);
 
   return (
-    <RNPButton onPress={submitHandler} disabled={disabled} mode="contained" {...btnProps}>
+    <RNPButton
+      onPress={submitHandler}
+      disabled={disabled}
+      mode="contained"
+      loading={disabled}
+      {...btnProps}>
       {children}
     </RNPButton>
   );

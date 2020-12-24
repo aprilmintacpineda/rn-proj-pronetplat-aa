@@ -1,8 +1,12 @@
 import React from 'react';
+import useState from './useState';
 import { xhrWithParams } from 'libs/xhr';
 
 function useDataFetch ({ endpoint, params = null, prefetch = true }) {
-  const [{ data, status, nextToken, error, canFetchMore }, setState] = React.useState({
+  const {
+    state: { data, status, nextToken, error, canFetchMore },
+    updateState
+  } = useState({
     data: null,
     status: 'initial',
     nextToken: null,
@@ -21,11 +25,10 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
       if (!isRefresh && !canFetchMore || isFetching) return;
 
       try {
-        setState(oldState => ({
-          ...oldState,
+        updateState({
           status: isRefresh ? 'refreshing' : 'fetching',
           error: null
-        }));
+        });
 
         const response = await xhrWithParams(endpoint, {
           ...params,
@@ -35,15 +38,14 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
         const { data, nextToken: newNextToken } = await response.json();
         const isDataArray = data.constructor === Array;
 
-        setState(oldState => {
+        updateState(({ data }) => {
           const newData = isRefresh
             ? data
             : isDataArray
-            ? (oldState.data || []).concat(data || [])
+            ? (data || []).concat(data || [])
             : data;
 
           return {
-            ...oldState,
             status: 'fetchSuccess',
             data: newData || [],
             nextToken: newNextToken,
@@ -53,14 +55,13 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
       } catch (error) {
         console.log('useDataFetch', error);
 
-        setState(oldState => ({
-          ...oldState,
+        updateState({
           status: 'fetchError',
           error
-        }));
+        });
       }
     },
-    [endpoint, params, canFetchMore, nextToken, isFetching]
+    [endpoint, params, canFetchMore, nextToken, isFetching, updateState]
   );
 
   const refreshData = React.useCallback(() => {

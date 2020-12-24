@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthenticateForm from './AuthenticateForm';
 import FormWithContext from 'components/FormWithContext';
-import { unknownError } from 'libs/alerts';
+import { unknownError } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {

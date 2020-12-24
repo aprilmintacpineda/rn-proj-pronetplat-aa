@@ -4,9 +4,9 @@ import { useTheme } from 'react-native-paper';
 import Animatable from './Animatable';
 import RNVectorIcon from './RNVectorIcon';
 
-function AnimatedSuccessIcon ({ size = 20 }) {
+function AnimatedErrorIcon ({ size = 20 }) {
   const {
-    colors: { primary }
+    colors: { error }
   } = useTheme();
 
   return (
@@ -18,10 +18,10 @@ function AnimatedSuccessIcon ({ size = 20 }) {
         provider="Ionicons"
         name="ios-checkmark-circle-outline"
         size={size}
-        color={primary}
+        color={error}
       />
     </Animatable>
   );
 }
 
-export default React.memo(AnimatedSuccessIcon);
+export default React.memo(AnimatedErrorIcon);

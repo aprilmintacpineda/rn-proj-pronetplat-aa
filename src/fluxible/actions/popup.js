@@ -2,6 +2,7 @@ import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
+import AnimatedErrorIcon from 'components/AnimatedErrorIcon';
 import AnimatedSuccessIcon from 'components/AnimatedSuccessIcon';
 
 export function showPopup (body) {
@@ -38,4 +39,17 @@ export function showSuccessPopup ({ message }) {
       <Text style={{ marginTop: 20, textAlign: 'center' }}>{message}</Text>
     </View>
   );
+}
+
+export function showErrorPopup ({ message }) {
+  showPopup(
+    <View style={{ margin: 20 }}>
+      <AnimatedErrorIcon size={100} />
+      <Text style={{ marginTop: 20, textAlign: 'center' }}>{message}</Text>
+    </View>
+  );
+}
+
+export function unknownError () {
+  showErrorPopup({ message: 'An unknown error occured, please try again.' });
 }

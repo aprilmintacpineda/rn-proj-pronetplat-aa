@@ -2,8 +2,7 @@ import React from 'react';
 import ResetPasswordForm from './ResetPasswordForm';
 import { navigationRef } from 'App';
 import FormWithContext from 'components/FormWithContext';
-import { showSuccessPopup } from 'fluxible/actions/popup';
-import { unknownError } from 'libs/alerts';
+import { showSuccessPopup, unknownError } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -35,7 +34,7 @@ const formOptions = {
     };
   },
   ignoreResponse: true,
-  endPoint: '/reset-password',
+  endPoint: '/forgot-password-confirm',
   onSubmitSuccess: () => {
     showSuccessPopup({
       message:

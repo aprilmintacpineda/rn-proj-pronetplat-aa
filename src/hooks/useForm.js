@@ -1,4 +1,5 @@
 import React from 'react';
+import useState from './useState';
 import { xhr } from 'libs/xhr';
 
 function useForm ({
@@ -16,8 +17,8 @@ function useForm ({
   ignoreResponse = false,
   stayDisabledOnSuccess = false
 }) {
-  const [
-    {
+  const {
+    state: {
       responseData,
       formContext,
       formValues,
@@ -27,8 +28,8 @@ function useForm ({
       previousFormValues,
       touched
     },
-    setState
-  ] = React.useState(() => ({
+    updateState
+  } = useState(() => ({
     responseData: null,
     previousFormValues: { ...initialFormValues },
     formValues: { ...initialFormValues },
@@ -55,39 +56,41 @@ function useForm ({
     [validators]
   );
 
-  const setEditMode = React.useCallback(callback => {
-    setState(oldState => {
-      const {
-        formValues = oldState.formValues,
-        targetRecordId = null,
-        formContext = oldState.formContext
-      } = callback({
-        formValues: oldState.formValues,
-        formContext: oldState.formContext
-      });
+  const setEditMode = React.useCallback(
+    callback => {
+      updateState(oldState => {
+        const {
+          formValues = oldState.formValues,
+          targetRecordId = null,
+          formContext = oldState.formContext
+        } = callback({
+          formValues: oldState.formValues,
+          formContext: oldState.formContext
+        });
 
-      return {
-        ...oldState,
-        previousFormValues: { ...formValues },
-        formContext,
-        formValues,
-        targetRecordId,
-        formErrors: {},
-        touched: true
-      };
-    });
-  }, []);
+        return {
+          previousFormValues: { ...formValues },
+          formContext,
+          formValues,
+          targetRecordId,
+          formErrors: {},
+          touched: true
+        };
+      });
+    },
+    [updateState]
+  );
 
   const setField = React.useCallback(
     (field, value) => {
-      setState(oldState => {
+      updateState(({ formValues, formErrors }) => {
         const newFormValues = {
-          ...oldState.formValues,
+          ...formValues,
           [field]: value
         };
 
         const newFormErrors = {
-          ...oldState.formErrors,
+          ...formErrors,
           [field]: validateField(field, newFormValues)
         };
 
@@ -102,27 +105,28 @@ function useForm ({
         }
 
         return {
-          ...oldState,
-          previousFormValues: { ...oldState.formValues },
+          previousFormValues: { ...formValues },
           formValues: newFormValues,
           formErrors: newFormErrors,
           touched: true
         };
       });
     },
-    [validateField, validatorChains]
+    [validateField, validatorChains, updateState]
   );
 
-  const setContext = React.useCallback(newContext => {
-    setState(oldState => ({
-      ...oldState,
-      touched: true,
-      formContext: {
-        ...oldState.formContext,
-        ...newContext
-      }
-    }));
-  }, []);
+  const setContext = React.useCallback(
+    newContext => {
+      updateState(({ formContext }) => ({
+        touched: true,
+        formContext: {
+          ...formContext,
+          ...newContext
+        }
+      }));
+    },
+    [updateState]
+  );
 
   const validateForm = React.useCallback(() => {
     let hasError = false;
@@ -135,15 +139,14 @@ function useForm ({
     });
 
     if (hasError) {
-      setState(oldState => ({
-        ...oldState,
+      updateState({
         formErrors: newFormErrors,
         touched: true
-      }));
+      });
     }
 
     return hasError;
-  }, [initialFormValues, formValues, validateField]);
+  }, [initialFormValues, formValues, validateField, updateState]);
 
   const confirmSubmit = React.useCallback(async () => {
     try {
@@ -183,23 +186,21 @@ function useForm ({
         });
       }
 
-      setState(oldState => ({
-        ...oldState,
+      updateState({
         status: 'submitSuccess',
         touched: true,
         responseData: ignoreResponse ? null : responseData
-      }));
+      });
     } catch (error) {
       console.error('useForm confirmSubmit', error);
 
       if (onSubmitError)
         await onSubmitError({ error, formValues, formContext, setContext });
 
-      setState(oldState => ({
-        ...oldState,
+      updateState({
         status: 'submitError',
         touched: true
-      }));
+      });
     }
   }, [
     onSubmit,
@@ -214,16 +215,16 @@ function useForm ({
     endPoint,
     ignoreResponse,
     onBeforeSubmitEffect,
-    isUpdate
+    isUpdate,
+    updateState
   ]);
 
   const cancelSubmit = React.useCallback(() => {
-    setState(oldState => ({
-      ...oldState,
+    updateState({
       status: 'submitCancelled',
       touched: true
-    }));
-  }, []);
+    });
+  }, [updateState]);
 
   const submitHandler = React.useCallback(
     async ev => {
@@ -232,11 +233,10 @@ function useForm ({
         if (isSubmitting) return;
         if (validateForm()) return;
 
-        setState(oldState => ({
-          ...oldState,
+        updateState({
           status: 'submitting',
           touched: true
-        }));
+        });
 
         if (onBeforeSaveConfirm) {
           const result = await onBeforeSaveConfirm({
@@ -249,11 +249,10 @@ function useForm ({
           });
 
           if (!result) {
-            setState(oldState => ({
-              ...oldState,
+            updateState({
               status: 'submitConfirmError',
               touched: true
-            }));
+            });
           }
         } else {
           confirmSubmit();
@@ -264,11 +263,10 @@ function useForm ({
         if (onSubmitError)
           await onSubmitError(error, { formValues, formContext, setContext });
 
-        setState(oldState => ({
-          ...oldState,
+        updateState({
           status: 'submitError',
           touched: true
-        }));
+        });
       }
     },
     [
@@ -282,7 +280,8 @@ function useForm ({
       setContext,
       cancelSubmit,
       operation,
-      targetRecordId
+      targetRecordId,
+      updateState
     ]
   );
 
@@ -305,7 +304,7 @@ function useForm ({
   );
 
   const resetForm = React.useCallback(() => {
-    setState({
+    updateState({
       previousFormValues: { ...initialFormValues },
       formValues: { ...initialFormValues },
       formErrors: {},
@@ -313,19 +312,18 @@ function useForm ({
       status: 'initial',
       touched: false
     });
-  }, [initialFormValues, initialFormContext]);
+  }, [initialFormValues, initialFormContext, updateState]);
 
   const setForm = React.useCallback(
     ({ formValues = null, formContext = null, formErrors = null }) => {
-      setState(oldState => ({
-        ...oldState,
+      updateState(oldState => ({
         formValues: formValues || oldState.formValues,
         formContext: formContext || oldState.formContext,
         formErrors: formErrors || oldState.formErrors,
         touched: true
       }));
     },
-    []
+    [updateState]
   );
 
   return {
