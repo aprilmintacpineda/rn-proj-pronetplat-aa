@@ -16,7 +16,7 @@ function AnimatedErrorIcon ({ size = 20 }) {
       duration={500}>
       <RNVectorIcon
         provider="Ionicons"
-        name="ios-checkmark-circle-outline"
+        name="ios-close-circle-outline"
         size={size}
         color={error}
       />

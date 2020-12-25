@@ -1,16 +1,19 @@
 import 'customAnimations';
 
+import { useNetInfo } from '@react-native-community/netinfo';
 import {
   NavigationContainer,
   DefaultTheme as navigationDefaultTheme
 } from '@react-navigation/native';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
-import { KeyboardAvoidingView, Platform, StatusBar } from 'react-native';
+import { KeyboardAvoidingView, Platform, StatusBar, View } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import {
   DefaultTheme as paperDefaultTheme,
-  Provider as PaperProvider
+  Provider as PaperProvider,
+  Text,
+  useTheme
 } from 'react-native-paper';
 
 import FullSafeAreaView from 'components/FullSafeAreaView';
@@ -48,6 +51,10 @@ function mapStates ({ initComplete }) {
 
 function App () {
   const { initComplete } = useFluxibleStore(mapStates);
+  const { isConnected, isInternetReachable } = useNetInfo();
+  const {
+    colors: { error }
+  } = useTheme();
 
   React.useEffect(() => {
     initStore();
@@ -70,6 +77,11 @@ function App () {
               style={{ flex: 1 }}
               behavior={avoidBehavior}
               keyboardVerticalOffset={avoidOffset}>
+              {!isConnected || isInternetReachable === false ? (
+                <View style={{ backgroundColor: error, padding: 3 }}>
+                  <Text style={{ color: '#fff' }}>No internet connection.</Text>
+                </View>
+              ) : null}
               <IndexStackNavigator />
             </KeyboardAvoidingView>
           </FullSafeAreaView>

@@ -6,7 +6,8 @@ import { FormContext } from 'components/FormWithContext';
 import Button from 'components/FormWithContext/Button';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
-import { showSuccessPopup, unknownError } from 'fluxible/actions/popup';
+import PasswordStrength from 'components/PasswordStrength';
+import { showRequestFailedPopup, showSuccessPopup } from 'fluxible/actions/popup';
 import useCountDown from 'hooks/useCountDown';
 import useState from 'hooks/useState';
 import { xhr } from 'libs/xhr';
@@ -27,7 +28,10 @@ function ResetPasswordForm ({ email }) {
     duration
   });
 
-  const { setContext } = React.useContext(FormContext);
+  const {
+    formValues: { newPassword },
+    setContext
+  } = React.useContext(FormContext);
 
   const resendCode = React.useCallback(async () => {
     if (!isDone) return;
@@ -49,14 +53,14 @@ function ResetPasswordForm ({ email }) {
       updateState({ lastSent: new Date() });
     } catch (error) {
       console.log(error);
-      unknownError();
+      showRequestFailedPopup();
     } finally {
       updateState({ isResending: false });
     }
   }, [email, isDone, updateState]);
 
   React.useEffect(() => {
-    setContext(email);
+    setContext({ email });
   }, [setContext, email]);
 
   return (
@@ -66,11 +70,14 @@ function ResetPasswordForm ({ email }) {
           We have sent the confirmation code to your email. Please do not share that
           confirmation code with anyone.
         </Caption>
-        <TextInput field="confirmationCode" />
+        <TextInput field="confirmationCode" type="code" />
         <TextInput field="newPassword" type="password" />
-        <TextInput field="retypeNewPassword" type="password" />
-        <SubmitButton style={{ marginBottom: 20 }}>Reset password</SubmitButton>
-        <Button to="Login" color="red">
+        <PasswordStrength value={newPassword} />
+        <TextInput style={{ marginTop: 15 }} field="retypeNewPassword" type="password" />
+        <SubmitButton style={{ marginBottom: 20 }} disabled={isResending}>
+          Reset password
+        </SubmitButton>
+        <Button to="Login" color="red" disabled={isResending}>
           Cancel
         </Button>
       </FormContainer>

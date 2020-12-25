@@ -2,7 +2,7 @@ import React from 'react';
 import ResetPasswordForm from './ResetPasswordForm';
 import { navigationRef } from 'App';
 import FormWithContext from 'components/FormWithContext';
-import { showSuccessPopup, unknownError } from 'fluxible/actions/popup';
+import { showRequestFailedPopup, showSuccessPopup } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -42,7 +42,12 @@ const formOptions = {
     });
     navigationRef.current.navigate('Login');
   },
-  onSubmitError: unknownError
+  onSubmitError: () => {
+    showRequestFailedPopup({
+      message:
+        'Cannot reset password. Either the confirmation code you provided is incorrect or your request may have expired.'
+    });
+  }
 };
 
 function ResetPassword ({ email }) {

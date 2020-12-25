@@ -3,8 +3,15 @@ import { Button as RNPButton } from 'react-native-paper';
 import { FormContext } from '.';
 import { navigationRef } from 'App';
 
-function Button ({ children, onPress, to, params, disabled = false, ...rnpButtonProps }) {
-  const { disabled: formDisabled } = React.useContext(FormContext);
+function Button ({
+  children,
+  onPress,
+  to,
+  params,
+  disabled: disabledFromProps = false,
+  ...rnpButtonProps
+}) {
+  const { disabled } = React.useContext(FormContext);
 
   const handlePress = React.useCallback(
     (...args) => {
@@ -16,7 +23,7 @@ function Button ({ children, onPress, to, params, disabled = false, ...rnpButton
 
   return (
     <RNPButton
-      disabled={disabled || formDisabled}
+      disabled={disabled || disabledFromProps}
       onPress={handlePress}
       {...rnpButtonProps}>
       {children}

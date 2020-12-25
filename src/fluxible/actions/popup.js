@@ -1,3 +1,4 @@
+import NetInfo from '@react-native-community/netinfo';
 import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { View } from 'react-native';
@@ -50,6 +51,16 @@ export function showErrorPopup ({ message }) {
   );
 }
 
-export function unknownError () {
-  showErrorPopup({ message: 'An unknown error occured, please try again.' });
+export async function showRequestFailedPopup ({
+  message = 'An unknown error occured, please try again.'
+} = {}) {
+  const { isConnected, isInternetReachable } = await NetInfo.fetch();
+
+  if (!isConnected || !isInternetReachable) {
+    showErrorPopup({
+      message: 'Could not connect. Please check your internet connection and try again.'
+    });
+  } else {
+    showErrorPopup({ message });
+  }
 }

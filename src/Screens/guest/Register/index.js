@@ -2,7 +2,7 @@ import React from 'react';
 import RegisterForm from './RegisterForm';
 import { navigationRef } from 'App';
 import FormWithContext from 'components/FormWithContext';
-import { showSuccessPopup, unknownError } from 'fluxible/actions/popup';
+import { showRequestFailedPopup, showSuccessPopup } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -24,7 +24,7 @@ const formOptions = {
   },
   ignoreResponse: true,
   endPoint: '/register',
-  onSubmitError: unknownError,
+  onSubmitError: showRequestFailedPopup,
   onSubmitSuccess: () => {
     showSuccessPopup({
       message:

@@ -1,7 +1,7 @@
 import React from 'react';
 import SendResetCodeForm from './SendResetCodeForm';
 import FormWithContext from 'components/FormWithContext';
-import { unknownError } from 'fluxible/actions/popup';
+import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -12,7 +12,7 @@ const formOptions = {
     email: ({ email }) => validate(email, ['required', 'email'])
   },
   endPoint: '/forgot-password-send',
-  onSubmitError: unknownError,
+  onSubmitError: showRequestFailedPopup,
   ignoreResponse: true
 };
 

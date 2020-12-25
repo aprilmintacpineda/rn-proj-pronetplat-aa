@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthenticateForm from './AuthenticateForm';
 import FormWithContext from 'components/FormWithContext';
-import { unknownError } from 'fluxible/actions/popup';
+import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -14,7 +14,7 @@ const formOptions = {
     password: ({ password }) => validate(password, ['required'])
   },
   endPoint: '/login',
-  onSubmitError: unknownError
+  onSubmitError: showRequestFailedPopup
 };
 
 function Authenticate ({ onLogin }) {
