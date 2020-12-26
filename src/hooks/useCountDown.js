@@ -30,6 +30,8 @@ function useCountDown ({ start = null, duration = null, toTime = null }) {
 
       minutes = interval.minutes.toString().padStart(2, '0');
       seconds = interval.seconds.toString().padStart(2, 0);
+    } else {
+      clearInterval(timer.current);
     }
 
     setState({

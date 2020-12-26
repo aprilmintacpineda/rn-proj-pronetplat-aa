@@ -38,10 +38,7 @@ export async function xhr (path, { method = 'get', ...options } = {}) {
     }
   };
 
-  if (store.credentials) {
-    config.headers.accessToken = store.credentials.accessToken;
-    config.headers.idToken = store.credentials.idToken;
-  }
+  if (store.authToken) config.headers.Authorization = `Bearer ${store.authToken}`;
 
   if (options.body) config.body = JSON.stringify(options.body);
   const response = await fetch(url, config);
@@ -56,10 +53,7 @@ export async function xhrUpload (path, { method = 'post', ...options } = {}) {
     ...options.headers
   };
 
-  if (store.credentials) {
-    config.headers.accessToken = store.credentials.accessToken;
-    config.headers.idToken = store.credentials.idToken;
-  }
+  if (store.authToken) config.headers.Authorization = `Bearer ${store.authToken}`;
 
   const body = new FormData();
 

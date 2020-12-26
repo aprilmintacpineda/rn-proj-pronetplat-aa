@@ -38,6 +38,7 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
+    'no-return-await': 'error',
     'import/no-unresolved': 0,
     'import/order': [
       'error',

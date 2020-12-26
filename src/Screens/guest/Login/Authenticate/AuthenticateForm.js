@@ -5,13 +5,21 @@ import { FormContext } from 'components/FormWithContext';
 import Button from 'components/FormWithContext/Button';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
+import LoginContext from 'root/Screens/guest/Login/LoginContext';
 
 function AuthenticateForm ({ onLogin }) {
-  const { responseData, isSubmitSuccess } = React.useContext(FormContext);
+  const { responseData, isSubmitSuccess, resetForm, isTouched } = React.useContext(
+    FormContext
+  );
+  const { page } = React.useContext(LoginContext);
 
   React.useEffect(() => {
     if (isSubmitSuccess) onLogin(responseData);
-  }, [isSubmitSuccess, responseData, onLogin]);
+  }, [isSubmitSuccess, responseData, onLogin, resetForm]);
+
+  React.useEffect(() => {
+    if (page !== 1 && isTouched) resetForm();
+  }, [page, isTouched, resetForm]);
 
   return (
     <ScrollView>

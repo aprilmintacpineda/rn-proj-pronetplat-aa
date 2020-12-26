@@ -34,10 +34,10 @@ const formOptions = {
   }
 };
 
-function Register () {
+function Register (props) {
   return (
     <FormWithContext formOptions={formOptions}>
-      <RegisterForm />
+      <RegisterForm {...props} />
     </FormWithContext>
   );
 }

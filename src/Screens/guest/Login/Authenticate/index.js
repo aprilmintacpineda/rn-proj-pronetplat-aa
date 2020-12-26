@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthenticateForm from './AuthenticateForm';
 import FormWithContext from 'components/FormWithContext';
-import { showRequestFailedPopup } from 'fluxible/actions/popup';
+import { showErrorPopup, showRequestFailedPopup } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -11,16 +11,21 @@ const formOptions = {
   },
   validators: {
     email: ({ email }) => validate(email, ['required', 'email']),
-    password: ({ password }) => validate(password, ['required'])
+    password: ({ password }) => validate(password, ['required', 'maxLength:30'])
   },
   endPoint: '/login',
-  onSubmitError: showRequestFailedPopup
+  onSubmitError: ({ error }) => {
+    if (error.status === 403)
+      showErrorPopup({ message: 'Inccorect email/password combination.' });
+    else showRequestFailedPopup();
+  },
+  stayDisabledOnSuccess: true
 };
 
-function Authenticate ({ onLogin }) {
+function Authenticate (props) {
   return (
     <FormWithContext formOptions={formOptions}>
-      <AuthenticateForm onLogin={onLogin} />
+      <AuthenticateForm {...props} />
     </FormWithContext>
   );
 }

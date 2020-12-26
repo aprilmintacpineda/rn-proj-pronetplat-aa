@@ -16,10 +16,10 @@ const formOptions = {
   ignoreResponse: true
 };
 
-function SendResetCode ({ onResetCodeSent }) {
+function SendResetCode (props) {
   return (
     <FormWithContext formOptions={formOptions}>
-      <SendResetCodeForm onResetCodeSent={onResetCodeSent} />
+      <SendResetCodeForm {...props} />
     </FormWithContext>
   );
 }

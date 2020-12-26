@@ -26,7 +26,7 @@ function useForm ({
       status,
       targetRecordId,
       previousFormValues,
-      touched
+      isTouched
     },
     updateState
   } = useState(() => ({
@@ -37,7 +37,7 @@ function useForm ({
     formContext: { ...initialFormContext },
     status: 'initial',
     targetRecordId: null,
-    touched: false
+    isTouched: false
   }));
 
   const isInitial = status === 'initial';
@@ -74,7 +74,7 @@ function useForm ({
           formValues,
           targetRecordId,
           formErrors: {},
-          touched: true
+          isTouched: true
         };
       });
     },
@@ -108,7 +108,7 @@ function useForm ({
           previousFormValues: { ...formValues },
           formValues: newFormValues,
           formErrors: newFormErrors,
-          touched: true
+          isTouched: true
         };
       });
     },
@@ -118,7 +118,7 @@ function useForm ({
   const setContext = React.useCallback(
     newContext => {
       updateState(({ formContext }) => ({
-        touched: true,
+        isTouched: true,
         formContext: {
           ...formContext,
           ...newContext
@@ -141,7 +141,7 @@ function useForm ({
     if (hasError) {
       updateState({
         formErrors: newFormErrors,
-        touched: true
+        isTouched: true
       });
     }
 
@@ -155,7 +155,7 @@ function useForm ({
       if (onBeforeSubmitEffect) await onBeforeSubmitEffect({ formValues, formContext });
 
       if (onSubmit) {
-        responseData = await onSubmit({ formValues, formContext, setContext });
+        responseData = await onSubmit({ formValues, formContext });
       } else {
         let method = null;
         let path = null;
@@ -188,7 +188,7 @@ function useForm ({
 
       updateState({
         status: 'submitSuccess',
-        touched: true,
+        isTouched: true,
         responseData: ignoreResponse ? null : responseData
       });
     } catch (error) {
@@ -199,7 +199,7 @@ function useForm ({
 
       updateState({
         status: 'submitError',
-        touched: true
+        isTouched: true
       });
     }
   }, [
@@ -222,7 +222,7 @@ function useForm ({
   const cancelSubmit = React.useCallback(() => {
     updateState({
       status: 'submitCancelled',
-      touched: true
+      isTouched: true
     });
   }, [updateState]);
 
@@ -235,7 +235,7 @@ function useForm ({
 
         updateState({
           status: 'submitting',
-          touched: true
+          isTouched: true
         });
 
         if (onBeforeSaveConfirm) {
@@ -251,7 +251,7 @@ function useForm ({
           if (!result) {
             updateState({
               status: 'submitConfirmError',
-              touched: true
+              isTouched: true
             });
           }
         } else {
@@ -265,7 +265,7 @@ function useForm ({
 
         updateState({
           status: 'submitError',
-          touched: true
+          isTouched: true
         });
       }
     },
@@ -310,7 +310,7 @@ function useForm ({
       formErrors: {},
       formContext: { ...initialFormContext },
       status: 'initial',
-      touched: false
+      isTouched: false
     });
   }, [initialFormValues, initialFormContext, updateState]);
 
@@ -320,7 +320,7 @@ function useForm ({
         formValues: formValues || oldState.formValues,
         formContext: formContext || oldState.formContext,
         formErrors: formErrors || oldState.formErrors,
-        touched: true
+        isTouched: true
       }));
     },
     [updateState]
@@ -347,7 +347,7 @@ function useForm ({
     resetForm,
     setForm,
     responseData,
-    touched,
+    isTouched,
     stayDisabledOnSuccess
   };
 }

@@ -50,10 +50,10 @@ const formOptions = {
   }
 };
 
-function ResetPassword ({ email }) {
+function ResetPassword (props) {
   return (
     <FormWithContext formOptions={formOptions}>
-      <ResetPasswordForm email={email} />
+      <ResetPasswordForm {...props} />
     </FormWithContext>
   );
 }
