@@ -39,14 +39,26 @@
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; name = main.jsbundle; path = ../main.jsbundle; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* proj_pronetplat_aaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proj_pronetplat_aaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0668F888E7678F47172AE6DB /* Pods-proj_pronetplat_aa-tvOSTests.stagingrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOSTests.stagingrelease.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOSTests/Pods-proj_pronetplat_aa-tvOSTests.stagingrelease.xcconfig"; sourceTree = "<group>"; };
 		09D2F3B0B074A3D3809D9020 /* Pods-connect_express-connect_expressTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express-connect_expressTests.debug.xcconfig"; path = "Target Support Files/Pods-connect_express-connect_expressTests/Pods-connect_express-connect_expressTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0B674CDE8F718CFEB4900C2F /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.localrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.localrelease.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.localrelease.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Quaint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quaint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		184E065AE612CA9FC20B530C /* Pods-proj_pronetplat_aa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa.release.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa/Pods-proj_pronetplat_aa.release.xcconfig"; sourceTree = "<group>"; };
+		1B7B89C9F0DCF42456E1714B /* Pods-proj_pronetplat_aa-tvOS.stagingdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOS.stagingdebug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOS/Pods-proj_pronetplat_aa-tvOS.stagingdebug.xcconfig"; sourceTree = "<group>"; };
+		1F216621DEE33AB852ABD37D /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.stagingdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.stagingdebug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.stagingdebug.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* proj_pronetplat_aa-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "proj_pronetplat_aa-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* proj_pronetplat_aa-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "proj_pronetplat_aa-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D9A59AF79C089A2B193E54D /* Pods-proj_pronetplat_aa-tvOSTests.localdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOSTests.localdebug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOSTests/Pods-proj_pronetplat_aa-tvOSTests.localdebug.xcconfig"; sourceTree = "<group>"; };
+		3027C810F7427E7A6585DF2D /* Pods-proj_pronetplat_aa.localrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa.localrelease.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa/Pods-proj_pronetplat_aa.localrelease.xcconfig"; sourceTree = "<group>"; };
+		32DE49D375BE5EC0D0EB2152 /* Pods-proj_pronetplat_aa.stagingdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa.stagingdebug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa/Pods-proj_pronetplat_aa.stagingdebug.xcconfig"; sourceTree = "<group>"; };
+		44A2D4F658C037EDC2BC2530 /* Pods-proj_pronetplat_aa.stagingrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa.stagingrelease.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa/Pods-proj_pronetplat_aa.stagingrelease.xcconfig"; sourceTree = "<group>"; };
 		4D3EEA05BA9CB32674C646C3 /* Pods-proj_pronetplat_aa-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOSTests/Pods-proj_pronetplat_aa-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		514029CB9341BF8CD06B6CB2 /* Pods-proj_pronetplat_aa-tvOS.localdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOS.localdebug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOS/Pods-proj_pronetplat_aa-tvOS.localdebug.xcconfig"; sourceTree = "<group>"; };
 		5F5CD5334F984B2419E359AE /* libPods-proj_pronetplat_aa-proj_pronetplat_aaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-proj_pronetplat_aa-proj_pronetplat_aaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		645383EEFDB8927941A1BE84 /* libPods-proj_pronetplat_aa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-proj_pronetplat_aa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6718A9A0BF6DAABCDD645EF5 /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.stagingrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.stagingrelease.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.stagingrelease.xcconfig"; sourceTree = "<group>"; };
+		679AABDABDC64E642A8A483F /* Pods-proj_pronetplat_aa.localdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa.localdebug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa/Pods-proj_pronetplat_aa.localdebug.xcconfig"; sourceTree = "<group>"; };
+		7B8028F75E38D29EC92F6611 /* Pods-proj_pronetplat_aa-tvOS.stagingrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOS.stagingrelease.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOS/Pods-proj_pronetplat_aa-tvOS.stagingrelease.xcconfig"; sourceTree = "<group>"; };
 		7CDC480A258F128D009DE44B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7CDC480B258F128D009DE44B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7CDC480C258F128D009DE44B /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BootSplash.storyboard; sourceTree = "<group>"; };
@@ -56,13 +68,18 @@
 		7CDC4810258F128D009DE44B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CDC49FD258F1934009DE44B /* proj_pronetplat_aaTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = proj_pronetplat_aaTests.m; sourceTree = "<group>"; };
 		7CDC49FE258F1934009DE44B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CE0138925971BB40068E9A2 /* Info_staging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_staging.plist; sourceTree = "<group>"; };
+		7CE0138A25971BB40068E9A2 /* Info_local.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_local.plist; sourceTree = "<group>"; };
 		8D9C43CD37BE55F6F6D3BEBF /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.debug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		91270AC226D1E5EEAEA397FA /* Pods-connect_express.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express.release.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aaPods-connect_express.release.xcconfig"; sourceTree = "<group>"; };
 		952C3AD9F3051AF901B4F1E3 /* Pods-proj_pronetplat_aa-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOS.release.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOS/Pods-proj_pronetplat_aa-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		97C4CAA3EA484CEA196BE12B /* Pods-proj_pronetplat_aa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa.debug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa/Pods-proj_pronetplat_aa.debug.xcconfig"; sourceTree = "<group>"; };
+		9D7C10F0E5D50FA3CE6570D8 /* Pods-proj_pronetplat_aa-tvOSTests.stagingdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOSTests.stagingdebug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOSTests/Pods-proj_pronetplat_aa-tvOSTests.stagingdebug.xcconfig"; sourceTree = "<group>"; };
+		9EAC9FA6694D49EC316846F7 /* Pods-proj_pronetplat_aa-tvOSTests.localrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOSTests.localrelease.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOSTests/Pods-proj_pronetplat_aa-tvOSTests.localrelease.xcconfig"; sourceTree = "<group>"; };
 		9EEAE16FACC903871D0CBCCF /* Pods-connect_express-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-connect_express-tvOSTests/Pods-connect_express-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A5ED9EC6DF162B5A382267FA /* libPods-proj_pronetplat_aa-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-proj_pronetplat_aa-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB6C0A04FAFFB39B1D93270D /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.release.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.release.xcconfig"; sourceTree = "<group>"; };
+		BCCBAEC6F2BEA41A0B37B5A9 /* Pods-proj_pronetplat_aa-tvOS.localrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOS.localrelease.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOS/Pods-proj_pronetplat_aa-tvOS.localrelease.xcconfig"; sourceTree = "<group>"; };
 		C3DD718FFBF2FA32EAF1F30E /* Pods-proj_pronetplat_aa-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOS/Pods-proj_pronetplat_aa-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C96EC0D5CEEEABFEB80BD8D5 /* libPods-proj_pronetplat_aa-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-proj_pronetplat_aa-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9924AD272E1184FEE467FD4 /* Pods-connect_express-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-connect_express-tvOSTests/Pods-connect_express-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -72,6 +89,7 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F1B333EE95BE49997C60B818 /* Pods-connect_express-connect_expressTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express-connect_expressTests.release.xcconfig"; path = "Target Support Files/Pods-connect_express-connect_expressTests/Pods-connect_express-connect_expressTests.release.xcconfig"; sourceTree = "<group>"; };
+		F62C801CBD4D2886C74021B3 /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.localdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.localdebug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.localdebug.xcconfig"; sourceTree = "<group>"; };
 		FF88CB65FC0CAFF6C3AC6D74 /* Pods-connect_express-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-connect_express-tvOS/Pods-connect_express-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +148,22 @@
 				952C3AD9F3051AF901B4F1E3 /* Pods-proj_pronetplat_aa-tvOS.release.xcconfig */,
 				4D3EEA05BA9CB32674C646C3 /* Pods-proj_pronetplat_aa-tvOSTests.debug.xcconfig */,
 				E48BBC9CB5A7BD7F7D52F5EC /* Pods-proj_pronetplat_aa-tvOSTests.release.xcconfig */,
+				679AABDABDC64E642A8A483F /* Pods-proj_pronetplat_aa.localdebug.xcconfig */,
+				32DE49D375BE5EC0D0EB2152 /* Pods-proj_pronetplat_aa.stagingdebug.xcconfig */,
+				44A2D4F658C037EDC2BC2530 /* Pods-proj_pronetplat_aa.stagingrelease.xcconfig */,
+				3027C810F7427E7A6585DF2D /* Pods-proj_pronetplat_aa.localrelease.xcconfig */,
+				F62C801CBD4D2886C74021B3 /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.localdebug.xcconfig */,
+				1F216621DEE33AB852ABD37D /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.stagingdebug.xcconfig */,
+				6718A9A0BF6DAABCDD645EF5 /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.stagingrelease.xcconfig */,
+				0B674CDE8F718CFEB4900C2F /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.localrelease.xcconfig */,
+				514029CB9341BF8CD06B6CB2 /* Pods-proj_pronetplat_aa-tvOS.localdebug.xcconfig */,
+				1B7B89C9F0DCF42456E1714B /* Pods-proj_pronetplat_aa-tvOS.stagingdebug.xcconfig */,
+				7B8028F75E38D29EC92F6611 /* Pods-proj_pronetplat_aa-tvOS.stagingrelease.xcconfig */,
+				BCCBAEC6F2BEA41A0B37B5A9 /* Pods-proj_pronetplat_aa-tvOS.localrelease.xcconfig */,
+				2D9A59AF79C089A2B193E54D /* Pods-proj_pronetplat_aa-tvOSTests.localdebug.xcconfig */,
+				9D7C10F0E5D50FA3CE6570D8 /* Pods-proj_pronetplat_aa-tvOSTests.stagingdebug.xcconfig */,
+				0668F888E7678F47172AE6DB /* Pods-proj_pronetplat_aa-tvOSTests.stagingrelease.xcconfig */,
+				9EAC9FA6694D49EC316846F7 /* Pods-proj_pronetplat_aa-tvOSTests.localrelease.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -158,6 +192,8 @@
 				7CDC480E258F128D009DE44B /* AppDelegate.m */,
 				7CDC480F258F128D009DE44B /* proj_pronetplat_aa.entitlements */,
 				7CDC4810258F128D009DE44B /* Info.plist */,
+				7CE0138A25971BB40068E9A2 /* Info_local.plist */,
+				7CE0138925971BB40068E9A2 /* Info_staging.plist */,
 			);
 			path = proj_pronetplat_aa;
 			sourceTree = "<group>";
@@ -875,6 +911,634 @@
 			};
 			name = Release;
 		};
+		7CE0136D259716460068E9A2 /* StagingDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = StagingDebug;
+		};
+		7CE0136E259716460068E9A2 /* StagingDebug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32DE49D375BE5EC0D0EB2152 /* Pods-proj_pronetplat_aa.stagingdebug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = proj_pronetplat_aa/proj_pronetplat_aa.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L5F8T576SB;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = proj_pronetplat_aa/Info_staging.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aprmp.proj-pronetplat-aa.staging";
+				PRODUCT_NAME = "STG Quaint";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = StagingDebug;
+		};
+		7CE0136F259716460068E9A2 /* StagingDebug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F216621DEE33AB852ABD37D /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.stagingdebug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = connect_expressTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proj_pronetplat_aa.app/proj_pronetplat_aa";
+			};
+			name = StagingDebug;
+		};
+		7CE01370259716460068E9A2 /* StagingDebug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B7B89C9F0DCF42456E1714B /* Pods-proj_pronetplat_aa-tvOS.stagingdebug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "connect_express-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.connect_express-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = StagingDebug;
+		};
+		7CE01371259716460068E9A2 /* StagingDebug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D7C10F0E5D50FA3CE6570D8 /* Pods-proj_pronetplat_aa-tvOSTests.stagingdebug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "connect_express-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.connect_express-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proj_pronetplat_aa-tvOS.app/proj_pronetplat_aa-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 10.1;
+			};
+			name = StagingDebug;
+		};
+		7CE01372259716570068E9A2 /* LocalDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = LocalDebug;
+		};
+		7CE01373259716570068E9A2 /* LocalDebug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 679AABDABDC64E642A8A483F /* Pods-proj_pronetplat_aa.localdebug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = proj_pronetplat_aa/proj_pronetplat_aa.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L5F8T576SB;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = proj_pronetplat_aa/Info_local.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aprmp.proj-pronetplat-aa.local";
+				PRODUCT_NAME = "LOC Quaint";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = LocalDebug;
+		};
+		7CE01374259716570068E9A2 /* LocalDebug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F62C801CBD4D2886C74021B3 /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.localdebug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = connect_expressTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proj_pronetplat_aa.app/proj_pronetplat_aa";
+			};
+			name = LocalDebug;
+		};
+		7CE01375259716570068E9A2 /* LocalDebug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 514029CB9341BF8CD06B6CB2 /* Pods-proj_pronetplat_aa-tvOS.localdebug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "connect_express-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.connect_express-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = LocalDebug;
+		};
+		7CE01376259716570068E9A2 /* LocalDebug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2D9A59AF79C089A2B193E54D /* Pods-proj_pronetplat_aa-tvOSTests.localdebug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "connect_express-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.connect_express-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proj_pronetplat_aa-tvOS.app/proj_pronetplat_aa-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 10.1;
+			};
+			name = LocalDebug;
+		};
+		7CE013772597165D0068E9A2 /* LocalRelease */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = LocalRelease;
+		};
+		7CE013782597165D0068E9A2 /* LocalRelease */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3027C810F7427E7A6585DF2D /* Pods-proj_pronetplat_aa.localrelease.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = proj_pronetplat_aa/proj_pronetplat_aa.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L5F8T576SB;
+				INFOPLIST_FILE = proj_pronetplat_aa/Info_local.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aprmp.proj-pronetplat-aa.local";
+				PRODUCT_NAME = "LOC Quaint";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = LocalRelease;
+		};
+		7CE013792597165D0068E9A2 /* LocalRelease */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B674CDE8F718CFEB4900C2F /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.localrelease.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = connect_expressTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proj_pronetplat_aa.app/proj_pronetplat_aa";
+			};
+			name = LocalRelease;
+		};
+		7CE0137A2597165D0068E9A2 /* LocalRelease */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCCBAEC6F2BEA41A0B37B5A9 /* Pods-proj_pronetplat_aa-tvOS.localrelease.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "connect_express-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.connect_express-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = LocalRelease;
+		};
+		7CE0137B2597165D0068E9A2 /* LocalRelease */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9EAC9FA6694D49EC316846F7 /* Pods-proj_pronetplat_aa-tvOSTests.localrelease.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "connect_express-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.connect_express-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proj_pronetplat_aa-tvOS.app/proj_pronetplat_aa-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 10.1;
+			};
+			name = LocalRelease;
+		};
+		7CE0137C259716640068E9A2 /* StagingRelease */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = StagingRelease;
+		};
+		7CE0137D259716640068E9A2 /* StagingRelease */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44A2D4F658C037EDC2BC2530 /* Pods-proj_pronetplat_aa.stagingrelease.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = proj_pronetplat_aa/proj_pronetplat_aa.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L5F8T576SB;
+				INFOPLIST_FILE = proj_pronetplat_aa/Info_staging.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aprmp.proj-pronetplat-aa.staging";
+				PRODUCT_NAME = "STG Quaint";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = StagingRelease;
+		};
+		7CE0137E259716640068E9A2 /* StagingRelease */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6718A9A0BF6DAABCDD645EF5 /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.stagingrelease.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = connect_expressTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proj_pronetplat_aa.app/proj_pronetplat_aa";
+			};
+			name = StagingRelease;
+		};
+		7CE0137F259716640068E9A2 /* StagingRelease */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B8028F75E38D29EC92F6611 /* Pods-proj_pronetplat_aa-tvOS.stagingrelease.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "connect_express-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.connect_express-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = StagingRelease;
+		};
+		7CE01380259716640068E9A2 /* StagingRelease */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0668F888E7678F47172AE6DB /* Pods-proj_pronetplat_aa-tvOSTests.stagingrelease.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "connect_express-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.connect_express-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proj_pronetplat_aa-tvOS.app/proj_pronetplat_aa-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 10.1;
+			};
+			name = StagingRelease;
+		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -995,7 +1659,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
+				7CE01374259716570068E9A2 /* LocalDebug */,
+				7CE0136F259716460068E9A2 /* StagingDebug */,
 				00E356F71AD99517003FC87E /* Release */,
+				7CE0137E259716640068E9A2 /* StagingRelease */,
+				7CE013792597165D0068E9A2 /* LocalRelease */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1004,7 +1672,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
+				7CE01373259716570068E9A2 /* LocalDebug */,
+				7CE0136E259716460068E9A2 /* StagingDebug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+				7CE0137D259716640068E9A2 /* StagingRelease */,
+				7CE013782597165D0068E9A2 /* LocalRelease */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1013,7 +1685,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
+				7CE01375259716570068E9A2 /* LocalDebug */,
+				7CE01370259716460068E9A2 /* StagingDebug */,
 				2D02E4981E0B4A5E006451C7 /* Release */,
+				7CE0137F259716640068E9A2 /* StagingRelease */,
+				7CE0137A2597165D0068E9A2 /* LocalRelease */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1022,7 +1698,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
+				7CE01376259716570068E9A2 /* LocalDebug */,
+				7CE01371259716460068E9A2 /* StagingDebug */,
 				2D02E49A1E0B4A5E006451C7 /* Release */,
+				7CE01380259716640068E9A2 /* StagingRelease */,
+				7CE0137B2597165D0068E9A2 /* LocalRelease */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1031,7 +1711,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
+				7CE01372259716570068E9A2 /* LocalDebug */,
+				7CE0136D259716460068E9A2 /* StagingDebug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+				7CE0137C259716640068E9A2 /* StagingRelease */,
+				7CE013772597165D0068E9A2 /* LocalRelease */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

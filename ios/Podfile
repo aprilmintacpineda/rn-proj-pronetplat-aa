@@ -3,6 +3,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
+project 'proj_pronetplat_aa',
+        'LocalDebug' => :debug,
+        'LocalRelease' => :release,
+        'StagingDebug' => :debug,
+        'StagingRelease' => :release
+
 target 'proj_pronetplat_aa' do
   permissions_path = '../node_modules/react-native-permissions/ios'
 
