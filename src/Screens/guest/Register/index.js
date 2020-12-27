@@ -1,3 +1,4 @@
+import analytics from '@react-native-firebase/analytics';
 import React from 'react';
 import RegisterForm from './RegisterForm';
 import { navigationRef } from 'App';
@@ -25,12 +26,14 @@ const formOptions = {
   ignoreResponse: true,
   endPoint: '/register',
   onSubmitError: showRequestFailedPopup,
-  onSubmitSuccess: () => {
+  onSubmitSuccess: async () => {
     showSuccessPopup({
       message:
         'You\'re account has bee created. Please check your inbox for the confirmation code that you need to verify your email'
     });
+
     navigationRef.current.navigate('Login');
+    await analytics().logSignUp();
   }
 };
 

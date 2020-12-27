@@ -1,6 +1,8 @@
 import 'customAnimations';
 
 import { useNetInfo } from '@react-native-community/netinfo';
+import iid from '@react-native-firebase/iid';
+import messaging from '@react-native-firebase/messaging';
 import {
   NavigationContainer,
   DefaultTheme as navigationDefaultTheme
@@ -18,10 +20,15 @@ import {
 
 import FullSafeAreaView from 'components/FullSafeAreaView';
 import { initStore } from 'fluxible/store/init';
+import { appMounted, logScreenView } from 'libs/logging';
 import IndexStackNavigator from 'navigations/IndexStackNavigator';
 import PopupManager from 'PopupManager';
 
 export const navigationRef = React.createRef();
+
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('Message handled in the background!', remoteMessage);
+});
 
 const paperTheme = {
   ...paperDefaultTheme
@@ -58,6 +65,31 @@ function App () {
 
   React.useEffect(() => {
     initStore();
+    appMounted();
+  }, []);
+
+  React.useEffect(() => {
+    (async () => {
+      const authStatus = await messaging().requestPermission();
+      const { AUTHORIZED, PROVISIONAL } = messaging.AuthorizationStatus;
+      const wasAllowed = authStatus === AUTHORIZED || authStatus === PROVISIONAL;
+
+      if (!wasAllowed) return;
+
+      messaging().onMessage(async remoteMessage => {
+        console.log('remoteMessage', remoteMessage);
+      });
+
+      messaging().onTokenRefresh(async newToken => {
+        console.log('newToken', newToken);
+      });
+
+      const openedNotif = await messaging().getInitialNotification();
+      console.log('openedNotif', openedNotif);
+
+      const token = await iid().getToken();
+      console.log('token', token);
+    })();
   }, []);
 
   React.useEffect(() => {
@@ -69,7 +101,11 @@ function App () {
   return (
     <>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <NavigationContainer ref={navigationRef} theme={navigationTheme}>
+      <NavigationContainer
+        ref={navigationRef}
+        theme={navigationTheme}
+        onReady={logScreenView}
+        onStateChange={logScreenView}>
         <PaperProvider theme={paperTheme}>
           <PopupManager />
           <FullSafeAreaView>

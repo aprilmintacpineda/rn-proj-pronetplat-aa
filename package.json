@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android-loc": "react-native run-android --variant=localDebug",
-    "android-stg": "react-native run-android --variant=stagingDebug",
+    "android-local": "react-native run-android --variant=localDebug",
+    "android-staging": "react-native run-android --variant=stagingDebug",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -19,6 +19,11 @@
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/netinfo": "^5.9.9",
+    "@react-native-firebase/analytics": "^10.3.1",
+    "@react-native-firebase/app": "^10.3.0",
+    "@react-native-firebase/crashlytics": "^10.3.1",
+    "@react-native-firebase/iid": "^10.3.1",
+    "@react-native-firebase/messaging": "^10.3.1",
     "@react-navigation/bottom-tabs": "^5.11.2",
     "@react-navigation/drawer": "^5.11.4",
     "@react-navigation/native": "^5.8.10",

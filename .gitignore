@@ -61,3 +61,8 @@ buck-out/
 # others
 src/env.js
 .ignore_*
+
+# GoogleServices
+GoogleService-Info.plist
+GoogleService-Info-*.plist
+google-services.json
