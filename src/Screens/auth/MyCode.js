@@ -1,15 +1,30 @@
 import React from 'react';
+import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { useWindowDimensions } from 'react-native';
 import { Text } from 'react-native-paper';
 import QRCode from 'react-native-qrcode-svg';
 import CenteredSurface from 'components/CenteredSurface';
 
+function mapStates ({ authUser }) {
+  return { authUser };
+}
+
 function MyCode () {
+  const { authUser } = useFluxibleStore(mapStates);
   const { width } = useWindowDimensions();
+  const { id, profilePicture, firstName, middleName, surname } = authUser;
+
+  const codeValue = JSON.stringify({
+    id,
+    profilePicture,
+    firstName,
+    middleName,
+    surname
+  });
 
   return (
     <CenteredSurface containerStyle={{ alignItems: 'center' }}>
-      <QRCode value="12313123" size={width * 0.7} />
+      <QRCode value={codeValue} size={width * 0.7} />
       <Text style={{ textAlign: 'center', marginTop: 30 }}>
         Tell your peers and network to scan the QR code above using their Quaint account.
       </Text>

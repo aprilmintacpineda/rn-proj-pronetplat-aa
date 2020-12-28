@@ -1,6 +1,7 @@
 import 'customAnimations';
 
 import { useNetInfo } from '@react-native-community/netinfo';
+import crashlytics from '@react-native-firebase/crashlytics';
 import iid from '@react-native-firebase/iid';
 import messaging from '@react-native-firebase/messaging';
 import {
@@ -74,7 +75,14 @@ function App () {
       const { AUTHORIZED, PROVISIONAL } = messaging.AuthorizationStatus;
       const wasAllowed = authStatus === AUTHORIZED || authStatus === PROVISIONAL;
 
+      const token = await iid().getToken();
+      await crashlytics().setUserId(token);
+      console.log('token', token);
+
       if (!wasAllowed) return;
+
+      const openedNotif = await messaging().getInitialNotification();
+      console.log('openedNotif', openedNotif);
 
       messaging().onMessage(async remoteMessage => {
         console.log('remoteMessage', remoteMessage);
@@ -83,12 +91,6 @@ function App () {
       messaging().onTokenRefresh(async newToken => {
         console.log('newToken', newToken);
       });
-
-      const openedNotif = await messaging().getInitialNotification();
-      console.log('openedNotif', openedNotif);
-
-      const token = await iid().getToken();
-      console.log('token', token);
     })();
   }, []);
 

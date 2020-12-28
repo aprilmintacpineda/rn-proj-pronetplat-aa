@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 import MainStackNavigation from './MainStackNavigation';
 import { logout } from 'fluxible/actions/user';
+import FirstSetup from 'Screens/auth/FirstSetup';
 
 const Drawer = createDrawerNavigator();
 
@@ -60,9 +61,13 @@ function MainDrawerNavigation ({ navigation: { replace } }) {
 
   const drawerType = width >= 768 ? 'permanent' : 'slide';
 
+  const initialRouteName = authUser.completedFirstSetupAt
+    ? 'MainStackNavigation'
+    : 'FirstSetup';
+
   return (
     <Drawer.Navigator
-      initialRouteName="MainStackNavigation"
+      initialRouteName={initialRouteName}
       drawerType={drawerType}
       drawerContent={drawerContent}>
       <Drawer.Screen
@@ -71,6 +76,13 @@ function MainDrawerNavigation ({ navigation: { replace } }) {
         options={{
           title: 'Dashboard',
           drawerIcon: props => <MaterialCommunityIcons name="view-dashboard" {...props} />
+        }}
+      />
+      <Drawer.Screen
+        name="FirstSetup"
+        component={FirstSetup}
+        options={{
+          isHidden: true
         }}
       />
     </Drawer.Navigator>

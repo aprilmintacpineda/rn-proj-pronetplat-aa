@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
+import { Divider, Headline, Subheading } from 'react-native-paper';
 import FormContainer from 'components/FormContainer';
 import { FormContext } from 'components/FormWithContext';
 import Button from 'components/FormWithContext/Button';
@@ -24,6 +25,9 @@ function AuthenticateForm ({ onLogin }) {
   return (
     <ScrollView>
       <FormContainer>
+        <Headline>Quaint</Headline>
+        <Subheading>Tired of calling cards? We got you.</Subheading>
+        <Divider style={{ marginVertical: 20 }} />
         <TextInput field="email" type="email" />
         <TextInput field="password" type="password" />
         <SubmitButton>Submit</SubmitButton>

@@ -1,6 +1,5 @@
 import analytics from '@react-native-firebase/analytics';
 import crashlytics from '@react-native-firebase/crashlytics';
-import { store } from 'fluxible-js';
 import { navigationRef } from 'App';
 
 export async function logScreenView () {
@@ -32,11 +31,11 @@ export async function logEvent ({ eventName, params }) {
 
 export async function logLogin () {
   crashlytics().log('User logged in');
-  await Promise.all([crashlytics().setUserId(store.authUser.id), analytics().logLogin()]);
+  await analytics().logLogin({ method: 'embedded' });
 }
 
 export async function logLogout () {
   crashlytics().log('User logged out');
 
-  await Promise.all([crashlytics().setUserId(null), analytics().logEvent('logout')]);
+  await analytics().logEvent('logout');
 }

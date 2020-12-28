@@ -1,6 +1,7 @@
 import { TransitionPresets, createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
+import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import header from './header';
 import MainDrawerNavigation from './MainDrawerNavigation';
 import ForgotPassword from 'Screens/guest/ForgotPassword';
@@ -20,10 +21,17 @@ const loginChangeStackOptions = {
   headerShown: false
 };
 
-function GuestStackNavigation () {
+function mapStates ({ authUser }) {
+  return { authUser };
+}
+
+function IndexStackNavigator () {
+  const { authUser } = useFluxibleStore(mapStates);
+  const initialRouteName = authUser ? 'LoggedInStack' : 'Login';
+
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName={initialRouteName}
       screenOptions={screenOptions}
       headerMode="screen">
       <Stack.Screen name="Login" component={Login} options={loginChangeStackOptions} />
@@ -42,4 +50,4 @@ function GuestStackNavigation () {
   );
 }
 
-export default React.memo(GuestStackNavigation);
+export default React.memo(IndexStackNavigator);

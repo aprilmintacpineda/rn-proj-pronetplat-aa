@@ -177,7 +177,7 @@ function useForm ({
 
       if (onSubmitSuccess) {
         onSubmitSuccess({
-          data: responseData,
+          responseData,
           formValues,
           formContext,
           setContext,
