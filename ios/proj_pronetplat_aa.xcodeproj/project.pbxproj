@@ -276,7 +276,6 @@
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
-				7CE9B210259851BC0034A8AE /* Clean GoogleServices-Info.plist */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				79E4E26DAD7546B7D0C398F4 /* [CP] Copy Pods Resources */,
 				3F4DF98A0690BEC3EA852153 /* [CP-User] [RNFB] Core Configuration */,
@@ -649,24 +648,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cp \"GoogleService-Info-$TARGET_ENV.plist\" \"proj_pronetplat_aa/GoogleService-Info.plist\"\necho \"Copied GoogleService-Info-$TARGET_ENV.plist to proj_pronetplat_aa/GoogleService-Info.plist\"\n";
-		};
-		7CE9B210259851BC0034A8AE /* Clean GoogleServices-Info.plist */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Clean GoogleServices-Info.plist";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "rm \"proj_pronetplat_aa/GoogleService-Info.plist\"\n";
 		};
 		7FB34975AD8AFCE7C81EA799 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
