@@ -1,14 +1,10 @@
 import React from 'react';
 
-import { useTheme } from 'react-native-paper';
 import Animatable from './Animatable';
 import RNVectorIcon from './RNVectorIcon';
+import { paperTheme } from 'theme';
 
 function AnimatedSuccessIcon ({ size = 20 }) {
-  const {
-    colors: { primary }
-  } = useTheme();
-
   return (
     <Animatable
       style={{ justifyContent: 'center', alignItems: 'center' }}
@@ -18,7 +14,7 @@ function AnimatedSuccessIcon ({ size = 20 }) {
         provider="Ionicons"
         name="ios-checkmark-circle-outline"
         size={size}
-        color={primary}
+        color={paperTheme.colors.primary}
       />
     </Animatable>
   );

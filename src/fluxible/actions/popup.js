@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import AnimatedErrorIcon from 'components/AnimatedErrorIcon';
 import AnimatedSuccessIcon from 'components/AnimatedSuccessIcon';
+import Button from 'components/Button';
 
 export function showPopup (body) {
   updateStore({
@@ -42,11 +43,20 @@ export function showSuccessPopup ({ message }) {
   );
 }
 
-export function showErrorPopup ({ message }) {
+export function showErrorPopup ({ message, buttons = null }) {
   showPopup(
     <View style={{ margin: 20 }}>
       <AnimatedErrorIcon size={100} />
       <Text style={{ marginTop: 20, textAlign: 'center' }}>{message}</Text>
+      {buttons && (
+        <View style={{ marginTop: 20 }}>
+          {buttons.map(({ label, ...btnProps }, i) => (
+            <Button key={`${label}-${i}`} {...btnProps}>
+              {label}
+            </Button>
+          ))}
+        </View>
+      )}
     </View>
   );
 }

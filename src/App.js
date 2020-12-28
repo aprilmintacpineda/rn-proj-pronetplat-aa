@@ -4,44 +4,25 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import crashlytics from '@react-native-firebase/crashlytics';
 import iid from '@react-native-firebase/iid';
 import messaging from '@react-native-firebase/messaging';
-import {
-  NavigationContainer,
-  DefaultTheme as navigationDefaultTheme
-} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { KeyboardAvoidingView, Platform, StatusBar, View } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
-import {
-  DefaultTheme as paperDefaultTheme,
-  Provider as PaperProvider,
-  Text,
-  useTheme
-} from 'react-native-paper';
+import { Provider as PaperProvider, Text } from 'react-native-paper';
 
 import FullSafeAreaView from 'components/FullSafeAreaView';
 import { initStore } from 'fluxible/store/init';
 import { appMounted, logScreenView } from 'libs/logging';
 import IndexStackNavigator from 'navigations/IndexStackNavigator';
 import PopupManager from 'PopupManager';
+import { navigationTheme, paperTheme } from 'theme';
 
 export const navigationRef = React.createRef();
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
 });
-
-const paperTheme = {
-  ...paperDefaultTheme
-};
-
-const navigationTheme = {
-  ...navigationDefaultTheme,
-  colors: {
-    ...navigationDefaultTheme.colors,
-    primary: paperTheme.colors.primary
-  }
-};
 
 const avoidBehavior = Platform.select({
   android: 'height',
@@ -60,9 +41,6 @@ function mapStates ({ initComplete }) {
 function App () {
   const { initComplete } = useFluxibleStore(mapStates);
   const { isConnected, isInternetReachable } = useNetInfo();
-  const {
-    colors: { error }
-  } = useTheme();
 
   React.useEffect(() => {
     initStore();
@@ -116,7 +94,7 @@ function App () {
               behavior={avoidBehavior}
               keyboardVerticalOffset={avoidOffset}>
               {!isConnected || isInternetReachable === false ? (
-                <View style={{ backgroundColor: error, padding: 3 }}>
+                <View style={{ backgroundColor: paperTheme.colors.error, padding: 3 }}>
                   <Text style={{ color: '#fff' }}>No internet connection.</Text>
                 </View>
               ) : null}

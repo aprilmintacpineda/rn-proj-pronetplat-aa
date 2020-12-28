@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button as RNPButton } from 'react-native-paper';
 import { FormContext } from '.';
 import { navigationRef } from 'App';
+import Button from 'components/Button';
 
-function Button ({
+function FormButton ({
   children,
   onPress,
   to,
@@ -22,13 +22,13 @@ function Button ({
   );
 
   return (
-    <RNPButton
+    <Button
       disabled={disabled || disabledFromProps}
       onPress={handlePress}
       {...rnpButtonProps}>
       {children}
-    </RNPButton>
+    </Button>
   );
 }
 
-export default React.memo(Button);
+export default React.memo(FormButton);

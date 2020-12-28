@@ -1,15 +1,13 @@
 import React from 'react';
 import { Linking, Text, View } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { TouchableRipple } from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
-import TouchableButton from 'components/TouchableButton';
+import { paperTheme } from 'theme';
+
+const { primary, rippleColor } = paperTheme.colors.primary;
 
 function ContactDetailRow ({ type, value }) {
-  const {
-    colors: { primary }
-  } = useTheme();
-
   const iconSize = 20;
   let actionIcon = null;
 
@@ -54,9 +52,9 @@ function ContactDetailRow ({ type, value }) {
       }}>
       <Text style={{ fontSize: 16 }}>{value}</Text>
       <View style={{ backgroundColor: '#d0d1d5', borderRadius: 100, overflow: 'hidden' }}>
-        <TouchableButton onPress={send} style={{ padding: 10 }}>
+        <TouchableRipple onPress={send} style={{ padding: 10 }} rippleColor={rippleColor}>
           {actionIcon}
-        </TouchableButton>
+        </TouchableRipple>
       </View>
     </View>
   );

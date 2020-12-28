@@ -1,14 +1,10 @@
 import React from 'react';
 
-import { useTheme } from 'react-native-paper';
 import Animatable from './Animatable';
 import RNVectorIcon from './RNVectorIcon';
+import { paperTheme } from 'theme';
 
 function AnimatedErrorIcon ({ size = 20 }) {
-  const {
-    colors: { error }
-  } = useTheme();
-
   return (
     <Animatable
       style={{ justifyContent: 'center', alignItems: 'center' }}
@@ -18,7 +14,7 @@ function AnimatedErrorIcon ({ size = 20 }) {
         provider="Ionicons"
         name="ios-close-circle-outline"
         size={size}
-        color={error}
+        color={paperTheme.colors.error}
       />
     </Animatable>
   );

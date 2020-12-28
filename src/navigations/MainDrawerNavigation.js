@@ -18,7 +18,9 @@ function drawerContent (props) {
 
   const drawerItems = routes.map(({ key, name }, i) => {
     const { options } = descriptors[key];
-    const { title, drawerIcon } = options;
+    const { title, drawerIcon, isHidden } = options;
+
+    if (isHidden) return null;
 
     return (
       <RNPDrawer.Item
@@ -45,6 +47,10 @@ function drawerContent (props) {
   );
 }
 
+const screenOptions = {
+  swipeEnabled: false
+};
+
 function mapStates ({ authUser }) {
   return { authUser };
 }
@@ -69,7 +75,8 @@ function MainDrawerNavigation ({ navigation: { replace } }) {
     <Drawer.Navigator
       initialRouteName={initialRouteName}
       drawerType={drawerType}
-      drawerContent={drawerContent}>
+      drawerContent={drawerContent}
+      screenOptions={screenOptions}>
       <Drawer.Screen
         name="MainStackNavigation"
         component={MainStackNavigation}

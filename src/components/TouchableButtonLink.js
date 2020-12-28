@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-
-import TouchableButton from './TouchableButton';
+import { TouchableRipple } from 'react-native-paper';
+import { paperTheme } from 'theme';
 
 function TouchableButtonLink ({ to, params = null, children }) {
   const { navigate } = useNavigation();
@@ -10,7 +10,11 @@ function TouchableButtonLink ({ to, params = null, children }) {
     navigate(to, params);
   }, [to, params, navigate]);
 
-  return <TouchableButton onPress={onPress}>{children}</TouchableButton>;
+  return (
+    <TouchableRipple onPress={onPress} rippleColor={paperTheme.colors.rippleColor}>
+      {children}
+    </TouchableRipple>
+  );
 }
 
 export default React.memo(TouchableButtonLink);

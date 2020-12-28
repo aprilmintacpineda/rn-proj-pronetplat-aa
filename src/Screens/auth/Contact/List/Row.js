@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -8,12 +8,11 @@ import Animatable from 'components/Animatable';
 import TouchableButtonLink from 'components/TouchableButtonLink';
 import UserAvatar from 'components/UserAvatar';
 import { getFullName, renderContactTitle } from 'helpers/contact';
+import { paperTheme } from 'theme';
+
+const primary = paperTheme.colors.primary;
 
 function ContactListRow ({ index, ...contactData }) {
-  const {
-    colors: { primary }
-  } = useTheme();
-
   const { hasEmail, hasMobile, hasTelephone } = contactData;
   const fullName = getFullName(contactData);
   const delay = index % 10 * 50;
