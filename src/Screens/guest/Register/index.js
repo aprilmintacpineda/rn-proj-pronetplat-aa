@@ -26,6 +26,7 @@ const formOptions = {
   ignoreResponse: true,
   endPoint: '/register',
   onSubmitError: showRequestFailedPopup,
+  transformInput: ({ formValues: { retypePassword: _1, ...formValues } }) => formValues,
   onSubmitSuccess: async () => {
     showSuccessPopup({
       message:

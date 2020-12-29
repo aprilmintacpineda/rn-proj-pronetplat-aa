@@ -1,5 +1,7 @@
 const alias = require('./importAliases');
 
+const ignorePattern = '^_[0-9]+$';
+
 module.exports = {
   settings: {
     react: {
@@ -74,7 +76,14 @@ module.exports = {
     'no-useless-call': ['error'],
     'no-trailing-spaces': ['error'],
     'space-before-blocks': ['error', 'always'],
-    'no-unused-vars': ['error'],
+    'no-unused-vars': [
+      'error',
+      {
+        varsIgnorePattern: ignorePattern,
+        argsIgnorePattern: ignorePattern,
+        caughtErrorsIgnorePattern: ignorePattern
+      }
+    ],
     'no-floating-decimal': ['error'],
     'comma-dangle': ['error', 'never'],
     'array-bracket-spacing': ['error', 'never'],

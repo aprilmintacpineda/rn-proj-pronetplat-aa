@@ -13,11 +13,15 @@ import {
 import { openSettings, PERMISSIONS, requestMultiple } from 'react-native-permissions';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import File from 'classes/File';
 import Button from 'components/Button';
 import FormContainer from 'components/FormContainer';
 import UserAvatar from 'components/UserAvatar';
-import { showErrorPopup } from 'fluxible/actions/popup';
+import { showErrorPopup, showRequestFailedPopup } from 'fluxible/actions/popup';
+import { logout } from 'fluxible/actions/user';
 import useState from 'hooks/useState';
+import validate from 'libs/validate';
+import { xhr, uploadFileToSignedUrl } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
 const { primary, rippleColor } = paperTheme.colors;
@@ -57,7 +61,40 @@ function ChangeProfilePicture ({ onDone }) {
     hasUploaded: false
   });
 
-  const uploadPicture = React.useCallback(async () => {}, []);
+  const uploadPicture = React.useCallback(
+    async picture => {
+      try {
+        updateState({ isUploading: true });
+        const file = new File(picture);
+
+        if (validate(file.mimeType, ['options:image/jpeg,image/png'])) {
+          showErrorPopup({ message: 'Please select only JPG or PNG images.' });
+          return;
+        }
+
+        const response = await xhr('/change-profile-picture', {
+          method: 'post',
+          body: {
+            mimeType: file.mimeType
+          }
+        });
+
+        const { signedUrl } = await response.json();
+
+        await uploadFileToSignedUrl({
+          signedUrl,
+          file
+        });
+      } catch (error) {
+        console.log(error);
+        showRequestFailedPopup();
+        console.log(await error.text());
+      } finally {
+        updateState({ isUploading: false });
+      }
+    },
+    [updateState]
+  );
 
   const changeProfile = React.useCallback(async () => {
     modalRef.current.open();
@@ -98,8 +135,7 @@ function ChangeProfilePicture ({ onDone }) {
     result = await result;
     if (result.cancelled) return;
     uploadPicture(result);
-    updateState({ isUploading: true });
-  }, [updateState, uploadPicture]);
+  }, [uploadPicture]);
 
   const openCamera = React.useCallback(async () => {
     const results = await requestMultiple(cameraPermissions);
@@ -138,8 +174,7 @@ function ChangeProfilePicture ({ onDone }) {
     result = await result;
     if (result.cancelled) return;
     uploadPicture(result);
-    updateState({ isUploading: true });
-  }, [updateState, uploadPicture]);
+  }, [uploadPicture]);
 
   return (
     <ScrollView>
@@ -165,6 +200,7 @@ function ChangeProfilePicture ({ onDone }) {
         <Button onPress={onDone} disabled={isUploading}>
           {!hasUploaded ? 'Skip' : 'Done'}
         </Button>
+        <Button onPress={logout}>Logout</Button>
       </View>
       <Portal>
         <Modalize ref={modalRef} adjustToContentHeight handlePosition="inside">
