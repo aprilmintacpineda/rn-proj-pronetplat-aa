@@ -18,7 +18,6 @@ import Button from 'components/Button';
 import FormContainer from 'components/FormContainer';
 import UserAvatar from 'components/UserAvatar';
 import { showErrorPopup, showRequestFailedPopup } from 'fluxible/actions/popup';
-import { logout } from 'fluxible/actions/user';
 import useState from 'hooks/useState';
 import validate from 'libs/validate';
 import { xhr, uploadFileToSignedUrl } from 'libs/xhr';
@@ -200,7 +199,6 @@ function ChangeProfilePicture ({ onDone }) {
         <Button onPress={onDone} disabled={isUploading}>
           {!hasUploaded ? 'Skip' : 'Done'}
         </Button>
-        <Button onPress={logout}>Logout</Button>
       </View>
       <Portal>
         <Modalize ref={modalRef} adjustToContentHeight handlePosition="inside">
