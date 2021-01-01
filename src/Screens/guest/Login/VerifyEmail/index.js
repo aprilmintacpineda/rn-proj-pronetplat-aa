@@ -10,7 +10,8 @@ const formOptions = {
     verificationCode: ''
   },
   validators: {
-    verificationCode: ({ verificationCode }) => validate(verificationCode, ['required'])
+    verificationCode: ({ verificationCode }) =>
+      validate(verificationCode, ['required', 'maxLength:20'])
   },
   onSubmitError: ({ error }) => {
     switch (error.status) {

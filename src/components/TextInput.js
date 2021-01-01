@@ -51,6 +51,7 @@ function TextInput ({
   type,
   onPress = null,
   onChangeText,
+  disabled,
   ..._textInputProps
 }) {
   const hasError = Boolean(error);
@@ -77,9 +78,10 @@ function TextInput ({
           editable={!onPress}
           onFocus={onFocus}
           onChangeText={onChangeText}
+          disabled={disabled}
           {...textInputProps}
         />
-        {onPress && (
+        {!disabled && onPress && (
           <TouchableWithoutFeedback onPress={onPress}>
             <View
               style={{

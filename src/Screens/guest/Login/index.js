@@ -43,7 +43,6 @@ function Login ({ navigation: { replace } }) {
 
   const onVerified = React.useCallback(
     ({ authUser, authToken }) => {
-      console.log('onVerified', authUser, authToken);
       login({ authUser, authToken });
       replace('LoggedInStack');
     },

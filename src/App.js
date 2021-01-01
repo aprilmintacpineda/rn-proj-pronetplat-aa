@@ -1,6 +1,6 @@
 import 'customAnimations';
+import 'setDefaults';
 
-import { useNetInfo } from '@react-native-community/netinfo';
 import crashlytics from '@react-native-firebase/crashlytics';
 import iid from '@react-native-firebase/iid';
 import messaging from '@react-native-firebase/messaging';
@@ -13,6 +13,7 @@ import { Provider as PaperProvider, Text } from 'react-native-paper';
 
 import FullSafeAreaView from 'components/FullSafeAreaView';
 import { initStore } from 'fluxible/store/init';
+import useHasInternet from 'hooks/useHasInternet';
 import { appMounted, logScreenView } from 'libs/logging';
 import IndexStackNavigator from 'navigations/IndexStackNavigator';
 import PopupManager from 'PopupManager';
@@ -22,6 +23,19 @@ export const navigationRef = React.createRef();
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
+});
+
+messaging().onMessage(async remoteMessage => {
+  console.log('onMessage', remoteMessage);
+});
+
+messaging().onTokenRefresh(async newToken => {
+  await crashlytics().setUserId(newToken);
+  console.log('onTokenRefresh', newToken);
+});
+
+messaging().onNotificationOpenedApp(async remoteMessage => {
+  console.log('onNotificationOpenedApp', remoteMessage);
 });
 
 const avoidBehavior = Platform.select({
@@ -40,35 +54,15 @@ function mapStates ({ initComplete }) {
 
 function App () {
   const { initComplete } = useFluxibleStore(mapStates);
-  const { isConnected, isInternetReachable } = useNetInfo();
+  const hasInternet = useHasInternet();
 
   React.useEffect(() => {
     initStore();
     appMounted();
-  }, []);
 
-  React.useEffect(() => {
     (async () => {
-      const authStatus = await messaging().requestPermission();
-      const { AUTHORIZED, PROVISIONAL } = messaging.AuthorizationStatus;
-      const wasAllowed = authStatus === AUTHORIZED || authStatus === PROVISIONAL;
-
       const token = await iid().getToken();
       await crashlytics().setUserId(token);
-      console.log('token', token);
-
-      if (!wasAllowed) return;
-
-      const openedNotif = await messaging().getInitialNotification();
-      console.log('openedNotif', openedNotif);
-
-      messaging().onMessage(async remoteMessage => {
-        console.log('remoteMessage', remoteMessage);
-      });
-
-      messaging().onTokenRefresh(async newToken => {
-        console.log('newToken', newToken);
-      });
     })();
   }, []);
 
@@ -93,7 +87,7 @@ function App () {
               style={{ flex: 1 }}
               behavior={avoidBehavior}
               keyboardVerticalOffset={avoidOffset}>
-              {!isConnected || isInternetReachable === false ? (
+              {!hasInternet ? (
                 <View style={{ backgroundColor: paperTheme.colors.error, padding: 3 }}>
                   <Text style={{ color: '#fff' }}>No internet connection.</Text>
                 </View>

@@ -10,17 +10,20 @@ const formOptions = {
     firstName: '',
     middleName: '',
     surname: '',
-    gender: ''
+    gender: '',
+    jobTitle: '',
+    company: ''
   },
   validators: {
     firstName: ({ firstName }) => validate(firstName, ['required', 'maxLength:255']),
     middleName: ({ middleName }) => validate(middleName, ['maxLength:255']),
     surname: ({ surname }) => validate(surname, ['required', 'maxLength:255']),
-    gender: ({ gender }) => validate(gender, ['required', 'options:male,female'])
+    gender: ({ gender }) => validate(gender, ['required', 'options:male,female']),
+    jobTitle: ({ jobTitle }) => validate(jobTitle, ['required', 'maxLength:255']),
+    company: ({ company }) => validate(company, ['maxLength:255'])
   },
   onSubmitError: showRequestFailedPopup,
   onSubmitSuccess: ({ responseData: { authUser, authToken } }) => {
-    console.log(authUser, authToken);
     updateStore({ authUser, authToken });
   },
   stayDisabledOnSuccess: true,

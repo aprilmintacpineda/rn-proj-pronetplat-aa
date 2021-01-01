@@ -1,3 +1,4 @@
+import iid from '@react-native-firebase/iid';
 import React from 'react';
 import AuthenticateForm from './AuthenticateForm';
 import FormWithContext from 'components/FormWithContext';
@@ -14,6 +15,14 @@ const formOptions = {
     password: ({ password }) => validate(password, ['required', 'maxLength:30'])
   },
   endPoint: '/login',
+  transformInput: async ({ formValues }) => {
+    const deviceToken = await iid().getToken();
+
+    return {
+      deviceToken,
+      ...formValues
+    };
+  },
   onSubmitError: ({ error }) => {
     if (error.status === 403)
       showErrorPopup({ message: 'Inccorect email/password combination.' });

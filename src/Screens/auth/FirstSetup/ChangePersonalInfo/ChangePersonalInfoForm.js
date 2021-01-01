@@ -29,6 +29,8 @@ function ChangePersonalInfoForm ({ onSave }) {
         <TextInput field="middleName" labelSuffix="(Optional)" />
         <TextInput field="surname" />
         <SelectOptions field="gender" options={genderOptions} />
+        <TextInput field="company" labelSuffix="(Optional)" />
+        <TextInput field="jobTitle" labelSuffix="(e.g., Software Engineer)" />
       </FormContainer>
       <View style={{ margin: 20 }}>
         <SubmitButton>Save</SubmitButton>

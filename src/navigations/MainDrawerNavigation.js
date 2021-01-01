@@ -1,4 +1,6 @@
+import messaging from '@react-native-firebase/messaging';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { updateStore } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { Drawer as RNPDrawer } from 'react-native-paper';
@@ -10,6 +12,10 @@ import { logout } from 'fluxible/actions/user';
 import FirstSetup from 'Screens/auth/FirstSetup';
 
 const Drawer = createDrawerNavigator();
+
+function clearPendingConnections () {
+  updateStore({ pendingConnections: [] });
+}
 
 function drawerContent (props) {
   const { state, descriptors, navigation } = props;
@@ -39,6 +45,10 @@ function drawerContent (props) {
     <>
       {drawerItems}
       <RNPDrawer.Item
+        onPress={clearPendingConnections}
+        label="Clear Pending Connections"
+      />
+      <RNPDrawer.Item
         onPress={logout}
         label="Logout"
         icon={props => <AntDesign name="logout" {...props} />}
@@ -62,6 +72,15 @@ function MainDrawerNavigation ({ navigation: { replace } }) {
   React.useEffect(() => {
     if (!authUser) replace('Login');
   }, [authUser, replace]);
+
+  React.useEffect(() => {
+    (async () => {
+      const openedNotif = await messaging().getInitialNotification();
+      console.log('openedNotif', openedNotif);
+
+      await messaging().requestPermission();
+    })();
+  }, []);
 
   if (!authUser) return null;
 

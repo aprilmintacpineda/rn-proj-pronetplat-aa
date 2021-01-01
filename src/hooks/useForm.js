@@ -169,7 +169,7 @@ function useForm ({
         }
 
         const body = transformInput
-          ? transformInput({ formValues, formContext })
+          ? await transformInput({ formValues, formContext })
           : formValues;
         const response = await xhr(path, { body, method });
         if (!ignoreResponse) responseData = await response.json();

@@ -2,8 +2,20 @@ import analytics from '@react-native-firebase/analytics';
 import crashlytics from '@react-native-firebase/crashlytics';
 import { navigationRef } from 'App';
 
+function getCurrentRoute () {
+  let currentRoute = 'unknown';
+
+  try {
+    currentRoute = navigationRef.current.getCurrentRoute().name;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return currentRoute;
+}
+
 export async function logScreenView () {
-  const currentRouteName = navigationRef.current.getCurrentRoute().name;
+  const currentRouteName = getCurrentRoute();
 
   crashlytics().log(`Navigated to ${currentRouteName}`);
 
@@ -19,7 +31,7 @@ export async function appMounted () {
 }
 
 export async function logEvent ({ eventName, params }) {
-  const currentRouteName = navigationRef.current.getCurrentRoute().name;
+  const currentRouteName = getCurrentRoute();
 
   crashlytics().log(`Event ${eventName} on route ${currentRouteName}`);
 

@@ -19,7 +19,8 @@ const formOptions = {
     retypeNewPassword: ['newPassword']
   },
   validators: {
-    confirmationCode: ({ confirmationCode }) => validate(confirmationCode, ['required']),
+    confirmationCode: ({ confirmationCode }) =>
+      validate(confirmationCode, ['required', 'maxLength:20']),
     newPassword: ({ newPassword, retypeNewPassword }) =>
       validate(newPassword, ['required', `matches:${retypeNewPassword},passwords`]),
     retypeNewPassword: ({ retypeNewPassword, newPassword }) =>

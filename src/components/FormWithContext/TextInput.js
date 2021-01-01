@@ -4,7 +4,7 @@ import RNPTextInput from 'components/TextInput';
 
 import { camelToTitleCase } from 'libs/strings';
 
-function TextInput ({ field, labelSuffix, ...textInputProps }) {
+function TextInput ({ field, label: _label = null, labelSuffix, ...textInputProps }) {
   const { formValues, formErrors, disabled, onChangeHandlers } = React.useContext(
     FormContext
   );
@@ -12,7 +12,7 @@ function TextInput ({ field, labelSuffix, ...textInputProps }) {
   const error = formErrors[field];
   const value = formValues[field];
   const onChange = onChangeHandlers[field];
-  let label = camelToTitleCase(field);
+  let label = _label || camelToTitleCase(field);
 
   if (labelSuffix) label += ` ${labelSuffix}`;
 

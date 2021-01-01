@@ -10,7 +10,7 @@ import UserAvatar from 'components/UserAvatar';
 import { getFullName, renderContactTitle } from 'helpers/contact';
 import { paperTheme } from 'theme';
 
-const primary = paperTheme.colors.primary;
+const { success, disabled } = paperTheme.colors;
 
 function ContactListRow ({ index, ...contactData }) {
   const { hasEmail, hasMobile, hasTelephone } = contactData;
@@ -31,16 +31,16 @@ function ContactListRow ({ index, ...contactData }) {
             {renderContactTitle(contactData)}
             <View style={{ flexDirection: 'row', marginTop: 3 }}>
               <View style={{ marginRight: 3 }}>
-                <Entypo name="email" size={12} color={hasEmail ? primary : '#c9c7c7'} />
+                <Entypo name="email" size={12} color={hasEmail ? success : disabled} />
               </View>
               <View style={{ marginRight: 3 }}>
-                <Entypo name="mobile" size={12} color={hasMobile ? primary : '#c9c7c7'} />
+                <Entypo name="mobile" size={12} color={hasMobile ? success : disabled} />
               </View>
               <View style={{ marginRight: 3 }}>
                 <MaterialCommunityIcons
                   name="phone-classic"
                   size={12}
-                  color={hasTelephone ? primary : '#c9c7c7'}
+                  color={hasTelephone ? success : disabled}
                 />
               </View>
             </View>

@@ -82,7 +82,6 @@ function ContactProfile ({ route: { params: contactData } }) {
 
     data.forEach(contactData => {
       const { type } = contactData;
-
       types[type].data.push(<ContactDetailRow key={contactData.id} {...contactData} />);
     });
 
@@ -127,7 +126,9 @@ function ContactProfile ({ route: { params: contactData } }) {
           <UserAvatar {...contactData} size={100} />
           <View style={{ marginTop: 15 }}>
             <Headline style={{ textAlign: 'center' }}>{fullName}</Headline>
-            {renderContactTitle(contactData, { justifyContent: 'center' })}
+            <View style={{ alignItems: 'center' }}>
+              {renderContactTitle(contactData)}
+            </View>
           </View>
         </View>
         <Text style={{ textAlign: 'center', marginTop: 15, color: 'gray' }}>{bio}</Text>

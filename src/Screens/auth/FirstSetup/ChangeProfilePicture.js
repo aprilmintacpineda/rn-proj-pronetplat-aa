@@ -24,6 +24,7 @@ import { xhr, uploadFileToSignedUrl } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
 const { primary, rippleColor } = paperTheme.colors;
+
 const modalButtonWrapperStyles = {
   borderRadius: 100,
   margin: 10,
@@ -31,6 +32,7 @@ const modalButtonWrapperStyles = {
   borderColor: 'transparent',
   overflow: 'hidden'
 };
+
 const modalButtonContainerStyles = {
   height: 100,
   width: 100,
@@ -38,6 +40,7 @@ const modalButtonContainerStyles = {
   justifyContent: 'center',
   alignItems: 'center'
 };
+
 const modalButtonLabelStyles = { color: primary, fontWeight: 'bold' };
 
 const cameraPermissions = Platform.select({
@@ -87,7 +90,6 @@ function ChangeProfilePicture ({ onDone }) {
       } catch (error) {
         console.log(error);
         showRequestFailedPopup();
-        console.log(await error.text());
       } finally {
         updateState({ isUploading: false });
       }
@@ -142,8 +144,6 @@ function ChangeProfilePicture ({ onDone }) {
     const wasAllowed = !Object.keys(results).find(
       permission => results[permission].toLowerCase() !== 'granted'
     );
-
-    console.log(wasAllowed);
 
     if (!wasAllowed) {
       modalRef.current.close();

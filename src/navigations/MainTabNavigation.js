@@ -2,16 +2,19 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
 
 import ContactList from 'Screens/auth/Contact/List';
 import MyCode from 'Screens/auth/MyCode';
+import PendingConnections from 'Screens/auth/PendingConnections';
 import ScanCode from 'Screens/auth/ScanCode';
 
 function MainTabNavigation () {
   return (
     <Tab.Navigator
+      lazy={false}
       tabBarOptions={{
         labelPosition: 'below-icon',
         keyboardHidesTabBar: true
@@ -39,6 +42,14 @@ function MainTabNavigation () {
         }}
         name="ScanCode"
         component={ScanCode}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: props => <MaterialCommunityIcons name="av-timer" {...props} />,
+          tabBarLabel: 'Pending'
+        }}
+        name="PendingConnections"
+        component={PendingConnections}
       />
     </Tab.Navigator>
   );
