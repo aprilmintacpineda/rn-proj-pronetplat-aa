@@ -11,7 +11,7 @@ import { paperTheme } from 'theme';
 
 const { error, rippleColor, success } = paperTheme.colors;
 
-function PendingConnectionRow ({ index, ...contactData }) {
+function PendingContactRequestRow ({ index, ...contactData }) {
   const fullName = getFullName(contactData);
   const hasInternet = useHasInternet();
   const { status, id } = contactData;
@@ -22,11 +22,11 @@ function PendingConnectionRow ({ index, ...contactData }) {
   });
 
   const isInitial = status === 'initial';
-  const isConnecting = status === 'connecting' || isInitial;
+  const isConnecting = status === 'sending' || isInitial;
   const isError = status === 'error';
   const isSuccess = status === 'success';
 
-  const connect = React.useCallback(() => {
+  const sendContactRequest = React.useCallback(() => {
     addToContact(contactData);
   }, [contactData]);
 
@@ -35,14 +35,14 @@ function PendingConnectionRow ({ index, ...contactData }) {
 
     updateStore({
       pendingContactRequests: store.pendingContactRequests.filter(
-        pendingCOnnection => pendingCOnnection.id !== id
+        pendingContactRequest => pendingContactRequest.id !== id
       )
     });
   }, [isSuccess, id]);
 
   React.useEffect(() => {
     if (isInitial) {
-      connect();
+      sendContactRequest();
     } else if (isSuccess) {
       setTimeout(() => {
         setAnimation({
@@ -51,7 +51,7 @@ function PendingConnectionRow ({ index, ...contactData }) {
         });
       }, 2000);
     }
-  }, [isInitial, isSuccess, connect]);
+  }, [isInitial, isSuccess, sendContactRequest]);
 
   return (
     <Animatable animation={animation} delay={delay} onAnimationEnd={onAnimationEnd}>
@@ -77,7 +77,7 @@ function PendingConnectionRow ({ index, ...contactData }) {
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Ionicons name="checkmark-circle-outline" size={15} color={success} />
                   <Text style={{ color: success, marginLeft: 3 }}>
-                    Connection request sent
+                    Contact request request sent
                   </Text>
                 </View>
               </Animatable>
@@ -86,7 +86,7 @@ function PendingConnectionRow ({ index, ...contactData }) {
           {isError ? (
             <View style={{ flexDirection: 'row' }}>
               <View style={{ borderRadius: 100, overflow: 'hidden' }}>
-                <TouchableRipple onPress={connect} rippleColor={rippleColor}>
+                <TouchableRipple onPress={sendContactRequest} rippleColor={rippleColor}>
                   <Ionicons name="ios-refresh-circle-outline" size={35} />
                 </TouchableRipple>
               </View>
@@ -100,4 +100,4 @@ function PendingConnectionRow ({ index, ...contactData }) {
   );
 }
 
-export default React.memo(PendingConnectionRow);
+export default React.memo(PendingContactRequestRow);

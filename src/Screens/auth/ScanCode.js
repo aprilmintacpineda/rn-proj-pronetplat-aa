@@ -13,12 +13,12 @@ function addToPendingContactRequests (event) {
 
   if (targetUser.id === store.authUser.id) return;
 
-  const pendingConnection = store.pendingContactRequests.find(
+  const pendingContactRequest = store.pendingContactRequests.find(
     ({ id }) => targetUser.id === id
   );
 
-  if (pendingConnection) {
-    if (pendingConnection.status === 'error') addToContact(pendingConnection);
+  if (pendingContactRequest) {
+    if (pendingContactRequest.status === 'error') addToContact(pendingContactRequest);
     return;
   }
 

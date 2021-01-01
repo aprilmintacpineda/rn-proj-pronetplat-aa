@@ -40,11 +40,11 @@ export async function addToContact (targetContact) {
   const { id: targetId, status } = targetContact;
   const fullName = getFullName(targetContact);
 
-  if (status === 'connecting') return;
+  if (status === 'sending') return;
 
   try {
     Toast.show(`Sending contact request to ${fullName}`);
-    setPendingContactRequestStatus({ targetId, status: 'connecting' });
+    setPendingContactRequestStatus({ targetId, status: 'sending' });
     await xhr(`/add-to-contacts/${targetId}`, { method: 'post' });
     Toast.show(`Successfully sent contact request to ${fullName}`);
     setPendingContactRequestStatus({ targetId, status: 'success' });

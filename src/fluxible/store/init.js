@@ -1,5 +1,6 @@
 import { initializeStore, updateStore } from 'fluxible-js';
 import RNSInfo from 'react-native-sensitive-info';
+import { STAGE } from 'env';
 
 export function getInitialStore () {
   return {
@@ -16,8 +17,8 @@ export function getInitialStore () {
 }
 
 const options = {
-  sharedPreferencesName: 'connectExpressSharePreferences',
-  keychainService: 'connectExpressKeychainService'
+  sharedPreferencesName: `com.quaint.${STAGE}.secured-data`,
+  keychainService: `com.quaint.${STAGE}.secured-data`
 };
 
 const asyncStorage = {
