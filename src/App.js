@@ -5,12 +5,14 @@ import crashlytics from '@react-native-firebase/crashlytics';
 import iid from '@react-native-firebase/iid';
 import messaging from '@react-native-firebase/messaging';
 import { NavigationContainer } from '@react-navigation/native';
+import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
-import { KeyboardAvoidingView, Platform, StatusBar, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, StatusBar, View, AppState } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 
+import Sound from 'react-native-sound';
 import FullSafeAreaView from 'components/FullSafeAreaView';
 import { initStore } from 'fluxible/store/init';
 import useHasInternet from 'hooks/useHasInternet';
@@ -21,12 +23,25 @@ import { navigationTheme, paperTheme } from 'theme';
 
 export const navigationRef = React.createRef();
 
+const alertSound = new Sound('alert.mp3', Sound.MAIN_BUNDLE, error => {
+  console.log('failed to preload alertSound', error);
+});
+
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
 });
 
 messaging().onMessage(async remoteMessage => {
   console.log('onMessage', remoteMessage);
+
+  if (!store.authUser || AppState.currentState !== 'active') return;
+
+  const { type } = remoteMessage.data || {};
+
+  if (type === 'contact_request') {
+    alertSound.play();
+    updateStore({ contactRequestNum: Number(store.contactRequestNum) + 1 });
+  }
 });
 
 messaging().onTokenRefresh(async newToken => {
