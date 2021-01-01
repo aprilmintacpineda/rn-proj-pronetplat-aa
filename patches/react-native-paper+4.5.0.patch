@@ -1,3 +1,25 @@
+diff --git a/node_modules/react-native-paper/src/components/Avatar/AvatarImage.tsx b/node_modules/react-native-paper/src/components/Avatar/AvatarImage.tsx
+index 3b71389..a874e2b 100644
+--- a/node_modules/react-native-paper/src/components/Avatar/AvatarImage.tsx
++++ b/node_modules/react-native-paper/src/components/Avatar/AvatarImage.tsx
+@@ -58,6 +58,8 @@ const AvatarImage = ({
+   source,
+   style,
+   theme,
++  onError,
++  onLoad,
+   ...rest
+ }: Props) => {
+   const { colors } = theme;
+@@ -82,6 +84,8 @@ const AvatarImage = ({
+         <Image
+           source={source}
+           style={{ width: size, height: size, borderRadius: size / 2 }}
++          onError={onError}
++          onLoad={onLoad}
+         />
+       )}
+     </View>
 diff --git a/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx b/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
 index 5c90171..71befdb 100644
 --- a/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx

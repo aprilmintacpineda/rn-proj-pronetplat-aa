@@ -1,0 +1,102 @@
+diff --git a/node_modules/react-native-push-notification-popup/src/views/DefaultPopup.js b/node_modules/react-native-push-notification-popup/src/views/DefaultPopup.js
+index 86b96d3..04e3ef5 100644
+--- a/node_modules/react-native-push-notification-popup/src/views/DefaultPopup.js
++++ b/node_modules/react-native-push-notification-popup/src/views/DefaultPopup.js
+@@ -2,16 +2,10 @@ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+ import { Animated, View, Text, Image, Dimensions, Platform, StatusBar, StyleSheet, PanResponder, TouchableWithoutFeedback } from 'react-native';
+ 
+-import { isIphoneX } from '../utils';
+ 
+ const { width: deviceWidth } = Dimensions.get('window');
+ 
+-const CONTAINER_MARGIN_TOP = (
+-  Platform.OS === 'ios'
+-    ?
+-    isIphoneX() ? 44 : 20
+-    :
+-    StatusBar.currentHeight + 10);  // Just to add a bit more padding
++const CONTAINER_MARGIN_TOP = 5;  // Just to add a bit more padding
+ 
+ const slideOffsetYToTranslatePixelMapping = {
+   inputRange: [0, 1],
+@@ -120,7 +114,7 @@ export default class DefaultPopup extends Component {
+     } else {
+       // 2. If not leaving screen -> slide back to original position
+       this.clearTimerIfExist();
+-      Animated.timing(containerDragOffsetY, { toValue: 0, duration: 200, useNativeDriver: false })
++      Animated.timing(containerDragOffsetY, { toValue: 0, duration: 200, useNativeDriver: true })
+         .start(({finished}) => {
+           // Reset a new countdown
+           this.countdownToSlideOut();
+@@ -129,10 +123,10 @@ export default class DefaultPopup extends Component {
+   }
+   
+   renderPopupContent = () => {
+-    const { appIconSource, appTitle, timeText, title, body } = this.state;
++    const { appIconSource, appTitle, timeText, title, body, avatarUri, avatarLabel } = this.state;
+     const { renderPopupContent } = this.props;
+     if (renderPopupContent) {
+-      return renderPopupContent({ appIconSource, appTitle, timeText, title, body });
++      return renderPopupContent({ appIconSource, appTitle, timeText, title, body, avatarUri, avatarLabel });
+     }
+ 
+     return (
+@@ -192,7 +186,7 @@ export default class DefaultPopup extends Component {
+     // console.log('PressIn!');  // DEBUG
+     // Show feedback as soon as user press down
+     const { containerScale } = this.state;
+-    Animated.spring(containerScale, { toValue: 0.95, friction: 8, useNativeDriver: false })
++    Animated.spring(containerScale, { toValue: 0.95, friction: 8, useNativeDriver: true })
+       .start();
+   }
+ 
+@@ -200,7 +194,7 @@ export default class DefaultPopup extends Component {
+     // console.log('PressOut!');  // DEBUG
+     // Show feedback as soon as user press down
+     const { containerScale } = this.state;
+-    Animated.spring(containerScale, { toValue: 1, friction: 8, useNativeDriver: false })
++    Animated.spring(containerScale, { toValue: 1, friction: 8, useNativeDriver: true })
+       .start();
+   }
+ 
+@@ -222,7 +216,7 @@ export default class DefaultPopup extends Component {
+   slideIn = (duration) => {
+     // Animate "this.state.containerSlideOffsetY"
+     const { containerSlideOffsetY } = this.state;  // Using the new one is fine
+-    Animated.timing(containerSlideOffsetY, { toValue: 1, duration: duration || 400, useNativeDriver: false })  // TODO: customize
++    Animated.timing(containerSlideOffsetY, { toValue: 1, duration: duration || 400, useNativeDriver: true })  // TODO: customize
+       .start(({finished}) => {
+         this.countdownToSlideOut();
+       });
+@@ -239,7 +233,7 @@ export default class DefaultPopup extends Component {
+     const { containerSlideOffsetY } = this.state;
+ 
+     // Reset animation to 0 && show it && animate
+-    Animated.timing(containerSlideOffsetY, { toValue: 0, duration: duration || 400, useNativeDriver: false })  // TODO: customize
++    Animated.timing(containerSlideOffsetY, { toValue: 0, duration: duration || 400, useNativeDriver: true })  // TODO: customize
+       .start(({finished}) => {
+         // Reset everything and hide the popup
+         this.setState({ show: false });
+@@ -259,7 +253,9 @@ export default class DefaultPopup extends Component {
+       timeText,
+       title,
+       body,
+-      slideOutTime
++      slideOutTime,
++      avatarUri,
++      avatarLabel
+     } = _messageConfig;
+     const onPressAndSlideOut = this.createOnPressWithCallback(onPressCallback);
+     this.setState({
+@@ -274,7 +270,9 @@ export default class DefaultPopup extends Component {
+       timeText,
+       title,
+       body,
+-      slideOutTime: typeof slideOutTime !== 'number' ? 4000 : slideOutTime
++      slideOutTime: typeof slideOutTime !== 'number' ? 4000 : slideOutTime,
++      avatarUri,
++      avatarLabel
+     }, this.slideIn);
+   }
+ }

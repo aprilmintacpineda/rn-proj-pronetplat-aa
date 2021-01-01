@@ -15,7 +15,8 @@
     "upgrade-deps": "yarn upgrade-interactive --latest",
     "postinstall": "patch-package",
     "generate-bootsplash": "react-native generate-bootsplash assets/bootsplash_logo_original.png --background-color=ffffff --logo-width=120",
-    "pod-install": "cd ios && pod install && cd .."
+    "pod-install": "cd ios && pod install && cd ..",
+    "patch-packages": "patch-package react-native-paper react-native-push-notification-popup rn-placeholder"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
@@ -45,6 +46,7 @@
     "react-native-modalize": "^2.0.8",
     "react-native-paper": "^4.4.1",
     "react-native-permissions": "^3.0.0",
+    "react-native-push-notification-popup": "^1.6.0",
     "react-native-qrcode-svg": "^6.0.6",
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "^3.1.9",

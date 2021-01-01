@@ -7579,6 +7579,13 @@ react-native-permissions@^3.0.0:
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.0.0.tgz#d9d107700741d41f8392f202f35a61f481fb0e68"
   integrity sha512-zBvf+o3NhgKmBk1I06GzZXaDfc9SUyO4M5TMcaCF1pwG1h4sI+XAv3gWSbryl6WnaZQc1zA+g7SocSoYcpJN5g==
 
+react-native-push-notification-popup@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification-popup/-/react-native-push-notification-popup-1.6.0.tgz#bbca3e68cf62cd5d47d718dd6d1f1e8e01f562f9"
+  integrity sha512-QBWDXzhxgegck3PQxop7/xo34k8CkU51y+uHujXVpx/GjpUeEA9gh8W2aFULslkp1T7fq1YSCpWXkQxieKweqA==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-qrcode-svg@^6.0.6:
   version "6.0.6"
   resolved "https://registry.yarnpkg.com/react-native-qrcode-svg/-/react-native-qrcode-svg-6.0.6.tgz#bd4756cc0d76eeb3d162dca2f55eea80e3ebbe97"

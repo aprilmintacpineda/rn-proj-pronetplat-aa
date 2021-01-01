@@ -12,20 +12,16 @@ import { KeyboardAvoidingView, Platform, StatusBar, View, AppState } from 'react
 import RNBootSplash from 'react-native-bootsplash';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 
-import Sound from 'react-native-sound';
 import FullSafeAreaView from 'components/FullSafeAreaView';
 import { initStore } from 'fluxible/store/init';
 import useHasInternet from 'hooks/useHasInternet';
 import { appMounted, logScreenView } from 'libs/logging';
 import IndexStackNavigator from 'navigations/IndexStackNavigator';
 import PopupManager from 'PopupManager';
+import { displayNotification } from 'PopupManager/NotificationPopup';
 import { navigationTheme, paperTheme } from 'theme';
 
 export const navigationRef = React.createRef();
-
-const alertSound = new Sound('alert.mp3', Sound.MAIN_BUNDLE, error => {
-  console.log('failed to preload alertSound', error);
-});
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
@@ -36,11 +32,31 @@ messaging().onMessage(async remoteMessage => {
 
   if (!store.authUser || AppState.currentState !== 'active') return;
 
+  const { title, body } = remoteMessage.notification;
   const { type } = remoteMessage.data || {};
 
   if (type === 'contact_request') {
-    alertSound.play();
     updateStore({ contactRequestNum: Number(store.contactRequestNum) + 1 });
+
+    const {
+      profilePicture: avatarUri,
+      firstName,
+      middleName,
+      surname
+    } = remoteMessage.data;
+
+    const avatarLabel = (
+      (firstName?.[0] || 'A') +
+      (middleName?.[0] || 'B') +
+      (surname?.[0] || 'C')
+    ).toUpperCase();
+
+    displayNotification({
+      title,
+      body,
+      avatarUri,
+      avatarLabel
+    });
   }
 });
 
