@@ -8,12 +8,12 @@ import CenteredSurface from 'components/CenteredSurface';
 import { addToContact } from 'helpers/contact';
 import useCameraPermission from 'hooks/useCameraPermissions';
 
-function addToPendingConnections (event) {
+function addToPendingContactRequests (event) {
   const targetUser = JSON.parse(event.nativeEvent.codeStringValue);
 
   if (targetUser.id === store.authUser.id) return;
 
-  const pendingConnection = store.pendingConnections.find(
+  const pendingConnection = store.pendingContactRequests.find(
     ({ id }) => targetUser.id === id
   );
 
@@ -23,7 +23,7 @@ function addToPendingConnections (event) {
   }
 
   updateStore({
-    pendingConnections: store.pendingConnections.concat({
+    pendingContactRequests: store.pendingContactRequests.concat({
       ...targetUser,
       status: 'initial'
     })
@@ -57,7 +57,7 @@ function ScanCode () {
       }}
       resetFocusWhenMotionDetected
       scanBarcode
-      onReadCode={addToPendingConnections}
+      onReadCode={addToPendingContactRequests}
       hideControls
       saveToCameraRoll={false}
     />

@@ -180,7 +180,7 @@ function ChangeProfilePicture ({ onDone }) {
       <FormContainer>
         <Headline>Setup your account</Headline>
         <Subheading>
-          Add a profile picture to allow your network to recognize you easily.
+          Add a profile picture to allow your contacts to recognize you easily.
         </Subheading>
         <Divider style={{ marginVertical: 20 }} />
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>

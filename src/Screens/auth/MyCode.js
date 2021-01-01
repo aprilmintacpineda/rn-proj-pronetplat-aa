@@ -36,7 +36,7 @@ function MyCode () {
     <CenteredSurface containerStyle={{ alignItems: 'center' }}>
       <QRCode value={codeValue} size={width * 0.7} />
       <Text style={{ textAlign: 'center', marginTop: 30 }}>
-        Tell your peers and network to scan the QR code above using their Quaint account.
+        Tell your contacts to scan the QR code above using their Quaint account.
       </Text>
     </CenteredSurface>
   );

@@ -10,7 +10,7 @@ export function getInitialStore () {
     authUser: null,
     authToken: null,
     initComplete: false,
-    pendingConnections: [],
+    pendingContactRequests: [],
     contactRequestNum: 0
   };
 }
@@ -25,8 +25,8 @@ const asyncStorage = {
   getItem: key => RNSInfo.getItem(key, options)
 };
 
-export function restore ({ authUser, authToken, pendingConnections }) {
-  return { authUser, authToken, pendingConnections };
+export function restore ({ authUser, authToken, pendingContactRequests }) {
+  return { authUser, authToken, pendingContactRequests };
 }
 
 function onInitComplete () {

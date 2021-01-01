@@ -23,9 +23,9 @@ export function renderContactTitle ({ jobTitle, company }) {
   );
 }
 
-function setPendingConnectionStatus ({ targetId, status }) {
+function setPendingContactRequestStatus ({ targetId, status }) {
   updateStore({
-    pendingConnections: store.pendingConnections.map(contact => {
+    pendingContactRequests: store.pendingContactRequests.map(contact => {
       if (contact.id !== targetId) return contact;
 
       return {
@@ -43,14 +43,14 @@ export async function addToContact (targetContact) {
   if (status === 'connecting') return;
 
   try {
-    Toast.show(`Sending connection request to ${fullName}`);
-    setPendingConnectionStatus({ targetId, status: 'connecting' });
+    Toast.show(`Sending contact request to ${fullName}`);
+    setPendingContactRequestStatus({ targetId, status: 'connecting' });
     await xhr(`/add-to-contacts/${targetId}`, { method: 'post' });
-    Toast.show(`Successfully sent network reqeust to ${fullName}`);
-    setPendingConnectionStatus({ targetId, status: 'success' });
+    Toast.show(`Successfully sent contact request to ${fullName}`);
+    setPendingContactRequestStatus({ targetId, status: 'success' });
   } catch (error) {
     console.log('error', error);
-    setPendingConnectionStatus({ targetId, status: 'error' });
-    Toast.show(`Failed to send connection request to ${fullName}`);
+    setPendingContactRequestStatus({ targetId, status: 'error' });
+    Toast.show(`Failed to send contact request to ${fullName}`);
   }
 }

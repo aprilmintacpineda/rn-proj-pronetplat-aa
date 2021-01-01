@@ -21,7 +21,7 @@ function ChangePersonalInfoForm ({ onSave }) {
       <FormContainer>
         <Headline>Setup your account</Headline>
         <Subheading>
-          Formally introduce yourself to your network by telling them basic information
+          Formally introduce yourself to your contacts by telling them basic information
           about yourself.
         </Subheading>
         <Divider style={{ marginVertical: 20 }} />

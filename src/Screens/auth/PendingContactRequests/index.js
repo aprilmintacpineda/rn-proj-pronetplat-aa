@@ -6,8 +6,8 @@ import Row from './Row';
 import CenteredSurface from 'components/CenteredSurface';
 import ListItemSeparator from 'components/ListItemSeparator';
 
-function mapStates ({ pendingConnections }) {
-  return { pendingConnections };
+function mapStates ({ pendingContactRequests }) {
+  return { pendingContactRequests };
 }
 
 function renderRow ({ item, index }) {
@@ -18,21 +18,21 @@ function keyExtractor ({ id }) {
   return id;
 }
 
-function PendingConnections () {
-  const { pendingConnections } = useFluxibleStore(mapStates);
+function PendingContactRequests () {
+  const { pendingContactRequests } = useFluxibleStore(mapStates);
 
-  if (!pendingConnections.length) {
+  if (!pendingContactRequests.length) {
     return (
       <CenteredSurface>
-        <Title>No pending connections.</Title>
+        <Title>No pending contact requests.</Title>
         <Text style={{ marginBottom: 10 }}>
-          When you scan the QR code of your network, they will appear here and {'you\'ll'}{' '}
+          When you scan the QR code of your contacts, they will appear here and {'you\'ll'}{' '}
           see the results real-time.
         </Text>
         <Paragraph>
           <Text style={{ fontWeight: 'bold' }}>No internet? </Text>
           <Text>
-            You can scan the QR code of your network even when you {'don\'t'} have
+            You can scan the QR code of your contacts even when you {'don\'t'} have
             internet, they will appear here and when you connect to the internet, the app
             will automatically process them.
           </Text>
@@ -50,7 +50,7 @@ function PendingConnections () {
 
   return (
     <FlatList
-      data={pendingConnections}
+      data={pendingContactRequests}
       renderItem={renderRow}
       keyExtractor={keyExtractor}
       ItemSeparatorComponent={ListItemSeparator}
@@ -58,4 +58,4 @@ function PendingConnections () {
   );
 }
 
-export default React.memo(PendingConnections);
+export default React.memo(PendingContactRequests);

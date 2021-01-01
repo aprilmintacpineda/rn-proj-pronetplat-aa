@@ -34,7 +34,7 @@ function PendingConnectionRow ({ index, ...contactData }) {
     if (!isSuccess) return;
 
     updateStore({
-      pendingConnections: store.pendingConnections.filter(
+      pendingContactRequests: store.pendingContactRequests.filter(
         pendingCOnnection => pendingCOnnection.id !== id
       )
     });

@@ -8,7 +8,7 @@ const Tab = createBottomTabNavigator();
 
 import ContactList from 'Screens/auth/Contact/List';
 import MyCode from 'Screens/auth/MyCode';
-import PendingConnections from 'Screens/auth/PendingConnections';
+import PendingContactRequests from 'Screens/auth/PendingContactRequests';
 import ScanCode from 'Screens/auth/ScanCode';
 
 function MainTabNavigation () {
@@ -48,8 +48,8 @@ function MainTabNavigation () {
           tabBarIcon: props => <MaterialCommunityIcons name="av-timer" {...props} />,
           tabBarLabel: 'Pending'
         }}
-        name="PendingConnections"
-        component={PendingConnections}
+        name="PendingContactRequests"
+        component={PendingContactRequests}
       />
     </Tab.Navigator>
   );
