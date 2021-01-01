@@ -10,7 +10,8 @@ export function getInitialStore () {
     authUser: null,
     authToken: null,
     initComplete: false,
-    pendingConnections: []
+    pendingConnections: [],
+    contactRequestNum: 0
   };
 }
 

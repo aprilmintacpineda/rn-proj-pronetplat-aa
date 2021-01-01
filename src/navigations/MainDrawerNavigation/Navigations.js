@@ -3,19 +3,17 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { updateStore } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
-import { Drawer as RNPDrawer } from 'react-native-paper';
+import { Divider, Drawer as RNPDrawer } from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
-import MainStackNavigation from './MainStackNavigation';
 import { logout } from 'fluxible/actions/user';
+import useHasInternet from 'hooks/useHasInternet';
+import { xhr } from 'libs/xhr';
+import MainStackNavigation from 'navigations/MainStackNavigation';
 import FirstSetup from 'Screens/auth/FirstSetup';
 
 const Drawer = createDrawerNavigator();
-
-function clearPendingConnections () {
-  updateStore({ pendingConnections: [] });
-}
 
 function drawerContent (props) {
   const { state, descriptors, navigation } = props;
@@ -24,7 +22,7 @@ function drawerContent (props) {
 
   const drawerItems = routes.map(({ key, name }, i) => {
     const { options } = descriptors[key];
-    const { title, drawerIcon, isHidden } = options;
+    const { title, drawerIcon, isHidden, badge, to } = options;
 
     if (isHidden) return null;
 
@@ -32,11 +30,12 @@ function drawerContent (props) {
       <RNPDrawer.Item
         key={key}
         onPress={() => {
-          navigate(name);
+          navigate(to || name);
         }}
         label={title}
         icon={drawerIcon}
         active={index === i}
+        badge={badge}
       />
     );
   });
@@ -44,10 +43,7 @@ function drawerContent (props) {
   return (
     <>
       {drawerItems}
-      <RNPDrawer.Item
-        onPress={clearPendingConnections}
-        label="Clear Pending Connections"
-      />
+      <Divider style={{ margin: 10 }} />
       <RNPDrawer.Item
         onPress={logout}
         label="Logout"
@@ -61,17 +57,28 @@ const screenOptions = {
   swipeEnabled: false
 };
 
-function mapStates ({ authUser }) {
-  return { authUser };
+function mapStates ({ authUser, contactRequestNum }) {
+  return { authUser, contactRequestNum };
 }
 
-function MainDrawerNavigation ({ navigation: { replace } }) {
-  const { authUser } = useFluxibleStore(mapStates);
+function PlaceholderScreen () {
+  return null;
+}
+
+function Navigations () {
+  const hasInternet = useHasInternet();
+  const { authUser, contactRequestNum } = useFluxibleStore(mapStates);
   const { width } = useWindowDimensions();
 
   React.useEffect(() => {
-    if (!authUser) replace('Login');
-  }, [authUser, replace]);
+    if (!hasInternet) return;
+
+    (async () => {
+      let contactRequestNum = await xhr('/contact-request-count');
+      contactRequestNum = await contactRequestNum.text();
+      updateStore({ contactRequestNum });
+    })();
+  }, [hasInternet]);
 
   React.useEffect(() => {
     (async () => {
@@ -81,8 +88,6 @@ function MainDrawerNavigation ({ navigation: { replace } }) {
       await messaging().requestPermission();
     })();
   }, []);
-
-  if (!authUser) return null;
 
   const drawerType = width >= 768 ? 'permanent' : 'slide';
 
@@ -105,6 +110,18 @@ function MainDrawerNavigation ({ navigation: { replace } }) {
         }}
       />
       <Drawer.Screen
+        name="ContactRequestsPlaceholder"
+        component={PlaceholderScreen}
+        options={{
+          title: 'Contact Requests',
+          drawerIcon: props =>
+            <MaterialCommunityIcons name="account-network" {...props} />
+          ,
+          badge: contactRequestNum,
+          to: 'ContactRequests'
+        }}
+      />
+      <Drawer.Screen
         name="FirstSetup"
         component={FirstSetup}
         options={{
@@ -115,4 +132,4 @@ function MainDrawerNavigation ({ navigation: { replace } }) {
   );
 }
 
-export default React.memo(MainDrawerNavigation);
+export default React.memo(Navigations);

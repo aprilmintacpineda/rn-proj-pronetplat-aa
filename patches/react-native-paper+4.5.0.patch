@@ -1,0 +1,82 @@
+diff --git a/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx b/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
+index 5c90171..71befdb 100644
+--- a/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
++++ b/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
+@@ -5,6 +5,7 @@ import Text from '../Typography/Text';
+ import Icon, { IconSource } from '../Icon';
+ import TouchableRipple from '../TouchableRipple/TouchableRipple';
+ import { withTheme } from '../../core/theming';
++import Badge from '../Badge';
+ 
+ type Props = React.ComponentPropsWithRef<typeof View> & {
+   /**
+@@ -67,6 +68,7 @@ const DrawerItem = ({
+   style,
+   onPress,
+   accessibilityLabel,
++  badge,
+   ...rest
+ }: Props) => {
+   const { colors, roundness } = theme;
+@@ -99,22 +101,25 @@ const DrawerItem = ({
+         accessibilityState={{ selected: active }}
+         accessibilityLabel={accessibilityLabel}
+       >
+-        <View style={styles.wrapper}>
+-          {icon ? <Icon source={icon} size={24} color={contentColor} /> : null}
+-          <Text
+-            selectable={false}
+-            numberOfLines={1}
+-            style={[
+-              styles.label,
+-              {
+-                color: contentColor,
+-                ...font,
+-                marginLeft: labelMargin,
+-              },
+-            ]}
+-          >
+-            {label}
+-          </Text>
++        <View style={styles.badgeContainer}>
++          <View style={styles.wrapper}>
++            {icon ? <Icon source={icon} size={24} color={contentColor} /> : null}
++            <Text
++              selectable={false}
++              numberOfLines={1}
++              style={[
++                styles.label,
++                {
++                  color: contentColor,
++                  ...font,
++                  marginLeft: labelMargin,
++                },
++              ]}
++            >
++              {label}
++            </Text>
++          </View>
++          {!isNaN(badge) ? <Badge visible={badge > 0}>{badge}</Badge> : null}
+         </View>
+       </TouchableRipple>
+     </View>
+@@ -130,12 +135,17 @@ const styles = StyleSheet.create({
+   },
+   wrapper: {
+     flexDirection: 'row',
+-    alignItems: 'center',
+-    padding: 8,
++    alignItems: 'center'
+   },
+   label: {
+     marginRight: 32,
+   },
++  badgeContainer: {
++    flexDirection: 'row',
++    justifyContent: 'space-between',
++    alignItems: 'center',
++    padding: 8,
++  },
+ });
+ 
+ export default withTheme(DrawerItem);

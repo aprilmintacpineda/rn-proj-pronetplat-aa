@@ -1,10 +1,10 @@
 import React from 'react';
 import { Appbar } from 'react-native-paper';
-import Feather from 'react-native-vector-icons/Feather';
+import ToggleDrawerIcon from './ToggleDrawerIcon';
 import { camelToTitleCase } from 'libs/strings';
 
-function menuIcon (props) {
-  return <Feather name="menu" {...props} />;
+function menuIcon (toggle) {
+  return <ToggleDrawerIcon {...toggle} />;
 }
 
 function header (props) {
@@ -22,9 +22,13 @@ function header (props) {
       }}>
       {!isMainScreen && canGoBack() ?
         <Appbar.BackAction onPress={goBack} />
-       : hasDrawerNavigation ?
-        <Appbar.Action icon={menuIcon} onPress={openDrawer} />
-       : null}
+       : hasDrawerNavigation ? (
+        <Appbar.Action
+          icon={menuIcon}
+          onPress={openDrawer}
+          style={{ overflow: 'visible' }}
+        />
+      ) : null}
       <Appbar.Content
         title={title !== null ? title : camelToTitleCase(name)}
         style={{

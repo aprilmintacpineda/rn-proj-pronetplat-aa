@@ -4,6 +4,7 @@ import React from 'react';
 import header from './header';
 import MainTabNavigation from './MainTabNavigation';
 import ContactProfile from 'Screens/auth/Contact/Profile';
+import ContactRequests from 'Screens/auth/ContactRequests';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,14 @@ function MainStackNavigation () {
         component={ContactProfile}
         options={{
           title: 'Contact'
+        }}
+      />
+      <Stack.Screen
+        name="ContactRequests"
+        component={ContactRequests}
+        options={{
+          title: 'Contact Requests',
+          ...TransitionPresets.ModalSlideFromBottomIOS
         }}
       />
     </Stack.Navigator>

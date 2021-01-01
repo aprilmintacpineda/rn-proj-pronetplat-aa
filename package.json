@@ -33,6 +33,7 @@
     "expo-image-picker": "^9.2.1",
     "fluxible-js": "^5.0.10",
     "patch-package": "^6.2.2",
+    "postinstall-postinstall": "^2.1.0",
     "react": "17.0.1",
     "react-fluxible": "^5.0.3",
     "react-native": "0.63.4",
