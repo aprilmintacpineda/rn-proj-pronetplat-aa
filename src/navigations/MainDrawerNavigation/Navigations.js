@@ -43,7 +43,7 @@ function drawerContent (props) {
   return (
     <>
       {drawerItems}
-      <Divider style={{ margin: 10 }} />
+      <Divider style={{ margin: 10, marginVertical: 20 }} />
       <RNPDrawer.Item
         onPress={logout}
         label="Logout"
