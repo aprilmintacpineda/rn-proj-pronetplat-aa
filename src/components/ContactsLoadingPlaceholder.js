@@ -8,7 +8,7 @@ import {
 } from 'rn-placeholder';
 import ListItemSeparator from 'components/ListItemSeparator';
 
-function LoadingPlaceHolder ({ isFirstFetch, isFetching }) {
+function ContactsLoadingPlaceholder ({ isFirstFetch, isFetching }) {
   if (isFirstFetch || isFetching) {
     return (
       <>
@@ -30,4 +30,4 @@ function LoadingPlaceHolder ({ isFirstFetch, isFetching }) {
   return null;
 }
 
-export default React.memo(LoadingPlaceHolder);
+export default React.memo(ContactsLoadingPlaceholder);

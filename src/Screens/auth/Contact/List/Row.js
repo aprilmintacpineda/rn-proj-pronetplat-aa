@@ -27,7 +27,9 @@ function ContactListRow ({ index, ...contactData }) {
           }}>
           <UserAvatar {...contactData} />
           <View style={{ marginLeft: 15, flex: 1 }}>
-            <Text style={{ fontSize: 18 }}>{fullName}</Text>
+            <Text numberOfLines={1} style={{ fontSize: 18 }}>
+              {fullName}
+            </Text>
             {renderContactTitle(contactData)}
             <View style={{ flexDirection: 'row', marginTop: 3 }}>
               <View style={{ marginRight: 3 }}>

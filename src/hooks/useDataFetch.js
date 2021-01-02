@@ -35,15 +35,17 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
           nextToken: isRefresh ? null : nextToken
         });
 
-        const { data, nextToken: newNextToken } = await response.json();
-        const isDataArray = data.constructor === Array;
+        const { data: responseData, nextToken: newNextToken } = await response.json();
+        const isDataArray = responseData.constructor === Array;
+
+        console.log('useDataFetch', responseData, newNextToken);
 
         updateState(({ data }) => {
           const newData = isRefresh
-            ? data
+            ? responseData
             : isDataArray
-            ? (data || []).concat(data || [])
-            : data;
+            ? (data || []).concat(responseData || [])
+            : responseData;
 
           return {
             status: 'fetchSuccess',

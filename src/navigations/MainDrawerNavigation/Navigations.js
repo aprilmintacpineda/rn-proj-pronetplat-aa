@@ -74,9 +74,13 @@ function Navigations () {
     if (!hasInternet) return;
 
     (async () => {
-      let contactRequestNum = await xhr('/contact-request-count');
-      contactRequestNum = await contactRequestNum.text();
-      updateStore({ contactRequestNum });
+      try {
+        let contactRequestNum = await xhr('/contact-request-count');
+        contactRequestNum = await contactRequestNum.text();
+        updateStore({ contactRequestNum });
+      } catch (error) {
+        console.log(error);
+      }
     })();
   }, [hasInternet]);
 

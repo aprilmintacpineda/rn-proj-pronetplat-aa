@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { Caption, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
+import Caption from 'components/Caption';
 import FormContainer from 'components/FormContainer';
 import { FormContext } from 'components/FormWithContext';
 import Button from 'components/FormWithContext/Button';

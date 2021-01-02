@@ -1,4 +1,4 @@
-import { add } from 'date-fns';
+import add from 'date-fns/add';
 import intervalToDuration from 'date-fns/intervalToDuration';
 import isPast from 'date-fns/isPast';
 import React from 'react';

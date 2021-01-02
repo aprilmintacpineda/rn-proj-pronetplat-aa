@@ -56,7 +56,10 @@ messaging().onMessage(async remoteMessage => {
         title,
         body,
         avatarUri,
-        avatarLabel
+        avatarLabel,
+        onPress: () => {
+          navigationRef.current.navigate('ContactRequests');
+        }
       });
       break;
     default:

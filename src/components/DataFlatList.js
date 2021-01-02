@@ -13,6 +13,7 @@ function DataFlatList ({
   keyExtractor = defaultKeyExtractor,
   RowComponent,
   renderItem,
+  ListFooterComponent = null,
   ...dataFlatList
 }) {
   const {
@@ -42,7 +43,10 @@ function DataFlatList ({
       onEndReached={fetchData}
       onEndReachedThreshold={0.9}
       ListFooterComponent={
-        <LoadingPlaceHolder isFetching={isFetching} isFirstFetch={isFirstFetch} />
+        <>
+          <LoadingPlaceHolder isFetching={isFetching} isFirstFetch={isFirstFetch} />
+          {ListFooterComponent}
+        </>
       }
       ItemSeparatorComponent={ListItemSeparator}
       renderItem={RowComponent ? renderRow : renderItem}

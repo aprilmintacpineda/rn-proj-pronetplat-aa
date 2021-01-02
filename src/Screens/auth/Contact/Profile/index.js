@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { Caption, Divider, Headline, Text } from 'react-native-paper';
+import { Divider, Headline, Text } from 'react-native-paper';
 import {
   Placeholder,
   PlaceholderLine,
@@ -9,6 +9,7 @@ import {
 } from 'rn-placeholder';
 
 import ContactDetailRow from './Row';
+import Caption from 'components/Caption';
 import UserAvatar from 'components/UserAvatar';
 import { getFullName, renderContactTitle } from 'helpers/contact';
 import useDataFetch from 'hooks/useDataFetch';

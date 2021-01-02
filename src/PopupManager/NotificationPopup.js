@@ -1,8 +1,9 @@
 import React from 'react';
 import { AppState, View } from 'react-native';
-import { Caption, Card, Portal, Text } from 'react-native-paper';
+import { Card, Portal, Text } from 'react-native-paper';
 import RNNotificationPopup from 'react-native-push-notification-popup';
 import Avatar from 'components/Avatar';
+import Caption from 'components/Caption';
 import FullSafeAreaView from 'components/FullSafeAreaView';
 import { notifAlert } from 'libs/sounds';
 

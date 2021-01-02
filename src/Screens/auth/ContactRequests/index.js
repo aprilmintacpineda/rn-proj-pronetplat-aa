@@ -5,10 +5,10 @@ import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
 import ListEmpty from 'components/ListEmpty';
 
-function ContactList () {
+function ContactRequests () {
   return (
     <DataFlatList
-      endpoint="/contacts"
+      endpoint="/received-contact-requests"
       ListEmptyComponent={ListEmpty}
       RowComponent={RowComponent}
       LoadingPlaceHolder={ContactsLoadingPlaceholder}
@@ -16,4 +16,4 @@ function ContactList () {
   );
 }
 
-export default React.memo(ContactList);
+export default React.memo(ContactRequests);
