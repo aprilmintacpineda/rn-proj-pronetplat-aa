@@ -40,6 +40,7 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
+    'no-case-declarations': 0,
     'no-return-await': 'error',
     'import/no-unresolved': 0,
     'import/order': [

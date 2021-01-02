@@ -1,5 +1,9 @@
+import { Platform } from 'react-native';
 import Sound from 'react-native-sound';
 
-export const alertSound = new Sound('alert.mp3', Sound.MAIN_BUNDLE, error => {
-  console.log('failed to preload alertSound', error);
+const mainBundle =
+  Platform.OS === 'ios' ? encodeURIComponent(Sound.MAIN_BUNDLE) : Sound.MAIN_BUNDLE;
+
+export const notifAlert = new Sound('notif_alert.mp3', mainBundle, error => {
+  if (error) console.error(error);
 });

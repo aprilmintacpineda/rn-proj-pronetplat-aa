@@ -10,11 +10,7 @@ function UserAvatar ({ size = 60 }) {
   const { authUser } = useFluxibleStore(mapStates);
   const { profilePicture, firstName, middleName, surname } = authUser;
 
-  const label = (
-    (firstName?.[0] || 'A') +
-    (middleName?.[0] || 'B') +
-    (surname?.[0] || 'C')
-  ).toUpperCase();
+  const label = (firstName[0] + (middleName?.[0] || '') + surname[0]).toUpperCase();
 
   return <Avatar uri={profilePicture} label={label} size={size} />;
 }

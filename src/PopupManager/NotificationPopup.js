@@ -4,13 +4,13 @@ import { Caption, Card, Portal, Text } from 'react-native-paper';
 import RNNotificationPopup from 'react-native-push-notification-popup';
 import Avatar from 'components/Avatar';
 import FullSafeAreaView from 'components/FullSafeAreaView';
-import { alertSound } from 'libs/sounds';
+import { notifAlert } from 'libs/sounds';
 
 const notificationPopupRef = React.createRef();
 
 export function displayNotification (params) {
-  if (AppState.currentState !== 'active') return;
-  alertSound.play();
+  if (AppState.currentState !== 'active' || !notificationPopupRef.current) return;
+  notifAlert.play();
   notificationPopupRef.current.show(params);
 }
 

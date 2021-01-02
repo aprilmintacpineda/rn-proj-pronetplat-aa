@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4EE4E4079579D7ABFBC711A1 /* libPods-proj_pronetplat_aa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 645383EEFDB8927941A1BE84 /* libPods-proj_pronetplat_aa.a */; };
 		577492C8CEB02CD1C9A666C9 /* libPods-proj_pronetplat_aa-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C96EC0D5CEEEABFEB80BD8D5 /* libPods-proj_pronetplat_aa-tvOSTests.a */; };
+		7C824FA825A0386D001ECD19 /* notif_alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C824FA725A0386D001ECD19 /* notif_alert.mp3 */; };
 		7CDC4811258F128D009DE44B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CDC480B258F128D009DE44B /* main.m */; };
 		7CDC4812258F128D009DE44B /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CDC480C258F128D009DE44B /* BootSplash.storyboard */; };
 		7CDC4813258F128D009DE44B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CDC480D258F128D009DE44B /* Images.xcassets */; };
@@ -16,7 +17,6 @@
 		7CDC49FF258F1934009DE44B /* proj_pronetplat_aaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CDC49FD258F1934009DE44B /* proj_pronetplat_aaTests.m */; };
 		7CDC4A00258F1934009DE44B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CDC49FE258F1934009DE44B /* Info.plist */; };
 		7CE9B20625984E3C0034A8AE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CE9B20525984E3C0034A8AE /* GoogleService-Info.plist */; };
-		7CECACEC259F0B0400F94B34 /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7CECACEB259F0B0400F94B34 /* alert.mp3 */; };
 		A71C89E0B7BC3269844F56D1 /* libPods-proj_pronetplat_aa-proj_pronetplat_aaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5CD5334F984B2419E359AE /* libPods-proj_pronetplat_aa-proj_pronetplat_aaTests.a */; };
 		AC7EE6CC58C2B8ADBD27F15D /* libPods-proj_pronetplat_aa-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5ED9EC6DF162B5A382267FA /* libPods-proj_pronetplat_aa-tvOS.a */; };
 /* End PBXBuildFile section */
@@ -61,19 +61,19 @@
 		6718A9A0BF6DAABCDD645EF5 /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.stagingrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.stagingrelease.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.stagingrelease.xcconfig"; sourceTree = "<group>"; };
 		679AABDABDC64E642A8A483F /* Pods-proj_pronetplat_aa.localdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa.localdebug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa/Pods-proj_pronetplat_aa.localdebug.xcconfig"; sourceTree = "<group>"; };
 		7B8028F75E38D29EC92F6611 /* Pods-proj_pronetplat_aa-tvOS.stagingrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOS.stagingrelease.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOS/Pods-proj_pronetplat_aa-tvOS.stagingrelease.xcconfig"; sourceTree = "<group>"; };
+		7C824F2125A03604001ECD19 /* Info_production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_production.plist; sourceTree = "<group>"; };
+		7C824FA725A0386D001ECD19 /* notif_alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = notif_alert.mp3; sourceTree = "<group>"; };
 		7CDC480A258F128D009DE44B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7CDC480B258F128D009DE44B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7CDC480C258F128D009DE44B /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BootSplash.storyboard; sourceTree = "<group>"; };
 		7CDC480D258F128D009DE44B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7CDC480E258F128D009DE44B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7CDC480F258F128D009DE44B /* proj_pronetplat_aa.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = proj_pronetplat_aa.entitlements; sourceTree = "<group>"; };
-		7CDC4810258F128D009DE44B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CDC49FD258F1934009DE44B /* proj_pronetplat_aaTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = proj_pronetplat_aaTests.m; sourceTree = "<group>"; };
 		7CDC49FE258F1934009DE44B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CE0138925971BB40068E9A2 /* Info_staging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_staging.plist; sourceTree = "<group>"; };
 		7CE0138A25971BB40068E9A2 /* Info_local.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_local.plist; sourceTree = "<group>"; };
 		7CE9B20525984E3C0034A8AE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		7CECACEB259F0B0400F94B34 /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
 		8D9C43CD37BE55F6F6D3BEBF /* Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.debug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests/Pods-proj_pronetplat_aa-proj_pronetplat_aaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		91270AC226D1E5EEAEA397FA /* Pods-connect_express.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-connect_express.release.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aaPods-connect_express.release.xcconfig"; sourceTree = "<group>"; };
 		952C3AD9F3051AF901B4F1E3 /* Pods-proj_pronetplat_aa-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOS.release.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOS/Pods-proj_pronetplat_aa-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -185,10 +185,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7C824F3325A036EB001ECD19 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7C824FA725A0386D001ECD19 /* notif_alert.mp3 */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		7CDC4809258F128D009DE44B /* proj_pronetplat_aa */ = {
 			isa = PBXGroup;
 			children = (
-				7CECACEB259F0B0400F94B34 /* alert.mp3 */,
+				7C824F2125A03604001ECD19 /* Info_production.plist */,
 				7CE9B20525984E3C0034A8AE /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				7CDC480A258F128D009DE44B /* AppDelegate.h */,
@@ -197,7 +205,6 @@
 				7CDC480D258F128D009DE44B /* Images.xcassets */,
 				7CDC480E258F128D009DE44B /* AppDelegate.m */,
 				7CDC480F258F128D009DE44B /* proj_pronetplat_aa.entitlements */,
-				7CDC4810258F128D009DE44B /* Info.plist */,
 				7CE0138A25971BB40068E9A2 /* Info_local.plist */,
 				7CE0138925971BB40068E9A2 /* Info_staging.plist */,
 			);
@@ -223,6 +230,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				7C824F3325A036EB001ECD19 /* Resources */,
 				7CDC4809258F128D009DE44B /* proj_pronetplat_aa */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				7CDC49FC258F1934009DE44B /* proj_pronetplat_aaTests */,
@@ -393,10 +401,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C824FA825A0386D001ECD19 /* notif_alert.mp3 in Resources */,
 				7CDC4812258F128D009DE44B /* BootSplash.storyboard in Resources */,
 				7CDC4813258F128D009DE44B /* Images.xcassets in Resources */,
 				7CE9B20625984E3C0034A8AE /* GoogleService-Info.plist in Resources */,
-				7CECACEC259F0B0400F94B34 /* alert.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,7 +824,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L5F8T576SB;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = proj_pronetplat_aa/Info.plist;
+				INFOPLIST_FILE = proj_pronetplat_aa/info_production.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -841,7 +849,7 @@
 				CODE_SIGN_ENTITLEMENTS = proj_pronetplat_aa/proj_pronetplat_aa.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L5F8T576SB;
-				INFOPLIST_FILE = proj_pronetplat_aa/Info.plist;
+				INFOPLIST_FILE = proj_pronetplat_aa/Info_production.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

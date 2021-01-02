@@ -35,28 +35,35 @@ messaging().onMessage(async remoteMessage => {
   const { title, body } = remoteMessage.notification;
   const { type } = remoteMessage.data || {};
 
-  if (type === 'contact_request') {
-    updateStore({ contactRequestNum: Number(store.contactRequestNum) + 1 });
+  switch (type) {
+    case 'contact_request':
+      updateStore({ contactRequestNum: Number(store.contactRequestNum) + 1 });
 
-    const {
-      profilePicture: avatarUri,
-      firstName,
-      middleName,
-      surname
-    } = remoteMessage.data;
+      const {
+        profilePicture: avatarUri,
+        firstName,
+        middleName,
+        surname
+      } = remoteMessage.data;
 
-    const avatarLabel = (
-      (firstName?.[0] || 'A') +
-      (middleName?.[0] || 'B') +
-      (surname?.[0] || 'C')
-    ).toUpperCase();
+      const avatarLabel = (
+        firstName[0] +
+        (middleName?.[0] || '') +
+        surname[0]
+      ).toUpperCase();
 
-    displayNotification({
-      title,
-      body,
-      avatarUri,
-      avatarLabel
-    });
+      displayNotification({
+        title,
+        body,
+        avatarUri,
+        avatarLabel
+      });
+      break;
+    default:
+      displayNotification({
+        title,
+        body
+      });
   }
 });
 
