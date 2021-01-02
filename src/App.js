@@ -60,10 +60,7 @@ messaging().onMessage(async remoteMessage => {
       });
       break;
     default:
-      displayNotification({
-        title,
-        body
-      });
+      displayNotification({ title, body });
   }
 });
 

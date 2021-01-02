@@ -50,7 +50,13 @@ export async function addToContact (targetContact) {
     setPendingContactRequestStatus({ targetId, status: 'success' });
   } catch (error) {
     console.log('error', error);
-    setPendingContactRequestStatus({ targetId, status: 'error' });
-    Toast.show(`Failed to send contact request to ${fullName}`);
+
+    if (error.status === 422) {
+      setPendingContactRequestStatus({ targetId, status: 'success' });
+      Toast.show(`Already sent a contact request to ${fullName}`);
+    } else {
+      setPendingContactRequestStatus({ targetId, status: 'error' });
+      Toast.show(`Failed to send contact request to ${fullName}`);
+    }
   }
 }
