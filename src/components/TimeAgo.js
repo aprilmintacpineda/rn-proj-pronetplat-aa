@@ -11,7 +11,7 @@ function TimeAgo ({ dateFrom }) {
   }, [dateFrom]);
 
   React.useEffect(() => {
-    const timer = setInterval(count, 60000);
+    const timer = setInterval(count, 30000);
 
     return () => {
       clearInterval(timer);
