@@ -5,7 +5,21 @@ import Toast from 'react-native-simple-toast';
 import { xhr } from 'libs/xhr';
 
 export function getFullName ({ firstName, middleName, surname }) {
-  return `${firstName}${middleName ? ` ${middleName} ` : ' '}${surname}`;
+  let fullName = '';
+
+  if (firstName) fullName += `${firstName} `;
+  if (middleName) fullName += `${middleName} `;
+  fullName += surname;
+
+  return fullName;
+}
+
+export function getInitials ({ firstName, middleName, surname }) {
+  return (
+    (firstName?.[0] || '') +
+    (middleName?.[0] || '') +
+    (surname?.[0] || '')
+  ).toUpperCase();
 }
 
 export function renderContactTitle ({ jobTitle, company }, style) {

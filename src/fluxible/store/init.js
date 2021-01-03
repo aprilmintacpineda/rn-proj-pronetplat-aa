@@ -12,7 +12,8 @@ export function getInitialStore () {
     authToken: null,
     initComplete: false,
     pendingContactRequests: [],
-    contactRequestNum: 0
+    contactRequestNum: 0,
+    notificationsNum: 0
   };
 }
 

@@ -14,6 +14,7 @@ import { Provider as PaperProvider, Text } from 'react-native-paper';
 
 import FullSafeAreaView from 'components/FullSafeAreaView';
 import { initStore } from 'fluxible/store/init';
+import { getInitials } from 'helpers/contact';
 import useHasInternet from 'hooks/useHasInternet';
 import { appMounted, logScreenView } from 'libs/logging';
 import IndexStackNavigator from 'navigations/IndexStackNavigator';
@@ -34,37 +35,40 @@ messaging().onMessage(async remoteMessage => {
 
   const { title, body } = remoteMessage.notification;
   const { type } = remoteMessage.data || {};
+  let onPress = null;
 
   switch (type) {
-    case 'contact_request':
-      updateStore({ contactRequestNum: Number(store.contactRequestNum) + 1 });
+    case 'contactRequest':
+      if (store.contactRequestNum !== '99+') {
+        let contactRequestNum = parseInt(store.contactRequestNum) + 1;
+        if (contactRequestNum > 99) contactRequestNum = '99+';
+        updateStore({ contactRequestNum });
+      }
 
-      const {
-        profilePicture: avatarUri,
-        firstName,
-        middleName,
-        surname
-      } = remoteMessage.data;
-
-      const avatarLabel = (
-        firstName[0] +
-        (middleName?.[0] || '') +
-        surname[0]
-      ).toUpperCase();
-
-      displayNotification({
-        title,
-        body,
-        avatarUri,
-        avatarLabel,
-        onPress: () => {
-          navigationRef.current.navigate('ContactRequests');
-        }
-      });
+      onPress = () => {
+        navigationRef.current.navigate('ContactRequests');
+      };
       break;
-    default:
-      displayNotification({ title, body });
+    case 'contactRequestAccepted':
+      if (store.notificationsNum !== '99+') {
+        let notificationsNum = parseInt(store.notificationsNum) + 1;
+        if (notificationsNum > 99) notificationsNum = '99+';
+        updateStore({ notificationsNum });
+      }
+
+      onPress = () => {
+        navigationRef.current.navigate('ContactProfile', remoteMessage.data);
+      };
+      break;
   }
+
+  displayNotification({
+    title,
+    body,
+    avatarUri: remoteMessage.data?.profilePicture || null,
+    avatarLabel: getInitials(remoteMessage?.data || {}),
+    onPress
+  });
 });
 
 messaging().onTokenRefresh(async newToken => {

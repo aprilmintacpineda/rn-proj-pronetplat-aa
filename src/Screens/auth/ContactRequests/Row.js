@@ -9,7 +9,7 @@ import Caption from 'components/Caption';
 import { DataFetchContext } from 'components/DataFetch';
 import StatusCaption from 'components/StatusCaption';
 import TimeAgo from 'components/TimeAgo';
-import { renderContactTitle } from 'helpers/contact';
+import { getFullName, getInitials, renderContactTitle } from 'helpers/contact';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
@@ -24,9 +24,9 @@ function ContactRequestRow ({ id, sender, createdAt, status = 'initial', index }
     delay: index % 10 * 100
   });
 
-  const { profilePicture, firstName, middleName, surname, bio } = sender;
-  const avatarLabel = (firstName[0] + (middleName?.[0] || '') + surname[0]).toUpperCase();
-  const fullName = `${firstName}${middleName ? ` ${middleName} ` : ' '}${surname}`;
+  const { profilePicture, bio } = sender;
+  const avatarLabel = getInitials(sender);
+  const fullName = getFullName(sender);
   const didAccept = status.includes('accept');
   const didDecline = status.includes('decline');
   const isLoading = status.includes('Loading');
