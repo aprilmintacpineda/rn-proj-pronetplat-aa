@@ -20,7 +20,9 @@ function StatusCaption ({ isError, message }) {
     <Animatable animation="fadeIn">
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Ionicons name={iconName} size={15} color={color} />
-        <Caption style={{ color, marginLeft: 3 }}>{message}</Caption>
+        <Caption color={color} style={{ marginLeft: 3 }}>
+          {message}
+        </Caption>
       </View>
     </Animatable>
   );

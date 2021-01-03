@@ -10,6 +10,7 @@ import { DataFetchContext } from 'components/DataFetch';
 import StatusCaption from 'components/StatusCaption';
 import TimeAgo from 'components/TimeAgo';
 import { renderContactTitle } from 'helpers/contact';
+import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
 const { rippleColor, primary } = paperTheme.colors;
@@ -32,7 +33,7 @@ function ContactRequestRow ({ id, sender, createdAt, status = 'initial', index }
   const isSuccess = status.includes('Success');
   const isError = status.includes('Error');
 
-  const accept = React.useCallback(() => {
+  const accept = React.useCallback(async () => {
     try {
       updateData(data => {
         if (data.id !== id) return data;
@@ -43,16 +44,19 @@ function ContactRequestRow ({ id, sender, createdAt, status = 'initial', index }
         };
       });
 
-      setTimeout(() => {
-        updateData(data => {
-          if (data.id !== id) return data;
+      await xhr('/contact-request-accept', {
+        method: 'post',
+        body: { id }
+      });
 
-          return {
-            ...data,
-            status: 'acceptSuccess'
-          };
-        });
-      }, 4000);
+      updateData(data => {
+        if (data.id !== id) return data;
+
+        return {
+          ...data,
+          status: 'acceptSuccess'
+        };
+      });
     } catch (error) {
       console.log(error);
       updateData(data => {
@@ -66,7 +70,7 @@ function ContactRequestRow ({ id, sender, createdAt, status = 'initial', index }
     }
   }, [id, updateData]);
 
-  const decline = React.useCallback(() => {
+  const decline = React.useCallback(async () => {
     try {
       updateData(data => {
         if (data.id !== id) return data;
@@ -77,16 +81,19 @@ function ContactRequestRow ({ id, sender, createdAt, status = 'initial', index }
         };
       });
 
-      setTimeout(() => {
-        updateData(data => {
-          if (data.id !== id) return data;
+      await xhr('/contact-request-decline', {
+        method: 'post',
+        body: { id }
+      });
 
-          return {
-            ...data,
-            status: 'declineSuccess'
-          };
-        });
-      }, 4000);
+      updateData(data => {
+        if (data.id !== id) return data;
+
+        return {
+          ...data,
+          status: 'declineSuccess'
+        };
+      });
     } catch (error) {
       console.log(error);
       updateData(data => {
@@ -147,12 +154,15 @@ function ContactRequestRow ({ id, sender, createdAt, status = 'initial', index }
                : isError ?
                 <StatusCaption isError message="An error occured, please try again." />
                : null}
+              {isLoading && (
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <ActivityIndicator size={10} />
+                  <Caption color={primary} style={{ marginLeft: 5 }}>
+                    Responding...
+                  </Caption>
+                </View>
+              )}
             </View>
-            {isLoading && (
-              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size={25} />
-              </View>
-            )}
           </View>
         </TouchableRipple>
       </Animatable>
@@ -168,7 +178,7 @@ function ContactRequestRow ({ id, sender, createdAt, status = 'initial', index }
               <Text numberOfLines={1} style={{ fontSize: 18, marginTop: 10 }}>
                 {fullName}
               </Text>
-              {renderContactTitle(sender)}
+              {renderContactTitle(sender, { textAlign: 'center' })}
               <Text style={{ textAlign: 'center', marginTop: 10, marginBottom: 30 }}>
                 {bio}
               </Text>
@@ -179,14 +189,14 @@ function ContactRequestRow ({ id, sender, createdAt, status = 'initial', index }
                 mode="contained"
                 color={primary}
                 style={{ marginBottom: 10 }}
-                loading={didAccept}
+                loading={didAccept && isLoading}
                 disabled={isLoading}>
                 Accept
               </Button>
               <Button
                 mode="outlined"
                 color={primary}
-                loading={didDecline}
+                loading={didDecline && isLoading}
                 disabled={isLoading}
                 onPress={decline}>
                 Decline

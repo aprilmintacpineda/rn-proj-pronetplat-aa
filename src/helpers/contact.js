@@ -1,7 +1,6 @@
 import { store, updateStore } from 'fluxible-js';
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Paragraph, Text } from 'react-native-paper';
 import Toast from 'react-native-simple-toast';
 import { xhr } from 'libs/xhr';
 
@@ -9,9 +8,9 @@ export function getFullName ({ firstName, middleName, surname }) {
   return `${firstName}${middleName ? ` ${middleName} ` : ' '}${surname}`;
 }
 
-export function renderContactTitle ({ jobTitle, company }) {
+export function renderContactTitle ({ jobTitle, company }, style) {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <Paragraph style={style}>
       <Text style={{ fontWeight: 'bold' }}>{jobTitle}</Text>
       {company ? (
         <>
@@ -19,7 +18,7 @@ export function renderContactTitle ({ jobTitle, company }) {
           <Text style={{ fontWeight: 'bold' }}>{company}</Text>
         </>
       ) : null}
-    </View>
+    </Paragraph>
   );
 }
 
