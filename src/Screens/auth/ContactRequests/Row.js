@@ -1,70 +1,201 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Text, TouchableRipple } from 'react-native-paper';
+import { Modalize } from 'react-native-modalize';
+import { ActivityIndicator, Portal, Text, TouchableRipple } from 'react-native-paper';
+import Animatable from 'components/Animatable';
 import Avatar from 'components/Avatar';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
+import { DataFetchContext } from 'components/DataFetch';
+import StatusCaption from 'components/StatusCaption';
 import TimeAgo from 'components/TimeAgo';
-import { showPopup } from 'fluxible/actions/popup';
 import { renderContactTitle } from 'helpers/contact';
 import { paperTheme } from 'theme';
 
 const { rippleColor, primary } = paperTheme.colors;
 
-export function showContactRequestPopup ({ sender }) {
+function ContactRequestRow ({ id, sender, createdAt, status = 'initial', index }) {
+  const modalizeRef = React.useRef();
+  const timerRef = React.useRef();
+  const { updateData, filterData } = React.useContext(DataFetchContext);
+  const [{ animation, delay }, setAnimation] = React.useState({
+    animation: 'fadeInFromRight',
+    delay: index % 10 * 100
+  });
+
   const { profilePicture, firstName, middleName, surname, bio } = sender;
   const avatarLabel = (firstName[0] + (middleName?.[0] || '') + surname[0]).toUpperCase();
   const fullName = `${firstName}${middleName ? ` ${middleName} ` : ' '}${surname}`;
+  const didAccept = status.includes('accept');
+  const didDecline = status.includes('decline');
+  const isLoading = status.includes('Loading');
+  const isSuccess = status.includes('Success');
+  const isError = status.includes('Error');
 
-  showPopup(
-    <View style={{ marginVertical: 30, marginHorizontal: 20 }}>
-      <View style={{ alignItems: 'center' }}>
-        <Avatar size={120} label={avatarLabel} uri={profilePicture} />
-        <Text numberOfLines={1} style={{ fontSize: 18, marginTop: 10 }}>
-          {fullName}
-        </Text>
-        {renderContactTitle(sender)}
-        <Text style={{ textAlign: 'center', marginTop: 10, marginBottom: 30 }}>
-          {bio}
-        </Text>
-      </View>
-      <View>
-        <Button mode="contained" color={primary} style={{ marginBottom: 10 }}>
-          Accept
-        </Button>
-        <Button mode="outlined" color={primary}>
-          Decline
-        </Button>
-      </View>
-    </View>
-  );
-}
+  const accept = React.useCallback(() => {
+    try {
+      updateData(data => {
+        if (data.id !== id) return data;
 
-function ContactRequestRow (contactRequest) {
+        return {
+          ...data,
+          status: 'acceptLoading'
+        };
+      });
+
+      setTimeout(() => {
+        updateData(data => {
+          if (data.id !== id) return data;
+
+          return {
+            ...data,
+            status: 'acceptSuccess'
+          };
+        });
+      }, 4000);
+    } catch (error) {
+      console.log(error);
+      updateData(data => {
+        if (data.id !== id) return data;
+
+        return {
+          ...data,
+          status: 'acceptError'
+        };
+      });
+    }
+  }, [id, updateData]);
+
+  const decline = React.useCallback(() => {
+    try {
+      updateData(data => {
+        if (data.id !== id) return data;
+
+        return {
+          ...data,
+          status: 'declineLoading'
+        };
+      });
+
+      setTimeout(() => {
+        updateData(data => {
+          if (data.id !== id) return data;
+
+          return {
+            ...data,
+            status: 'declineSuccess'
+          };
+        });
+      }, 4000);
+    } catch (error) {
+      console.log(error);
+      updateData(data => {
+        if (data.id !== id) return data;
+
+        return {
+          ...data,
+          status: 'declineError'
+        };
+      });
+    }
+  }, [id, updateData]);
+
   const openPopup = React.useCallback(() => {
-    showContactRequestPopup(contactRequest);
-  }, [contactRequest]);
+    modalizeRef.current.open();
+  }, []);
 
-  const { sender, createdAt } = contactRequest;
-  const { profilePicture, firstName, middleName, surname } = sender;
-  const avatarLabel = (firstName[0] + (middleName?.[0] || '') + surname[0]).toUpperCase();
-  const fullName = `${firstName}${middleName ? ` ${middleName} ` : ' '}${surname}`;
+  const removeItem = React.useCallback(() => {
+    if (!isSuccess) return;
+    filterData(data => data.id !== id);
+  }, [isSuccess, filterData, id]);
+
+  React.useEffect(() => {
+    if (!isSuccess || timerRef.current) return;
+    modalizeRef.current.close();
+
+    timerRef.current = setTimeout(() => {
+      setAnimation({
+        animation: 'fadeOutToRight',
+        delay: 0
+      });
+    }, 2000);
+
+    return () => {
+      clearTimeout(timerRef.current);
+    };
+  }, [isSuccess, id]);
 
   return (
-    <TouchableRipple rippleColor={rippleColor} onPress={openPopup}>
-      <View style={{ flexDirection: 'row', padding: 15 }}>
-        <Avatar uri={profilePicture} label={avatarLabel} />
-        <View style={{ flex: 1, marginLeft: 10 }}>
-          <Text numberOfLines={1} style={{ fontSize: 18 }}>
-            {fullName}
-          </Text>
-          {renderContactTitle(sender)}
-          <Caption>
-            <TimeAgo dateFrom={createdAt} />
-          </Caption>
-        </View>
-      </View>
-    </TouchableRipple>
+    <>
+      <Animatable animation={animation} delay={delay} onAnimationEnd={removeItem}>
+        <TouchableRipple
+          rippleColor={rippleColor}
+          onPress={openPopup}
+          disabled={isSuccess}>
+          <View style={{ flexDirection: 'row', padding: 15 }}>
+            <Avatar uri={profilePicture} label={avatarLabel} />
+            <View style={{ flex: 1, marginLeft: 10 }}>
+              <Text numberOfLines={1} style={{ fontSize: 18 }}>
+                {fullName}
+              </Text>
+              {renderContactTitle(sender)}
+              <Caption>
+                <TimeAgo dateFrom={createdAt} />
+              </Caption>
+              {isSuccess ?
+                <StatusCaption message={didAccept ? 'Accepted' : 'Declined'} />
+               : isError ?
+                <StatusCaption isError message="An error occured, please try again." />
+               : null}
+            </View>
+            {isLoading && (
+              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size={25} />
+              </View>
+            )}
+          </View>
+        </TouchableRipple>
+      </Animatable>
+      <Portal>
+        <Modalize
+          ref={modalizeRef}
+          handlePosition="inside"
+          adjustToContentHeight
+          onClosed={removeItem}>
+          <View style={{ marginVertical: 30, marginHorizontal: 20 }}>
+            <View style={{ alignItems: 'center' }}>
+              <Avatar size={120} label={avatarLabel} uri={profilePicture} />
+              <Text numberOfLines={1} style={{ fontSize: 18, marginTop: 10 }}>
+                {fullName}
+              </Text>
+              {renderContactTitle(sender)}
+              <Text style={{ textAlign: 'center', marginTop: 10, marginBottom: 30 }}>
+                {bio}
+              </Text>
+            </View>
+            <View>
+              <Button
+                onPress={accept}
+                mode="contained"
+                color={primary}
+                style={{ marginBottom: 10 }}
+                loading={didAccept}
+                disabled={isLoading}>
+                Accept
+              </Button>
+              <Button
+                mode="outlined"
+                color={primary}
+                loading={didDecline}
+                disabled={isLoading}
+                onPress={decline}>
+                Decline
+              </Button>
+            </View>
+          </View>
+        </Modalize>
+      </Portal>
+    </>
   );
 }
 

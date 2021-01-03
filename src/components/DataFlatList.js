@@ -1,14 +1,13 @@
 import React from 'react';
 import { FlatList } from 'react-native';
+import DataFetch, { DataFetchContext } from './DataFetch';
 import ListItemSeparator from './ListItemSeparator';
-import useDataFetch from 'hooks/useDataFetch';
 
 function defaultKeyExtractor ({ id }) {
   return id;
 }
 
-function DataFlatList ({
-  endpoint,
+function Body ({
   LoadingPlaceHolder,
   keyExtractor = defaultKeyExtractor,
   RowComponent,
@@ -22,14 +21,24 @@ function DataFlatList ({
     refreshData,
     isRefreshing,
     fetchData,
-    isFetching
-  } = useDataFetch({
-    endpoint
-  });
+    isFetching,
+    updateData
+  } = React.useContext(DataFetchContext);
 
-  const renderRow = React.useCallback(({ item, index }) => {
-    return <RowComponent {...item} index={index} />;
-  }, []);
+  const renderRow = React.useCallback(
+    args => {
+      if (RowComponent) {
+        const { item, index } = args;
+        return <RowComponent updateData={updateData} {...item} index={index} />;
+      }
+
+      return renderItem({
+        ...args,
+        updateData
+      });
+    },
+    [updateData, RowComponent, renderItem]
+  );
 
   if (isFirstFetch)
     return <LoadingPlaceHolder isFetching={isFetching} isFirstFetch={isFirstFetch} />;
@@ -49,9 +58,17 @@ function DataFlatList ({
         </>
       }
       ItemSeparatorComponent={ListItemSeparator}
-      renderItem={RowComponent ? renderRow : renderItem}
+      renderItem={renderRow}
       {...dataFlatList}
     />
+  );
+}
+
+function DataFlatList ({ endpoint, ...props }) {
+  return (
+    <DataFetch endpoint={endpoint}>
+      <Body {...props} />
+    </DataFetch>
   );
 }
 

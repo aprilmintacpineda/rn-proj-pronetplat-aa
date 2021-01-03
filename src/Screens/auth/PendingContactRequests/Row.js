@@ -4,12 +4,13 @@ import { View } from 'react-native';
 import { Text, TouchableRipple, ActivityIndicator } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Animatable from 'components/Animatable';
+import StatusCaption from 'components/StatusCaption';
 import UserAvatar from 'components/UserAvatar';
 import { addToContact, getFullName, renderContactTitle } from 'helpers/contact';
 import useHasInternet from 'hooks/useHasInternet';
 import { paperTheme } from 'theme';
 
-const { error, rippleColor, success } = paperTheme.colors;
+const { rippleColor } = paperTheme.colors;
 
 function PendingContactRequestRow ({ index, ...contactData }) {
   const fullName = getFullName(contactData);
@@ -18,7 +19,7 @@ function PendingContactRequestRow ({ index, ...contactData }) {
 
   const [{ animation, delay }, setAnimation] = React.useState({
     animation: 'fadeInFromRight',
-    delay: index % 10 * 50
+    delay: index % 10 * 100
   });
 
   const isInitial = status === 'initial';
@@ -44,12 +45,16 @@ function PendingContactRequestRow ({ index, ...contactData }) {
     if (isInitial) {
       sendContactRequest();
     } else if (isSuccess) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setAnimation({
           animation: 'fadeOutToRight',
           delay: 0
         });
       }, 2000);
+
+      return () => {
+        clearTimeout(timer);
+      };
     }
   }, [isInitial, isSuccess, sendContactRequest]);
 
@@ -64,24 +69,13 @@ function PendingContactRequestRow ({ index, ...contactData }) {
             </View>
             {renderContactTitle(contactData)}
             {isError ? (
-              <Animatable animation="fadeIn">
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Ionicons name="alert-circle-outline" size={15} color={error} />
-                  <Text style={{ color: error, marginLeft: 3 }}>
-                    {!hasInternet ? 'Waiting for internet' : 'Failed, please retry.'}
-                  </Text>
-                </View>
-              </Animatable>
-            ) : isSuccess ? (
-              <Animatable animation="fadeIn">
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Ionicons name="checkmark-circle-outline" size={15} color={success} />
-                  <Text style={{ color: success, marginLeft: 3 }}>
-                    Contact request request sent
-                  </Text>
-                </View>
-              </Animatable>
-            ) : null}
+              <StatusCaption
+                isError
+                message={!hasInternet ? 'Waiting for internet' : 'Failed, please retry.'}
+              />
+            ) : isSuccess ?
+              <StatusCaption message="Sent" />
+             : null}
           </View>
           {isError ? (
             <View style={{ flexDirection: 'row' }}>
@@ -92,7 +86,7 @@ function PendingContactRequestRow ({ index, ...contactData }) {
               </View>
             </View>
           ) : isConnecting ?
-            <ActivityIndicator style={{ marginRight: 10 }} size={30} />
+            <ActivityIndicator style={{ marginRight: 10 }} size={25} />
            : null}
         </View>
       </View>

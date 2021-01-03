@@ -19,6 +19,28 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
   const isRefreshing = status === 'refreshing';
   const isFirstFetch = isInitial || isFetching && !data;
 
+  const filterData = React.useCallback(
+    shouldKeep => {
+      updateState(({ data }) => {
+        if (data.constructor !== Array) return;
+
+        return {
+          data: data.filter(shouldKeep)
+        };
+      });
+    },
+    [updateState]
+  );
+
+  const updateData = React.useCallback(
+    updater => {
+      updateState(({ data }) => ({
+        data: data.constructor === Array ? data.map(updater) : updater(data)
+      }));
+    },
+    [updateState]
+  );
+
   const fetchData = React.useCallback(
     async refresh => {
       const isRefresh = refresh === true;
@@ -85,7 +107,9 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
     isFirstFetch,
     error,
     refreshData,
-    fetchData
+    fetchData,
+    updateData,
+    filterData
   };
 }
 
