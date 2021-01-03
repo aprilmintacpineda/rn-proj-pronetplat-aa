@@ -9,15 +9,17 @@ function mapStates ({ contactRequestNum }) {
 }
 
 function ToggleDrawerIcon (props) {
-  const { contactRequestNum } = useFluxibleStore(mapStates);
+  const { contactRequestNum, notificationsNum } = useFluxibleStore(mapStates);
+
+  const badge = contactRequestNum + notificationsNum;
 
   return (
     <View style={{ position: 'relative' }}>
       <Feather name="menu" {...props} />
       <Badge
         style={{ position: 'absolute', top: -5, right: -8, zIndex: 1 }}
-        visible={contactRequestNum > 0}>
-        {contactRequestNum}
+        visible={badge > 0}>
+        {badge}
       </Badge>
     </View>
   );

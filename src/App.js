@@ -39,22 +39,18 @@ messaging().onMessage(async remoteMessage => {
 
   switch (type) {
     case 'contactRequest':
-      if (store.contactRequestNum !== '99+') {
-        let contactRequestNum = parseInt(store.contactRequestNum) + 1;
-        if (contactRequestNum > 99) contactRequestNum = '99+';
-        updateStore({ contactRequestNum });
-      }
+      updateStore({
+        contactRequestNum: store.contactRequestNum + 1
+      });
 
       onPress = () => {
         navigationRef.current.navigate('ContactRequests');
       };
       break;
     case 'contactRequestAccepted':
-      if (store.notificationsNum !== '99+') {
-        let notificationsNum = parseInt(store.notificationsNum) + 1;
-        if (notificationsNum > 99) notificationsNum = '99+';
-        updateStore({ notificationsNum });
-      }
+      updateStore({
+        notificationsNum: store.notificationsNum + 1
+      });
 
       onPress = () => {
         navigationRef.current.navigate('ContactProfile', remoteMessage.data);

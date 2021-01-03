@@ -1,3 +1,4 @@
+import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
@@ -44,9 +45,13 @@ function ContactRequestRow ({ id, sender, createdAt, status = 'initial', index }
         };
       });
 
-      await xhr('/contact-request-accept', {
+      await xhr('/accept-contact-request', {
         method: 'post',
         body: { id }
+      });
+
+      updateStore({
+        contactRequestNum: store.contactRequestNum - 1
       });
 
       updateData(data => {
@@ -81,9 +86,13 @@ function ContactRequestRow ({ id, sender, createdAt, status = 'initial', index }
         };
       });
 
-      await xhr('/contact-request-decline', {
+      await xhr('/decline-contact-request', {
         method: 'post',
         body: { id }
+      });
+
+      updateStore({
+        contactRequestNum: store.contactRequestNum - 1
       });
 
       updateData(data => {
