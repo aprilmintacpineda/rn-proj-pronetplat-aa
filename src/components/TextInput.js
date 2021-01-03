@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import { HelperText, TextInput as RNPTextInput } from 'react-native-paper';
+import Caption from './Caption';
 
 const propsBasedOnTypes = {
   code: {
@@ -52,6 +53,10 @@ function TextInput ({
   onPress = null,
   onChangeText,
   disabled,
+  displayCharsRemaining = false,
+  maxLength = null,
+  value,
+  helperText,
   ..._textInputProps
 }) {
   const hasError = Boolean(error);
@@ -79,6 +84,8 @@ function TextInput ({
           onFocus={onFocus}
           onChangeText={onChangeText}
           disabled={disabled}
+          maxLength={maxLength}
+          value={value}
           {...textInputProps}
         />
         {!disabled && onPress && (
@@ -96,6 +103,10 @@ function TextInput ({
           </TouchableWithoutFeedback>
         )}
       </View>
+      {helperText && <Caption>{helperText}</Caption>}
+      {displayCharsRemaining && maxLength &&
+        <Caption>{maxLength - value.length} character(s) remaining</Caption>
+      }
       <HelperText type="error" visible={hasError}>
         {error}
       </HelperText>

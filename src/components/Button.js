@@ -2,7 +2,16 @@ import React from 'react';
 import { Button as RNPButton } from 'react-native-paper';
 import { navigationRef } from 'App';
 
-function Button ({ children, onPress, to, params, ...rnpButtonProps }) {
+function Button ({
+  children,
+  onPress,
+  to,
+  params,
+  style,
+  mode,
+  color,
+  ...rnpButtonProps
+}) {
   const handlePress = React.useCallback(
     (...args) => {
       if (to) navigationRef.current.navigate(to, params);
@@ -12,7 +21,11 @@ function Button ({ children, onPress, to, params, ...rnpButtonProps }) {
   );
 
   return (
-    <RNPButton onPress={handlePress} {...rnpButtonProps}>
+    <RNPButton
+      onPress={handlePress}
+      mode={mode}
+      style={[mode === 'outlined' ? { borderColor: color } : null, style]}
+      {...rnpButtonProps}>
       {children}
     </RNPButton>
   );

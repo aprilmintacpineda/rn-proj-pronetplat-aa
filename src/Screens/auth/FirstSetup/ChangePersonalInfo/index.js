@@ -12,7 +12,8 @@ const formOptions = {
     surname: '',
     gender: '',
     jobTitle: '',
-    company: ''
+    company: '',
+    bio: ''
   },
   validators: {
     firstName: ({ firstName }) => validate(firstName, ['required', 'maxLength:255']),
@@ -20,7 +21,8 @@ const formOptions = {
     surname: ({ surname }) => validate(surname, ['required', 'maxLength:255']),
     gender: ({ gender }) => validate(gender, ['required', 'options:male,female']),
     jobTitle: ({ jobTitle }) => validate(jobTitle, ['required', 'maxLength:255']),
-    company: ({ company }) => validate(company, ['maxLength:255'])
+    company: ({ company }) => validate(company, ['maxLength:255']),
+    bio: ({ bio }) => validate(bio, ['maxLength:255'])
   },
   onSubmitError: showRequestFailedPopup,
   onSubmitSuccess: ({ responseData: { authUser, authToken } }) => {
