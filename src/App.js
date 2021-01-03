@@ -56,6 +56,11 @@ messaging().onMessage(async remoteMessage => {
         navigationRef.current.navigate('ContactProfile', remoteMessage.data);
       };
       break;
+    case 'contactRequestDeclined':
+      updateStore({
+        notificationsNum: store.notificationsNum + 1
+      });
+      break;
   }
 
   displayNotification({

@@ -77,7 +77,10 @@ function Navigations () {
       try {
         let contactRequestNum = await xhr('/contact-request-count');
         contactRequestNum = await contactRequestNum.text();
-        updateStore({ contactRequestNum });
+
+        updateStore({
+          contactRequestNum: parseInt(contactRequestNum)
+        });
       } catch (error) {
         console.log(error);
       }
