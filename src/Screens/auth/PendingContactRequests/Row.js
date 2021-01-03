@@ -4,13 +4,14 @@ import { View } from 'react-native';
 import { Text, TouchableRipple, ActivityIndicator } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Animatable from 'components/Animatable';
+import Caption from 'components/Caption';
 import StatusCaption from 'components/StatusCaption';
 import UserAvatar from 'components/UserAvatar';
 import { addToContact, getFullName, renderContactTitle } from 'helpers/contact';
 import useHasInternet from 'hooks/useHasInternet';
 import { paperTheme } from 'theme';
 
-const { rippleColor } = paperTheme.colors;
+const { rippleColor, primary } = paperTheme.colors;
 
 function PendingContactRequestRow ({ index, ...contactData }) {
   const fullName = getFullName(contactData);
@@ -61,12 +62,10 @@ function PendingContactRequestRow ({ index, ...contactData }) {
   return (
     <Animatable animation={animation} delay={delay} onAnimationEnd={onAnimationEnd}>
       <View style={{ margin: 15 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={{ flexDirection: 'row' }}>
           <UserAvatar {...contactData} />
-          <View style={{ marginLeft: 15, flex: 1, justifyContent: 'center' }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={{ fontSize: 18 }}>{fullName}</Text>
-            </View>
+          <View style={{ marginLeft: 15, flex: 1 }}>
+            <Text style={{ fontSize: 18 }}>{fullName}</Text>
             {renderContactTitle(contactData)}
             {isError ? (
               <StatusCaption
@@ -76,6 +75,14 @@ function PendingContactRequestRow ({ index, ...contactData }) {
             ) : isSuccess ?
               <StatusCaption message="Sent" />
              : null}
+            {isConnecting && (
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <ActivityIndicator size={10} />
+                <Caption color={primary} style={{ marginLeft: 5 }}>
+                  Sending contact request...
+                </Caption>
+              </View>
+            )}
           </View>
           {isError ? (
             <View style={{ flexDirection: 'row' }}>
@@ -85,9 +92,7 @@ function PendingContactRequestRow ({ index, ...contactData }) {
                 </TouchableRipple>
               </View>
             </View>
-          ) : isConnecting ?
-            <ActivityIndicator style={{ marginRight: 10 }} size={25} />
-           : null}
+          ) : null}
         </View>
       </View>
     </Animatable>
