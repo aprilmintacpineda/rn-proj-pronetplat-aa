@@ -3,9 +3,9 @@ import React from 'react';
 function useState (initialState) {
   const [state, setState] = React.useState(initialState);
 
-  const updateState = React.useCallback(handler => {
+  const updateState = React.useCallback(updater => {
     setState(oldState => {
-      const newState = handler.constructor === Function ? handler(oldState) : handler;
+      const newState = updater.constructor === Function ? updater(oldState) : updater;
 
       return {
         ...oldState,
@@ -14,11 +14,7 @@ function useState (initialState) {
     });
   }, []);
 
-  return {
-    state,
-    updateState,
-    setState
-  };
+  return { state, updateState, setState };
 }
 
 export default useState;

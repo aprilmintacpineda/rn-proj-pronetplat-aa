@@ -57,6 +57,8 @@ function TextInput ({
   maxLength = null,
   value,
   helperText,
+  multiline,
+  numberOfLines,
   ..._textInputProps
 }) {
   const hasError = Boolean(error);
@@ -79,7 +81,15 @@ function TextInput ({
         <RNPTextInput
           error={hasError}
           mode="outlined"
-          style={[{ backgroundColor: '#fff' }, style]}
+          multiline={multiline}
+          numberOfLines={numberOfLines}
+          style={[
+            {
+              backgroundColor: '#fff',
+              maxHeight: multiline ? 20 * numberOfLines : undefined
+            },
+            style
+          ]}
           editable={!onPress}
           onFocus={onFocus}
           onChangeText={onChangeText}

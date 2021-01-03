@@ -8,8 +8,16 @@ import { FormContext } from 'components/FormWithContext/index';
 import TextInput from 'components/TextInput';
 import { camelToTitleCase } from 'libs/strings';
 
-function SelectOptions ({ field, options, labelSuffix, ...textInputProps }) {
-  const { onChangeHandlers, formValues, formErrors } = React.useContext(FormContext);
+function SelectOptions ({
+  field,
+  options,
+  labelSuffix,
+  disabled: disabledFromProps,
+  ...textInputProps
+}) {
+  const { onChangeHandlers, formValues, formErrors, disabled } = React.useContext(
+    FormContext
+  );
   const modalizeRef = React.useRef();
 
   const openModal = React.useCallback(() => {
@@ -42,6 +50,7 @@ function SelectOptions ({ field, options, labelSuffix, ...textInputProps }) {
         value={displayValue}
         error={error}
         label={label}
+        disabled={disabledFromProps || disabled}
         {...textInputProps}
         onPress={openModal}
       />
