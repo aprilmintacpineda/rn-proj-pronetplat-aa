@@ -4,13 +4,13 @@ import { View } from 'react-native';
 import { Badge } from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 
-function mapStates ({ contactRequestNum, notificationsNum }) {
-  return { contactRequestNum, notificationsNum };
+function mapStates ({ receivedContactRequestCount, notificationsCount }) {
+  return { receivedContactRequestCount, notificationsCount };
 }
 
 function ToggleDrawerIcon (props) {
-  const { contactRequestNum, notificationsNum } = useFluxibleStore(mapStates);
-  const badge = contactRequestNum + notificationsNum;
+  const { receivedContactRequestCount, notificationsCount } = useFluxibleStore(mapStates);
+  const badge = receivedContactRequestCount + notificationsCount;
 
   return (
     <View style={{ position: 'relative' }}>

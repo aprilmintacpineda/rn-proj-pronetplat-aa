@@ -10,8 +10,8 @@ export function login ({ authUser, authToken }) {
 export function logout () {
   updateStore({
     ...restore(getInitialStore()),
-    contactRequestNum: 0,
-    notificationsNum: 0
+    receivedContactRequestCount: 0,
+    notificationsCount: 0
   });
 
   logLogout();

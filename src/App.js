@@ -40,7 +40,7 @@ messaging().onMessage(async remoteMessage => {
   switch (type) {
     case 'contactRequest':
       updateStore({
-        contactRequestNum: store.contactRequestNum + 1
+        receivedContactRequestCount: store.receivedContactRequestCount + 1
       });
 
       onPress = () => {
@@ -49,7 +49,7 @@ messaging().onMessage(async remoteMessage => {
       break;
     case 'contactRequestAccepted':
       updateStore({
-        notificationsNum: store.notificationsNum + 1
+        notificationsCount: store.notificationsCount + 1
       });
 
       onPress = () => {
@@ -58,7 +58,7 @@ messaging().onMessage(async remoteMessage => {
       break;
     case 'contactRequestDeclined':
       updateStore({
-        notificationsNum: store.notificationsNum + 1
+        notificationsCount: store.notificationsCount + 1
       });
       break;
   }

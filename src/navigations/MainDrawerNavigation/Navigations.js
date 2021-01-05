@@ -5,6 +5,7 @@ import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { Divider, Drawer as RNPDrawer } from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 import { logout } from 'fluxible/actions/user';
@@ -22,7 +23,7 @@ function drawerContent (props) {
 
   const drawerItems = routes.map(({ key, name }, i) => {
     const { options } = descriptors[key];
-    const { title, drawerIcon, isHidden, badge, to } = options;
+    const { drawerLabel, drawerIcon, isHidden, badge, to } = options;
 
     if (isHidden) return null;
 
@@ -32,7 +33,7 @@ function drawerContent (props) {
         onPress={() => {
           navigate(to || name);
         }}
-        label={title}
+        label={drawerLabel}
         icon={drawerIcon}
         active={index === i}
         badge={badge}
@@ -57,8 +58,8 @@ const screenOptions = {
   swipeEnabled: false
 };
 
-function mapStates ({ authUser, contactRequestNum }) {
-  return { authUser, contactRequestNum };
+function mapStates ({ authUser, receivedContactRequestCount, notificationsCount }) {
+  return { authUser, receivedContactRequestCount, notificationsCount };
 }
 
 function PlaceholderScreen () {
@@ -67,7 +68,9 @@ function PlaceholderScreen () {
 
 function Navigations () {
   const hasInternet = useHasInternet();
-  const { authUser, contactRequestNum } = useFluxibleStore(mapStates);
+  const { authUser, receivedContactRequestCount, notificationsCount } = useFluxibleStore(
+    mapStates
+  );
   const { width } = useWindowDimensions();
 
   React.useEffect(() => {
@@ -75,11 +78,12 @@ function Navigations () {
 
     (async () => {
       try {
-        let contactRequestNum = await xhr('/contact-request-count');
-        contactRequestNum = await contactRequestNum.text();
+        const response = await xhr('/badge-count');
+        const { receivedContactRequestCount, notificationsCount } = await response.json();
 
         updateStore({
-          contactRequestNum: parseInt(contactRequestNum)
+          receivedContactRequestCount,
+          notificationsCount
         });
       } catch (error) {
         console.log(error);
@@ -112,7 +116,7 @@ function Navigations () {
         name="MainStackNavigation"
         component={MainStackNavigation}
         options={{
-          title: 'Dashboard',
+          drawerLabel: 'Dashboard',
           drawerIcon: props => <MaterialCommunityIcons name="view-dashboard" {...props} />
         }}
       />
@@ -120,12 +124,22 @@ function Navigations () {
         name="ContactRequestsPlaceholder"
         component={PlaceholderScreen}
         options={{
-          title: 'Contact Requests',
+          drawerLabel: 'Contact Requests',
           drawerIcon: props =>
             <MaterialCommunityIcons name="account-network" {...props} />
           ,
-          badge: contactRequestNum,
+          badge: receivedContactRequestCount,
           to: 'ContactRequests'
+        }}
+      />
+      <Drawer.Screen
+        name="NotificationsPlaceHolder"
+        component={PlaceholderScreen}
+        options={{
+          drawerLabel: 'Contact Requests',
+          drawerIcon: props => <Ionicons name="ios-notifications" {...props} />,
+          badge: notificationsCount,
+          to: 'Notifications'
         }}
       />
       <Drawer.Screen

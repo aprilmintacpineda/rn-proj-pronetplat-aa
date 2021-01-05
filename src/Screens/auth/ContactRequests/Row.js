@@ -51,7 +51,7 @@ function ContactRequestRow ({ id, sender, createdAt, status = 'initial', index }
       });
 
       updateStore({
-        contactRequestNum: store.contactRequestNum - 1
+        receivedContactRequestCount: store.receivedContactRequestCount - 1
       });
 
       updateData(data => {
@@ -92,7 +92,7 @@ function ContactRequestRow ({ id, sender, createdAt, status = 'initial', index }
       });
 
       updateStore({
-        contactRequestNum: store.contactRequestNum - 1
+        receivedContactRequestCount: store.receivedContactRequestCount - 1
       });
 
       updateData(data => {
