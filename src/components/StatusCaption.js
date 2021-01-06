@@ -1,8 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Animatable from './Animatable';
 import Caption from './Caption';
+import RNVectorIcon from './RNVectorIcon';
 import { paperTheme } from 'theme';
 
 const { success, error } = paperTheme.colors;
@@ -19,7 +19,7 @@ function StatusCaption ({ isError, message }) {
   return (
     <Animatable animation="fadeIn">
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Ionicons name={iconName} size={15} color={color} />
+        <RNVectorIcon provider="Ionicons" name={iconName} size={15} color={color} />
         <Caption color={color} style={{ marginLeft: 3 }}>
           {message}
         </Caption>

@@ -1,10 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
-import Entypo from 'react-native-vector-icons/Entypo';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Animatable from 'components/Animatable';
+import RNVectorIcon from 'components/RNVectorIcon';
 import TouchableButtonLink from 'components/TouchableButtonLink';
 import UserAvatar from 'components/UserAvatar';
 import { getFullName, renderContactTitle } from 'helpers/contact';
@@ -33,13 +32,24 @@ function ContactListRow ({ index, ...contactData }) {
             {renderContactTitle(contactData)}
             <View style={{ flexDirection: 'row', marginTop: 3 }}>
               <View style={{ marginRight: 3 }}>
-                <Entypo name="email" size={12} color={hasEmail ? success : disabled} />
+                <RNVectorIcon
+                  provider="Entypo"
+                  name="email"
+                  size={12}
+                  color={hasEmail ? success : disabled}
+                />
               </View>
               <View style={{ marginRight: 3 }}>
-                <Entypo name="mobile" size={12} color={hasMobile ? success : disabled} />
+                <RNVectorIcon
+                  provider="Entypo"
+                  name="mobile"
+                  size={12}
+                  color={hasMobile ? success : disabled}
+                />
               </View>
               <View style={{ marginRight: 3 }}>
-                <MaterialCommunityIcons
+                <RNVectorIcon
+                  provider="MaterialCommunityIcons"
                   name="phone-classic"
                   size={12}
                   color={hasTelephone ? success : disabled}

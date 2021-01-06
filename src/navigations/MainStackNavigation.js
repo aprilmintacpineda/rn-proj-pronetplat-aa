@@ -5,6 +5,7 @@ import header from './header';
 import MainTabNavigation from './MainTabNavigation';
 import ContactProfile from 'Screens/auth/Contact/Profile';
 import ContactRequests from 'Screens/auth/ContactRequests';
+import Notifications from 'Screens/auth/Notifications';
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,14 @@ function MainStackNavigation () {
         component={ContactRequests}
         options={{
           title: 'Contact Requests',
+          ...TransitionPresets.ModalSlideFromBottomIOS
+        }}
+      />
+      <Stack.Screen
+        name="Notifications"
+        component={Notifications}
+        options={{
+          title: 'Notifications',
           ...TransitionPresets.ModalSlideFromBottomIOS
         }}
       />

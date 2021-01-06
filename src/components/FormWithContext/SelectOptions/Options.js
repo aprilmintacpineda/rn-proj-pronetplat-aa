@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import { DefaultTheme, Text } from 'react-native-paper';
-import Feather from 'react-native-vector-icons/Feather';
+import RNVectorIcon from 'components/RNVectorIcon';
 import { camelToTitleCase } from 'libs/strings';
 
 const { primary } = DefaultTheme.colors;
@@ -29,7 +29,8 @@ function Options ({ value, options, onChange }) {
             },
             isSelected ? { borderColor: primary } : undefined
           ]}>
-          <Feather
+          <RNVectorIcon
+            provider="Feather"
             name={isSelected ? 'check-circle' : 'circle'}
             size={20}
             color={isSelected ? primary : '#000'}

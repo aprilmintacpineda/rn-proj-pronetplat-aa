@@ -52,6 +52,8 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
           error: null
         });
 
+        console.log('useDataFetch', nextToken, isRefresh);
+
         const response = await xhrWithParams(endpoint, {
           ...params,
           nextToken: isRefresh ? null : nextToken

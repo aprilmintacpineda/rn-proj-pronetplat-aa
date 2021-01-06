@@ -11,7 +11,6 @@ function Avatar ({ size = 60, uri, label }) {
   if (uri && !isError)
     return <RNPAvatar.Image source={{ uri }} size={size} onError={onError} />;
 
-
   return (
     <RNPAvatar.Text
       label={label}

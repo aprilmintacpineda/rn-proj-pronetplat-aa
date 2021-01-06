@@ -1,8 +1,7 @@
 import React from 'react';
 import { Linking, Text, View } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Feather from 'react-native-vector-icons/Feather';
+import RNVectorIcon from 'components/RNVectorIcon';
 import { paperTheme } from 'theme';
 
 const { primary, rippleColor } = paperTheme.colors.primary;
@@ -13,13 +12,29 @@ function ContactDetailRow ({ type, value }) {
 
   switch (type) {
     case 'email':
-      actionIcon = <Feather name="send" color={primary} size={iconSize} />;
+      actionIcon =
+        <RNVectorIcon provider="Feather" name="send" color={primary} size={iconSize} />
+      ;
       break;
     case 'mobile':
-      actionIcon = <AntDesign name="message1" size={iconSize} color={primary} />;
+      actionIcon = (
+        <RNVectorIcon
+          provider="AntDesign"
+          name="message1"
+          size={iconSize}
+          color={primary}
+        />
+      );
       break;
     case 'telephone':
-      actionIcon = <Feather name="phone-call" size={iconSize} color={primary} />;
+      actionIcon = (
+        <RNVectorIcon
+          provider="Feather"
+          name="phone-call"
+          size={iconSize}
+          color={primary}
+        />
+      );
       break;
   }
 

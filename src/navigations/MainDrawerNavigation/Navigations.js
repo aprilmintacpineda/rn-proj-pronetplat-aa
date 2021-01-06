@@ -4,10 +4,8 @@ import { updateStore } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { Divider, Drawer as RNPDrawer } from 'react-native-paper';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
+import RNVectorIcon from 'components/RNVectorIcon';
 import { logout } from 'fluxible/actions/user';
 import useHasInternet from 'hooks/useHasInternet';
 import { xhr } from 'libs/xhr';
@@ -48,7 +46,7 @@ function drawerContent (props) {
       <RNPDrawer.Item
         onPress={logout}
         label="Logout"
-        icon={props => <AntDesign name="logout" {...props} />}
+        icon={props => <RNVectorIcon provider="AntDesign" name="logout" {...props} />}
       />
     </>
   );
@@ -117,7 +115,13 @@ function Navigations () {
         component={MainStackNavigation}
         options={{
           drawerLabel: 'Dashboard',
-          drawerIcon: props => <MaterialCommunityIcons name="view-dashboard" {...props} />
+          drawerIcon: props => (
+            <RNVectorIcon
+              provider="MaterialCommunityIcons"
+              name="view-dashboard"
+              {...props}
+            />
+          )
         }}
       />
       <Drawer.Screen
@@ -125,9 +129,13 @@ function Navigations () {
         component={PlaceholderScreen}
         options={{
           drawerLabel: 'Contact Requests',
-          drawerIcon: props =>
-            <MaterialCommunityIcons name="account-network" {...props} />
-          ,
+          drawerIcon: props => (
+            <RNVectorIcon
+              provider="MaterialCommunityIcons"
+              name="account-network"
+              {...props}
+            />
+          ),
           badge: receivedContactRequestCount,
           to: 'ContactRequests'
         }}
@@ -136,8 +144,10 @@ function Navigations () {
         name="NotificationsPlaceHolder"
         component={PlaceholderScreen}
         options={{
-          drawerLabel: 'Contact Requests',
-          drawerIcon: props => <Ionicons name="ios-notifications" {...props} />,
+          drawerLabel: 'Notifications',
+          drawerIcon: props =>
+            <RNVectorIcon provider="Ionicons" name="ios-notifications" {...props} />
+          ,
           badge: notificationsCount,
           to: 'Notifications'
         }}

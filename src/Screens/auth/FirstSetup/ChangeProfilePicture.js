@@ -11,11 +11,10 @@ import {
   TouchableRipple
 } from 'react-native-paper';
 import { openSettings, PERMISSIONS, requestMultiple } from 'react-native-permissions';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import File from 'classes/File';
 import Button from 'components/Button';
 import FormContainer from 'components/FormContainer';
+import RNVectorIcon from 'components/RNVectorIcon';
 import UserAvatar from 'components/UserAvatar';
 import { showErrorPopup, showRequestFailedPopup } from 'fluxible/actions/popup';
 import useState from 'hooks/useState';
@@ -190,7 +189,9 @@ function ChangeProfilePicture ({ onDone }) {
           onPress={changeProfile}
           mode="contained"
           style={{ marginTop: 20 }}
-          icon={props => <Ionicons name="ios-pencil" {...props} />}
+          icon={props =>
+            <RNVectorIcon provider="Ionicons" name="ios-pencil" {...props} />
+          }
           disabled={isUploading}>
           Change
         </Button>
@@ -214,7 +215,12 @@ function ChangeProfilePicture ({ onDone }) {
             <View style={modalButtonWrapperStyles}>
               <TouchableRipple onPress={openGalery} rippleColor={rippleColor}>
                 <View style={modalButtonContainerStyles}>
-                  <AntDesign name="picture" size={35} color={primary} />
+                  <RNVectorIcon
+                    provider="AntDesign¿"
+                    name="picture"
+                    size={35}
+                    color={primary}
+                  />
                   <Text style={modalButtonLabelStyles}>Galery</Text>
                 </View>
               </TouchableRipple>
@@ -222,7 +228,12 @@ function ChangeProfilePicture ({ onDone }) {
             <View style={modalButtonWrapperStyles}>
               <TouchableRipple onPress={openCamera} rippleColor={rippleColor}>
                 <View style={modalButtonContainerStyles}>
-                  <Ionicons name="ios-camera-outline" size={35} color={primary} />
+                  <RNVectorIcon
+                    provider="Ionicons"
+                    name="ios-camera-outline"
+                    size={35}
+                    color={primary}
+                  />
                   <Text style={modalButtonLabelStyles}>Camera</Text>
                 </View>
               </TouchableRipple>

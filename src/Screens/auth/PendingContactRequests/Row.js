@@ -2,9 +2,9 @@ import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { View } from 'react-native';
 import { Text, TouchableRipple, ActivityIndicator } from 'react-native-paper';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Animatable from 'components/Animatable';
 import Caption from 'components/Caption';
+import RNVectorIcon from 'components/RNVectorIcon';
 import StatusCaption from 'components/StatusCaption';
 import UserAvatar from 'components/UserAvatar';
 import { addToContact, getFullName, renderContactTitle } from 'helpers/contact';
@@ -88,7 +88,11 @@ function PendingContactRequestRow ({ index, ...contactData }) {
             <View style={{ flexDirection: 'row' }}>
               <View style={{ borderRadius: 100, overflow: 'hidden' }}>
                 <TouchableRipple onPress={sendContactRequest} rippleColor={rippleColor}>
-                  <Ionicons name="ios-refresh-circle-outline" size={35} />
+                  <RNVectorIcon
+                    provider="Ionicons"
+                    name="ios-refresh-circle-outline"
+                    size={35}
+                  />
                 </TouchableRipple>
               </View>
             </View>

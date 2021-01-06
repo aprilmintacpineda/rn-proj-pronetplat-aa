@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { HelperText, DefaultTheme } from 'react-native-paper';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import RNVectorIcon from './RNVectorIcon';
 
 const errorColor = DefaultTheme.colors.error;
 
@@ -24,7 +24,12 @@ function Condition ({ isValid, label }) {
   if (isValid) {
     return (
       <View style={styles.condition}>
-        <Ionicons name="checkmark-circle" size={15} color="green" />
+        <RNVectorIcon
+          provider="Ionicons"
+          name="checkmark-circle"
+          size={15}
+          color="green"
+        />
         <HelperText style={styles.labelValid}>{label}</HelperText>
       </View>
     );
@@ -32,7 +37,12 @@ function Condition ({ isValid, label }) {
 
   return (
     <View style={styles.condition}>
-      <Ionicons name="close-circle" size={15} color={errorColor} />
+      <RNVectorIcon
+        provider="Ionicons"
+        name="close-circle"
+        size={15}
+        color={errorColor}
+      />
       <HelperText style={styles.labelInvalid}>{label}</HelperText>
     </View>
   );

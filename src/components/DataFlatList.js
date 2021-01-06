@@ -29,7 +29,7 @@ function Body ({
     args => {
       if (RowComponent) {
         const { item, index } = args;
-        return <RowComponent updateData={updateData} {...item} index={index} />;
+        return <RowComponent {...item} index={index} />;
       }
 
       return renderItem({
