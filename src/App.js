@@ -2,7 +2,6 @@ import 'customAnimations';
 import 'setDefaults';
 
 import crashlytics from '@react-native-firebase/crashlytics';
-import iid from '@react-native-firebase/iid';
 import messaging from '@react-native-firebase/messaging';
 import { NavigationContainer } from '@react-navigation/native';
 import { store, updateStore } from 'fluxible-js';
@@ -102,11 +101,6 @@ function App () {
   React.useEffect(() => {
     initStore();
     appMounted();
-
-    (async () => {
-      const token = await iid().getToken();
-      await crashlytics().setUserId(token);
-    })();
   }, []);
 
   React.useEffect(() => {

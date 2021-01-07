@@ -1,5 +1,6 @@
 import analytics from '@react-native-firebase/analytics';
 import crashlytics from '@react-native-firebase/crashlytics';
+import iid from '@react-native-firebase/iid';
 import { navigationRef } from 'App';
 
 function getCurrentRoute () {
@@ -16,7 +17,6 @@ function getCurrentRoute () {
 
 export async function logScreenView () {
   const currentRouteName = getCurrentRoute();
-
   crashlytics().log(`Navigated to ${currentRouteName}`);
 
   await analytics().logScreenView({
@@ -26,13 +26,16 @@ export async function logScreenView () {
 }
 
 export async function appMounted () {
+  const token = await iid().getToken();
+
+  await Promise.all([crashlytics().setUserId(token), analytics().setUserId(token)]);
+
   crashlytics().log('App mounted');
   await analytics().logAppOpen();
 }
 
 export async function logEvent ({ eventName, params }) {
   const currentRouteName = getCurrentRoute();
-
   crashlytics().log(`Event ${eventName} on route ${currentRouteName}`);
 
   await analytics().logEvent(eventName, {
@@ -48,6 +51,5 @@ export async function logLogin () {
 
 export async function logLogout () {
   crashlytics().log('User logged out');
-
   await analytics().logEvent('logout');
 }
