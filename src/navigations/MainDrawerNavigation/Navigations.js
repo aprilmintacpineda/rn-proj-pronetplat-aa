@@ -66,9 +66,11 @@ function PlaceholderScreen () {
 
 function Navigations () {
   const hasInternet = useHasInternet();
+
   const { authUser, receivedContactRequestCount, notificationsCount } = useFluxibleStore(
     mapStates
   );
+
   const { width } = useWindowDimensions();
 
   React.useEffect(() => {

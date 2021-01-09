@@ -5,13 +5,14 @@ import Avatar from 'components/Avatar';
 import Caption from 'components/Caption';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
+import TouchableButtonLink from 'components/TouchableButtonLink';
 import { getFullName, getInitials } from 'helpers/contact';
 import { paperTheme, navigationTheme } from 'theme';
 
-const { success, error } = paperTheme.colors;
+const { success, error, primary } = paperTheme.colors;
 const { background: backgroundColor } = navigationTheme.colors;
 
-function NotificationRow ({ actor, body, createdAt, type }) {
+function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
   const { profilePicture } = actor;
   const fullname = getFullName(actor);
   const avatarLabel = getInitials(actor);
@@ -70,7 +71,12 @@ function NotificationRow ({ actor, body, createdAt, type }) {
   }, [body, fullname]);
 
   return (
-    <View style={{ flexDirection: 'row', padding: 15 }}>
+    <View
+      style={{
+        flexDirection: 'row',
+        padding: 15,
+        backgroundColor: !seenAt ? `${primary}10` : undefined
+      }}>
       <View style={{ position: 'relative' }}>
         <Avatar uri={profilePicture} label={avatarLabel} />
         <View
@@ -92,6 +98,20 @@ function NotificationRow ({ actor, body, createdAt, type }) {
       </View>
     </View>
   );
+}
+
+function NotificationRow (notification) {
+  const { type, actor } = notification;
+
+  if (type === 'contactRequestAccepted' || type === 'contactRequestDeclined') {
+    return (
+      <TouchableButtonLink to="ContactProfile" params={actor}>
+        <NotificationBody {...notification} />
+      </TouchableButtonLink>
+    );
+  }
+
+  return <NotificationBody {...notification} />;
 }
 
 export default React.memo(NotificationRow);

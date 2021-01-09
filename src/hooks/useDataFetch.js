@@ -2,7 +2,7 @@ import React from 'react';
 import useState from './useState';
 import { xhrWithParams } from 'libs/xhr';
 
-function useDataFetch ({ endpoint, params = null, prefetch = true }) {
+function useDataFetch ({ endpoint, params = null, prefetch = true, onSuccess }) {
   const {
     state: { data, status, nextToken, error, canFetchMore },
     updateState
@@ -18,6 +18,8 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
   const isInitial = status === 'initial';
   const isRefreshing = status === 'refreshing';
   const isFirstFetch = isInitial || isFetching && !data;
+  const isError = status === 'fetchError';
+  const isSuccess = status === 'fetchSuccess';
 
   const filterData = React.useCallback(
     shouldKeep => {
@@ -60,14 +62,13 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
         });
 
         const { data: responseData, nextToken: newNextToken } = await response.json();
-        const isDataArray = responseData.constructor === Array;
 
         console.log('useDataFetch', responseData, newNextToken);
 
         updateState(({ data }) => {
           const newData = isRefresh
             ? responseData
-            : isDataArray
+            : responseData.constructor === Array
             ? (data || []).concat(responseData || [])
             : responseData;
 
@@ -99,6 +100,10 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
     if (isInitial && prefetch) fetchData();
   }, [prefetch, fetchData, isInitial]);
 
+  React.useEffect(() => {
+    if (isSuccess && onSuccess) onSuccess();
+  }, [isSuccess, onSuccess]);
+
   return {
     data,
     status,
@@ -107,6 +112,8 @@ function useDataFetch ({ endpoint, params = null, prefetch = true }) {
     isInitial,
     isRefreshing,
     isFirstFetch,
+    isError,
+    isSuccess,
     error,
     refreshData,
     fetchData,
