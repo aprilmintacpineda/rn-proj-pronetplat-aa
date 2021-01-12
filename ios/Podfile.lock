@@ -421,23 +421,23 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
-  - RNFBAnalytics (10.4.0):
+  - RNFBAnalytics (10.4.1):
     - Firebase/Analytics (~> 7.3.0)
     - React-Core
     - RNFBApp
   - RNFBApp (10.4.0):
     - Firebase/CoreOnly (~> 7.3.0)
     - React-Core
-  - RNFBCrashlytics (10.4.0):
+  - RNFBCrashlytics (10.4.1):
     - Firebase/Crashlytics (~> 7.3.0)
     - React-Core
     - RNFBApp
-  - RNFBIid (10.4.0):
+  - RNFBIid (10.4.1):
     - Firebase/CoreOnly (~> 7.3.0)
     - FirebaseInstanceID
     - React-Core
     - RNFBApp
-  - RNFBMessaging (10.4.0):
+  - RNFBMessaging (10.4.1):
     - Firebase/Messaging (~> 7.3.0)
     - React-Core
     - RNFBApp
@@ -797,11 +797,11 @@ SPEC CHECKSUMS:
   ReactNativeCameraKit: 5026c5884617eab92b096b62262eec2bbf9eb647
   RNBootSplash: a9544ba7f1a68b561e61e9efc68e2b3eec05dcef
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNFBAnalytics: dbe60bec27fa2d4876983581f98a1ebdd46a3c95
+  RNFBAnalytics: a274c45ca741e12d1bdb3e0b8465dffc06a8d1b8
   RNFBApp: a9af8372c9c2b2135ffa78817fd2d8baf3ee632e
-  RNFBCrashlytics: b02cce65e7059e6f7827fa357cd84df79c6fdd74
-  RNFBIid: 582db9dbd757a7c2bcb8efe6e55e594d8b2fbb3b
-  RNFBMessaging: e46490776fcde23b1dee602008a85ac0874c4c0f
+  RNFBCrashlytics: efbfde4a44d26eb518248844fe38d3b96352e0d7
+  RNFBIid: 51f11cc1f5b5296c9075d6b029251396c700c472
+  RNFBMessaging: 643ec4102ee0d780f928718c2632bb1e90487f04
   RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
   RNPermissions: 99dd8d4a30ff13509b949ca63cd1f69edc461775
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad

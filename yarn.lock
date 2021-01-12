@@ -1850,10 +1850,10 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.9.10.tgz#97d3a9fa62a3a4838ec7a6ec91cfec5a26e365b6"
   integrity sha512-1NPlBA2Hu/KWc3EnQcDRPRX0x8Dg9tuQlQQVWVQjlg+u+PjCq7ANEtbikOFKp5yQqfF8tqzU5+84/IfDO8zpiA==
 
-"@react-native-firebase/analytics@^10.4.0":
-  version "10.4.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-10.4.0.tgz#6f29e73cf360a73eff3b9a5b1cdb5997f963bc76"
-  integrity sha512-A5Nv5y3FNzUlWwMfIH3pQLchod6ApXCajpKTF1NqoJ5/2UlqtezlCKxT/tFInRAtjrLv1fMGtME/1KZ6rJ0w3A==
+"@react-native-firebase/analytics@^10.4.1":
+  version "10.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-10.4.1.tgz#812315b71a1e1fb2a6848e7e5b6aeba24392554a"
+  integrity sha512-g1B/twbX0Z2jsb6dEGjD89RPcshLJ96KowsnGKccSTF8VJkp+yMO2aUvQAY3TWKPv7OD/so05HrdbgHAepQ+7g==
 
 "@react-native-firebase/app@^10.4.0":
   version "10.4.0"
@@ -1863,22 +1863,22 @@
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/crashlytics@^10.4.0":
-  version "10.4.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-10.4.0.tgz#a570e2fb90e4ac459c0bc14f86e5c69751c29189"
-  integrity sha512-OvmyZupJ2VuvTdl6fhF0rV1uE7nizVpmFNUZaUhHvkFMtOBUBn6y9EOBJXAKUtj4kUA6BvGhFHOfA6xjtzzcxQ==
+"@react-native-firebase/crashlytics@^10.4.1":
+  version "10.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-10.4.1.tgz#1a4753ab6d03516011a1130d7e0e205261f60985"
+  integrity sha512-C6zAo28t8MqcSDU9b4TNMlck/q2+j5PPEAre3IoVVci2bShBe7VzfgFlaZbvZpu1yJftzh/RAu2RLachufF7JQ==
   dependencies:
     stacktrace-js "^2.0.0"
 
-"@react-native-firebase/iid@^10.4.0":
-  version "10.4.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/iid/-/iid-10.4.0.tgz#fca1b66e70fd8340aaa7aac0224109097d922eca"
-  integrity sha512-QdWEkIqqm5+2N8BmjhKcqYFAsGvEyShO5JB6Dn+wNBVvzTL6ffzJEs8NXueK5AjST6DpKD+KK3Pnb/U4iXLh5g==
+"@react-native-firebase/iid@^10.4.1":
+  version "10.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/iid/-/iid-10.4.1.tgz#fe7f3f23906962cef704ce458f6b5a5004a32064"
+  integrity sha512-j5loiI3l8FMQ7LdswoG9Czb/UORb+9zJVRZh3pBq0xuLbwKYHqrA7gQmTHObU+tGgNnumE3opiZ941C5Hp/B4g==
 
-"@react-native-firebase/messaging@^10.4.0":
-  version "10.4.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-10.4.0.tgz#d9153bf73f097a67043ac122a70667147125be70"
-  integrity sha512-iHCymfU6m3Z70RJJTwpM92wx5sQJAsVZF0NAOV4Zugt6OoDegau2VtZ0PxlwkJSfj43drCj0uYyWVuvoyxCUZw==
+"@react-native-firebase/messaging@^10.4.1":
+  version "10.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-10.4.1.tgz#9d48174a545b3b4b9372ed2230e7358ab3daf7b6"
+  integrity sha512-51Ye2BmFJUsaoKeeZ12Ud909eU207M0rwWprolFU70iSwiHq5uL5Wtq4BZCg1GEzNn7G5n36K8fRkxhYf4gHiQ==
 
 "@react-navigation/bottom-tabs@^5.11.2":
   version "5.11.2"
@@ -7572,10 +7572,10 @@ react-native-modalize@^2.0.8:
   resolved "https://registry.yarnpkg.com/react-native-modalize/-/react-native-modalize-2.0.8.tgz#5dcb2c56d82e3dbd271582f832e7e02ae4cbb503"
   integrity sha512-OKdpFVExEe4YM2uFHL/aStS9p0JaC6gBupjaW1QVHkGq22T2ASYwkhDvTnMS8BLOLWPx2fC3xEBzOcn2rh7EYw==
 
-react-native-paper@^4.4.1:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-4.5.0.tgz#5f1f1e658dbd7a322a299e08ce76e22be44c01d5"
-  integrity sha512-mQtOL9yAs5B5b+HPWVMMbFFuKVpTDn1YuR0h5SCtDkR+3deZjJNRLtrNgPnsrwRfBhA/F8j/p2yps4DY8AiyMg==
+react-native-paper@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-4.6.0.tgz#3ac6abb0dbca6a1c93e4b2eb8f128836e0f19a5a"
+  integrity sha512-ETrMOgL8Ch/DmDl8dsGf2a9j5TBpcsrQadzHQJBx2MYBtmxCwAhZx7JOYCnq0euQKRa0PVzzZ41anSDohiQmGw==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.5"
     color "^3.1.2"
