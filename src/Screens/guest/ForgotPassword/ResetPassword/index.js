@@ -2,7 +2,10 @@ import React from 'react';
 import ResetPasswordForm from './ResetPasswordForm';
 import { navigationRef } from 'App';
 import FormWithContext from 'components/FormWithContext';
-import { showRequestFailedPopup, showSuccessPopup } from 'fluxible/actions/popup';
+import {
+  showRequestFailedPopup,
+  showSuccessPopup
+} from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -22,9 +25,15 @@ const formOptions = {
     confirmationCode: ({ confirmationCode }) =>
       validate(confirmationCode, ['required', 'maxLength:20']),
     newPassword: ({ newPassword, retypeNewPassword }) =>
-      validate(newPassword, ['required', `matches:${retypeNewPassword},passwords`]),
+      validate(newPassword, [
+        'required',
+        `matches:${retypeNewPassword},passwords`
+      ]),
     retypeNewPassword: ({ retypeNewPassword, newPassword }) =>
-      validate(retypeNewPassword, ['required', `matches:${newPassword},passwords`])
+      validate(retypeNewPassword, [
+        'required',
+        `matches:${newPassword},passwords`
+      ])
   },
   transformInput: ({ formValues, formContext }) => {
     const { email } = formContext;
@@ -43,12 +52,7 @@ const formOptions = {
     });
     navigationRef.current.navigate('Login');
   },
-  onSubmitError: () => {
-    showRequestFailedPopup({
-      message:
-        'Cannot reset password. Either the confirmation code you provided is incorrect or your request may have expired.'
-    });
-  }
+  onSubmitError: showRequestFailedPopup
 };
 
 function ResetPassword (props) {

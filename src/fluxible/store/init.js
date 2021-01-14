@@ -1,6 +1,14 @@
-import { initializeStore, updateStore } from 'fluxible-js';
+import { fetch as checkInternet } from '@react-native-community/netinfo';
+import iid from '@react-native-firebase/iid';
+import { initializeStore, store, updateStore } from 'fluxible-js';
 import RNSInfo from 'react-native-sensitive-info';
 import { STAGE } from 'env';
+import { xhr } from 'libs/xhr';
+
+async function hasInternet () {
+  const { isConnected } = await checkInternet();
+  return isConnected;
+}
 
 export function getInitialStore () {
   return {
@@ -27,12 +35,44 @@ const asyncStorage = {
   getItem: key => RNSInfo.getItem(key, options)
 };
 
-export function restore ({ authUser, authToken, pendingContactRequests }) {
+export function restore ({
+  authUser,
+  authToken,
+  pendingContactRequests
+}) {
   return { authUser, authToken, pendingContactRequests };
 }
 
-function onInitComplete () {
-  updateStore({ initComplete: true });
+async function onInitComplete () {
+  try {
+    if (!store.authToken || !await hasInternet()) {
+      updateStore({ initComplete: true });
+      return;
+    }
+
+    const deviceToken = await iid().getToken();
+
+    const response = await xhr('/validate-auth', {
+      method: 'post',
+      body: { deviceToken }
+    });
+
+    const { authUser, authToken } = await response.json();
+
+    updateStore({
+      initComplete: true,
+      authUser,
+      authToken
+    });
+  } catch (error) {
+    console.log(error);
+
+    updateStore({
+      initComplete: true,
+      authUser: null,
+      authToken: null
+    });
+  }
 }
 
 export function initStore () {

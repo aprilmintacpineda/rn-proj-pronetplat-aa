@@ -3,11 +3,15 @@ import React from 'react';
 
 function TimeAgo ({ dateFrom }) {
   const [timeAgo, setTimeAgo] = React.useState(() => {
-    return formatDistanceToNow(new Date(dateFrom), { addSuffix: true });
+    return formatDistanceToNow(new Date(dateFrom), {
+      addSuffix: true
+    });
   });
 
   const count = React.useCallback(() => {
-    setTimeAgo(formatDistanceToNow(new Date(dateFrom), { addSuffix: true }));
+    setTimeAgo(
+      formatDistanceToNow(new Date(dateFrom), { addSuffix: true })
+    );
   }, [dateFrom]);
 
   React.useEffect(() => {

@@ -5,7 +5,11 @@ import { Surface } from 'react-native-paper';
 function FormContainer ({ children }) {
   return (
     <View style={{ padding: 20 }}>
-      <Surface style={{ padding: 20, borderRadius: 4, elevation: 1 }}>{children}</Surface>
+      <Surface
+        style={{ padding: 20, borderRadius: 4, elevation: 1 }}
+      >
+        {children}
+      </Surface>
     </View>
   );
 }

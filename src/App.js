@@ -7,10 +7,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
-import { KeyboardAvoidingView, Platform, StatusBar, View, AppState } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StatusBar,
+  View,
+  AppState
+} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
-
 import FullSafeAreaView from 'components/FullSafeAreaView';
 import { initStore } from 'fluxible/store/init';
 import { getInitials } from 'helpers/contact';
@@ -39,7 +44,8 @@ messaging().onMessage(async remoteMessage => {
   switch (type) {
     case 'contactRequest':
       updateStore({
-        receivedContactRequestCount: store.receivedContactRequestCount + 1
+        receivedContactRequestCount:
+          store.receivedContactRequestCount + 1
       });
 
       onPress = () => {
@@ -52,7 +58,10 @@ messaging().onMessage(async remoteMessage => {
       });
 
       onPress = () => {
-        navigationRef.current.navigate('ContactProfile', remoteMessage.data);
+        navigationRef.current.navigate(
+          'ContactProfile',
+          remoteMessage.data
+        );
       };
       break;
     case 'contactRequestDeclined':
@@ -116,17 +125,26 @@ function App () {
         ref={navigationRef}
         theme={navigationTheme}
         onReady={logScreenView}
-        onStateChange={logScreenView}>
+        onStateChange={logScreenView}
+      >
         <PaperProvider theme={paperTheme}>
           <PopupManager />
           <FullSafeAreaView>
             <KeyboardAvoidingView
               style={{ flex: 1 }}
               behavior={avoidBehavior}
-              keyboardVerticalOffset={avoidOffset}>
+              keyboardVerticalOffset={avoidOffset}
+            >
               {!hasInternet ? (
-                <View style={{ backgroundColor: paperTheme.colors.error, padding: 3 }}>
-                  <Text style={{ color: '#fff' }}>No internet connection.</Text>
+                <View
+                  style={{
+                    backgroundColor: paperTheme.colors.error,
+                    padding: 3
+                  }}
+                >
+                  <Text style={{ color: '#fff' }}>
+                    No internet connection.
+                  </Text>
                 </View>
               ) : null}
               <IndexStackNavigator />

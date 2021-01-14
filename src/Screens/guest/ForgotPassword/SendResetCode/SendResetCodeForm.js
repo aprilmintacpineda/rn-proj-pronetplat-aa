@@ -7,7 +7,9 @@ import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
 
 function SendResetCodeForm ({ onResetCodeSent }) {
-  const { isSubmitSuccess, formValues } = React.useContext(FormContext);
+  const { isSubmitSuccess, formValues } = React.useContext(
+    FormContext
+  );
   const { email } = formValues;
 
   React.useEffect(() => {
@@ -18,7 +20,9 @@ function SendResetCodeForm ({ onResetCodeSent }) {
     <ScrollView>
       <FormContainer>
         <TextInput field="email" type="email" />
-        <SubmitButton style={{ marginBottom: 20 }}>Send reset code</SubmitButton>
+        <SubmitButton style={{ marginBottom: 20 }}>
+          Send reset code
+        </SubmitButton>
         <Button to="Login" color="red">
           Cancel
         </Button>

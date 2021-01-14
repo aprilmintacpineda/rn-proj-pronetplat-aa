@@ -38,14 +38,16 @@ export function renderContactTitle ({ jobTitle, company }, style) {
 
 function setPendingContactRequestStatus ({ targetId, status }) {
   updateStore({
-    pendingContactRequests: store.pendingContactRequests.map(contact => {
-      if (contact.id !== targetId) return contact;
+    pendingContactRequests: store.pendingContactRequests.map(
+      contact => {
+        if (contact.id !== targetId) return contact;
 
-      return {
-        ...contact,
-        status
-      };
-    })
+        return {
+          ...contact,
+          status
+        };
+      }
+    )
   });
 }
 
@@ -65,7 +67,10 @@ export async function addToContact (targetContact) {
     console.log('error', error);
 
     if (error.status === 422) {
-      setPendingContactRequestStatus({ targetId, status: 'success' });
+      setPendingContactRequestStatus({
+        targetId,
+        status: 'success'
+      });
       Toast.show(`Already sent a contact request to ${fullName}`);
     } else {
       setPendingContactRequestStatus({ targetId, status: 'error' });

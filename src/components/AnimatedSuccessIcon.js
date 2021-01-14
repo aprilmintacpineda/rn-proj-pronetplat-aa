@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Animatable from './Animatable';
 import RNVectorIcon from './RNVectorIcon';
 import { paperTheme } from 'theme';
@@ -9,7 +8,8 @@ function AnimatedSuccessIcon ({ size = 20 }) {
     <Animatable
       style={{ justifyContent: 'center', alignItems: 'center' }}
       animation="bounceIn"
-      duration={500}>
+      duration={500}
+    >
       <RNVectorIcon
         provider="Ionicons"
         name="ios-checkmark-circle-outline"

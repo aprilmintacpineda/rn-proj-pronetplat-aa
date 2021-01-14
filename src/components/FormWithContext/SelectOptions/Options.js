@@ -16,7 +16,8 @@ function Options ({ value, options, onChange }) {
         key={`${option}-${i}`}
         onPress={() => {
           onChange(option);
-        }}>
+        }}
+      >
         <View
           style={[
             {
@@ -28,14 +29,20 @@ function Options ({ value, options, onChange }) {
               alignItems: 'center'
             },
             isSelected ? { borderColor: primary } : undefined
-          ]}>
+          ]}
+        >
           <RNVectorIcon
             provider="Feather"
             name={isSelected ? 'check-circle' : 'circle'}
             size={20}
             color={isSelected ? primary : '#000'}
           />
-          <Text style={[{ marginLeft: 10 }, isSelected ? { color: primary } : undefined]}>
+          <Text
+            style={[
+              { marginLeft: 10 },
+              isSelected ? { color: primary } : undefined
+            ]}
+          >
             {label}
           </Text>
         </View>

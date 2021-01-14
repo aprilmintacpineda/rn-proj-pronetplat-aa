@@ -19,7 +19,12 @@ function StatusCaption ({ isError, message }) {
   return (
     <Animatable animation="fadeIn">
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <RNVectorIcon provider="Ionicons" name={iconName} size={15} color={color} />
+        <RNVectorIcon
+          provider="Ionicons"
+          name={iconName}
+          size={15}
+          color={color}
+        />
         <Caption color={color} style={{ marginLeft: 3 }}>
           {message}
         </Caption>

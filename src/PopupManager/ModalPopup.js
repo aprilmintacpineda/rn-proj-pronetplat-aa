@@ -19,7 +19,12 @@ function PopupManager () {
 
   return (
     <Portal>
-      <Modalize ref={modalRef} onClosed={clearPopup} adjustToContentHeight handlePosition>
+      <Modalize
+        ref={modalRef}
+        onClosed={clearPopup}
+        adjustToContentHeight
+        handlePosition
+      >
         {body}
       </Modalize>
     </Portal>

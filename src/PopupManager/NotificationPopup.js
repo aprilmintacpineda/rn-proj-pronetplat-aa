@@ -10,23 +10,52 @@ import { notifAlert } from 'libs/sounds';
 const notificationPopupRef = React.createRef();
 
 export function displayNotification (params) {
-  if (AppState.currentState !== 'active' || !notificationPopupRef.current) return;
+  if (
+    AppState.currentState !== 'active' ||
+    !notificationPopupRef.current
+  )
+    return;
+
   notifAlert.play();
   notificationPopupRef.current.show(params);
 }
 
-function renderPopupContent ({ title, body, avatarUri, avatarLabel }) {
+function renderPopupContent ({
+  title,
+  body,
+  avatarUri,
+  avatarLabel
+}) {
   if (avatarUri || avatarLabel) {
     return (
       <FullSafeAreaView>
-        <Card style={{ elevation: 2, borderColor: '#00000012', borderWidth: 1 }}>
+        <Card
+          style={{
+            elevation: 2,
+            borderColor: '#00000012',
+            borderWidth: 1
+          }}
+        >
           <View
-            style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 15 }}>
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingVertical: 15
+            }}
+          >
             <View style={{ paddingLeft: 15 }}>
-              <Avatar uri={avatarUri} label={avatarLabel} size={40} />
+              <Avatar
+                uri={avatarUri}
+                label={avatarLabel}
+                size={40}
+              />
             </View>
             <View style={{ flex: 1, paddingHorizontal: 15 }}>
-              <Caption style={{ fontWeight: 'bold', marginBottom: 0 }}>{title}</Caption>
+              <Caption
+                style={{ fontWeight: 'bold', marginBottom: 0 }}
+              >
+                {title}
+              </Caption>
               <Text>{body}</Text>
             </View>
           </View>
@@ -38,8 +67,16 @@ function renderPopupContent ({ title, body, avatarUri, avatarLabel }) {
   return (
     <FullSafeAreaView>
       <Card
-        style={{ elevation: 2, padding: 15, borderColor: '#00000012', borderWidth: 1 }}>
-        <Caption style={{ fontWeight: 'bold', marginBottom: 0 }}>{title}</Caption>
+        style={{
+          elevation: 2,
+          padding: 15,
+          borderColor: '#00000012',
+          borderWidth: 1
+        }}
+      >
+        <Caption style={{ fontWeight: 'bold', marginBottom: 0 }}>
+          {title}
+        </Caption>
         <Text>{body}</Text>
       </Card>
     </FullSafeAreaView>

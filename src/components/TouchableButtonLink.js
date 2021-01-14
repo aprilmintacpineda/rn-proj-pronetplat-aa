@@ -11,7 +11,10 @@ function TouchableButtonLink ({ to, params = null, children }) {
   }, [to, params, navigate]);
 
   return (
-    <TouchableRipple onPress={onPress} rippleColor={paperTheme.colors.rippleColor}>
+    <TouchableRipple
+      onPress={onPress}
+      rippleColor={paperTheme.colors.rippleColor}
+    >
       {children}
     </TouchableRipple>
   );

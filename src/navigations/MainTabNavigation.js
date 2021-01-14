@@ -1,13 +1,12 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import RNVectorIcon from 'components/RNVectorIcon';
-
-const Tab = createBottomTabNavigator();
-
 import ContactList from 'Screens/auth/Contact/List';
 import MyCode from 'Screens/auth/MyCode';
 import PendingContactRequests from 'Screens/auth/PendingContactRequests';
 import ScanCode from 'Screens/auth/ScanCode';
+
+const Tab = createBottomTabNavigator();
 
 function MainTabNavigation () {
   return (
@@ -16,12 +15,17 @@ function MainTabNavigation () {
       tabBarOptions={{
         labelPosition: 'below-icon',
         keyboardHidesTabBar: true
-      }}>
+      }}
+    >
       <Tab.Screen
         options={{
-          tabBarIcon: props =>
-            <RNVectorIcon provider="AntDesign" name="contacts" {...props} />
-          ,
+          tabBarIcon: props => (
+            <RNVectorIcon
+              provider="AntDesign"
+              name="contacts"
+              {...props}
+            />
+          ),
           tabBarLabel: 'Contacts'
         }}
         name="ContactList"
@@ -29,9 +33,13 @@ function MainTabNavigation () {
       />
       <Tab.Screen
         options={{
-          tabBarIcon: props =>
-            <RNVectorIcon provider="Ionicons" name="qr-code-outline" {...props} />
-          ,
+          tabBarIcon: props => (
+            <RNVectorIcon
+              provider="Ionicons"
+              name="qr-code-outline"
+              {...props}
+            />
+          ),
           tabBarLabel: 'My Code'
         }}
         name="MyCode"
@@ -39,9 +47,13 @@ function MainTabNavigation () {
       />
       <Tab.Screen
         options={{
-          tabBarIcon: props =>
-            <RNVectorIcon provider="Ionicons" name="scan-outline" {...props} />
-          ,
+          tabBarIcon: props => (
+            <RNVectorIcon
+              provider="Ionicons"
+              name="scan-outline"
+              {...props}
+            />
+          ),
           tabBarLabel: 'Scan Code'
         }}
         name="ScanCode"
@@ -49,9 +61,13 @@ function MainTabNavigation () {
       />
       <Tab.Screen
         options={{
-          tabBarIcon: props =>
-            <RNVectorIcon provider="MaterialCommunityIcons" name="av-timer" {...props} />
-          ,
+          tabBarIcon: props => (
+            <RNVectorIcon
+              provider="MaterialCommunityIcons"
+              name="av-timer"
+              {...props}
+            />
+          ),
           tabBarLabel: 'Pending'
         }}
         name="PendingContactRequests"

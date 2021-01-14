@@ -55,7 +55,9 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
           currentText = '';
         }
 
-        texts.push(<Text style={{ fontWeight: 'bold' }}>{fullname}</Text>);
+        texts.push(
+          <Text style={{ fontWeight: 'bold' }}>{fullname}</Text>
+        );
       } else if (wordsLastIndex === index) {
         texts.push(
           <Text>
@@ -76,7 +78,8 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
         flexDirection: 'row',
         padding: 15,
         backgroundColor: !seenAt ? `${primary}10` : undefined
-      }}>
+      }}
+    >
       <View style={{ position: 'relative' }}>
         <Avatar uri={profilePicture} label={avatarLabel} />
         <View
@@ -86,7 +89,8 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
             right: -5,
             backgroundColor,
             borderRadius: 100
-          }}>
+          }}
+        >
           {icon}
         </View>
       </View>
@@ -103,7 +107,10 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
 function NotificationRow (notification) {
   const { type, actor } = notification;
 
-  if (type === 'contactRequestAccepted' || type === 'contactRequestDeclined') {
+  if (
+    type === 'contactRequestAccepted' ||
+    type === 'contactRequestDeclined'
+  ) {
     return (
       <TouchableButtonLink to="ContactProfile" params={actor}>
         <NotificationBody {...notification} />

@@ -5,7 +5,10 @@ function useState (initialState) {
 
   const updateState = React.useCallback(updater => {
     setState(oldState => {
-      const newState = updater.constructor === Function ? updater(oldState) : updater;
+      const newState =
+        updater.constructor === Function
+          ? updater(oldState)
+          : updater;
 
       return {
         ...oldState,

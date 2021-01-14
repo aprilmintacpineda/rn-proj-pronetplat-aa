@@ -1,13 +1,20 @@
 import React from 'react';
 import { FormContext } from '.';
 import RNPTextInput from 'components/TextInput';
-
 import { camelToTitleCase } from 'libs/strings';
 
-function TextInput ({ field, label: _label = null, labelSuffix, ...textInputProps }) {
-  const { formValues, formErrors, disabled, onChangeHandlers } = React.useContext(
-    FormContext
-  );
+function TextInput ({
+  field,
+  label: _label = null,
+  labelSuffix,
+  ...textInputProps
+}) {
+  const {
+    formValues,
+    formErrors,
+    disabled,
+    onChangeHandlers
+  } = React.useContext(FormContext);
 
   const error = formErrors[field];
   const value = formValues[field];

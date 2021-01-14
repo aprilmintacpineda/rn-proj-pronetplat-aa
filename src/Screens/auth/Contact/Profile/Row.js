@@ -12,9 +12,14 @@ function ContactDetailRow ({ type, value }) {
 
   switch (type) {
     case 'email':
-      actionIcon =
-        <RNVectorIcon provider="Feather" name="send" color={primary} size={iconSize} />
-      ;
+      actionIcon = (
+        <RNVectorIcon
+          provider="Feather"
+          name="send"
+          color={primary}
+          size={iconSize}
+        />
+      );
       break;
     case 'mobile':
       actionIcon = (
@@ -64,10 +69,21 @@ function ContactDetailRow ({ type, value }) {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
-      }}>
+      }}
+    >
       <Text style={{ fontSize: 16 }}>{value}</Text>
-      <View style={{ backgroundColor: '#d0d1d5', borderRadius: 100, overflow: 'hidden' }}>
-        <TouchableRipple onPress={send} style={{ padding: 10 }} rippleColor={rippleColor}>
+      <View
+        style={{
+          backgroundColor: '#d0d1d5',
+          borderRadius: 100,
+          overflow: 'hidden'
+        }}
+      >
+        <TouchableRipple
+          onPress={send}
+          style={{ padding: 10 }}
+          rippleColor={rippleColor}
+        >
           {actionIcon}
         </TouchableRipple>
       </View>

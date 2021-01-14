@@ -10,13 +10,20 @@ import {
   Text,
   TouchableRipple
 } from 'react-native-paper';
-import { openSettings, PERMISSIONS, requestMultiple } from 'react-native-permissions';
+import {
+  openSettings,
+  PERMISSIONS,
+  requestMultiple
+} from 'react-native-permissions';
 import File from 'classes/File';
 import Button from 'components/Button';
 import FormContainer from 'components/FormContainer';
 import RNVectorIcon from 'components/RNVectorIcon';
 import UserAvatar from 'components/UserAvatar';
-import { showErrorPopup, showRequestFailedPopup } from 'fluxible/actions/popup';
+import {
+  showErrorPopup,
+  showRequestFailedPopup
+} from 'fluxible/actions/popup';
 import useState from 'hooks/useState';
 import validate from 'libs/validate';
 import { xhr, uploadFileToSignedUrl } from 'libs/xhr';
@@ -40,7 +47,10 @@ const modalButtonContainerStyles = {
   alignItems: 'center'
 };
 
-const modalButtonLabelStyles = { color: primary, fontWeight: 'bold' };
+const modalButtonLabelStyles = {
+  color: primary,
+  fontWeight: 'bold'
+};
 
 const cameraPermissions = Platform.select({
   ios: [PERMISSIONS.IOS.CAMERA],
@@ -68,8 +78,12 @@ function ChangeProfilePicture ({ onDone }) {
         updateState({ isUploading: true });
         const file = new File(picture);
 
-        if (validate(file.mimeType, ['options:image/jpeg,image/png'])) {
-          showErrorPopup({ message: 'Please select only JPG or PNG images.' });
+        if (
+          validate(file.mimeType, ['options:image/jpeg,image/png'])
+        ) {
+          showErrorPopup({
+            message: 'Please select only JPG or PNG images.'
+          });
           return;
         }
 
@@ -179,20 +193,28 @@ function ChangeProfilePicture ({ onDone }) {
       <FormContainer>
         <Headline>Setup your account</Headline>
         <Subheading>
-          Add a profile picture to allow your contacts to recognize you easily.
+          Add a profile picture to allow your contacts to recognize
+          you easily.
         </Subheading>
         <Divider style={{ marginVertical: 20 }} />
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <View
+          style={{ justifyContent: 'center', alignItems: 'center' }}
+        >
           <UserAvatar size={150} />
         </View>
         <Button
           onPress={changeProfile}
           mode="contained"
           style={{ marginTop: 20 }}
-          icon={props =>
-            <RNVectorIcon provider="Ionicons" name="ios-pencil" {...props} />
-          }
-          disabled={isUploading}>
+          icon={props => (
+            <RNVectorIcon
+              provider="Ionicons"
+              name="ios-pencil"
+              {...props}
+            />
+          )}
+          disabled={isUploading}
+        >
           Change
         </Button>
       </FormContainer>
@@ -202,7 +224,11 @@ function ChangeProfilePicture ({ onDone }) {
         </Button>
       </View>
       <Portal>
-        <Modalize ref={modalRef} adjustToContentHeight handlePosition="inside">
+        <Modalize
+          ref={modalRef}
+          adjustToContentHeight
+          handlePosition="inside"
+        >
           <View
             style={{
               flexDirection: 'row',
@@ -211,9 +237,13 @@ function ChangeProfilePicture ({ onDone }) {
               marginTop: 10,
               justifyContent: 'space-evenly',
               alignItems: 'center'
-            }}>
+            }}
+          >
             <View style={modalButtonWrapperStyles}>
-              <TouchableRipple onPress={openGalery} rippleColor={rippleColor}>
+              <TouchableRipple
+                onPress={openGalery}
+                rippleColor={rippleColor}
+              >
                 <View style={modalButtonContainerStyles}>
                   <RNVectorIcon
                     provider="AntDesign¿"
@@ -226,7 +256,10 @@ function ChangeProfilePicture ({ onDone }) {
               </TouchableRipple>
             </View>
             <View style={modalButtonWrapperStyles}>
-              <TouchableRipple onPress={openCamera} rippleColor={rippleColor}>
+              <TouchableRipple
+                onPress={openCamera}
+                rippleColor={rippleColor}
+              >
                 <View style={modalButtonContainerStyles}>
                   <RNVectorIcon
                     provider="Ionicons"

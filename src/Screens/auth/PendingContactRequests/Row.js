@@ -1,13 +1,21 @@
 import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { View } from 'react-native';
-import { Text, TouchableRipple, ActivityIndicator } from 'react-native-paper';
+import {
+  Text,
+  TouchableRipple,
+  ActivityIndicator
+} from 'react-native-paper';
 import Animatable from 'components/Animatable';
 import Caption from 'components/Caption';
 import RNVectorIcon from 'components/RNVectorIcon';
 import StatusCaption from 'components/StatusCaption';
 import UserAvatar from 'components/UserAvatar';
-import { addToContact, getFullName, renderContactTitle } from 'helpers/contact';
+import {
+  addToContact,
+  getFullName,
+  renderContactTitle
+} from 'helpers/contact';
 import useHasInternet from 'hooks/useHasInternet';
 import { paperTheme } from 'theme';
 
@@ -60,7 +68,11 @@ function PendingContactRequestRow ({ index, ...contactData }) {
   }, [isInitial, isSuccess, sendContactRequest]);
 
   return (
-    <Animatable animation={animation} delay={delay} onAnimationEnd={onAnimationEnd}>
+    <Animatable
+      animation={animation}
+      delay={delay}
+      onAnimationEnd={onAnimationEnd}
+    >
       <View style={{ margin: 15 }}>
         <View style={{ flexDirection: 'row' }}>
           <UserAvatar {...contactData} />
@@ -70,13 +82,22 @@ function PendingContactRequestRow ({ index, ...contactData }) {
             {isError ? (
               <StatusCaption
                 isError
-                message={!hasInternet ? 'Waiting for internet' : 'Failed, please retry.'}
+                message={
+                  !hasInternet
+                    ? 'Waiting for internet'
+                    : 'Failed, please retry.'
+                }
               />
             ) : isSuccess ?
               <StatusCaption message="Sent" />
              : null}
             {isConnecting && (
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center'
+                }}
+              >
                 <ActivityIndicator size={10} />
                 <Caption color={primary} style={{ marginLeft: 5 }}>
                   Sending contact request...
@@ -86,8 +107,13 @@ function PendingContactRequestRow ({ index, ...contactData }) {
           </View>
           {isError ? (
             <View style={{ flexDirection: 'row' }}>
-              <View style={{ borderRadius: 100, overflow: 'hidden' }}>
-                <TouchableRipple onPress={sendContactRequest} rippleColor={rippleColor}>
+              <View
+                style={{ borderRadius: 100, overflow: 'hidden' }}
+              >
+                <TouchableRipple
+                  onPress={sendContactRequest}
+                  rippleColor={rippleColor}
+                >
                   <RNVectorIcon
                     provider="Ionicons"
                     name="ios-refresh-circle-outline"

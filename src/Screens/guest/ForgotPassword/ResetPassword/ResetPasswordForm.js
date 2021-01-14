@@ -8,7 +8,10 @@ import Button from 'components/FormWithContext/Button';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
 import PasswordStrength from 'components/PasswordStrength';
-import { showRequestFailedPopup, showSuccessPopup } from 'fluxible/actions/popup';
+import {
+  showRequestFailedPopup,
+  showSuccessPopup
+} from 'fluxible/actions/popup';
 import useCountDown from 'hooks/useCountDown';
 import useState from 'hooks/useState';
 import { xhr } from 'libs/xhr';
@@ -49,7 +52,8 @@ function ResetPasswordForm ({ email }) {
       });
 
       showSuccessPopup({
-        message: 'We have sent your new confirmation code to your email.'
+        message:
+          'We have sent your new confirmation code to your email.'
       });
       updateState({ lastSent: new Date() });
     } catch (error) {
@@ -68,14 +72,21 @@ function ResetPasswordForm ({ email }) {
     <ScrollView>
       <FormContainer>
         <Caption style={{ marginBottom: 20 }}>
-          We have sent the confirmation code to your email. Please do not share that
-          confirmation code with anyone.
+          We have sent the confirmation code to your email. Please do
+          not share that confirmation code with anyone.
         </Caption>
         <TextInput field="confirmationCode" type="code" />
         <TextInput field="newPassword" type="password" />
         <PasswordStrength value={newPassword} />
-        <TextInput style={{ marginTop: 15 }} field="retypeNewPassword" type="password" />
-        <SubmitButton style={{ marginBottom: 20 }} disabled={isResending}>
+        <TextInput
+          style={{ marginTop: 15 }}
+          field="retypeNewPassword"
+          type="password"
+        />
+        <SubmitButton
+          style={{ marginBottom: 20 }}
+          disabled={isResending}
+        >
           Reset password
         </SubmitButton>
         <Button to="Login" color="red" disabled={isResending}>
@@ -89,7 +100,8 @@ function ResetPasswordForm ({ email }) {
         <Button
           onPress={resendCode}
           disabled={isResending || !isDone}
-          loading={isResending}>
+          loading={isResending}
+        >
           Resend code {timeLeftStr}
         </Button>
       </View>

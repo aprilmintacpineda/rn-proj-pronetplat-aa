@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
-
 import Animatable from 'components/Animatable';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TouchableButtonLink from 'components/TouchableButtonLink';
@@ -23,7 +22,8 @@ function ContactListRow ({ index, ...contactData }) {
           style={{
             flexDirection: 'row',
             margin: 15
-          }}>
+          }}
+        >
           <UserAvatar {...contactData} />
           <View style={{ marginLeft: 15, flex: 1 }}>
             <Text numberOfLines={1} style={{ fontSize: 18 }}>

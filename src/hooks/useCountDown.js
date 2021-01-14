@@ -3,7 +3,11 @@ import intervalToDuration from 'date-fns/intervalToDuration';
 import isPast from 'date-fns/isPast';
 import React from 'react';
 
-function useCountDown ({ start = null, duration = null, toTime = null }) {
+function useCountDown ({
+  start = null,
+  duration = null,
+  toTime = null
+}) {
   const timer = React.useRef(null);
 
   const [state, setState] = React.useState({
@@ -18,7 +22,9 @@ function useCountDown ({ start = null, duration = null, toTime = null }) {
     let seconds = '00';
 
     if (start || duration || toTime) {
-      countDownEnd = toTime ? new Date(toTime) : add(new Date(start), duration);
+      countDownEnd = toTime
+        ? new Date(toTime)
+        : add(new Date(start), duration);
       isDone = isPast(countDownEnd);
     }
 

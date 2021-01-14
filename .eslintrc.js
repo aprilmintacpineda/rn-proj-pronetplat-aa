@@ -1,6 +1,6 @@
 const alias = require('./importAliases');
 
-const ignorePattern = '^_[0-9]+$';
+const unusedVarsIgnorePattern = '^_[0-9]+$';
 
 module.exports = {
   settings: {
@@ -40,12 +40,15 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
+    'brace-style': ['error', '1tbs', { allowSingleLine: false }],
+    'no-multiple-empty-lines': ['error', { max: 1 }],
     'no-case-declarations': 0,
     'no-return-await': 'error',
     'import/no-unresolved': 0,
     'import/order': [
       'error',
       {
+        'newlines-between': 'never',
         alphabetize: {
           order: 'asc',
           caseInsensitive: true
@@ -57,7 +60,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'error',
     'react-hooks/rules-of-hooks': 'error',
     semi: ['error', 'always'],
-    quotes: ['error', 'single'],
+    quotes: ['error', 'single', { avoidEscape: true }],
     curly: ['error', 'multi-or-nest', 'consistent'],
     'linebreak-style': ['error', 'unix'],
     'no-duplicate-imports': [
@@ -80,9 +83,9 @@ module.exports = {
     'no-unused-vars': [
       'error',
       {
-        varsIgnorePattern: ignorePattern,
-        argsIgnorePattern: ignorePattern,
-        caughtErrorsIgnorePattern: ignorePattern
+        varsIgnorePattern: unusedVarsIgnorePattern,
+        argsIgnorePattern: unusedVarsIgnorePattern,
+        caughtErrorsIgnorePattern: unusedVarsIgnorePattern
       }
     ],
     'no-floating-decimal': ['error'],
@@ -118,6 +121,8 @@ module.exports = {
         after: true
       }
     ],
+    'space-in-parens': ['error', 'never'],
+    'block-spacing': 'error',
     'key-spacing': [
       'error',
       {
@@ -140,8 +145,13 @@ module.exports = {
         after: true
       }
     ],
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
-    'no-alert': process.env.NODE_ENV === 'production' ? 'error' : 'warn'
+    eqeqeq: 'error',
+    'no-empty': 'error',
+    'no-debugger':
+      process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'no-console':
+      process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'no-alert':
+      process.env.NODE_ENV === 'production' ? 'error' : 'warn'
   }
 };

@@ -40,8 +40,14 @@ function Body ({
     [updateData, RowComponent, renderItem]
   );
 
-  if (isFirstFetch)
-    return <LoadingPlaceHolder isFetching={isFetching} isFirstFetch={isFirstFetch} />;
+  if (isFirstFetch) {
+    return (
+      <LoadingPlaceHolder
+        isFetching={isFetching}
+        isFirstFetch={isFirstFetch}
+      />
+    );
+  }
 
   return (
     <FlatList
@@ -53,7 +59,10 @@ function Body ({
       onEndReachedThreshold={0.9}
       ListFooterComponent={
         <>
-          <LoadingPlaceHolder isFetching={isFetching} isFirstFetch={isFirstFetch} />
+          <LoadingPlaceHolder
+            isFetching={isFetching}
+            isFirstFetch={isFirstFetch}
+          />
           {ListFooterComponent}
         </>
       }

@@ -8,7 +8,12 @@ function mapStates ({ authUser }) {
 
 function UserAvatar (avatarProps) {
   const { authUser } = useFluxibleStore(mapStates);
-  const { profilePicture, firstName, middleName, surname } = authUser;
+  const {
+    profilePicture,
+    firstName,
+    middleName,
+    surname
+  } = authUser;
 
   const label = (
     (firstName?.[0] || '') +
@@ -16,7 +21,9 @@ function UserAvatar (avatarProps) {
     (surname?.[0] || '')
   ).toUpperCase();
 
-  return <Avatar uri={profilePicture} label={label} {...avatarProps} />;
+  return (
+    <Avatar uri={profilePicture} label={label} {...avatarProps} />
+  );
 }
 
 export default React.memo(UserAvatar);

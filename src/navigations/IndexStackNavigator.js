@@ -1,6 +1,8 @@
-import { TransitionPresets, createStackNavigator } from '@react-navigation/stack';
+import {
+  TransitionPresets,
+  createStackNavigator
+} from '@react-navigation/stack';
 import React from 'react';
-
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import header from './header';
 import MainDrawerNavigation from './MainDrawerNavigation';
@@ -33,14 +35,22 @@ function IndexStackNavigator () {
     <Stack.Navigator
       initialRouteName={initialRouteName}
       screenOptions={screenOptions}
-      headerMode="screen">
-      <Stack.Screen name="Login" component={Login} options={loginChangeStackOptions} />
+      headerMode="screen"
+    >
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={loginChangeStackOptions}
+      />
       <Stack.Screen
         name="Register"
         component={Register}
         options={{ title: 'Create Account' }}
       />
-      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPassword}
+      />
       <Stack.Screen
         name="LoggedInStack"
         component={MainDrawerNavigation}

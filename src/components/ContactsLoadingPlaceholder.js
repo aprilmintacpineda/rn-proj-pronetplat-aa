@@ -13,9 +13,15 @@ function ContactsLoadingPlaceholder ({ isFirstFetch, isFetching }) {
     return (
       <>
         {!isFirstFetch && <ListItemSeparator />}
-        <Placeholder Animation={ShineOverlay} style={{ padding: 15 }}>
+        <Placeholder
+          Animation={ShineOverlay}
+          style={{ padding: 15 }}
+        >
           <View style={{ flexDirection: 'row' }}>
-            <PlaceholderMedia style={{ borderRadius: 100 }} size={60} />
+            <PlaceholderMedia
+              style={{ borderRadius: 100 }}
+              size={60}
+            />
             <View style={{ marginLeft: 15, flex: 1 }}>
               <PlaceholderLine width={70} />
               <PlaceholderLine width={50} />

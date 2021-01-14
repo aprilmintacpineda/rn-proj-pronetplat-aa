@@ -28,7 +28,10 @@ export function xhrWithParams (url, params = {}) {
   return xhr(`/${cleanPath}${search ? `?${search}` : ''}`);
 }
 
-export async function xhr (path, { method = 'get', ...options } = {}) {
+export async function xhr (
+  path,
+  { method = 'get', ...options } = {}
+) {
   const url = resolveUrl(path);
   const config = {
     ...options,
@@ -39,10 +42,12 @@ export async function xhr (path, { method = 'get', ...options } = {}) {
     }
   };
 
-  if (store.authToken) config.headers.Authorization = `Bearer ${store.authToken}`;
+  if (store.authToken)
+    config.headers.Authorization = `Bearer ${store.authToken}`;
   if (options.body) config.body = JSON.stringify(options.body);
   const response = await fetch(url, config);
-  if (response.status < 200 || response.status >= 300) throw response;
+  if (response.status < 200 || response.status >= 300)
+    throw response;
   return response;
 }
 
@@ -59,7 +64,10 @@ export async function uploadFileToSignedUrl ({ signedUrl, file }) {
   return response;
 }
 
-export async function xhrWithFile (path, { method = 'post', ...options } = {}) {
+export async function xhrWithFile (
+  path,
+  { method = 'post', ...options } = {}
+) {
   const url = resolveUrl(path);
   const config = {
     ...options,
@@ -71,7 +79,8 @@ export async function xhrWithFile (path, { method = 'post', ...options } = {}) {
     body: new FormData()
   };
 
-  if (store.authToken) config.headers.Authorization = `Bearer ${store.authToken}`;
+  if (store.authToken)
+    config.headers.Authorization = `Bearer ${store.authToken}`;
 
   Object.keys(options.body).forEach(key => {
     let value = options.body[key];
@@ -92,6 +101,7 @@ export async function xhrWithFile (path, { method = 'post', ...options } = {}) {
   });
 
   const response = await fetch(url, config);
-  if (response.status < 200 || response.status >= 300) throw response;
+  if (response.status < 200 || response.status >= 300)
+    throw response;
   return response;
 }

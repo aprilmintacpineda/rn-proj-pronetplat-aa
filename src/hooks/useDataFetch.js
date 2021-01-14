@@ -2,7 +2,12 @@ import React from 'react';
 import useState from './useState';
 import { xhrWithParams } from 'libs/xhr';
 
-function useDataFetch ({ endpoint, params = null, prefetch = true, onSuccess }) {
+function useDataFetch ({
+  endpoint,
+  params = null,
+  prefetch = true,
+  onSuccess
+}) {
   const {
     state: { data, status, nextToken, error, canFetchMore },
     updateState
@@ -37,7 +42,10 @@ function useDataFetch ({ endpoint, params = null, prefetch = true, onSuccess }) 
   const updateData = React.useCallback(
     updater => {
       updateState(({ data }) => ({
-        data: data.constructor === Array ? data.map(updater) : updater(data)
+        data:
+          data.constructor === Array
+            ? data.map(updater)
+            : updater(data)
       }));
     },
     [updateState]
@@ -61,7 +69,10 @@ function useDataFetch ({ endpoint, params = null, prefetch = true, onSuccess }) 
           nextToken: isRefresh ? null : nextToken
         });
 
-        const { data: responseData, nextToken: newNextToken } = await response.json();
+        const {
+          data: responseData,
+          nextToken: newNextToken
+        } = await response.json();
 
         console.log('useDataFetch', responseData, newNextToken);
 
@@ -88,7 +99,14 @@ function useDataFetch ({ endpoint, params = null, prefetch = true, onSuccess }) 
         });
       }
     },
-    [endpoint, params, canFetchMore, nextToken, isFetching, updateState]
+    [
+      endpoint,
+      params,
+      canFetchMore,
+      nextToken,
+      isFetching,
+      updateState
+    ]
   );
 
   const refreshData = React.useCallback(() => {

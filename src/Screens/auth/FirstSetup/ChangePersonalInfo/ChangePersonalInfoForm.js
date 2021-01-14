@@ -21,8 +21,8 @@ function ChangePersonalInfoForm ({ onSave }) {
       <FormContainer>
         <Headline>Setup your account</Headline>
         <Subheading>
-          Formally introduce yourself to your contacts by telling them basic information
-          about yourself.
+          Formally introduce yourself to your contacts by telling
+          them basic information about yourself.
         </Subheading>
         <Divider style={{ marginVertical: 20 }} />
         <TextInput field="firstName" />
@@ -30,7 +30,10 @@ function ChangePersonalInfoForm ({ onSave }) {
         <TextInput field="surname" />
         <SelectOptions field="gender" options={genderOptions} />
         <TextInput field="company" labelSuffix="(Optional)" />
-        <TextInput field="jobTitle" labelSuffix="(e.g., Software Engineer)" />
+        <TextInput
+          field="jobTitle"
+          labelSuffix="(e.g., Software Engineer)"
+        />
         <TextInput
           multiline
           numberOfLines={8}

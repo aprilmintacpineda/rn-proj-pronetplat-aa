@@ -8,8 +8,15 @@ function Avatar ({ size = 60, uri, label }) {
     setIsError(true);
   }, []);
 
-  if (uri && !isError)
-    return <RNPAvatar.Image source={{ uri }} size={size} onError={onError} />;
+  if (uri && !isError) {
+    return (
+      <RNPAvatar.Image
+        source={{ uri }}
+        size={size}
+        onError={onError}
+      />
+    );
+  }
 
   return (
     <RNPAvatar.Text

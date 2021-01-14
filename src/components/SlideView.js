@@ -29,7 +29,8 @@ function SlideView ({ scrollEnabled = false, children, page = 1 }) {
       showsHorizontalScrollIndicator={false}
       decelerationRate="normal"
       scrollEnabled={scrollEnabled}
-      contentOffset={{ x: contentOffset }}>
+      contentOffset={{ x: contentOffset }}
+    >
       <View style={{ flexDirection: 'row' }}>
         {children.map((child, i) => (
           <View key={i} style={{ width }}>

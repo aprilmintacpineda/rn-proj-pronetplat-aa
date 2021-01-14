@@ -1,7 +1,10 @@
 import React from 'react';
 import VerifyEmailForm from './VerifyEmailForm';
 import FormWithContext from 'components/FormWithContext';
-import { showErrorPopup, showRequestFailedPopup } from 'fluxible/actions/popup';
+import {
+  showErrorPopup,
+  showRequestFailedPopup
+} from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 import { xhr } from 'libs/xhr';
 
@@ -24,7 +27,7 @@ const formOptions = {
       case 403:
         showErrorPopup({
           message:
-            'Couldn\'t not verify your account. Either the verification code you provide has expired or is incorrect.'
+            "Couldn't not verify your account. Either the verification code you provide has expired or is incorrect."
         });
         break;
       default:

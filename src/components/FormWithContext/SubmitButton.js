@@ -2,7 +2,11 @@ import React from 'react';
 import { Button as RNPButton } from 'react-native-paper';
 import { FormContext } from '.';
 
-function SubmitButton ({ children, disabled: disabedFromProps = false, ...btnProps }) {
+function SubmitButton ({
+  children,
+  disabled: disabedFromProps = false,
+  ...btnProps
+}) {
   const { submitHandler, disabled } = React.useContext(FormContext);
 
   return (
@@ -11,7 +15,8 @@ function SubmitButton ({ children, disabled: disabedFromProps = false, ...btnPro
       disabled={disabled || disabedFromProps}
       mode="contained"
       loading={disabled}
-      {...btnProps}>
+      {...btnProps}
+    >
       {children}
     </RNPButton>
   );

@@ -9,9 +9,12 @@ import TextInput from 'components/FormWithContext/TextInput';
 import LoginContext from 'root/Screens/guest/Login/LoginContext';
 
 function AuthenticateForm ({ onLogin }) {
-  const { responseData, isSubmitSuccess, resetForm, isTouched } = React.useContext(
-    FormContext
-  );
+  const {
+    responseData,
+    isSubmitSuccess,
+    resetForm,
+    isTouched
+  } = React.useContext(FormContext);
   const { page } = React.useContext(LoginContext);
 
   React.useEffect(() => {

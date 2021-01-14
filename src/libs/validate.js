@@ -16,7 +16,8 @@ const validationRules = {
     return '';
   },
   maxLength (value, [max]) {
-    if (value.length > max) return `Should be less than ${max} characters.`;
+    if (value.length > max)
+      return `Should be less than ${max} characters.`;
     return '';
   },
   password (value) {

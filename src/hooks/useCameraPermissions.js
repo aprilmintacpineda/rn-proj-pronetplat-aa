@@ -1,7 +1,9 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
-
+import {
+  PERMISSIONS,
+  requestMultiple
+} from 'react-native-permissions';
 import useAppStateEffect from './useAppStateEffect';
 
 const permissions = Platform.select({
@@ -42,7 +44,14 @@ function useCameraPermission () {
     onActive: askPermission
   });
 
-  return { isAllowed, askPermission, status, isInitial, isChecking, isDoneChecking };
+  return {
+    isAllowed,
+    askPermission,
+    status,
+    isInitial,
+    isChecking,
+    isDoneChecking
+  };
 }
 
 export default useCameraPermission;

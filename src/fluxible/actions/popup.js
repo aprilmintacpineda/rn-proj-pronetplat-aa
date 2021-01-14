@@ -38,7 +38,9 @@ export function showSuccessPopup ({ message }) {
   showPopup(
     <View style={{ margin: 20 }}>
       <AnimatedSuccessIcon size={100} />
-      <Text style={{ marginTop: 20, textAlign: 'center' }}>{message}</Text>
+      <Text style={{ marginTop: 20, textAlign: 'center' }}>
+        {message}
+      </Text>
     </View>
   );
 }
@@ -47,7 +49,9 @@ export function showErrorPopup ({ message, buttons = null }) {
   showPopup(
     <View style={{ margin: 20 }}>
       <AnimatedErrorIcon size={100} />
-      <Text style={{ marginTop: 20, textAlign: 'center' }}>{message}</Text>
+      <Text style={{ marginTop: 20, textAlign: 'center' }}>
+        {message}
+      </Text>
       {buttons && (
         <View style={{ marginTop: 20 }}>
           {buttons.map(({ label, ...btnProps }, i) => (
@@ -68,7 +72,8 @@ export async function showRequestFailedPopup ({
 
   if (!isConnected || !isInternetReachable) {
     showErrorPopup({
-      message: 'Could not connect. Please check your internet connection and try again.'
+      message:
+        'Could not connect. Please check your internet connection and try again.'
     });
   } else {
     showErrorPopup({ message });

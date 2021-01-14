@@ -11,7 +11,10 @@ function AppBar (props) {
   const { scene, navigation } = props;
   const { name } = scene.route;
   const { goBack, canGoBack, openDrawer } = navigation;
-  const { isMainScreen = false, title = null } = scene.descriptor.options;
+  const {
+    isMainScreen = false,
+    title = null
+  } = scene.descriptor.options;
   const hasDrawerNavigation = Boolean(openDrawer);
 
   return (
@@ -19,7 +22,8 @@ function AppBar (props) {
       style={{
         backgroundColor: '#fff',
         elevation: 2
-      }}>
+      }}
+    >
       {!isMainScreen && canGoBack() ?
         <Appbar.BackAction onPress={goBack} />
        : hasDrawerNavigation ? (

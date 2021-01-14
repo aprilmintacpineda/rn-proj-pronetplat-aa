@@ -46,7 +46,13 @@ function drawerContent (props) {
       <RNPDrawer.Item
         onPress={logout}
         label="Logout"
-        icon={props => <RNVectorIcon provider="AntDesign" name="logout" {...props} />}
+        icon={props => (
+          <RNVectorIcon
+            provider="AntDesign"
+            name="logout"
+            {...props}
+          />
+        )}
       />
     </>
   );
@@ -56,8 +62,16 @@ const screenOptions = {
   swipeEnabled: false
 };
 
-function mapStates ({ authUser, receivedContactRequestCount, notificationsCount }) {
-  return { authUser, receivedContactRequestCount, notificationsCount };
+function mapStates ({
+  authUser,
+  receivedContactRequestCount,
+  notificationsCount
+}) {
+  return {
+    authUser,
+    receivedContactRequestCount,
+    notificationsCount
+  };
 }
 
 function PlaceholderScreen () {
@@ -67,9 +81,11 @@ function PlaceholderScreen () {
 function Navigations () {
   const hasInternet = useHasInternet();
 
-  const { authUser, receivedContactRequestCount, notificationsCount } = useFluxibleStore(
-    mapStates
-  );
+  const {
+    authUser,
+    receivedContactRequestCount,
+    notificationsCount
+  } = useFluxibleStore(mapStates);
 
   const { width } = useWindowDimensions();
 
@@ -79,7 +95,10 @@ function Navigations () {
     (async () => {
       try {
         const response = await xhr('/badge-count');
-        const { receivedContactRequestCount, notificationsCount } = await response.json();
+        const {
+          receivedContactRequestCount,
+          notificationsCount
+        } = await response.json();
 
         updateStore({
           receivedContactRequestCount,
@@ -111,7 +130,8 @@ function Navigations () {
       initialRouteName={initialRouteName}
       drawerType={drawerType}
       drawerContent={drawerContent}
-      screenOptions={screenOptions}>
+      screenOptions={screenOptions}
+    >
       <Drawer.Screen
         name="MainStackNavigation"
         component={MainStackNavigation}
@@ -147,9 +167,13 @@ function Navigations () {
         component={PlaceholderScreen}
         options={{
           drawerLabel: 'Notifications',
-          drawerIcon: props =>
-            <RNVectorIcon provider="Ionicons" name="ios-notifications" {...props} />
-          ,
+          drawerIcon: props => (
+            <RNVectorIcon
+              provider="Ionicons"
+              name="ios-notifications"
+              {...props}
+            />
+          ),
           badge: notificationsCount,
           to: 'Notifications'
         }}

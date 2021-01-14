@@ -28,7 +28,10 @@ export async function logScreenView () {
 export async function appMounted () {
   const token = await iid().getToken();
 
-  await Promise.all([crashlytics().setUserId(token), analytics().setUserId(token)]);
+  await Promise.all([
+    crashlytics().setUserId(token),
+    analytics().setUserId(token)
+  ]);
 
   crashlytics().log('App mounted');
   await analytics().logAppOpen();
@@ -36,7 +39,9 @@ export async function appMounted () {
 
 export async function logEvent ({ eventName, params }) {
   const currentRouteName = getCurrentRoute();
-  crashlytics().log(`Event ${eventName} on route ${currentRouteName}`);
+  crashlytics().log(
+    `Event ${eventName} on route ${currentRouteName}`
+  );
 
   await analytics().logEvent(eventName, {
     currentRouteName,

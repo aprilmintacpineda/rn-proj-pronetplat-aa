@@ -1,5 +1,4 @@
 import React from 'react';
-
 import RowComponent from './Row';
 import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';

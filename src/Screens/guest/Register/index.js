@@ -3,7 +3,10 @@ import React from 'react';
 import RegisterForm from './RegisterForm';
 import { navigationRef } from 'App';
 import FormWithContext from 'components/FormWithContext';
-import { showRequestFailedPopup, showSuccessPopup } from 'fluxible/actions/popup';
+import {
+  showRequestFailedPopup,
+  showSuccessPopup
+} from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -19,22 +22,31 @@ const formOptions = {
   validators: {
     email: ({ email }) => validate(email, ['required', 'email']),
     password: ({ password, retypePassword }) =>
-      validate(password, ['required', 'password', `matches:${retypePassword},passwords`]),
+      validate(password, [
+        'required',
+        'password',
+        `matches:${retypePassword},passwords`
+      ]),
     retypePassword: ({ retypePassword, password }) =>
-      validate(retypePassword, ['required', `matches:${password},passwords`])
+      validate(retypePassword, [
+        'required',
+        `matches:${password},passwords`
+      ])
   },
   ignoreResponse: true,
   endPoint: '/register',
   onSubmitError: showRequestFailedPopup,
-  transformInput: ({ formValues: { retypePassword: _1, ...formValues } }) => formValues,
+  transformInput: ({
+    formValues: { retypePassword: _1, ...formValues }
+  }) => formValues,
   onSubmitSuccess: async () => {
     showSuccessPopup({
       message:
-        'You\'re account has bee created. Please check your inbox for the confirmation code that you need to verify your email'
+        "You're account has bee created. Please check your inbox for the confirmation code that you need to verify your email"
     });
 
     navigationRef.current.navigate('Login');
-    await analytics().logSignUp();
+    await analytics().logSignUp({ method: 'embedded' });
   }
 };
 

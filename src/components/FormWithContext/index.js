@@ -1,5 +1,4 @@
 import React from 'react';
-
 import useState from 'hooks/useState';
 import { xhr } from 'libs/xhr';
 
@@ -30,7 +29,7 @@ function FormWithContext ({
       formValues,
       formErrors,
       status,
-      targetRecordId,
+      targetDocumentId,
       previousFormValues,
       isTouched
     },
@@ -42,7 +41,7 @@ function FormWithContext ({
     formErrors: {},
     formContext: { ...initialFormContext },
     status: 'initial',
-    targetRecordId: null,
+    targetDocumentId: null,
     isTouched: false
   }));
 
@@ -50,8 +49,9 @@ function FormWithContext ({
   const isSubmitting = status === 'submitting';
   const isSubmitSuccess = status === 'submitSuccess';
   const isSubmitError = status === 'submitError';
-  const disabled = isSubmitting || isSubmitSuccess && stayDisabledOnSuccess;
-  const operation = targetRecordId ? 'update' : 'others';
+  const disabled =
+    isSubmitting || isSubmitSuccess && stayDisabledOnSuccess;
+  const operation = targetDocumentId ? 'update' : 'others';
   const isUpdate = operation === 'update';
 
   const validateField = React.useCallback(
@@ -67,7 +67,7 @@ function FormWithContext ({
       updateState(oldState => {
         const {
           formValues = oldState.formValues,
-          targetRecordId = null,
+          targetDocumentId = null,
           formContext = oldState.formContext
         } = callback({
           formValues: oldState.formValues,
@@ -78,7 +78,7 @@ function FormWithContext ({
           previousFormValues: { ...formValues },
           formContext,
           formValues,
-          targetRecordId,
+          targetDocumentId,
           formErrors: {},
           isTouched: true
         };
@@ -105,7 +105,10 @@ function FormWithContext ({
 
           if (chain) {
             chain.forEach(field => {
-              newFormErrors[field] = validateField(field, newFormValues);
+              newFormErrors[field] = validateField(
+                field,
+                newFormValues
+              );
             });
           }
         }
@@ -158,7 +161,8 @@ function FormWithContext ({
     try {
       let responseData = null;
 
-      if (onBeforeSubmitEffect) await onBeforeSubmitEffect({ formValues, formContext });
+      if (onBeforeSubmitEffect)
+        await onBeforeSubmitEffect({ formValues, formContext });
 
       if (onSubmit) {
         responseData = await onSubmit({ formValues, formContext });
@@ -168,7 +172,7 @@ function FormWithContext ({
 
         if (isUpdate) {
           method = 'patch';
-          path = endPoint.replace(':id', targetRecordId);
+          path = endPoint.replace(':id', targetDocumentId);
         } else {
           method = 'post';
           path = endPoint.replace(':id', '');
@@ -200,8 +204,14 @@ function FormWithContext ({
     } catch (error) {
       console.error('useForm confirmSubmit', error);
 
-      if (onSubmitError)
-        await onSubmitError({ error, formValues, formContext, setContext });
+      if (onSubmitError) {
+        await onSubmitError({
+          error,
+          formValues,
+          formContext,
+          setContext
+        });
+      }
 
       updateState({
         status: 'submitError',
@@ -217,7 +227,7 @@ function FormWithContext ({
     onSubmitSuccess,
     transformInput,
     operation,
-    targetRecordId,
+    targetDocumentId,
     endPoint,
     ignoreResponse,
     onBeforeSubmitEffect,
@@ -251,7 +261,7 @@ function FormWithContext ({
             onConfirm: confirmSubmit,
             onCancel: cancelSubmit,
             operation,
-            targetRecordId
+            targetDocumentId
           });
 
           if (!result) {
@@ -266,8 +276,13 @@ function FormWithContext ({
       } catch (error) {
         console.error('useForm submitHandler', error);
 
-        if (onSubmitError)
-          await onSubmitError(error, { formValues, formContext, setContext });
+        if (onSubmitError) {
+          await onSubmitError(error, {
+            formValues,
+            formContext,
+            setContext
+          });
+        }
 
         updateState({
           status: 'submitError',
@@ -286,7 +301,7 @@ function FormWithContext ({
       setContext,
       cancelSubmit,
       operation,
-      targetRecordId,
+      targetDocumentId,
       updateState
     ]
   );
@@ -321,7 +336,11 @@ function FormWithContext ({
   }, [initialFormValues, initialFormContext, updateState]);
 
   const setForm = React.useCallback(
-    ({ formValues = null, formContext = null, formErrors = null }) => {
+    ({
+      formValues = null,
+      formContext = null,
+      formErrors = null
+    }) => {
       updateState(oldState => ({
         formValues: formValues || oldState.formValues,
         formContext: formContext || oldState.formContext,
@@ -357,7 +376,8 @@ function FormWithContext ({
         responseData,
         isTouched,
         stayDisabledOnSuccess
-      }}>
+      }}
+    >
       {children}
     </FormContext.Provider>
   );

@@ -7,7 +7,6 @@ import {
   PlaceholderMedia,
   ShineOverlay
 } from 'rn-placeholder';
-
 import ContactDetailRow from './Row';
 import Caption from 'components/Caption';
 import UserAvatar from 'components/UserAvatar';
@@ -18,9 +17,13 @@ function ContactProfile ({ route: { params: contactData } }) {
   const { id, bio } = contactData;
   const fullName = getFullName(contactData);
 
-  const { data, isFirstFetch } = useDataFetch({ endpoint: `/contacts/${id}` });
+  const { data, isFirstFetch, isError } = useDataFetch({
+    endpoint: `/contacts/${id}`
+  });
 
   const contactDetails = React.useMemo(() => {
+    if (isError) return null;
+
     if (!data) {
       if (isFirstFetch) {
         return (
@@ -34,9 +37,13 @@ function ContactProfile ({ route: { params: contactData } }) {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center'
-                }}>
+                }}
+              >
                 <PlaceholderLine width={50} />
-                <PlaceholderMedia style={{ borderRadius: 100 }} size={50} />
+                <PlaceholderMedia
+                  style={{ borderRadius: 100 }}
+                  size={50}
+                />
               </View>
               <View
                 style={{
@@ -45,9 +52,13 @@ function ContactProfile ({ route: { params: contactData } }) {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center'
-                }}>
+                }}
+              >
                 <PlaceholderLine width={50} />
-                <PlaceholderMedia style={{ borderRadius: 100 }} size={50} />
+                <PlaceholderMedia
+                  style={{ borderRadius: 100 }}
+                  size={50}
+                />
               </View>
             </View>
           </Placeholder>
@@ -83,23 +94,28 @@ function ContactProfile ({ route: { params: contactData } }) {
 
     data.forEach(contactData => {
       const { type } = contactData;
-      types[type].data.push(<ContactDetailRow key={contactData.id} {...contactData} />);
+      types[type].data.push(
+        <ContactDetailRow key={contactData.id} {...contactData} />
+      );
     });
 
-    const groupedData = Object.keys(types).reduce((accumulator, group) => {
-      const { data, labels } = types[group];
-      const { plural, singular } = labels;
-      const { length } = data;
+    const groupedData = Object.keys(types).reduce(
+      (accumulator, group) => {
+        const { data, labels } = types[group];
+        const { plural, singular } = labels;
+        const { length } = data;
 
-      if (length > 0) {
-        return accumulator.concat({
-          data,
-          label: length > 1 ? plural : singular
-        });
-      }
+        if (length > 0) {
+          return accumulator.concat({
+            data,
+            label: length > 1 ? plural : singular
+          });
+        }
 
-      return accumulator;
-    }, []);
+        return accumulator;
+      },
+      []
+    );
 
     const groupLastIndex = groupedData.length - 1;
 
@@ -118,21 +134,33 @@ function ContactProfile ({ route: { params: contactData } }) {
         })}
       </View>
     );
-  }, [data, isFirstFetch]);
+  }, [data, isFirstFetch, isError]);
 
   return (
     <ScrollView>
       <View style={{ margin: 15, marginTop: 30 }}>
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <View
+          style={{ alignItems: 'center', justifyContent: 'center' }}
+        >
           <UserAvatar {...contactData} size={100} />
           <View style={{ marginTop: 15 }}>
-            <Headline style={{ textAlign: 'center' }}>{fullName}</Headline>
+            <Headline style={{ textAlign: 'center' }}>
+              {fullName}
+            </Headline>
             <View style={{ alignItems: 'center' }}>
               {renderContactTitle(contactData)}
             </View>
           </View>
         </View>
-        <Text style={{ textAlign: 'center', marginTop: 15, color: 'gray' }}>{bio}</Text>
+        <Text
+          style={{
+            textAlign: 'center',
+            marginTop: 15,
+            color: 'gray'
+          }}
+        >
+          {bio}
+        </Text>
       </View>
       {contactDetails}
     </ScrollView>

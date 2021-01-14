@@ -52,7 +52,8 @@ function PasswordStrength ({ value }) {
   const minLength = 8;
   const maxLength = 30;
 
-  const isWithinLen = value.length >= minLength && value.length <= maxLength;
+  const isWithinLen =
+    value.length >= minLength && value.length <= maxLength;
   const hasNumbers = (value.match(/[0-9]/gm) || []).length >= 2;
   const hasSmallLetters = (value.match(/[a-z]/gm) || []).length >= 2;
   const hasCapLetters = (value.match(/[A-Z]/gm) || []).length >= 2;
@@ -71,7 +72,10 @@ function PasswordStrength ({ value }) {
         isValid={isWithinLen}
         label={`Must be ${minLength} to ${maxLength} characters long`}
       />
-      <Condition isValid={hasNumbers} label="Must contain at least 2 numbers." />
+      <Condition
+        isValid={hasNumbers}
+        label="Must contain at least 2 numbers."
+      />
       <Condition
         isValid={hasSmallLetters}
         label="Must contain at least 2 small letters."

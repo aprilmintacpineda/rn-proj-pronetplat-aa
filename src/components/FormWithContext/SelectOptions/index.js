@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { Portal } from 'react-native-paper';
 import Options from './Options';
-
 import { FormContext } from 'components/FormWithContext/index';
 import TextInput from 'components/TextInput';
 import { camelToTitleCase } from 'libs/strings';
@@ -15,9 +14,12 @@ function SelectOptions ({
   disabled: disabledFromProps,
   ...textInputProps
 }) {
-  const { onChangeHandlers, formValues, formErrors, disabled } = React.useContext(
-    FormContext
-  );
+  const {
+    onChangeHandlers,
+    formValues,
+    formErrors,
+    disabled
+  } = React.useContext(FormContext);
   const modalizeRef = React.useRef();
 
   const openModal = React.useCallback(() => {
@@ -55,9 +57,17 @@ function SelectOptions ({
         onPress={openModal}
       />
       <Portal>
-        <Modalize ref={modalizeRef} adjustToContentHeight handlePosition="inside">
+        <Modalize
+          ref={modalizeRef}
+          adjustToContentHeight
+          handlePosition="inside"
+        >
           <View style={{ margin: 20, marginTop: 40 }}>
-            <Options options={options} onChange={handleChange} value={value} />
+            <Options
+              options={options}
+              onChange={handleChange}
+              value={value}
+            />
           </View>
         </Modalize>
       </Portal>

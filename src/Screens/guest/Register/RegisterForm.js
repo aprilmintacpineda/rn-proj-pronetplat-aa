@@ -18,8 +18,14 @@ function RegisterForm () {
         <TextInput field="email" type="email" />
         <TextInput field="password" type="password" />
         <PasswordStrength value={password} />
-        <TextInput style={{ marginTop: 15 }} field="retypePassword" type="password" />
-        <SubmitButton style={{ marginBottom: 20 }}>Create account</SubmitButton>
+        <TextInput
+          style={{ marginTop: 15 }}
+          field="retypePassword"
+          type="password"
+        />
+        <SubmitButton style={{ marginBottom: 20 }}>
+          Create account
+        </SubmitButton>
         <Button to="Login" color="red">
           Cancel
         </Button>

@@ -3,7 +3,10 @@ import Authenticate from './Authenticate';
 import LoginContext from './LoginContext';
 import VerifyEmail from './VerifyEmail';
 import SlideView from 'components/SlideView';
-import { showRequestFailedPopup, showSuccessPopup } from 'fluxible/actions/popup';
+import {
+  showRequestFailedPopup,
+  showSuccessPopup
+} from 'fluxible/actions/popup';
 import { login } from 'fluxible/actions/user';
 import useState from 'hooks/useState';
 import { xhr } from 'libs/xhr';
@@ -59,7 +62,8 @@ function Login ({ navigation: { replace } }) {
       });
       const { emailCodeCanSendAt } = await response.json();
       showSuccessPopup({
-        message: 'We have sent your new verification code to your email.'
+        message:
+          'We have sent your new verification code to your email.'
       });
       updateState({ emailCodeCanSendAt });
     } catch (error) {

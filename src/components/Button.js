@@ -24,8 +24,12 @@ function Button ({
     <RNPButton
       onPress={handlePress}
       mode={mode}
-      style={[mode === 'outlined' ? { borderColor: color } : null, style]}
-      {...rnpButtonProps}>
+      style={[
+        mode === 'outlined' ? { borderColor: color } : null,
+        style
+      ]}
+      {...rnpButtonProps}
+    >
       {children}
     </RNPButton>
   );

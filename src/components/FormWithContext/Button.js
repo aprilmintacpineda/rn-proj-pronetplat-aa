@@ -25,7 +25,8 @@ function FormButton ({
     <Button
       disabled={disabled || disabledFromProps}
       onPress={handlePress}
-      {...rnpButtonProps}>
+      {...rnpButtonProps}
+    >
       {children}
     </Button>
   );

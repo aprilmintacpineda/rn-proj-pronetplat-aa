@@ -16,11 +16,16 @@ const formOptions = {
     bio: ''
   },
   validators: {
-    firstName: ({ firstName }) => validate(firstName, ['required', 'maxLength:255']),
-    middleName: ({ middleName }) => validate(middleName, ['maxLength:255']),
-    surname: ({ surname }) => validate(surname, ['required', 'maxLength:255']),
-    gender: ({ gender }) => validate(gender, ['required', 'options:male,female']),
-    jobTitle: ({ jobTitle }) => validate(jobTitle, ['required', 'maxLength:255']),
+    firstName: ({ firstName }) =>
+      validate(firstName, ['required', 'maxLength:255']),
+    middleName: ({ middleName }) =>
+      validate(middleName, ['maxLength:255']),
+    surname: ({ surname }) =>
+      validate(surname, ['required', 'maxLength:255']),
+    gender: ({ gender }) =>
+      validate(gender, ['required', 'options:male,female']),
+    jobTitle: ({ jobTitle }) =>
+      validate(jobTitle, ['required', 'maxLength:255']),
     company: ({ company }) => validate(company, ['maxLength:255']),
     bio: ({ bio }) => validate(bio, ['maxLength:255'])
   },

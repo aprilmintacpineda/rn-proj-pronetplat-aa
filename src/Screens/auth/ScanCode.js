@@ -2,7 +2,6 @@ import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { CameraKitCamera } from 'react-native-camera-kit';
 import { Button, Text } from 'react-native-paper';
-
 import { openSettings } from 'react-native-permissions';
 import CenteredSurface from 'components/CenteredSurface';
 import { addToContact } from 'helpers/contact';
@@ -18,7 +17,8 @@ function addToPendingContactRequests (event) {
   );
 
   if (pendingContactRequest) {
-    if (pendingContactRequest.status === 'error') addToContact(pendingContactRequest);
+    if (pendingContactRequest.status === 'error')
+      addToContact(pendingContactRequest);
     return;
   }
 
@@ -37,8 +37,8 @@ function ScanCode () {
     return (
       <CenteredSurface>
         <Text style={{ marginBottom: 15 }}>
-          You need to give the app permissions to use the camera to be able to scan QR
-          codes of your contacts.
+          You need to give the app permissions to use the camera to
+          be able to scan QR codes of your contacts.
         </Text>
         <Button mode="contained" onPress={openSettings}>
           Open Settings

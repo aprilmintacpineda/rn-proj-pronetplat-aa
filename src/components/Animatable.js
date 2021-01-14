@@ -1,7 +1,12 @@
 import React from 'react';
 import * as RNAnimatable from 'react-native-animatable';
 
-function Animatable ({ type = 'View', duration = 300, children, ...animatableProps }) {
+function Animatable ({
+  type = 'View',
+  duration = 300,
+  children,
+  ...animatableProps
+}) {
   const AnimatableComponent = RNAnimatable[type];
 
   return (
@@ -9,7 +14,8 @@ function Animatable ({ type = 'View', duration = 300, children, ...animatablePro
       duration={duration}
       easing="linear"
       useNativeDriver
-      {...animatableProps}>
+      {...animatableProps}
+    >
       {children}
     </AnimatableComponent>
   );

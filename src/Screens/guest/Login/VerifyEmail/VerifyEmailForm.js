@@ -17,8 +17,12 @@ function VerifyEmailForm ({ onCancel, onVerified, onResendCode }) {
     isTouched
   } = React.useContext(FormContext);
   const [isResending, setIsResending] = React.useState(false);
-  const { page, emailCodeCanSendAt, authToken } = React.useContext(LoginContext);
-  const { isDone, timeLeftStr } = useCountDown({ toTime: emailCodeCanSendAt });
+  const { page, emailCodeCanSendAt, authToken } = React.useContext(
+    LoginContext
+  );
+  const { isDone, timeLeftStr } = useCountDown({
+    toTime: emailCodeCanSendAt
+  });
 
   React.useEffect(() => {
     if (isSubmitSuccess) onVerified(responseData);
@@ -43,10 +47,17 @@ function VerifyEmailForm ({ onCancel, onVerified, onResendCode }) {
     <ScrollView>
       <FormContainer>
         <TextInput field="verificationCode" type="code" />
-        <SubmitButton style={{ marginBottom: 10 }} disabled={isResending}>
+        <SubmitButton
+          style={{ marginBottom: 10 }}
+          disabled={isResending}
+        >
           Submit
         </SubmitButton>
-        <Button onPress={onCancel} color="red" disabled={isResending}>
+        <Button
+          onPress={onCancel}
+          color="red"
+          disabled={isResending}
+        >
           Cancel
         </Button>
       </FormContainer>
@@ -54,7 +65,8 @@ function VerifyEmailForm ({ onCancel, onVerified, onResendCode }) {
         <Button
           onPress={resendCode}
           loading={isResending}
-          disabled={!isDone || isResending}>
+          disabled={!isDone || isResending}
+        >
           Resend Code {timeLeftStr}
         </Button>
       </View>

@@ -1,6 +1,8 @@
-import { TransitionPresets, createStackNavigator } from '@react-navigation/stack';
+import {
+  TransitionPresets,
+  createStackNavigator
+} from '@react-navigation/stack';
 import React from 'react';
-
 import header from './header';
 import MainTabNavigation from './MainTabNavigation';
 import ContactProfile from 'Screens/auth/Contact/Profile';
@@ -20,7 +22,8 @@ function MainStackNavigation () {
     <Stack.Navigator
       initialRouteName="MainTabNavigation"
       headerMode="screen"
-      screenOptions={screenOptions}>
+      screenOptions={screenOptions}
+    >
       <Stack.Screen
         name="MainTabNavigation"
         component={MainTabNavigation}

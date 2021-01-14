@@ -2,7 +2,10 @@ import iid from '@react-native-firebase/iid';
 import React from 'react';
 import AuthenticateForm from './AuthenticateForm';
 import FormWithContext from 'components/FormWithContext';
-import { showErrorPopup, showRequestFailedPopup } from 'fluxible/actions/popup';
+import {
+  showErrorPopup,
+  showRequestFailedPopup
+} from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -12,7 +15,8 @@ const formOptions = {
   },
   validators: {
     email: ({ email }) => validate(email, ['required', 'email']),
-    password: ({ password }) => validate(password, ['required', 'maxLength:30'])
+    password: ({ password }) =>
+      validate(password, ['required', 'maxLength:30'])
   },
   endPoint: '/login',
   transformInput: async ({ formValues }) => {
@@ -24,9 +28,13 @@ const formOptions = {
     };
   },
   onSubmitError: ({ error }) => {
-    if (error.status === 403)
-      showErrorPopup({ message: 'Inccorect email/password combination.' });
-    else showRequestFailedPopup();
+    if (error.status === 403) {
+      showErrorPopup({
+        message: 'Inccorect email/password combination.'
+      });
+    } else {
+      showRequestFailedPopup();
+    }
   },
   stayDisabledOnSuccess: true
 };

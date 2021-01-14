@@ -1,7 +1,11 @@
 import React from 'react';
 import { AppState } from 'react-native';
 
-function useAppStateEffect ({ onBackground = null, onActive = null, onInactive = null }) {
+function useAppStateEffect ({
+  onBackground = null,
+  onActive = null,
+  onInactive = null
+}) {
   const prevAppState = React.useRef(AppState.currentState);
 
   const onChangeListener = React.useCallback(

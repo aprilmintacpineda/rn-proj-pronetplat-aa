@@ -1,4 +1,7 @@
-import { Text as RNText, TextInput as RNTextInput } from 'react-native';
+import {
+  Text as RNText,
+  TextInput as RNTextInput
+} from 'react-native';
 import { Text, Caption, TextInput } from 'react-native-paper';
 
 const maxFontSizeMultiplier = 1.5;
