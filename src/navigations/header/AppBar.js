@@ -24,9 +24,9 @@ function AppBar (props) {
         elevation: 2
       }}
     >
-      {!isMainScreen && canGoBack() ?
+      {!isMainScreen && canGoBack() ? (
         <Appbar.BackAction onPress={goBack} />
-       : hasDrawerNavigation ? (
+      ) : hasDrawerNavigation ? (
         <Appbar.Action
           icon={menuIcon}
           onPress={openDrawer}

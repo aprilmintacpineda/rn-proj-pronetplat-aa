@@ -22,7 +22,7 @@ function useDataFetch ({
   const isFetching = status === 'fetching';
   const isInitial = status === 'initial';
   const isRefreshing = status === 'refreshing';
-  const isFirstFetch = isInitial || isFetching && !data;
+  const isFirstFetch = isInitial || (isFetching && !data);
   const isError = status === 'fetchError';
   const isSuccess = status === 'fetchSuccess';
 
@@ -54,7 +54,7 @@ function useDataFetch ({
   const fetchData = React.useCallback(
     async refresh => {
       const isRefresh = refresh === true;
-      if (!isRefresh && !canFetchMore || isFetching) return;
+      if ((!isRefresh && !canFetchMore) || isFetching) return;
 
       try {
         updateState({
@@ -110,7 +110,7 @@ function useDataFetch ({
   );
 
   const refreshData = React.useCallback(() => {
-    if (isFetching || isInitial && prefetch) return;
+    if (isFetching || (isInitial && prefetch)) return;
     fetchData(true);
   }, [isFetching, isInitial, prefetch, fetchData]);
 

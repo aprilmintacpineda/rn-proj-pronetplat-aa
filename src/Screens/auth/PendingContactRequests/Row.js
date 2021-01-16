@@ -28,7 +28,7 @@ function PendingContactRequestRow ({ index, ...contactData }) {
 
   const [{ animation, delay }, setAnimation] = React.useState({
     animation: 'fadeInFromRight',
-    delay: index % 10 * 100
+    delay: (index % 10) * 100
   });
 
   const isInitial = status === 'initial';
@@ -88,9 +88,9 @@ function PendingContactRequestRow ({ index, ...contactData }) {
                     : 'Failed, please retry.'
                 }
               />
-            ) : isSuccess ?
+            ) : isSuccess ? (
               <StatusCaption message="Sent" />
-             : null}
+            ) : null}
             {isConnecting && (
               <View
                 style={{

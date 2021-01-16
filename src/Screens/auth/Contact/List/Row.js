@@ -13,7 +13,7 @@ const { success, disabled } = paperTheme.colors;
 function ContactListRow ({ index, ...contactData }) {
   const { hasEmail, hasMobile, hasTelephone } = contactData;
   const fullName = getFullName(contactData);
-  const delay = index % 10 * 50;
+  const delay = (index % 10) * 50;
 
   return (
     <Animatable animation="fadeInFromRight" delay={delay}>

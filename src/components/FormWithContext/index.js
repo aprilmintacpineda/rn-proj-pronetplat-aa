@@ -50,7 +50,7 @@ function FormWithContext ({
   const isSubmitSuccess = status === 'submitSuccess';
   const isSubmitError = status === 'submitError';
   const disabled =
-    isSubmitting || isSubmitSuccess && stayDisabledOnSuccess;
+    isSubmitting || (isSubmitSuccess && stayDisabledOnSuccess);
   const operation = targetDocumentId ? 'update' : 'others';
   const isUpdate = operation === 'update';
 

@@ -87,7 +87,7 @@ function NotificationPopup () {
   return (
     <Portal>
       <RNNotificationPopup
-        ref={ref => notificationPopupRef.current = ref}
+        ref={ref => (notificationPopupRef.current = ref)}
         renderPopupContent={renderPopupContent}
       />
     </Portal>

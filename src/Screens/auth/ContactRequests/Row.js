@@ -39,7 +39,7 @@ function ContactRequestRow ({
   );
   const [{ animation, delay }, setAnimation] = React.useState({
     animation: 'fadeInFromRight',
-    delay: index % 10 * 100
+    delay: (index % 10) * 100
   });
 
   const { profilePicture, bio } = sender;
