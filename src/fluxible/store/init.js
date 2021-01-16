@@ -19,6 +19,7 @@ export function getInitialStore () {
     authUser: null,
     authToken: null,
     initComplete: false,
+    toasts: [],
     pendingContactRequests: [],
     receivedContactRequestCount: 0,
     notificationsCount: 0
@@ -45,7 +46,7 @@ export function restore ({
 
 async function onInitComplete () {
   try {
-    if (!store.authToken || !await hasInternet()) {
+    if (!store.authToken || !(await hasInternet())) {
       updateStore({ initComplete: true });
       return;
     }

@@ -79,3 +79,43 @@ export async function showRequestFailedPopup ({
     showErrorPopup({ message });
   }
 }
+
+let toastId = 0;
+export function toast (params) {
+  toastId++;
+  const id = toastId;
+
+  updateStore({
+    toasts: store.toasts.concat({
+      ...params,
+      hasExpired: false,
+      id
+    })
+  });
+
+  return id;
+}
+
+export function updateOrCreateToast ({ id, ...params }) {
+  let wasFound = false;
+  const toasts = store.toasts.map(toast => {
+    if (toast.id === id) {
+      wasFound = true;
+
+      return {
+        ...toast,
+        ...params,
+        updateCount: (toast.updateCount || 0) + 1
+      };
+    }
+
+    return toast;
+  });
+
+  if (wasFound) {
+    updateStore({ toasts });
+    return id;
+  }
+
+  return toast(params);
+}

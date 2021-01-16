@@ -42,7 +42,7 @@ const formOptions = {
   onSubmitSuccess: async () => {
     showSuccessPopup({
       message:
-        "You're account has bee created. Please check your inbox for the confirmation code that you need to verify your email"
+        "You're account has been created. Please check your inbox for the confirmation code that you need to verify your email"
     });
 
     navigationRef.current.navigate('Login');

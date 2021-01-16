@@ -1,7 +1,8 @@
 import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { Paragraph, Text } from 'react-native-paper';
-import Toast from 'react-native-simple-toast';
+import Avatar from 'components/Avatar';
+import { toast, updateOrCreateToast } from 'fluxible/actions/popup';
 import { xhr } from 'libs/xhr';
 
 export function getFullName ({ firstName, middleName, surname }) {
@@ -52,29 +53,61 @@ function setPendingContactRequestStatus ({ targetId, status }) {
 }
 
 export async function addToContact (targetContact) {
-  const { id: targetId, status } = targetContact;
+  const { id: targetId, status, profilePicture } = targetContact;
   const fullName = getFullName(targetContact);
+  const avatarLabel = getInitials(targetContact);
+  const icon = (
+    <Avatar size={35} uri={profilePicture} label={avatarLabel} />
+  );
 
   if (status === 'sending') return;
 
+  const toastId = toast({
+    message: `Sending contact request to ${fullName}`,
+    icon
+  });
+
   try {
-    Toast.show(`Sending contact request to ${fullName}`);
     setPendingContactRequestStatus({ targetId, status: 'sending' });
     await xhr(`/add-to-contacts/${targetId}`, { method: 'post' });
-    Toast.show(`Successfully sent contact request to ${fullName}`);
+
+    updateOrCreateToast({
+      id: toastId,
+      message: `Successfully sent contact request to ${fullName}`,
+      icon,
+      type: 'success'
+    });
+
     setPendingContactRequestStatus({ targetId, status: 'success' });
   } catch (error) {
     console.log('error', error);
 
     if (error.status === 422) {
+      const status = await error.text();
+
+      updateOrCreateToast({
+        id: toastId,
+        message:
+          status === 'pendingSentRequest'
+            ? `Already sent a contact request to ${fullName}`
+            : `${fullName} has already sent you a contact request.`,
+        icon,
+        type: 'error'
+      });
+
       setPendingContactRequestStatus({
         targetId,
         status: 'success'
       });
-      Toast.show(`Already sent a contact request to ${fullName}`);
     } else {
       setPendingContactRequestStatus({ targetId, status: 'error' });
-      Toast.show(`Failed to send contact request to ${fullName}`);
+
+      updateOrCreateToast({
+        id: toastId,
+        message: `Failed to send contact request to ${fullName}`,
+        icon,
+        type: 'error'
+      });
     }
   }
 }

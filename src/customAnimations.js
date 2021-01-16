@@ -20,5 +20,25 @@ Animatable.initializeRegistryWithDefinitions({
       opacity: 0,
       transform: [{ translateX: 50 }]
     }
+  },
+  fadeInFromBottom: {
+    from: {
+      opacity: 0,
+      transform: [{ translateY: 50 }]
+    },
+    to: {
+      opacity: 1,
+      transform: [{ translateY: 0 }]
+    }
+  },
+  fadeOutToBottom: {
+    from: {
+      opacity: 1,
+      transform: [{ translateY: 0 }]
+    },
+    to: {
+      opacity: 0,
+      transform: [{ translateY: 50 }]
+    }
   }
 });

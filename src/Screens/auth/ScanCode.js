@@ -8,26 +8,39 @@ import { addToContact } from 'helpers/contact';
 import useCameraPermission from 'hooks/useCameraPermissions';
 
 function addToPendingContactRequests (event) {
-  const targetUser = JSON.parse(event.nativeEvent.codeStringValue);
+  try {
+    const targetUser = JSON.parse(event.nativeEvent.codeStringValue);
 
-  if (targetUser.id === store.authUser.id) return;
+    if (
+      !targetUser.id ||
+      !targetUser.firstName ||
+      !targetUser.surname ||
+      !targetUser.jobTitle
+    )
+      throw new Error('Invalid code contents');
 
-  const pendingContactRequest = store.pendingContactRequests.find(
-    ({ id }) => targetUser.id === id
-  );
+    if (targetUser.id === store.authUser.id)
+      throw new Error('Cannot send request to self.');
 
-  if (pendingContactRequest) {
-    if (pendingContactRequest.status === 'error')
-      addToContact(pendingContactRequest);
-    return;
+    const pendingContactRequest = store.pendingContactRequests.find(
+      ({ id }) => targetUser.id === id
+    );
+
+    if (pendingContactRequest) {
+      if (pendingContactRequest.status === 'error')
+        addToContact(pendingContactRequest);
+      return;
+    }
+
+    updateStore({
+      pendingContactRequests: store.pendingContactRequests.concat({
+        ...targetUser,
+        status: 'initial'
+      })
+    });
+  } catch (error) {
+    console.log(error);
   }
-
-  updateStore({
-    pendingContactRequests: store.pendingContactRequests.concat({
-      ...targetUser,
-      status: 'initial'
-    })
-  });
 }
 
 function ScanCode () {
