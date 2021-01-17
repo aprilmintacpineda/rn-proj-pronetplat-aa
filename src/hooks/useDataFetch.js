@@ -71,10 +71,8 @@ function useDataFetch ({
 
         const {
           data: responseData,
-          nextToken: newNextToken
+          nextToken: newNextToken = null
         } = await response.json();
-
-        console.log('useDataFetch', responseData, newNextToken);
 
         updateState(({ data }) => {
           const newData = isRefresh

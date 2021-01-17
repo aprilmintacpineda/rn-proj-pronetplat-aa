@@ -28,6 +28,7 @@ function Button ({
         mode === 'outlined' ? { borderColor: color } : null,
         style
       ]}
+      color={color}
       {...rnpButtonProps}
     >
       {children}

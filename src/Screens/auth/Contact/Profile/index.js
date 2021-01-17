@@ -1,3 +1,4 @@
+import { differenceInDays } from 'date-fns';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { Divider, Headline, Text } from 'react-native-paper';
@@ -8,64 +9,209 @@ import {
   ShineOverlay
 } from 'rn-placeholder';
 import ContactDetailRow from './Row';
+import Button from 'components/Button';
 import Caption from 'components/Caption';
+import TimeAgo from 'components/TimeAgo';
 import UserAvatar from 'components/UserAvatar';
-import { getFullName, renderContactTitle } from 'helpers/contact';
+import { showRequestFailedPopup } from 'fluxible/actions/popup';
+import {
+  getFullName,
+  renderContactTitle,
+  sendContactRequest
+} from 'helpers/contact';
 import useDataFetch from 'hooks/useDataFetch';
+import { xhr } from 'libs/xhr';
+import { paperTheme } from 'theme';
 
 function ContactProfile ({ route: { params: contactData } }) {
   const { id, bio } = contactData;
   const fullName = getFullName(contactData);
+  const [sendingRequest, setSendingRequest] = React.useState(false);
 
-  const { data, isFirstFetch, isError } = useDataFetch({
-    endpoint: `/contacts/${id}`
+  const onSuccess = React.useCallback(() => {
+    setSendingRequest(false);
+  }, []);
+
+  const {
+    data,
+    isError,
+    error,
+    refreshData,
+    isRefreshing
+  } = useDataFetch({
+    endpoint: `/contacts/${id}`,
+    onSuccess
   });
 
-  const contactDetails = React.useMemo(() => {
-    if (isError) return null;
+  const sendFollowUp = React.useCallback(
+    async contactRequestId => {
+      try {
+        setSendingRequest(true);
+        await xhr('/follow-up-request', {
+          method: 'post',
+          body: { contactRequestId }
+        });
+      } catch (error) {
+        console.log(error);
+        showRequestFailedPopup();
+      } finally {
+        refreshData();
+      }
+    },
+    [refreshData]
+  );
 
-    if (!data) {
-      if (isFirstFetch) {
+  const sendRequest = React.useCallback(() => {
+    setSendingRequest(true);
+    sendContactRequest(contactData, refreshData);
+  }, [contactData, refreshData]);
+
+  const contactDetails = React.useMemo(() => {
+    if (isError) {
+      if (error.status === 404) {
         return (
-          <Placeholder Animation={ShineOverlay}>
-            <View style={{ margin: 15 }}>
-              <PlaceholderLine width={30} height={8} />
-              <View
-                style={{
-                  marginLeft: 15,
-                  marginBottom: 15,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}
-              >
-                <PlaceholderLine width={50} />
-                <PlaceholderMedia
-                  style={{ borderRadius: 100 }}
-                  size={50}
-                />
-              </View>
-              <View
-                style={{
-                  marginLeft: 15,
-                  marginBottom: 15,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}
-              >
-                <PlaceholderLine width={50} />
-                <PlaceholderMedia
-                  style={{ borderRadius: 100 }}
-                  size={50}
-                />
-              </View>
-            </View>
-          </Placeholder>
+          <View
+            style={{
+              marginHorizontal: 15,
+              marginTop: 50
+            }}
+          >
+            <Button
+              onPress={sendRequest}
+              mode="contained"
+              disabled={sendingRequest}
+            >
+              Send contact request
+            </Button>
+          </View>
         );
       }
 
       return null;
+    }
+
+    if (
+      !data ||
+      ((data.sentContactRequest || data.receivedContactRequest) &&
+        isRefreshing)
+    ) {
+      return (
+        <Placeholder Animation={ShineOverlay}>
+          <View style={{ margin: 15 }}>
+            <PlaceholderLine width={30} height={8} />
+            <View
+              style={{
+                marginLeft: 15,
+                marginBottom: 15,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
+              <PlaceholderLine width={50} />
+              <PlaceholderMedia
+                style={{ borderRadius: 100 }}
+                size={50}
+              />
+            </View>
+            <View
+              style={{
+                marginLeft: 15,
+                marginBottom: 15,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
+              <PlaceholderLine width={50} />
+              <PlaceholderMedia
+                style={{ borderRadius: 100 }}
+                size={50}
+              />
+            </View>
+          </View>
+        </Placeholder>
+      );
+    }
+
+    if (data.sentContactRequest) {
+      const {
+        sentContactRequest: { id, createdAt, lastFollowUpAt }
+      } = data;
+
+      if (differenceInDays(new Date(), new Date(createdAt)) >= 1) {
+        if (
+          !lastFollowUpAt ||
+          differenceInDays(new Date(), new Date(lastFollowUpAt)) >= 1
+        ) {
+          return (
+            <View
+              style={{
+                marginHorizontal: 15,
+                marginTop: 50
+              }}
+            >
+              <Button
+                mode="contained"
+                onPress={() => sendFollowUp(id)}
+                disabled={sendingRequest}
+                style={{ marginBottom: 15 }}
+              >
+                Send follow up
+              </Button>
+              <Button color={paperTheme.colors.error}>
+                Cancel contact request
+              </Button>
+            </View>
+          );
+        }
+
+        return (
+          <View
+            style={{
+              marginHorizontal: 15,
+              marginTop: 50
+            }}
+          >
+            <Text
+              style={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                marginBottom: 30
+              }}
+            >
+              You have just sent a follow up{' '}
+              <TimeAgo dateFrom={lastFollowUpAt} />
+            </Text>
+            <Button mode="contained" color={paperTheme.colors.error}>
+              Cancel contact request
+            </Button>
+          </View>
+        );
+      }
+
+      return (
+        <View
+          style={{
+            marginHorizontal: 15,
+            marginTop: 50
+          }}
+        >
+          <Text
+            style={{
+              textAlign: 'center',
+              fontWeight: 'bold',
+              marginBottom: 30
+            }}
+          >
+            You have just sent your contact request{' '}
+            <TimeAgo dateFrom={createdAt} />
+          </Text>
+          <Button mode="contained" color={paperTheme.colors.error}>
+            Cancel contact request
+          </Button>
+        </View>
+      );
     }
 
     const types = {
@@ -134,7 +280,15 @@ function ContactProfile ({ route: { params: contactData } }) {
         })}
       </View>
     );
-  }, [data, isFirstFetch, isError]);
+  }, [
+    data,
+    isError,
+    error,
+    sendRequest,
+    sendFollowUp,
+    sendingRequest,
+    isRefreshing
+  ]);
 
   return (
     <ScrollView>

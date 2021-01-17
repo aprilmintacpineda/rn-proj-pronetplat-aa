@@ -20,7 +20,7 @@ export function getInitialStore () {
     authToken: null,
     initComplete: false,
     toasts: [],
-    pendingContactRequests: [],
+    sendingContactRequests: [],
     receivedContactRequestCount: 0,
     notificationsCount: 0
   };
@@ -39,9 +39,9 @@ const asyncStorage = {
 export function restore ({
   authUser,
   authToken,
-  pendingContactRequests
+  sendingContactRequests
 }) {
-  return { authUser, authToken, pendingContactRequests };
+  return { authUser, authToken, sendingContactRequests };
 }
 
 async function onInitComplete () {

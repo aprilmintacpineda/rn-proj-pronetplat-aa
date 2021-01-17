@@ -3,8 +3,8 @@ import React from 'react';
 import RNVectorIcon from 'components/RNVectorIcon';
 import ContactList from 'Screens/auth/Contact/List';
 import MyCode from 'Screens/auth/MyCode';
-import PendingContactRequests from 'Screens/auth/PendingContactRequests';
 import ScanCode from 'Screens/auth/ScanCode';
+import SendingContactRequests from 'Screens/auth/SendingContactRequests';
 
 const Tab = createBottomTabNavigator();
 
@@ -70,8 +70,8 @@ function MainTabNavigation () {
           ),
           tabBarLabel: 'Pending'
         }}
-        name="PendingContactRequests"
-        component={PendingContactRequests}
+        name="SendingContactRequests"
+        component={SendingContactRequests}
       />
     </Tab.Navigator>
   );

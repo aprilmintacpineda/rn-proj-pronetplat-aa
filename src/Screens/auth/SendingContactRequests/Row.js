@@ -44,8 +44,8 @@ function PendingContactRequestRow ({ index, ...contactData }) {
     if (!isSuccess) return;
 
     updateStore({
-      pendingContactRequests: store.pendingContactRequests.filter(
-        pendingContactRequest => pendingContactRequest.id !== id
+      sendingContactRequests: store.sendingContactRequests.filter(
+        sendingContactRequest => sendingContactRequest.id !== id
       )
     });
   }, [isSuccess, id]);

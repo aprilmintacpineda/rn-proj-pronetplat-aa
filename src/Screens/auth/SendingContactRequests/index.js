@@ -6,8 +6,8 @@ import Row from './Row';
 import CenteredSurface from 'components/CenteredSurface';
 import ListItemSeparator from 'components/ListItemSeparator';
 
-function mapStates ({ pendingContactRequests }) {
-  return { pendingContactRequests };
+function mapStates ({ sendingContactRequests }) {
+  return { sendingContactRequests };
 }
 
 function renderRow ({ item, index }) {
@@ -18,10 +18,10 @@ function keyExtractor ({ id }) {
   return id;
 }
 
-function PendingContactRequests () {
-  const { pendingContactRequests } = useFluxibleStore(mapStates);
+function SendingContactRequests () {
+  const { sendingContactRequests } = useFluxibleStore(mapStates);
 
-  if (!pendingContactRequests.length) {
+  if (!sendingContactRequests.length) {
     return (
       <CenteredSurface>
         <Title>No pending contact requests.</Title>
@@ -53,7 +53,7 @@ function PendingContactRequests () {
 
   return (
     <FlatList
-      data={pendingContactRequests}
+      data={sendingContactRequests}
       renderItem={renderRow}
       keyExtractor={keyExtractor}
       ItemSeparatorComponent={ListItemSeparator}
@@ -61,4 +61,4 @@ function PendingContactRequests () {
   );
 }
 
-export default React.memo(PendingContactRequests);
+export default React.memo(SendingContactRequests);

@@ -1,43 +1,15 @@
-import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { CameraKitCamera } from 'react-native-camera-kit';
 import { Button, Text } from 'react-native-paper';
 import { openSettings } from 'react-native-permissions';
 import CenteredSurface from 'components/CenteredSurface';
-import { addToContact } from 'helpers/contact';
+import { sendContactRequest } from 'helpers/contact';
 import useCameraPermission from 'hooks/useCameraPermissions';
 
-function addToPendingContactRequests (event) {
+function onReadCode (event) {
   try {
     const targetUser = JSON.parse(event.nativeEvent.codeStringValue);
-
-    if (
-      !targetUser.id ||
-      !targetUser.firstName ||
-      !targetUser.surname ||
-      !targetUser.jobTitle
-    )
-      throw new Error('Invalid code contents');
-
-    if (targetUser.id === store.authUser.id)
-      throw new Error('Cannot send request to self.');
-
-    const pendingContactRequest = store.pendingContactRequests.find(
-      ({ id }) => targetUser.id === id
-    );
-
-    if (pendingContactRequest) {
-      if (pendingContactRequest.status === 'error')
-        addToContact(pendingContactRequest);
-      return;
-    }
-
-    updateStore({
-      pendingContactRequests: store.pendingContactRequests.concat({
-        ...targetUser,
-        status: 'initial'
-      })
-    });
+    sendContactRequest(targetUser);
   } catch (error) {
     console.log(error);
   }
@@ -70,7 +42,7 @@ function ScanCode () {
       }}
       resetFocusWhenMotionDetected
       scanBarcode
-      onReadCode={addToPendingContactRequests}
+      onReadCode={onReadCode}
       hideControls
       saveToCameraRoll={false}
     />

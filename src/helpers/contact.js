@@ -37,9 +37,9 @@ export function renderContactTitle ({ jobTitle, company }, style) {
   );
 }
 
-function setPendingContactRequestStatus ({ targetId, status }) {
+function setSendingContactRequestStatus ({ targetId, status }) {
   updateStore({
-    pendingContactRequests: store.pendingContactRequests.map(
+    sendingContactRequests: store.sendingContactRequests.map(
       contact => {
         if (contact.id !== targetId) return contact;
 
@@ -52,8 +52,48 @@ function setPendingContactRequestStatus ({ targetId, status }) {
   });
 }
 
+export function sendContactRequest (targetUser, onDone = null) {
+  try {
+    if (
+      !targetUser.id ||
+      !targetUser.firstName ||
+      !targetUser.surname ||
+      !targetUser.jobTitle
+    )
+      throw new Error('Invalid target user data');
+
+    if (targetUser.id === store.authUser.id)
+      throw new Error('Cannot send request to self.');
+
+    const pendingContactRequest = store.sendingContactRequests.find(
+      ({ id }) => targetUser.id === id
+    );
+
+    if (pendingContactRequest) {
+      if (pendingContactRequest.status === 'error')
+        addToContact(pendingContactRequest);
+      return;
+    }
+
+    updateStore({
+      sendingContactRequests: store.sendingContactRequests.concat({
+        ...targetUser,
+        status: 'initial',
+        onDone
+      })
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function addToContact (targetContact) {
-  const { id: targetId, status, profilePicture } = targetContact;
+  const {
+    id: targetId,
+    status,
+    profilePicture,
+    onDone
+  } = targetContact;
   const fullName = getFullName(targetContact);
   const avatarLabel = getInitials(targetContact);
   const icon = (
@@ -68,7 +108,7 @@ export async function addToContact (targetContact) {
   });
 
   try {
-    setPendingContactRequestStatus({ targetId, status: 'sending' });
+    setSendingContactRequestStatus({ targetId, status: 'sending' });
     await xhr(`/add-to-contacts/${targetId}`, { method: 'post' });
 
     updateOrCreateToast({
@@ -78,7 +118,9 @@ export async function addToContact (targetContact) {
       type: 'success'
     });
 
-    setPendingContactRequestStatus({ targetId, status: 'success' });
+    setSendingContactRequestStatus({ targetId, status: 'success' });
+
+    if (onDone) onDone();
   } catch (error) {
     console.log('error', error);
 
@@ -95,12 +137,16 @@ export async function addToContact (targetContact) {
         type: 'error'
       });
 
-      setPendingContactRequestStatus({
+      setSendingContactRequestStatus({
         targetId,
         status: 'success'
       });
+
+      console.log(onDone);
+
+      if (onDone) onDone();
     } else {
-      setPendingContactRequestStatus({ targetId, status: 'error' });
+      setSendingContactRequestStatus({ targetId, status: 'error' });
 
       updateOrCreateToast({
         id: toastId,
