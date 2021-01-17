@@ -1,4 +1,4 @@
-package com.aprmp.proj_pronetplat_aa.generated;
+package com.aprmp.projpronetplataa.generated;
 
 import java.util.Arrays;
 import java.util.List;

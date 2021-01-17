@@ -831,7 +831,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aprmp.proj-pronetplat-aa";
+				PRODUCT_BUNDLE_IDENTIFIER = com.aprmp.projpronetplataa;
 				PRODUCT_NAME = Quaint;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -856,7 +856,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aprmp.proj-pronetplat-aa";
+				PRODUCT_BUNDLE_IDENTIFIER = com.aprmp.projpronetplataa;
 				PRODUCT_NAME = Quaint;
 				SWIFT_VERSION = 5.0;
 				TARGET_ENV = production;
@@ -1051,7 +1051,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aprmp.proj-pronetplat-aa.staging";
+				PRODUCT_BUNDLE_IDENTIFIER = com.aprmp.projpronetplataa.staging;
 				PRODUCT_NAME = "STG Quaint";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1215,7 +1215,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aprmp.proj-pronetplat-aa.local";
+				PRODUCT_BUNDLE_IDENTIFIER = com.aprmp.projpronetplataa.local;
 				PRODUCT_NAME = "LOC Quaint";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1371,7 +1371,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aprmp.proj-pronetplat-aa.local";
+				PRODUCT_BUNDLE_IDENTIFIER = com.aprmp.projpronetplataa.local;
 				PRODUCT_NAME = "LOC Quaint";
 				SWIFT_VERSION = 5.0;
 				TARGET_ENV = local;
@@ -1523,7 +1523,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aprmp.proj-pronetplat-aa.staging";
+				PRODUCT_BUNDLE_IDENTIFIER = com.aprmp.projpronetplataa.staging;
 				PRODUCT_NAME = "STG Quaint";
 				SWIFT_VERSION = 5.0;
 				TARGET_ENV = staging;

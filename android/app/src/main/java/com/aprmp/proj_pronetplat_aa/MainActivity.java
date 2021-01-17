@@ -1,4 +1,4 @@
-package com.aprmp.proj_pronetplat_aa;
+package com.aprmp.projpronetplataa;
 
 import android.os.Bundle;
 import com.zoontek.rnbootsplash.RNBootSplash;
