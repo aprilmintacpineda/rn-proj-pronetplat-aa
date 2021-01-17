@@ -9,17 +9,13 @@ import {
   TouchableRipple
 } from 'react-native-paper';
 import Animatable from 'components/Animatable';
-import Avatar from 'components/Avatar';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
 import { DataFetchContext } from 'components/DataFetch';
 import StatusCaption from 'components/StatusCaption';
 import TimeAgo from 'components/TimeAgo';
-import {
-  getFullName,
-  getInitials,
-  renderContactTitle
-} from 'helpers/contact';
+import UserAvatar from 'components/UserAvatar';
+import { getFullName, renderContactTitle } from 'helpers/contact';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
@@ -42,8 +38,7 @@ function ContactRequestRow ({
     delay: (index % 10) * 100
   });
 
-  const { profilePicture, bio } = sender;
-  const avatarLabel = getInitials(sender);
+  const { bio } = sender;
   const fullName = getFullName(sender);
   const didAccept = status.includes('accept');
   const didDecline = status.includes('decline');
@@ -173,7 +168,7 @@ function ContactRequestRow ({
           disabled={isSuccess}
         >
           <View style={{ flexDirection: 'row', padding: 15 }}>
-            <Avatar uri={profilePicture} label={avatarLabel} />
+            <UserAvatar user={sender} />
             <View style={{ flex: 1, marginLeft: 10 }}>
               <Text numberOfLines={1} style={{ fontSize: 18 }}>
                 {fullName}
@@ -218,11 +213,7 @@ function ContactRequestRow ({
         >
           <View style={{ marginVertical: 30, marginHorizontal: 20 }}>
             <View style={{ alignItems: 'center' }}>
-              <Avatar
-                size={120}
-                label={avatarLabel}
-                uri={profilePicture}
-              />
+              <UserAvatar size={120} user={sender} />
               <Text
                 numberOfLines={1}
                 style={{ fontSize: 18, marginTop: 10 }}

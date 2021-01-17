@@ -24,7 +24,7 @@ function ContactListRow ({ index, ...contactData }) {
             margin: 15
           }}
         >
-          <UserAvatar {...contactData} />
+          <UserAvatar user={contactData} />
           <View style={{ marginLeft: 15, flex: 1 }}>
             <Text numberOfLines={1} style={{ fontSize: 18 }}>
               {fullName}

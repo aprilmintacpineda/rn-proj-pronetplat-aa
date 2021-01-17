@@ -1,28 +1,14 @@
 import React from 'react';
-import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import Avatar from './Avatar';
+import { getInitials } from 'helpers/contact';
 
-function mapStates ({ authUser }) {
-  return { authUser };
-}
-
-function UserAvatar (avatarProps) {
-  const { authUser } = useFluxibleStore(mapStates);
-  const {
-    profilePicture,
-    firstName,
-    middleName,
-    surname
-  } = authUser;
-
-  const label = (
-    (firstName?.[0] || '') +
-    (middleName?.[0] || '') +
-    (surname?.[0] || '')
-  ).toUpperCase();
-
+function UserAvatar ({ user, ...avatarProps }) {
   return (
-    <Avatar uri={profilePicture} label={label} {...avatarProps} />
+    <Avatar
+      {...avatarProps}
+      uri={user.profilePicture}
+      label={getInitials(user)}
+    />
   );
 }
 

@@ -47,7 +47,7 @@ function ContactProfile ({ route: { params: contactData } }) {
     async contactRequestId => {
       try {
         setSendingRequest(true);
-        await xhr('/follow-up-request', {
+        await xhr('/send-follow-up', {
           method: 'post',
           body: { contactRequestId }
         });
@@ -159,7 +159,10 @@ function ContactProfile ({ route: { params: contactData } }) {
               >
                 Send follow up
               </Button>
-              <Button color={paperTheme.colors.error}>
+              <Button
+                color={paperTheme.colors.error}
+                mode="outlined"
+              >
                 Cancel contact request
               </Button>
             </View>
@@ -296,7 +299,7 @@ function ContactProfile ({ route: { params: contactData } }) {
         <View
           style={{ alignItems: 'center', justifyContent: 'center' }}
         >
-          <UserAvatar {...contactData} size={100} />
+          <UserAvatar user={contactData} size={100} />
           <View style={{ marginTop: 15 }}>
             <Headline style={{ textAlign: 'center' }}>
               {fullName}

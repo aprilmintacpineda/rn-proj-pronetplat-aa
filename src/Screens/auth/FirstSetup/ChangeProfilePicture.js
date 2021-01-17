@@ -16,10 +16,10 @@ import {
   requestMultiple
 } from 'react-native-permissions';
 import File from 'classes/File';
+import Avatar from 'components/Avatar';
 import Button from 'components/Button';
 import FormContainer from 'components/FormContainer';
 import RNVectorIcon from 'components/RNVectorIcon';
-import UserAvatar from 'components/UserAvatar';
 import {
   showErrorPopup,
   showRequestFailedPopup
@@ -200,7 +200,7 @@ function ChangeProfilePicture ({ onDone }) {
         <View
           style={{ justifyContent: 'center', alignItems: 'center' }}
         >
-          <UserAvatar size={150} />
+          <Avatar label="ABC" size={150} />
         </View>
         <Button
           onPress={changeProfile}

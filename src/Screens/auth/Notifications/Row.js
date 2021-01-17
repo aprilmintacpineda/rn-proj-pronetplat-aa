@@ -1,21 +1,19 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Paragraph, Text } from 'react-native-paper';
-import Avatar from 'components/Avatar';
 import Caption from 'components/Caption';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
 import TouchableButtonLink from 'components/TouchableButtonLink';
-import { getFullName, getInitials } from 'helpers/contact';
+import UserAvatar from 'components/UserAvatar';
+import { getFullName } from 'helpers/contact';
 import { paperTheme, navigationTheme } from 'theme';
 
 const { success, error, primary } = paperTheme.colors;
 const { background: backgroundColor } = navigationTheme.colors;
 
 function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
-  const { profilePicture } = actor;
   const fullname = getFullName(actor);
-  const avatarLabel = getInitials(actor);
   let icon = null;
 
   switch (type) {
@@ -81,7 +79,7 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
       }}
     >
       <View style={{ position: 'relative' }}>
-        <Avatar uri={profilePicture} label={avatarLabel} />
+        <UserAvatar user={actor} />
         <View
           style={{
             position: 'absolute',

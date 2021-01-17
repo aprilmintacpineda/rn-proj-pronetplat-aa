@@ -37,34 +37,23 @@ messaging().onMessage(async remoteMessage => {
 
   if (!store.authUser || AppState.currentState !== 'active') return;
 
-  const { title, body } = remoteMessage.notification;
-  const { type } = remoteMessage.data || {};
-  let onPress = null;
+  const { data, notification } = remoteMessage;
+  const { title, body } = notification;
+  const { type, category, profilePicture } = data;
 
-  switch (type) {
+  const screensByType = {
+    contactRequest: 'ContactRequests',
+    contactRequestAccepted: 'ContactProfile'
+  };
+
+  switch (category) {
     case 'contactRequest':
       updateStore({
         receivedContactRequestCount:
           store.receivedContactRequestCount + 1
       });
-
-      onPress = () => {
-        navigationRef.current.navigate('ContactRequests');
-      };
       break;
-    case 'contactRequestAccepted':
-      updateStore({
-        notificationsCount: store.notificationsCount + 1
-      });
-
-      onPress = () => {
-        navigationRef.current.navigate(
-          'ContactProfile',
-          remoteMessage.data
-        );
-      };
-      break;
-    case 'contactRequestDeclined':
+    case 'notification':
       updateStore({
         notificationsCount: store.notificationsCount + 1
       });
@@ -74,9 +63,13 @@ messaging().onMessage(async remoteMessage => {
   displayNotification({
     title,
     body,
-    avatarUri: remoteMessage.data?.profilePicture || null,
-    avatarLabel: getInitials(remoteMessage?.data || {}),
-    onPress
+    avatarUri: profilePicture,
+    avatarLabel: getInitials(data),
+    onPress: () => {
+      const targetScreen = screensByType[type];
+      if (targetScreen)
+        navigationRef.current.navigate(targetScreen, data);
+    }
   });
 });
 

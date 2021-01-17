@@ -1,7 +1,7 @@
 import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { Paragraph, Text } from 'react-native-paper';
-import Avatar from 'components/Avatar';
+import UserAvatar from 'components/UserAvatar';
 import { toast, updateOrCreateToast } from 'fluxible/actions/popup';
 import { xhr } from 'libs/xhr';
 
@@ -88,17 +88,9 @@ export function sendContactRequest (targetUser, onDone = null) {
 }
 
 export async function addToContact (targetContact) {
-  const {
-    id: targetId,
-    status,
-    profilePicture,
-    onDone
-  } = targetContact;
+  const { id: targetId, status, onDone } = targetContact;
   const fullName = getFullName(targetContact);
-  const avatarLabel = getInitials(targetContact);
-  const icon = (
-    <Avatar size={35} uri={profilePicture} label={avatarLabel} />
-  );
+  const icon = <UserAvatar size={35} user={targetContact} />;
 
   if (status === 'sending') return;
 

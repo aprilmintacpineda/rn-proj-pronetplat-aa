@@ -16,6 +16,7 @@ function ToggleDrawerIcon (props) {
     receivedContactRequestCount,
     notificationsCount
   } = useFluxibleStore(mapStates);
+
   const badge = receivedContactRequestCount + notificationsCount;
 
   return (

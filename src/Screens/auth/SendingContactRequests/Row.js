@@ -75,7 +75,7 @@ function PendingContactRequestRow ({ index, ...contactData }) {
     >
       <View style={{ margin: 15 }}>
         <View style={{ flexDirection: 'row' }}>
-          <UserAvatar {...contactData} />
+          <UserAvatar user={contactData} />
           <View style={{ marginLeft: 15, flex: 1 }}>
             <Text style={{ fontSize: 18 }}>{fullName}</Text>
             {renderContactTitle(contactData)}
