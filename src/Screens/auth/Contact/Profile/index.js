@@ -14,12 +14,12 @@ import Caption from 'components/Caption';
 import TimeAgo from 'components/TimeAgo';
 import UserAvatar from 'components/UserAvatar';
 import { showRequestFailedPopup } from 'fluxible/actions/popup';
+import useDataFetch from 'hooks/useDataFetch';
 import {
   getFullName,
   renderContactTitle,
   sendContactRequest
-} from 'helpers/contact';
-import useDataFetch from 'hooks/useDataFetch';
+} from 'libs/contact';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 

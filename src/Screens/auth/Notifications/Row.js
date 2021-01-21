@@ -6,7 +6,7 @@ import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
 import TouchableButtonLink from 'components/TouchableButtonLink';
 import UserAvatar from 'components/UserAvatar';
-import { getFullName } from 'helpers/contact';
+import { getFullName } from 'libs/contact';
 import { paperTheme, navigationTheme } from 'theme';
 
 const { success, error, primary } = paperTheme.colors;

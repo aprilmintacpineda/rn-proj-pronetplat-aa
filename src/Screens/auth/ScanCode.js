@@ -3,8 +3,8 @@ import { CameraKitCamera } from 'react-native-camera-kit';
 import { Button, Text } from 'react-native-paper';
 import { openSettings } from 'react-native-permissions';
 import CenteredSurface from 'components/CenteredSurface';
-import { sendContactRequest } from 'helpers/contact';
 import useCameraPermission from 'hooks/useCameraPermissions';
+import { sendContactRequest } from 'libs/contact';
 
 function onReadCode (event) {
   try {

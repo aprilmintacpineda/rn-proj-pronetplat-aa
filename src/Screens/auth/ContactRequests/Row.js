@@ -15,7 +15,7 @@ import { DataFetchContext } from 'components/DataFetch';
 import StatusCaption from 'components/StatusCaption';
 import TimeAgo from 'components/TimeAgo';
 import UserAvatar from 'components/UserAvatar';
-import { getFullName, renderContactTitle } from 'helpers/contact';
+import { getFullName, renderContactTitle } from 'libs/contact';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 

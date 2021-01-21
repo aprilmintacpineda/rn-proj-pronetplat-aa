@@ -11,12 +11,12 @@ import Caption from 'components/Caption';
 import RNVectorIcon from 'components/RNVectorIcon';
 import StatusCaption from 'components/StatusCaption';
 import UserAvatar from 'components/UserAvatar';
+import useHasInternet from 'hooks/useHasInternet';
 import {
   addToContact,
   getFullName,
   renderContactTitle
-} from 'helpers/contact';
-import useHasInternet from 'hooks/useHasInternet';
+} from 'libs/contact';
 import { paperTheme } from 'theme';
 
 const { rippleColor, primary } = paperTheme.colors;

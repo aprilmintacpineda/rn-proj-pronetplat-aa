@@ -5,7 +5,7 @@ import Animatable from 'components/Animatable';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TouchableButtonLink from 'components/TouchableButtonLink';
 import UserAvatar from 'components/UserAvatar';
-import { getFullName, renderContactTitle } from 'helpers/contact';
+import { getFullName, renderContactTitle } from 'libs/contact';
 import { paperTheme } from 'theme';
 
 const { success, disabled } = paperTheme.colors;
