@@ -2,8 +2,8 @@ import { updateStore } from 'fluxible-js';
 import { getInitialStore, restore } from 'fluxible/store/init';
 import { logLogin, logLogout } from 'libs/logging';
 
-export function login ({ authUser, authToken }) {
-  updateStore({ authUser, authToken });
+export function login ({ userData, authToken }) {
+  updateStore({ authUser: userData, authToken });
   logLogin();
 }
 

@@ -29,15 +29,15 @@ function Login ({ navigation: { replace } }) {
   }, [updateState]);
 
   const onLogin = React.useCallback(
-    ({ authUser, authToken }) => {
-      if (!authUser.emailVerifiedAt) {
+    ({ userData, authToken }) => {
+      if (!userData.emailVerifiedAt) {
         updateState({
           page: 2,
-          emailCodeCanSendAt: authUser.emailCodeCanSendAt,
+          emailCodeCanSendAt: userData.emailCodeCanSendAt,
           authToken
         });
       } else {
-        login({ authUser, authToken });
+        login({ userData, authToken });
         replace('LoggedInStack');
       }
     },
@@ -45,8 +45,8 @@ function Login ({ navigation: { replace } }) {
   );
 
   const onVerified = React.useCallback(
-    ({ authUser, authToken }) => {
-      login({ authUser, authToken });
+    ({ userData, authToken }) => {
+      login({ userData, authToken });
       replace('LoggedInStack');
     },
     [replace]

@@ -30,8 +30,8 @@ const formOptions = {
     bio: ({ bio }) => validate(bio, ['maxLength:255'])
   },
   onSubmitError: showRequestFailedPopup,
-  onSubmitSuccess: ({ responseData: { authUser, authToken } }) => {
-    updateStore({ authUser, authToken });
+  onSubmitSuccess: ({ responseData: { userData, authToken } }) => {
+    updateStore({ authUser: userData, authToken });
   },
   stayDisabledOnSuccess: true,
   endPoint: '/change-personal-info'

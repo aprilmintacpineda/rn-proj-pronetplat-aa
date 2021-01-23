@@ -24,7 +24,6 @@ import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
 function ContactProfile ({ route: { params: contactData } }) {
-  const { id, bio } = contactData;
   const fullName = getFullName(contactData);
   const [isDisabled, setIsDisabled] = React.useState(false);
 
@@ -39,7 +38,7 @@ function ContactProfile ({ route: { params: contactData } }) {
     refreshData,
     isRefreshing
   } = useDataFetch({
-    endpoint: `/contacts/${id}`,
+    endpoint: `/contacts/${contactData.id}`,
     onSuccess
   });
 
@@ -52,7 +51,7 @@ function ContactProfile ({ route: { params: contactData } }) {
       setIsDisabled(true);
       await xhr('/send-follow-up', {
         method: 'post',
-        body: { contactId: id }
+        body: { contactId: contactData.id }
       });
     } catch (error) {
       console.log(error);
@@ -61,7 +60,7 @@ function ContactProfile ({ route: { params: contactData } }) {
       setIsDisabled(false);
       refreshData();
     }
-  }, [refreshData, id]);
+  }, [refreshData, contactData.id]);
 
   const sendRequest = React.useCallback(() => {
     setIsDisabled(true);
@@ -73,7 +72,7 @@ function ContactProfile ({ route: { params: contactData } }) {
       setIsDisabled(true);
       await xhr('/cancel-contact-request', {
         method: 'post',
-        body: { contactId: id }
+        body: { contactId: contactData.id }
       });
     } catch (error) {
       console.log('error', error);
@@ -81,7 +80,7 @@ function ContactProfile ({ route: { params: contactData } }) {
     } finally {
       refreshData();
     }
-  }, [refreshData, id]);
+  }, [refreshData, contactData.id]);
 
   const contactDetails = React.useMemo(() => {
     if (isError) {
@@ -311,7 +310,7 @@ function ContactProfile ({ route: { params: contactData } }) {
             color: 'gray'
           }}
         >
-          {bio}
+          {contactData.bio}
         </Text>
       </View>
       {contactDetails}

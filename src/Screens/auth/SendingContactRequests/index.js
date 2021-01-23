@@ -40,11 +40,13 @@ function SendingContactRequests () {
         </Paragraph>
         <Paragraph>
           <Text style={{ fontWeight: 'bold' }}>
-            Have many QRs to scan?{' '}
+            Too many QRs to scan?{' '}
           </Text>
           <Text>
-            You can fast scan QR codes. Simple point the camera on
-            the QR code one after the other.
+            You can fast scan QR codes. Simply point the camera on
+            the QR code one after the other, you {"don't"} need to
+            wait for each of them to complete, {"you'll"} see the
+            progress or each request here.
           </Text>
         </Paragraph>
       </CenteredSurface>

@@ -58,11 +58,11 @@ async function onInitComplete () {
       body: { deviceToken }
     });
 
-    const { authUser, authToken } = await response.json();
+    const { userData, authToken } = await response.json();
 
     updateStore({
       initComplete: true,
-      authUser,
+      authUser: userData,
       authToken
     });
   } catch (error) {

@@ -12,24 +12,15 @@ function mapStates ({ authUser }) {
 function MyCode () {
   const { authUser } = useFluxibleStore(mapStates);
   const { width } = useWindowDimensions();
-  const {
-    id,
-    profilePicture,
-    firstName,
-    middleName,
-    surname,
-    jobTitle,
-    company
-  } = authUser;
 
   const codeValue = JSON.stringify({
-    id,
-    profilePicture,
-    firstName,
-    middleName,
-    surname,
-    jobTitle,
-    company
+    id: authUser.id,
+    profilePicture: authUser.profilePicture,
+    firstName: authUser.firstName,
+    middleName: authUser.middleName,
+    surname: authUser.surname,
+    jobTitle: authUser.jobTitle,
+    company: authUser.company
   });
 
   return (

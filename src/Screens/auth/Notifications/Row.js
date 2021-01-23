@@ -50,14 +50,16 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
       if (/{fullname}/.test(word)) {
         if (currentText) {
           texts.push(
-            <Text key={`${word}-${currentText}`}>{currentText}</Text>
+            <Text key={`${index}-${word}-${currentText}`}>
+              {currentText}
+            </Text>
           );
           currentText = '';
         }
 
         texts.push(
           <Text
-            key={`${word}-${fullname}`}
+            key={`${index}-${word}-${fullname}`}
             style={{ fontWeight: 'bold' }}
           >
             {fullname}
@@ -65,7 +67,7 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
         );
       } else if (wordsLastIndex === index) {
         texts.push(
-          <Text key={`${currentText} ${word}`}>
+          <Text key={`${index}-${currentText}-${word}`}>
             {currentText} {word}
           </Text>
         );
