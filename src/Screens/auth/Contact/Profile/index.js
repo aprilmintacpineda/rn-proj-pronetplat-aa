@@ -26,10 +26,10 @@ import { paperTheme } from 'theme';
 function ContactProfile ({ route: { params: contactData } }) {
   const { id, bio } = contactData;
   const fullName = getFullName(contactData);
-  const [sendingRequest, setSendingRequest] = React.useState(false);
+  const [isDisabled, setIsDisabled] = React.useState(false);
 
   const onSuccess = React.useCallback(() => {
-    setSendingRequest(false);
+    setIsDisabled(false);
   }, []);
 
   const {
@@ -43,28 +43,45 @@ function ContactProfile ({ route: { params: contactData } }) {
     onSuccess
   });
 
-  const sendFollowUp = React.useCallback(
-    async contactRequestId => {
-      try {
-        setSendingRequest(true);
-        await xhr('/send-follow-up', {
-          method: 'post',
-          body: { contactRequestId }
-        });
-      } catch (error) {
-        console.log(error);
-        showRequestFailedPopup();
-      } finally {
-        refreshData();
-      }
-    },
-    [refreshData]
-  );
+  React.useEffect(() => {
+    if (isRefreshing && isDisabled) setIsDisabled(false);
+  }, [isRefreshing, isDisabled]);
+
+  const sendFollowUp = React.useCallback(async () => {
+    try {
+      setIsDisabled(true);
+      await xhr('/send-follow-up', {
+        method: 'post',
+        body: { contactId: id }
+      });
+    } catch (error) {
+      console.log(error);
+      showRequestFailedPopup();
+    } finally {
+      setIsDisabled(false);
+      refreshData();
+    }
+  }, [refreshData, id]);
 
   const sendRequest = React.useCallback(() => {
-    setSendingRequest(true);
+    setIsDisabled(true);
     sendContactRequest(contactData, refreshData);
   }, [contactData, refreshData]);
+
+  const cancelContactRequest = React.useCallback(async () => {
+    try {
+      setIsDisabled(true);
+      await xhr('/cancel-contact-request', {
+        method: 'post',
+        body: { contactId: id }
+      });
+    } catch (error) {
+      console.log('error', error);
+      showRequestFailedPopup();
+    } finally {
+      refreshData();
+    }
+  }, [refreshData, id]);
 
   const contactDetails = React.useMemo(() => {
     if (isError) {
@@ -79,7 +96,7 @@ function ContactProfile ({ route: { params: contactData } }) {
             <Button
               onPress={sendRequest}
               mode="contained"
-              disabled={sendingRequest}
+              disabled={isDisabled}
             >
               Send contact request
             </Button>
@@ -136,62 +153,8 @@ function ContactProfile ({ route: { params: contactData } }) {
 
     if (data.sentContactRequest) {
       const {
-        sentContactRequest: { id, createdAt, lastFollowUpAt }
+        sentContactRequest: { createdAt, lastFollowUpAt }
       } = data;
-
-      if (differenceInDays(new Date(), new Date(createdAt)) >= 1) {
-        if (
-          !lastFollowUpAt ||
-          differenceInDays(new Date(), new Date(lastFollowUpAt)) >= 1
-        ) {
-          return (
-            <View
-              style={{
-                marginHorizontal: 15,
-                marginTop: 50
-              }}
-            >
-              <Button
-                mode="contained"
-                onPress={() => sendFollowUp(id)}
-                disabled={sendingRequest}
-                style={{ marginBottom: 15 }}
-              >
-                Send follow up
-              </Button>
-              <Button
-                color={paperTheme.colors.error}
-                mode="outlined"
-              >
-                Cancel contact request
-              </Button>
-            </View>
-          );
-        }
-
-        return (
-          <View
-            style={{
-              marginHorizontal: 15,
-              marginTop: 50
-            }}
-          >
-            <Text
-              style={{
-                textAlign: 'center',
-                fontWeight: 'bold',
-                marginBottom: 30
-              }}
-            >
-              You have just sent a follow up{' '}
-              <TimeAgo dateFrom={lastFollowUpAt} />
-            </Text>
-            <Button mode="contained" color={paperTheme.colors.error}>
-              Cancel contact request
-            </Button>
-          </View>
-        );
-      }
 
       return (
         <View
@@ -200,17 +163,48 @@ function ContactProfile ({ route: { params: contactData } }) {
             marginTop: 50
           }}
         >
-          <Text
-            style={{
-              textAlign: 'center',
-              fontWeight: 'bold',
-              marginBottom: 30
-            }}
+          {differenceInDays(new Date(), new Date(createdAt)) >= 1 ? (
+            !lastFollowUpAt ||
+            differenceInDays(new Date(), new Date(lastFollowUpAt)) >=
+              1 ? (
+              <Button
+                mode="contained"
+                onPress={sendFollowUp}
+                disabled={isDisabled}
+                style={{ marginBottom: 15 }}
+              >
+                Send follow up
+              </Button>
+            ) : (
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  marginBottom: 30
+                }}
+              >
+                You have just sent a follow up{' '}
+                <TimeAgo dateFrom={lastFollowUpAt} />
+              </Text>
+            )
+          ) : (
+            <Text
+              style={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                marginBottom: 30
+              }}
+            >
+              You have just sent your contact request{' '}
+              <TimeAgo dateFrom={createdAt} />
+            </Text>
+          )}
+          <Button
+            color={paperTheme.colors.error}
+            mode="outlined"
+            onPress={cancelContactRequest}
+            disabled={isDisabled}
           >
-            You have just sent your contact request{' '}
-            <TimeAgo dateFrom={createdAt} />
-          </Text>
-          <Button mode="contained" color={paperTheme.colors.error}>
             Cancel contact request
           </Button>
         </View>
@@ -289,8 +283,9 @@ function ContactProfile ({ route: { params: contactData } }) {
     error,
     sendRequest,
     sendFollowUp,
-    sendingRequest,
-    isRefreshing
+    isDisabled,
+    isRefreshing,
+    cancelContactRequest
   ]);
 
   return (

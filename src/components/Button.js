@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button as RNPButton } from 'react-native-paper';
 import { navigationRef } from 'App';
+import { paperTheme } from 'theme';
 
 function Button ({
   children,
@@ -10,6 +11,7 @@ function Button ({
   style,
   mode,
   color,
+  disabled,
   ...rnpButtonProps
 }) {
   const handlePress = React.useCallback(
@@ -25,10 +27,17 @@ function Button ({
       onPress={handlePress}
       mode={mode}
       style={[
-        mode === 'outlined' ? { borderColor: color } : null,
+        mode === 'outlined'
+          ? {
+              borderColor: disabled
+                ? paperTheme.colors.disabled
+                : color
+            }
+          : null,
         style
       ]}
       color={color}
+      disabled={disabled}
       {...rnpButtonProps}
     >
       {children}

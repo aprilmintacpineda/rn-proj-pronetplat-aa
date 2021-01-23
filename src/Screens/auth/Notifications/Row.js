@@ -49,16 +49,23 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
     words.forEach((word, index) => {
       if (/{fullname}/.test(word)) {
         if (currentText) {
-          texts.push(<Text>{currentText}</Text>);
+          texts.push(
+            <Text key={`${word}-${currentText}`}>{currentText}</Text>
+          );
           currentText = '';
         }
 
         texts.push(
-          <Text style={{ fontWeight: 'bold' }}>{fullname}</Text>
+          <Text
+            key={`${word}-${fullname}`}
+            style={{ fontWeight: 'bold' }}
+          >
+            {fullname}
+          </Text>
         );
       } else if (wordsLastIndex === index) {
         texts.push(
-          <Text>
+          <Text key={`${currentText} ${word}`}>
             {currentText} {word}
           </Text>
         );

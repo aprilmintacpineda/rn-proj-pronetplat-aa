@@ -38,7 +38,6 @@ function ContactRequestRow ({
     delay: (index % 10) * 100
   });
 
-  const { bio } = sender;
   const fullName = getFullName(sender);
   const didAccept = status.includes('accept');
   const didDecline = status.includes('decline');
@@ -46,20 +45,27 @@ function ContactRequestRow ({
   const isSuccess = status.includes('Success');
   const isError = status.includes('Error');
 
-  const accept = React.useCallback(async () => {
-    try {
+  const setContactRequestStatus = React.useCallback(
+    status => {
       updateData(data => {
         if (data.id !== id) return data;
 
         return {
           ...data,
-          status: 'acceptLoading'
+          status
         };
       });
+    },
+    [updateData, id]
+  );
+
+  const accept = React.useCallback(async () => {
+    try {
+      setContactRequestStatus('acceptLoading');
 
       await xhr('/accept-contact-request', {
         method: 'post',
-        body: { id }
+        body: { senderId: sender.id }
       });
 
       updateStore({
@@ -67,41 +73,20 @@ function ContactRequestRow ({
           store.receivedContactRequestCount - 1
       });
 
-      updateData(data => {
-        if (data.id !== id) return data;
-
-        return {
-          ...data,
-          status: 'acceptSuccess'
-        };
-      });
+      setContactRequestStatus('acceptSuccess');
     } catch (error) {
       console.log(error);
-      updateData(data => {
-        if (data.id !== id) return data;
-
-        return {
-          ...data,
-          status: 'acceptError'
-        };
-      });
+      setContactRequestStatus('acceptError');
     }
-  }, [id, updateData]);
+  }, [setContactRequestStatus, sender.id]);
 
   const decline = React.useCallback(async () => {
     try {
-      updateData(data => {
-        if (data.id !== id) return data;
-
-        return {
-          ...data,
-          status: 'declineLoading'
-        };
-      });
+      setContactRequestStatus('declineLoading');
 
       await xhr('/decline-contact-request', {
         method: 'post',
-        body: { id }
+        body: { senderId: sender.id }
       });
 
       updateStore({
@@ -109,26 +94,12 @@ function ContactRequestRow ({
           store.receivedContactRequestCount - 1
       });
 
-      updateData(data => {
-        if (data.id !== id) return data;
-
-        return {
-          ...data,
-          status: 'declineSuccess'
-        };
-      });
+      setContactRequestStatus('declineSuccess');
     } catch (error) {
       console.log(error);
-      updateData(data => {
-        if (data.id !== id) return data;
-
-        return {
-          ...data,
-          status: 'declineError'
-        };
-      });
+      setContactRequestStatus('declineError');
     }
-  }, [id, updateData]);
+  }, [setContactRequestStatus, sender.id]);
 
   const openPopup = React.useCallback(() => {
     modalizeRef.current.open();
@@ -228,7 +199,7 @@ function ContactRequestRow ({
                   marginBottom: 30
                 }}
               >
-                {bio}
+                {sender.bio}
               </Text>
             </View>
             <View>
