@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import React from 'react';
 import { CameraKitCamera } from 'react-native-camera-kit';
 import { Button, Text } from 'react-native-paper';
@@ -17,6 +18,7 @@ function onReadCode (event) {
 
 function ScanCode () {
   const { isAllowed, isDoneChecking } = useCameraPermission();
+  const isFocused = useIsFocused();
 
   if (!isAllowed || !isDoneChecking) {
     return (
@@ -37,11 +39,10 @@ function ScanCode () {
       style={{ flex: 1, backgroundColor: '#000' }}
       cameraOptions={{
         flashMode: 'off',
-        focusMode: 'on',
+        focusMode: 'off',
         zoomMode: 'off'
       }}
-      resetFocusWhenMotionDetected
-      scanBarcode
+      scanBarcode={isFocused}
       onReadCode={onReadCode}
       hideControls
       saveToCameraRoll={false}
