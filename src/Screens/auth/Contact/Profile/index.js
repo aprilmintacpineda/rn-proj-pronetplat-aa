@@ -28,7 +28,7 @@ import {
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
-function ContactProfile ({
+function ContactProfile({
   route: { params: contactData },
   navigation: { setOptions, goBack }
 }) {
@@ -125,6 +125,27 @@ function ContactProfile ({
             >
               Send contact request
             </Button>
+          </View>
+        );
+      }
+
+      if (error.status === 401) {
+        return (
+          <View
+            style={{
+              marginHorizontal: 15,
+              marginTop: 50
+            }}
+          >
+            <Text
+              style={{
+                color: paperTheme.colors.error,
+                textAlign: 'center',
+                fontWeight: 'bold'
+              }}
+            >
+              {fullName} may have blocked you.
+            </Text>
           </View>
         );
       }
@@ -314,7 +335,8 @@ function ContactProfile ({
     sendFollowUp,
     isDisabled,
     isRefreshing,
-    cancelContactRequest
+    cancelContactRequest,
+    fullName
   ]);
 
   const confirmRemoveFromContacts = React.useCallback(async () => {
@@ -339,23 +361,27 @@ function ContactProfile ({
     }
   }, [contactData.id, goBack]);
 
-  const removeFromContacts = React.useCallback(() => {
-    Alert.alert(
-      null,
-      `Are you sure you want to remove ${fullName} from your contacts?`,
-      [
-        {
-          text: 'No',
-          style: 'cancel'
-        },
-        {
-          text: 'Yes',
-          onPress: confirmRemoveFromContacts,
-          style: 'destructive'
+  const confirmBlockUser = React.useCallback(async () => {
+    try {
+      openLoadingOverlay();
+      setIsDisabled(true);
+
+      await xhr('/block-user', {
+        method: 'post',
+        body: {
+          contactId: contactData.id
         }
-      ]
-    );
-  }, [fullName, confirmRemoveFromContacts]);
+      });
+
+      goBack();
+    } catch (error) {
+      console.log(error);
+      showRequestFailedPopup();
+      setIsDisabled(false);
+    } finally {
+      closeLoadingOverlay();
+    }
+  }, [contactData.id, goBack]);
 
   React.useEffect(() => {
     setOptions({
@@ -370,12 +396,62 @@ function ContactProfile ({
               {...props}
             />
           ),
-          onPress: removeFromContacts,
+          onPress: () => {
+            Alert.alert(
+              null,
+              `Are you sure you want to remove ${fullName} from your contacts?`,
+              [
+                {
+                  text: 'No',
+                  style: 'cancel'
+                },
+                {
+                  text: 'Yes',
+                  onPress: confirmRemoveFromContacts,
+                  style: 'destructive'
+                }
+              ]
+            );
+          },
+          disabled: isDisabled
+        },
+        {
+          title: 'Block',
+          icon: props => (
+            <RNVectorIcon
+              provider="Entypo"
+              name="block"
+              {...props}
+            />
+          ),
+          onPress: () => {
+            Alert.alert(
+              null,
+              `Are you sure you want to block ${fullName}?`,
+              [
+                {
+                  text: 'No',
+                  style: 'cancel'
+                },
+                {
+                  text: 'Yes',
+                  onPress: confirmBlockUser,
+                  style: 'destructive'
+                }
+              ]
+            );
+          },
           disabled: isDisabled
         }
       ]
     });
-  }, [isDisabled, fullName, removeFromContacts, setOptions]);
+  }, [
+    isDisabled,
+    fullName,
+    confirmRemoveFromContacts,
+    setOptions,
+    confirmBlockUser
+  ]);
 
   return (
     <ScrollView>
