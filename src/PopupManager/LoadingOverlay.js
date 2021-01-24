@@ -5,11 +5,11 @@ import { Portal, ActivityIndicator } from 'react-native-paper';
 import Animatable from 'components/Animatable';
 import { paperTheme } from 'theme';
 
-function mapStates ({ isOpenLoadingOverlay }) {
+function mapStates({ isOpenLoadingOverlay }) {
   return { isOpenLoadingOverlay };
 }
 
-function LoadingOverlay () {
+function LoadingOverlay() {
   const { isOpenLoadingOverlay } = useFluxibleStore(mapStates);
 
   if (!isOpenLoadingOverlay) return null;
@@ -30,7 +30,7 @@ function LoadingOverlay () {
       >
         <Animatable
           animation="zoomIn"
-          duration="150"
+          duration={150}
           style={{
             backgroundColor: '#fff',
             padding: 20,
