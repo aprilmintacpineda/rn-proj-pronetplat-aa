@@ -1,5 +1,6 @@
 import React from 'react';
 import { Appbar } from 'react-native-paper';
+import ActionsButton from './ActionsButton';
 import ToggleDrawerIcon from './ToggleDrawerIcon';
 import { camelToTitleCase } from 'libs/strings';
 
@@ -13,7 +14,8 @@ function AppBar (props) {
   const { goBack, canGoBack, openDrawer } = navigation;
   const {
     isMainScreen = false,
-    title = null
+    title = null,
+    actions
   } = scene.descriptor.options;
   const hasDrawerNavigation = Boolean(openDrawer);
 
@@ -21,7 +23,9 @@ function AppBar (props) {
     <Appbar.Header
       style={{
         backgroundColor: '#fff',
-        elevation: 2
+        elevation: 2,
+        justifyContent: 'space-between',
+        alignItems: 'center'
       }}
     >
       {!isMainScreen && canGoBack() ? (
@@ -44,6 +48,7 @@ function AppBar (props) {
           marginLeft: 0
         }}
       />
+      {actions && <ActionsButton actions={actions} />}
     </Appbar.Header>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Surface } from 'react-native-paper';
+import { paperTheme } from 'theme';
 
 function CenteredSurface ({
   children,
@@ -16,7 +17,12 @@ function CenteredSurface ({
     >
       <Surface
         style={[
-          { padding: 20, margin: 20, borderRadius: 4, elevation: 2 },
+          {
+            padding: 20,
+            margin: 20,
+            borderRadius: paperTheme.roundness,
+            elevation: 2
+          },
           containerStyle
         ]}
       >

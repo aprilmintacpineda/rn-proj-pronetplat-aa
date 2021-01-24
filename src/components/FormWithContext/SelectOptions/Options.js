@@ -3,6 +3,7 @@ import { TouchableWithoutFeedback, View } from 'react-native';
 import { DefaultTheme, Text } from 'react-native-paper';
 import RNVectorIcon from 'components/RNVectorIcon';
 import { camelToTitleCase } from 'libs/strings';
+import { paperTheme } from 'theme';
 
 const { primary } = DefaultTheme.colors;
 
@@ -24,7 +25,7 @@ function Options ({ value, options, onChange }) {
               marginBottom: 10,
               padding: 20,
               borderWidth: 1,
-              borderRadius: 4,
+              borderRadius: paperTheme.roundness,
               flexDirection: 'row',
               alignItems: 'center'
             },

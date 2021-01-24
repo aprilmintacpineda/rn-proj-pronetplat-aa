@@ -48,7 +48,7 @@ function Toast ({ id, message, icon = null, type, updateCount }) {
         backgroundColor: '#fff',
         paddingVertical: 10,
         paddingHorizontal: 15,
-        borderRadius: 4,
+        borderRadius: paperTheme.roundness,
         marginBottom: 10,
         elevation: 4,
         shadowColor: color || '#000',

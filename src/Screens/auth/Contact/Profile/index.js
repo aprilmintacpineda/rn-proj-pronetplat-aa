@@ -1,6 +1,6 @@
 import { differenceInDays } from 'date-fns';
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 import { Divider, Headline, Text } from 'react-native-paper';
 import {
   Placeholder,
@@ -11,9 +11,14 @@ import {
 import ContactDetailRow from './Row';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
+import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
 import UserAvatar from 'components/UserAvatar';
-import { showRequestFailedPopup } from 'fluxible/actions/popup';
+import {
+  closeLoadingOverlay,
+  openLoadingOverlay,
+  showRequestFailedPopup
+} from 'fluxible/actions/popup';
 import useDataFetch from 'hooks/useDataFetch';
 import {
   getFullName,
@@ -23,7 +28,10 @@ import {
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
-function ContactProfile ({ route: { params: contactData } }) {
+function ContactProfile ({
+  route: { params: contactData },
+  navigation: { setOptions, goBack }
+}) {
   const fullName = getFullName(contactData);
   const [isDisabled, setIsDisabled] = React.useState(false);
 
@@ -67,7 +75,7 @@ function ContactProfile ({ route: { params: contactData } }) {
     sendContactRequest(contactData, refreshData);
   }, [contactData, refreshData]);
 
-  const cancelContactRequest = React.useCallback(async () => {
+  const confirmCancelContactRequest = React.useCallback(async () => {
     try {
       setIsDisabled(true);
       await xhr('/cancel-contact-request', {
@@ -81,6 +89,24 @@ function ContactProfile ({ route: { params: contactData } }) {
       refreshData();
     }
   }, [refreshData, contactData.id]);
+
+  const cancelContactRequest = React.useCallback(() => {
+    Alert.alert(
+      null,
+      `Are you sure you want to cancel your contact request to ${fullName}?`,
+      [
+        {
+          text: 'No',
+          style: 'cancel'
+        },
+        {
+          text: 'Yes',
+          style: 'destructive',
+          onPress: confirmCancelContactRequest
+        }
+      ]
+    );
+  }, [fullName, confirmCancelContactRequest]);
 
   const contactDetails = React.useMemo(() => {
     if (isError) {
@@ -237,7 +263,11 @@ function ContactProfile ({ route: { params: contactData } }) {
     data.forEach(contactData => {
       const { type } = contactData;
       types[type].data.push(
-        <ContactDetailRow key={contactData.id} {...contactData} />
+        <ContactDetailRow
+          key={contactData.id}
+          disabled={isDisabled}
+          {...contactData}
+        />
       );
     });
 
@@ -286,6 +316,66 @@ function ContactProfile ({ route: { params: contactData } }) {
     isRefreshing,
     cancelContactRequest
   ]);
+
+  const confirmRemoveFromContacts = React.useCallback(async () => {
+    try {
+      openLoadingOverlay();
+      setIsDisabled(true);
+
+      await xhr('/remove-from-contacts', {
+        method: 'post',
+        body: {
+          contactId: contactData.id
+        }
+      });
+
+      goBack();
+    } catch (error) {
+      console.log(error);
+      showRequestFailedPopup();
+      setIsDisabled(false);
+    } finally {
+      closeLoadingOverlay();
+    }
+  }, [contactData.id, goBack]);
+
+  const removeFromContacts = React.useCallback(() => {
+    Alert.alert(
+      null,
+      `Are you sure you want to remove ${fullName} from your contacts?`,
+      [
+        {
+          text: 'No',
+          style: 'cancel'
+        },
+        {
+          text: 'Yes',
+          onPress: confirmRemoveFromContacts,
+          style: 'destructive'
+        }
+      ]
+    );
+  }, [fullName, confirmRemoveFromContacts]);
+
+  React.useEffect(() => {
+    setOptions({
+      title: fullName,
+      actions: [
+        {
+          title: 'Remove',
+          icon: props => (
+            <RNVectorIcon
+              provider="Ionicons"
+              name="ios-trash"
+              {...props}
+            />
+          ),
+          onPress: removeFromContacts,
+          disabled: isDisabled
+        }
+      ]
+    });
+  }, [isDisabled, fullName, removeFromContacts, setOptions]);
 
   return (
     <ScrollView>

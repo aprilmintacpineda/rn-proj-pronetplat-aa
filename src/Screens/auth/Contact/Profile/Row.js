@@ -6,7 +6,7 @@ import { paperTheme } from 'theme';
 
 const { primary, rippleColor } = paperTheme.colors.primary;
 
-function ContactDetailRow ({ type, value }) {
+function ContactDetailRow ({ type, value, disabled }) {
   const iconSize = 20;
   let actionIcon = null;
 
@@ -83,6 +83,7 @@ function ContactDetailRow ({ type, value }) {
           onPress={send}
           style={{ padding: 10 }}
           rippleColor={rippleColor}
+          disabled={disabled}
         >
           {actionIcon}
         </TouchableRipple>
