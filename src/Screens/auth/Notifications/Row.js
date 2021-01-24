@@ -117,7 +117,8 @@ function NotificationRow (notification) {
   if (
     type === 'contactRequestAccepted' ||
     type === 'contactRequestDeclined' ||
-    type === 'contactRequestFollowUp'
+    type === 'contactRequestFollowUp' ||
+    type === 'contactRequestCancelled'
   ) {
     return (
       <TouchableButtonLink to="ContactProfile" params={actor}>
