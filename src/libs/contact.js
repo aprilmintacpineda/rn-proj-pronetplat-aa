@@ -116,7 +116,7 @@ export async function addToContact (targetContact) {
 
     setSendingContactRequestStatus({ targetId, status: 'success' });
 
-    if (onDone) onDone();
+    if (onDone) onDone(true, null);
   } catch (error) {
     console.log('error', error);
 
@@ -137,10 +137,6 @@ export async function addToContact (targetContact) {
         targetId,
         status: 'success'
       });
-
-      console.log(onDone);
-
-      if (onDone) onDone();
     } else {
       setSendingContactRequestStatus({ targetId, status: 'error' });
 
@@ -151,5 +147,7 @@ export async function addToContact (targetContact) {
         type: 'error'
       });
     }
+
+    if (onDone) onDone(false, error);
   }
 }

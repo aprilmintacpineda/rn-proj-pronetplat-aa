@@ -42,8 +42,10 @@ messaging().onMessage(async remoteMessage => {
   const { type, category, profilePicture } = data;
 
   const screensByType = {
-    contactRequest: 'ContactRequests',
-    contactRequestAccepted: 'ContactProfile'
+    contactRequest: 'ContactProfile',
+    contactRequestAccepted: 'ContactProfile',
+    contactRequestCancelled: 'ContactProfile',
+    contactRequestDeclined: 'ContactProfile'
   };
 
   switch (category) {

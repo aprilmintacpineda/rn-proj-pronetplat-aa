@@ -1,4 +1,5 @@
 import { differenceInDays } from 'date-fns';
+import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { Alert, ScrollView, View } from 'react-native';
 import { Divider, Headline, Text } from 'react-native-paper';
@@ -28,7 +29,7 @@ import {
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
-function ContactProfile({
+function ContactProfile ({
   route: { params: contactData },
   navigation: { setOptions, goBack }
 }) {
@@ -107,6 +108,56 @@ function ContactProfile({
       ]
     );
   }, [fullName, confirmCancelContactRequest]);
+
+  const acceptContactRequest = React.useCallback(async () => {
+    try {
+      openLoadingOverlay();
+      setIsDisabled(true);
+
+      await xhr('/accept-contact-request', {
+        method: 'post',
+        body: { senderId: contactData.id }
+      });
+
+      updateStore({
+        receivedContactRequestCount:
+          store.receivedContactRequestCount - 1
+      });
+
+      refreshData();
+    } catch (error) {
+      console.log(error);
+      showRequestFailedPopup();
+    } finally {
+      setIsDisabled(false);
+      closeLoadingOverlay();
+    }
+  }, [contactData.id, refreshData]);
+
+  const declineContactRequest = React.useCallback(async () => {
+    try {
+      openLoadingOverlay();
+      setIsDisabled(true);
+
+      await xhr('/decline-contact-request', {
+        method: 'post',
+        body: { senderId: contactData.id }
+      });
+
+      updateStore({
+        receivedContactRequestCount:
+          store.receivedContactRequestCount - 1
+      });
+
+      goBack();
+    } catch (error) {
+      console.log(error);
+      showRequestFailedPopup();
+      setIsDisabled(false);
+    } finally {
+      closeLoadingOverlay();
+    }
+  }, [contactData.id, goBack]);
 
   const contactDetails = React.useMemo(() => {
     if (isError) {
@@ -257,6 +308,49 @@ function ContactProfile({
       );
     }
 
+    if (data.receivedContactRequest) {
+      const {
+        receivedContactRequest: { createdAt }
+      } = data;
+
+      return (
+        <View
+          style={{
+            marginHorizontal: 15,
+            marginTop: 50
+          }}
+        >
+          <Text
+            style={{
+              textAlign: 'center',
+              fontWeight: 'bold',
+              marginBottom: 30
+            }}
+          >
+            Sent you a contact request{' '}
+            <TimeAgo dateFrom={createdAt} />
+          </Text>
+          <Button
+            color={paperTheme.colors.primary}
+            mode="contained"
+            onPress={acceptContactRequest}
+            disabled={isDisabled}
+            style={{ marginBottom: 15 }}
+          >
+            Accept
+          </Button>
+          <Button
+            color={paperTheme.colors.error}
+            mode="contained"
+            onPress={declineContactRequest}
+            disabled={isDisabled}
+          >
+            Decline
+          </Button>
+        </View>
+      );
+    }
+
     const types = {
       email: {
         data: [],
@@ -336,7 +430,9 @@ function ContactProfile({
     isDisabled,
     isRefreshing,
     cancelContactRequest,
-    fullName
+    fullName,
+    acceptContactRequest,
+    declineContactRequest
   ]);
 
   const confirmRemoveFromContacts = React.useCallback(async () => {
