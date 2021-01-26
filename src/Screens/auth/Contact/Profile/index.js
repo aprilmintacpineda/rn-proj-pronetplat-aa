@@ -45,7 +45,8 @@ function ContactProfile ({
     isError,
     error,
     refreshData,
-    isRefreshing
+    isRefreshing,
+    isFirstFetch
   } = useDataFetch({
     endpoint: `/contacts/${contactData.id}`,
     onSuccess
@@ -54,6 +55,10 @@ function ContactProfile ({
   React.useEffect(() => {
     if (isRefreshing && isDisabled) setIsDisabled(false);
   }, [isRefreshing, isDisabled]);
+
+  const confirmUnblock = React.useCallback(async () => {
+    console.log('unblock user');
+  }, []);
 
   const sendFollowUp = React.useCallback(async () => {
     try {
@@ -180,27 +185,6 @@ function ContactProfile ({
         );
       }
 
-      if (error.status === 401) {
-        return (
-          <View
-            style={{
-              marginHorizontal: 15,
-              marginTop: 50
-            }}
-          >
-            <Text
-              style={{
-                color: paperTheme.colors.error,
-                textAlign: 'center',
-                fontWeight: 'bold'
-              }}
-            >
-              {fullName} may have blocked you.
-            </Text>
-          </View>
-        );
-      }
-
       return null;
     }
 
@@ -245,6 +229,29 @@ function ContactProfile ({
             </View>
           </View>
         </Placeholder>
+      );
+    }
+
+    if (data.blockedByUser || data.contactBlocked) {
+      return (
+        <View
+          style={{
+            marginHorizontal: 15,
+            marginTop: 50
+          }}
+        >
+          <Text
+            style={{
+              color: paperTheme.colors.error,
+              textAlign: 'center',
+              fontWeight: 'bold'
+            }}
+          >
+            {data.contactBlocked
+              ? `You have blocked ${fullName}.`
+              : `${fullName} has blocked you.`}
+          </Text>
+        </View>
       );
     }
 
@@ -480,10 +487,11 @@ function ContactProfile ({
   }, [contactData.id, goBack]);
 
   React.useEffect(() => {
-    setOptions({
-      title: fullName,
-      actions: [
-        {
+    const actions = [];
+
+    if (!isError && !isFirstFetch) {
+      if (!data.blockedByUser && !data.contactBlocked) {
+        actions.push({
           title: 'Remove',
           icon: props => (
             <RNVectorIcon
@@ -510,20 +518,25 @@ function ContactProfile ({
             );
           },
           disabled: isDisabled
-        },
-        {
-          title: 'Block',
+        });
+      }
+
+      if (!data.blockedByUser) {
+        actions.push({
+          title: data.contactBlocked ? 'Unblock' : 'Block',
           icon: props => (
             <RNVectorIcon
-              provider="Entypo"
-              name="block"
+              provider={data.contactBlocked ? 'Ionicons' : 'Entypo'}
+              name={data.contactBlocked ? 'ios-arrow-redo' : 'block'}
               {...props}
             />
           ),
           onPress: () => {
             Alert.alert(
               null,
-              `Are you sure you want to block ${fullName}?`,
+              `Are you sure you want to ${
+                data.contactBlocked ? 'unblock' : 'block'
+              } ${fullName}?`,
               [
                 {
                   text: 'No',
@@ -531,22 +544,33 @@ function ContactProfile ({
                 },
                 {
                   text: 'Yes',
-                  onPress: confirmBlockUser,
+                  onPress: data.contactBlocked
+                    ? confirmUnblock
+                    : confirmBlockUser,
                   style: 'destructive'
                 }
               ]
             );
           },
           disabled: isDisabled
-        }
-      ]
+        });
+      }
+    }
+
+    setOptions({
+      title: fullName,
+      actions
     });
   }, [
     isDisabled,
     fullName,
     confirmRemoveFromContacts,
     setOptions,
-    confirmBlockUser
+    confirmBlockUser,
+    confirmUnblock,
+    data,
+    isError,
+    isFirstFetch
   ]);
 
   return (
