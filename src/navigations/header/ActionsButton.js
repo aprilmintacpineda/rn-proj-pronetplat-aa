@@ -19,6 +19,8 @@ function ActionsButton ({ actions }) {
     setIsVisible(isVisible => !isVisible);
   }, []);
 
+  if (!actions.length) return null;
+
   return (
     <Menu
       visible={isVisible}
