@@ -19,8 +19,10 @@ function MyCode () {
     firstName: authUser.firstName,
     middleName: authUser.middleName,
     surname: authUser.surname,
-    jobTitle: authUser.jobTitle,
-    company: authUser.company
+    gender: authUser.gender,
+    bio: authUser.bio,
+    company: authUser.company,
+    jobTitle: authUser.jobTitle
   });
 
   return (

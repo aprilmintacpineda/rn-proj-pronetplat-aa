@@ -22,8 +22,7 @@ export function getInitialStore () {
     toasts: [],
     sendingContactRequests: [],
     receivedContactRequestCount: 0,
-    notificationsCount: 0,
-    isOpenLoadingOverlay: false
+    notificationsCount: 0
   };
 }
 

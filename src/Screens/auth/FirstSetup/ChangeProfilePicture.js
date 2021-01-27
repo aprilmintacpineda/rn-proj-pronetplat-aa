@@ -29,7 +29,7 @@ import validate from 'libs/validate';
 import { xhr, uploadFileToSignedUrl } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
-const { primary, rippleColor } = paperTheme.colors;
+const { primary } = paperTheme.colors;
 
 const modalButtonWrapperStyles = {
   borderRadius: 100,
@@ -240,10 +240,7 @@ function ChangeProfilePicture ({ onDone }) {
             }}
           >
             <View style={modalButtonWrapperStyles}>
-              <TouchableRipple
-                onPress={openGalery}
-                rippleColor={rippleColor}
-              >
+              <TouchableRipple onPress={openGalery}>
                 <View style={modalButtonContainerStyles}>
                   <RNVectorIcon
                     provider="AntDesign¿"
@@ -256,10 +253,7 @@ function ChangeProfilePicture ({ onDone }) {
               </TouchableRipple>
             </View>
             <View style={modalButtonWrapperStyles}>
-              <TouchableRipple
-                onPress={openCamera}
-                rippleColor={rippleColor}
-              >
+              <TouchableRipple onPress={openCamera}>
                 <View style={modalButtonContainerStyles}>
                   <RNVectorIcon
                     provider="Ionicons"

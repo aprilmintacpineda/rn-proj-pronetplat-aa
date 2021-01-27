@@ -6,14 +6,19 @@ import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
 import TouchableButtonLink from 'components/TouchableButtonLink';
 import UserAvatar from 'components/UserAvatar';
-import { getFullName } from 'libs/contact';
+import { getFullName, getPersonalPronoun } from 'libs/contact';
 import { paperTheme, navigationTheme } from 'theme';
 
 const { success, error, primary } = paperTheme.colors;
 const { background: backgroundColor } = navigationTheme.colors;
 
+const replacers = {
+  '{fullname}': user => getFullName(user),
+  '{genderPossessiveLowercase}': user =>
+    getPersonalPronoun(user.gender).possessive.lowercase
+};
+
 function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
-  const fullname = getFullName(actor);
   let icon = null;
 
   switch (type) {
@@ -47,22 +52,29 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
     const wordsLastIndex = words.length - 1;
 
     words.forEach((word, index) => {
-      if (/{fullname}/.test(word)) {
+      const replacer = replacers[word];
+
+      if (replacer) {
         if (currentText) {
           texts.push(
             <Text key={`${index}-${word}-${currentText}`}>
-              {currentText}
+              {currentText}{' '}
             </Text>
           );
+
           currentText = '';
         }
 
+        const value = replacer(actor);
+
         texts.push(
           <Text
-            key={`${index}-${word}-${fullname}`}
-            style={{ fontWeight: 'bold' }}
+            key={`${index}-${word}-${value}`}
+            style={
+              word === '{fullname}' ? { fontWeight: 'bold' } : null
+            }
           >
-            {fullname}
+            {value}
           </Text>
         );
       } else if (wordsLastIndex === index) {
@@ -77,7 +89,7 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
     }, []);
 
     return texts;
-  }, [body, fullname]);
+  }, [body, actor]);
 
   return (
     <View

@@ -119,11 +119,3 @@ export function updateOrCreateToast ({ id, ...params }) {
 
   return toast(params);
 }
-
-export function openLoadingOverlay () {
-  updateStore({ isOpenLoadingOverlay: true });
-}
-
-export function closeLoadingOverlay () {
-  updateStore({ isOpenLoadingOverlay: false });
-}

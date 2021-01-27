@@ -52,13 +52,15 @@ function setSendingContactRequestStatus ({ targetId, status }) {
   });
 }
 
-export function sendContactRequest (targetUser, onDone = null) {
+export function sendContactRequest (targetUser) {
   try {
     if (
       !targetUser.id ||
       !targetUser.firstName ||
       !targetUser.surname ||
-      !targetUser.jobTitle
+      !targetUser.jobTitle ||
+      !targetUser.gender ||
+      !targetUser.profilePicture
     )
       throw new Error('Invalid target user data');
 
@@ -78,8 +80,7 @@ export function sendContactRequest (targetUser, onDone = null) {
     updateStore({
       sendingContactRequests: store.sendingContactRequests.concat({
         ...targetUser,
-        status: 'initial',
-        onDone
+        status: 'initial'
       })
     });
   } catch (error) {
@@ -88,11 +89,12 @@ export function sendContactRequest (targetUser, onDone = null) {
 }
 
 export async function addToContact (targetContact) {
-  const { id: targetId, status, onDone } = targetContact;
-  const fullName = getFullName(targetContact);
-  const icon = <UserAvatar size={35} user={targetContact} />;
+  const { id: targetId, status } = targetContact;
 
   if (status === 'sending') return;
+
+  const fullName = getFullName(targetContact);
+  const icon = <UserAvatar size={35} user={targetContact} />;
 
   const toastId = toast({
     message: `Sending contact request to ${fullName}`,
@@ -115,8 +117,6 @@ export async function addToContact (targetContact) {
     });
 
     setSendingContactRequestStatus({ targetId, status: 'success' });
-
-    if (onDone) onDone(true, null);
   } catch (error) {
     console.log('error', error);
 
@@ -147,7 +147,39 @@ export async function addToContact (targetContact) {
         type: 'error'
       });
     }
-
-    if (onDone) onDone(false, error);
   }
+}
+
+export function getPersonalPronoun (userData) {
+  if (userData.gender === 'male') {
+    return {
+      subjective: {
+        ucfirst: 'He',
+        lowercase: 'he'
+      },
+      objective: {
+        ucfirst: 'Him',
+        lowercase: 'him'
+      },
+      possessive: {
+        ucfirst: 'His',
+        lowercase: 'his'
+      }
+    };
+  }
+
+  return {
+    subjective: {
+      ucfirst: 'She',
+      lowercase: 'she'
+    },
+    objective: {
+      ucfirst: 'Her',
+      lowercase: 'her'
+    },
+    possessive: {
+      ucfirst: 'Her',
+      lowercase: 'her'
+    }
+  };
 }

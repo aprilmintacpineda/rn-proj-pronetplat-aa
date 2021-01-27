@@ -4,7 +4,7 @@ import { TouchableRipple } from 'react-native-paper';
 import RNVectorIcon from 'components/RNVectorIcon';
 import { paperTheme } from 'theme';
 
-const { primary, rippleColor } = paperTheme.colors.primary;
+const { primary } = paperTheme.colors.primary;
 
 function ContactDetailRow ({ type, value, disabled }) {
   const iconSize = 20;
@@ -82,7 +82,6 @@ function ContactDetailRow ({ type, value, disabled }) {
         <TouchableRipple
           onPress={send}
           style={{ padding: 10 }}
-          rippleColor={rippleColor}
           disabled={disabled}
         >
           {actionIcon}

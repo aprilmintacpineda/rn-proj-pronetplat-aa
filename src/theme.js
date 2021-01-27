@@ -5,7 +5,6 @@ export const paperTheme = {
   ...paperDefaultTheme,
   colors: {
     ...paperDefaultTheme.colors,
-    rippleColor: paperDefaultTheme.colors.primary + '30',
     success: '#28a745'
   }
 };

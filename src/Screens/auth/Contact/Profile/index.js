@@ -15,23 +15,19 @@ import Caption from 'components/Caption';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
 import UserAvatar from 'components/UserAvatar';
-import {
-  closeLoadingOverlay,
-  openLoadingOverlay,
-  showRequestFailedPopup
-} from 'fluxible/actions/popup';
+import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import useDataFetch from 'hooks/useDataFetch';
 import {
   getFullName,
   renderContactTitle,
-  sendContactRequest
+  getPersonalPronoun
 } from 'libs/contact';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
 function ContactProfile ({
   route: { params: contactData },
-  navigation: { setOptions, goBack }
+  navigation: { setOptions }
 }) {
   const fullName = getFullName(contactData);
   const [isDisabled, setIsDisabled] = React.useState(false);
@@ -56,9 +52,81 @@ function ContactProfile ({
     if (isRefreshing && isDisabled) setIsDisabled(false);
   }, [isRefreshing, isDisabled]);
 
-  const confirmUnblock = React.useCallback(async () => {
-    console.log('unblock user');
-  }, []);
+  const confirmUnblockUser = React.useCallback(async () => {
+    try {
+      setIsDisabled(true);
+
+      await xhr('/unblock-user', {
+        method: 'post',
+        body: {
+          contactId: contactData.id
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      showRequestFailedPopup();
+    } finally {
+      refreshData();
+    }
+  }, [contactData.id, refreshData]);
+
+  const unblockUser = React.useCallback(() => {
+    const personalPronoun = getPersonalPronoun(contactData);
+
+    Alert.alert(
+      null,
+      `Are you sure you want to unblock ${fullName}? ${personalPronoun.subjective.ucfirst} will be able to send you a contact request again.`,
+      [
+        {
+          text: 'No',
+          style: 'cancel'
+        },
+        {
+          text: 'Yes',
+          style: 'destructive',
+          onPress: confirmUnblockUser
+        }
+      ]
+    );
+  }, [fullName, contactData, confirmUnblockUser]);
+
+  const confirmBlockUser = React.useCallback(async () => {
+    try {
+      setIsDisabled(true);
+
+      await xhr('/block-user', {
+        method: 'post',
+        body: {
+          contactId: contactData.id
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      showRequestFailedPopup();
+    } finally {
+      refreshData();
+    }
+  }, [contactData.id, refreshData]);
+
+  const blockUser = React.useCallback(() => {
+    const personalPronoun = getPersonalPronoun(contactData);
+
+    Alert.alert(
+      null,
+      `Are you sure you want to block ${fullName}? ${personalPronoun.subjective.ucfirst} will no longer be able to see your contact details and ${personalPronoun.subjective.lowercase} will be removed from your contact.`,
+      [
+        {
+          text: 'No',
+          style: 'cancel'
+        },
+        {
+          text: 'Yes',
+          onPress: confirmBlockUser,
+          style: 'destructive'
+        }
+      ]
+    );
+  }, [confirmBlockUser, fullName, contactData]);
 
   const sendFollowUp = React.useCallback(async () => {
     try {
@@ -71,14 +139,25 @@ function ContactProfile ({
       console.log(error);
       showRequestFailedPopup();
     } finally {
-      setIsDisabled(false);
       refreshData();
     }
   }, [refreshData, contactData.id]);
 
-  const sendRequest = React.useCallback(() => {
+  const sendRequest = React.useCallback(async () => {
+    try {
+      setIsDisabled(true);
+
+      await xhr('/add-to-contacts', {
+        method: 'post',
+        body: { contactId: contactData.id }
+      });
+    } catch (error) {
+      console.log(error);
+      showRequestFailedPopup();
+    } finally {
+      refreshData();
+    }
     setIsDisabled(true);
-    sendContactRequest(contactData, refreshData);
   }, [contactData, refreshData]);
 
   const confirmCancelContactRequest = React.useCallback(async () => {
@@ -116,7 +195,6 @@ function ContactProfile ({
 
   const acceptContactRequest = React.useCallback(async () => {
     try {
-      openLoadingOverlay();
       setIsDisabled(true);
 
       await xhr('/accept-contact-request', {
@@ -128,20 +206,16 @@ function ContactProfile ({
         receivedContactRequestCount:
           store.receivedContactRequestCount - 1
       });
-
-      refreshData();
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
     } finally {
-      setIsDisabled(false);
-      closeLoadingOverlay();
+      refreshData();
     }
   }, [contactData.id, refreshData]);
 
   const declineContactRequest = React.useCallback(async () => {
     try {
-      openLoadingOverlay();
       setIsDisabled(true);
 
       await xhr('/decline-contact-request', {
@@ -153,16 +227,13 @@ function ContactProfile ({
         receivedContactRequestCount:
           store.receivedContactRequestCount - 1
       });
-
-      goBack();
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
-      setIsDisabled(false);
     } finally {
-      closeLoadingOverlay();
+      refreshData();
     }
-  }, [contactData.id, goBack]);
+  }, [contactData.id, refreshData]);
 
   const contactDetails = React.useMemo(() => {
     if (isError) {
@@ -178,8 +249,17 @@ function ContactProfile ({
               onPress={sendRequest}
               mode="contained"
               disabled={isDisabled}
+              style={{ marginBottom: 15 }}
             >
               Send contact request
+            </Button>
+            <Button
+              onPress={blockUser}
+              mode="contained"
+              disabled={isDisabled}
+              color={paperTheme.colors.error}
+            >
+              Block
             </Button>
           </View>
         );
@@ -190,7 +270,10 @@ function ContactProfile ({
 
     if (
       !data ||
-      ((data.sentContactRequest || data.receivedContactRequest) &&
+      ((data.sentContactRequest ||
+        data.receivedContactRequest ||
+        data.blockedByUser ||
+        data.contactBlocked) &&
         isRefreshing)
     ) {
       return (
@@ -251,6 +334,17 @@ function ContactProfile ({
               ? `You have blocked ${fullName}.`
               : `${fullName} has blocked you.`}
           </Text>
+          {data.contactBlocked ? (
+            <Button
+              onPress={unblockUser}
+              mode="contained"
+              disabled={isDisabled}
+              color={paperTheme.colors.error}
+              style={{ marginTop: 15 }}
+            >
+              Unblock
+            </Button>
+          ) : null}
         </View>
       );
     }
@@ -342,17 +436,26 @@ function ContactProfile ({
             mode="contained"
             onPress={acceptContactRequest}
             disabled={isDisabled}
-            style={{ marginBottom: 15 }}
           >
             Accept
           </Button>
           <Button
             color={paperTheme.colors.error}
-            mode="contained"
+            mode="outlined"
             onPress={declineContactRequest}
             disabled={isDisabled}
+            style={{ marginTop: 15 }}
           >
             Decline
+          </Button>
+          <Button
+            color={paperTheme.colors.error}
+            mode="contained"
+            onPress={blockUser}
+            disabled={isDisabled}
+            style={{ marginTop: 15 }}
+          >
+            Block
           </Button>
         </View>
       );
@@ -439,12 +542,13 @@ function ContactProfile ({
     cancelContactRequest,
     fullName,
     acceptContactRequest,
-    declineContactRequest
+    declineContactRequest,
+    unblockUser,
+    blockUser
   ]);
 
   const confirmRemoveFromContacts = React.useCallback(async () => {
     try {
-      openLoadingOverlay();
       setIsDisabled(true);
 
       await xhr('/remove-from-contacts', {
@@ -453,43 +557,18 @@ function ContactProfile ({
           contactId: contactData.id
         }
       });
-
-      goBack();
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
-      setIsDisabled(false);
     } finally {
-      closeLoadingOverlay();
+      refreshData();
     }
-  }, [contactData.id, goBack]);
-
-  const confirmBlockUser = React.useCallback(async () => {
-    try {
-      openLoadingOverlay();
-      setIsDisabled(true);
-
-      await xhr('/block-user', {
-        method: 'post',
-        body: {
-          contactId: contactData.id
-        }
-      });
-
-      goBack();
-    } catch (error) {
-      console.log(error);
-      showRequestFailedPopup();
-      setIsDisabled(false);
-    } finally {
-      closeLoadingOverlay();
-    }
-  }, [contactData.id, goBack]);
+  }, [contactData.id, refreshData]);
 
   React.useEffect(() => {
     const actions = [];
 
-    if (!isError && !isFirstFetch) {
+    if (!isError && !isFirstFetch && data) {
       if (!data.blockedByUser && !data.contactBlocked) {
         actions.push({
           title: 'Remove',
@@ -521,37 +600,17 @@ function ContactProfile ({
         });
       }
 
-      if (!data.blockedByUser) {
+      if (!data.blockedByUser && !data.contactBlocked) {
         actions.push({
-          title: data.contactBlocked ? 'Unblock' : 'Block',
+          title: 'Block',
           icon: props => (
             <RNVectorIcon
-              provider={data.contactBlocked ? 'Ionicons' : 'Entypo'}
-              name={data.contactBlocked ? 'ios-arrow-redo' : 'block'}
+              provider="Entypo"
+              name="block"
               {...props}
             />
           ),
-          onPress: () => {
-            Alert.alert(
-              null,
-              `Are you sure you want to ${
-                data.contactBlocked ? 'unblock' : 'block'
-              } ${fullName}?`,
-              [
-                {
-                  text: 'No',
-                  style: 'cancel'
-                },
-                {
-                  text: 'Yes',
-                  onPress: data.contactBlocked
-                    ? confirmUnblock
-                    : confirmBlockUser,
-                  style: 'destructive'
-                }
-              ]
-            );
-          },
+          onPress: blockUser,
           disabled: isDisabled
         });
       }
@@ -567,7 +626,7 @@ function ContactProfile ({
     confirmRemoveFromContacts,
     setOptions,
     confirmBlockUser,
-    confirmUnblock,
+    blockUser,
     data,
     isError,
     isFirstFetch
