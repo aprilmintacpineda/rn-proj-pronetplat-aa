@@ -1,14 +1,29 @@
+import { addEvent } from 'fluxible-js';
 import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Animatable from 'components/Animatable';
 import Caption from 'components/Caption';
+import { DataFetchContext } from 'components/DataFetch';
 import TimeAgo from 'components/TimeAgo';
 import TouchableButtonLink from 'components/TouchableButtonLink';
 import UserAvatar from 'components/UserAvatar';
 import { getFullName, renderContactTitle } from 'libs/contact';
 
 function ContactRequestRow ({ sender, createdAt, index }) {
+  const { filterData } = React.useContext(DataFetchContext);
+
+  React.useEffect(() => {
+    const removeEvent = addEvent(
+      'respondedToContactRequest',
+      ({ contactId }) => {
+        filterData(data => data.senderId !== contactId);
+      }
+    );
+
+    return removeEvent;
+  }, [filterData]);
+
   const fullName = getFullName(sender);
   const delay = (index % 10) * 100;
 

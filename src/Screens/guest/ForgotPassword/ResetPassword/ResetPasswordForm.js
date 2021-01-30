@@ -12,7 +12,6 @@ import {
   showRequestFailedPopup,
   showSuccessPopup
 } from 'fluxible/actions/popup';
-import useCountDown from 'hooks/useCountDown';
 import useState from 'hooks/useState';
 import { xhr } from 'libs/xhr';
 
@@ -27,19 +26,12 @@ function ResetPasswordForm ({ email }) {
     isResending
   }));
 
-  const { isDone, timeLeftStr } = useCountDown({
-    start: lastSent,
-    duration
-  });
-
   const {
     formValues: { newPassword },
     setContext
   } = React.useContext(FormContext);
 
   const resendCode = React.useCallback(async () => {
-    if (!isDone) return;
-
     try {
       updateState({ isResending: true });
 
@@ -62,7 +54,7 @@ function ResetPasswordForm ({ email }) {
     } finally {
       updateState({ isResending: false });
     }
-  }, [email, isDone, updateState]);
+  }, [email, updateState]);
 
   React.useEffect(() => {
     setContext({ email });
@@ -99,10 +91,14 @@ function ResetPasswordForm ({ email }) {
         </Text>
         <Button
           onPress={resendCode}
-          disabled={isResending || !isDone}
+          disabled={isResending}
           loading={isResending}
+          countDown={{
+            start: lastSent,
+            duration
+          }}
         >
-          Resend code {timeLeftStr}
+          {({ timeLeftStr }) => `Resend code ${timeLeftStr}`}
         </Button>
       </View>
     </ScrollView>

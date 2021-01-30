@@ -66,14 +66,14 @@ export function showErrorPopup ({ message, buttons = null }) {
 }
 
 export async function showRequestFailedPopup ({
-  message = 'An unknown error occured, please try again.'
+  message = 'Could not process your request at this time.'
 } = {}) {
   const { isConnected, isInternetReachable } = await NetInfo.fetch();
 
   if (!isConnected || !isInternetReachable) {
     showErrorPopup({
       message:
-        'Could not connect. Please check your internet connection and try again.'
+        'Could not connect. Please check your internet connection.'
     });
   } else {
     showErrorPopup({ message });

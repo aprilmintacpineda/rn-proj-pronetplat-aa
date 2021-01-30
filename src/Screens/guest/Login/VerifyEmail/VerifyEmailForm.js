@@ -5,7 +5,6 @@ import { FormContext } from 'components/FormWithContext';
 import Button from 'components/FormWithContext/Button';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
-import useCountDown from 'hooks/useCountDown';
 import LoginContext from 'root/Screens/guest/Login/LoginContext';
 
 function VerifyEmailForm ({ onCancel, onVerified, onResendCode }) {
@@ -20,9 +19,6 @@ function VerifyEmailForm ({ onCancel, onVerified, onResendCode }) {
   const { page, emailCodeCanSendAt, authToken } = React.useContext(
     LoginContext
   );
-  const { isDone, timeLeftStr } = useCountDown({
-    toTime: emailCodeCanSendAt
-  });
 
   React.useEffect(() => {
     if (isSubmitSuccess) onVerified(responseData);
@@ -65,9 +61,12 @@ function VerifyEmailForm ({ onCancel, onVerified, onResendCode }) {
         <Button
           onPress={resendCode}
           loading={isResending}
-          disabled={!isDone || isResending}
+          disabled={isResending}
+          countDown={{
+            toTime: emailCodeCanSendAt
+          }}
         >
-          Resend Code {timeLeftStr}
+          {({ timeLeftStr }) => `Resend Code ${timeLeftStr}`}
         </Button>
       </View>
     </ScrollView>

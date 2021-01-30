@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button as RNPButton } from 'react-native-paper';
 import { navigationRef } from 'App';
+import useCountDown from 'hooks/useCountDown';
 import { paperTheme } from 'theme';
 
 function Button ({
@@ -12,8 +13,15 @@ function Button ({
   mode,
   color,
   disabled,
+  countDown = null,
   ...rnpButtonProps
 }) {
+  const { isDone, timeLeftStr } = useCountDown({
+    duration: countDown?.duration,
+    start: countDown?.start,
+    toTime: countDown?.toTime
+  });
+
   const handlePress = React.useCallback(
     (...args) => {
       if (to) navigationRef.current.navigate(to, params);
@@ -37,10 +45,10 @@ function Button ({
         style
       ]}
       color={color}
-      disabled={disabled}
+      disabled={disabled || !isDone}
       {...rnpButtonProps}
     >
-      {children}
+      {countDown ? children({ timeLeftStr }) : children}
     </RNPButton>
   );
 }

@@ -9,7 +9,7 @@ function FormButton ({
   to,
   params,
   disabled: disabledFromProps = false,
-  ...rnpButtonProps
+  ...buttonProps
 }) {
   const { disabled } = React.useContext(FormContext);
 
@@ -25,7 +25,7 @@ function FormButton ({
     <Button
       disabled={disabled || disabledFromProps}
       onPress={handlePress}
-      {...rnpButtonProps}
+      {...buttonProps}
     >
       {children}
     </Button>

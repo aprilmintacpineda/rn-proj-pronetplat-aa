@@ -48,7 +48,7 @@ function useCountDown ({
 
   React.useEffect(() => {
     count();
-    timer.current = setInterval(count, 1000);
+    timer.current = setInterval(count, 500);
 
     return () => {
       clearInterval(timer.current);
