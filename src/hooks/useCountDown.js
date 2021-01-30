@@ -18,6 +18,7 @@ function useCountDown ({
   const count = React.useCallback(() => {
     let isDone = true;
     let countDownEnd = null;
+    let hours = '00';
     let minutes = '00';
     let seconds = '00';
 
@@ -34,6 +35,7 @@ function useCountDown ({
         end: countDownEnd
       });
 
+      hours = interval.hours.toString().padStart(2, '0');
       minutes = interval.minutes.toString().padStart(2, '0');
       seconds = interval.seconds.toString().padStart(2, 0);
     } else {
@@ -42,7 +44,7 @@ function useCountDown ({
 
     setState({
       isDone,
-      timeLeftStr: isDone ? '' : `${minutes}:${seconds}`
+      timeLeftStr: isDone ? '' : `${hours}:${minutes}:${seconds}`
     });
   }, [start, duration, toTime]);
 
