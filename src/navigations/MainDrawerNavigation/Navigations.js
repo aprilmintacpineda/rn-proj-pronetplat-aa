@@ -1,14 +1,11 @@
 import messaging from '@react-native-firebase/messaging';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { updateStore } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { Divider, Drawer as RNPDrawer } from 'react-native-paper';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 import RNVectorIcon from 'components/RNVectorIcon';
 import { logout } from 'fluxible/actions/user';
-import useHasInternet from 'hooks/useHasInternet';
-import { xhr } from 'libs/xhr';
 import MainStackNavigation from 'navigations/MainStackNavigation';
 import FirstSetup from 'Screens/auth/FirstSetup';
 
@@ -62,16 +59,8 @@ const screenOptions = {
   swipeEnabled: false
 };
 
-function mapStates ({
-  authUser,
-  receivedContactRequestCount,
-  notificationsCount
-}) {
-  return {
-    authUser,
-    receivedContactRequestCount,
-    notificationsCount
-  };
+function mapStates ({ authUser }) {
+  return { authUser };
 }
 
 function PlaceholderScreen () {
@@ -79,36 +68,9 @@ function PlaceholderScreen () {
 }
 
 function Navigations () {
-  const hasInternet = useHasInternet();
-
-  const {
-    authUser,
-    receivedContactRequestCount,
-    notificationsCount
-  } = useFluxibleStore(mapStates);
+  const { authUser } = useFluxibleStore(mapStates);
 
   const { width } = useWindowDimensions();
-
-  React.useEffect(() => {
-    if (!hasInternet) return;
-
-    (async () => {
-      try {
-        const response = await xhr('/badge-count');
-        const {
-          receivedContactRequestCount,
-          notificationsCount
-        } = await response.json();
-
-        updateStore({
-          receivedContactRequestCount,
-          notificationsCount
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [hasInternet]);
 
   React.useEffect(() => {
     (async () => {
@@ -158,7 +120,7 @@ function Navigations () {
               {...props}
             />
           ),
-          badge: receivedContactRequestCount,
+          badge: authUser.receivedContactRequestsCount,
           to: 'ContactRequests'
         }}
       />
@@ -174,7 +136,7 @@ function Navigations () {
               {...props}
             />
           ),
-          badge: notificationsCount,
+          badge: authUser.notificationsCount,
           to: 'Notifications'
         }}
       />

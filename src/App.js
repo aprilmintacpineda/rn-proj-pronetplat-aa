@@ -51,13 +51,19 @@ messaging().onMessage(async remoteMessage => {
   switch (category) {
     case 'contactRequest':
       updateStore({
-        receivedContactRequestCount:
-          store.receivedContactRequestCount + 1
+        authUser: {
+          ...store.authUser,
+          receivedContactRequestsCount:
+            store.authUser.receivedContactRequestsCount + 1
+        }
       });
       break;
     case 'notification':
       updateStore({
-        notificationsCount: store.notificationsCount + 1
+        authUser: {
+          ...store.authUser,
+          notificationsCount: store.authUser.notificationsCount + 1
+        }
       });
       break;
   }

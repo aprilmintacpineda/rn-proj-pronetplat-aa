@@ -6,8 +6,14 @@ import DataFlatList from 'components/DataFlatList';
 import ListEmpty from 'components/ListEmpty';
 
 function resetNotificationsCount () {
-  if (store.notificationsCount)
-    updateStore({ notificationsCount: 0 });
+  if (store.authUser.notificationsCount) {
+    updateStore({
+      authUser: {
+        ...store.authUser,
+        notificationsCount: 0
+      }
+    });
+  }
 }
 
 function Notifications () {

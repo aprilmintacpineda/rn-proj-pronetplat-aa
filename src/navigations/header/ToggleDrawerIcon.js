@@ -4,20 +4,16 @@ import { View } from 'react-native';
 import { Badge } from 'react-native-paper';
 import RNVectorIcon from 'components/RNVectorIcon';
 
-function mapStates ({
-  receivedContactRequestCount,
-  notificationsCount
-}) {
-  return { receivedContactRequestCount, notificationsCount };
+function mapStates ({ authUser }) {
+  return { authUser };
 }
 
 function ToggleDrawerIcon (props) {
-  const {
-    receivedContactRequestCount,
-    notificationsCount
-  } = useFluxibleStore(mapStates);
+  const { authUser } = useFluxibleStore(mapStates);
 
-  const badge = receivedContactRequestCount + notificationsCount;
+  const badge =
+    authUser.receivedContactRequestsCount +
+    authUser.notificationsCount;
 
   return (
     <View style={{ position: 'relative' }}>

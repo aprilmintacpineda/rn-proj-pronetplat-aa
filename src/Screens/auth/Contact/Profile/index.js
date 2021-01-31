@@ -197,8 +197,11 @@ function ContactProfile ({
       });
 
       updateStore({
-        receivedContactRequestCount:
-          store.receivedContactRequestCount - 1
+        authUser: {
+          ...store.authUser,
+          receivedContactRequestsCount:
+            store.authUser.receivedContactRequestsCount - 1
+        }
       });
 
       emitEvent('respondedToContactRequest', {
@@ -222,8 +225,11 @@ function ContactProfile ({
       });
 
       updateStore({
-        receivedContactRequestCount:
-          store.receivedContactRequestCount - 1
+        authUser: {
+          ...store.authUser,
+          receivedContactRequestsCount:
+            store.authUser.receivedContactRequestsCount - 1
+        }
       });
 
       emitEvent('respondedToContactRequest', {

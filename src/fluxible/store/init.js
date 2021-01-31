@@ -20,9 +20,7 @@ export function getInitialStore () {
     authToken: null,
     initComplete: false,
     toasts: [],
-    sendingContactRequests: [],
-    receivedContactRequestCount: 0,
-    notificationsCount: 0
+    sendingContactRequests: []
   };
 }
 
