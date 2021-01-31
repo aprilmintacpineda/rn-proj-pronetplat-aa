@@ -23,14 +23,19 @@ export function getInitials ({ firstName, middleName, surname }) {
   ).toUpperCase();
 }
 
-export function renderContactTitle ({ jobTitle, company }, style) {
+export function renderContactTitle (
+  { jobTitle, company },
+  { numberOfLines = 2, style } = {}
+) {
   return (
-    <Paragraph style={style}>
-      <Text style={{ fontWeight: 'bold' }}>{jobTitle}</Text>
+    <Paragraph numberOfLines={numberOfLines}>
+      <Text style={[{ fontWeight: 'bold' }, style]}>{jobTitle}</Text>
       {company ? (
         <>
           <Text> at </Text>
-          <Text style={{ fontWeight: 'bold' }}>{company}</Text>
+          <Text style={[{ fontWeight: 'bold' }, style]}>
+            {company}
+          </Text>
         </>
       ) : null}
     </Paragraph>

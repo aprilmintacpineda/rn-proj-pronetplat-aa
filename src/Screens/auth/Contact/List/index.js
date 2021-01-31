@@ -7,7 +7,7 @@ import ListEmpty from 'components/ListEmpty';
 function ContactList () {
   return (
     <DataFlatList
-      endpoint="/contacts"
+      endpoint="/my-contacts"
       ListEmptyComponent={ListEmpty}
       RowComponent={RowComponent}
       LoadingPlaceHolder={ContactsLoadingPlaceholder}

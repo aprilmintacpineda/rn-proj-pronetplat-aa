@@ -634,7 +634,10 @@ function ContactProfile ({
               {fullName}
             </Headline>
             <View style={{ alignItems: 'center' }}>
-              {renderContactTitle(contactData)}
+              {renderContactTitle(contactData, {
+                style: { textAlign: 'center' },
+                numberOfLines: 3
+              })}
             </View>
           </View>
         </View>
