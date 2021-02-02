@@ -115,8 +115,8 @@ function Navigations () {
           drawerLabel: 'Contact Requests',
           drawerIcon: props => (
             <RNVectorIcon
-              provider="MaterialCommunityIcons"
-              name="account-network"
+              provider="Ionicons"
+              name="ios-person-add"
               {...props}
             />
           ),
@@ -138,6 +138,22 @@ function Navigations () {
           ),
           badge: authUser.notificationsCount,
           to: 'Notifications'
+        }}
+      />
+      <Drawer.Screen
+        name="BlockedUsersPlaceHolder"
+        component={PlaceholderScreen}
+        options={{
+          drawerLabel: 'Blocked Users',
+          drawerIcon: props => (
+            <RNVectorIcon
+              provider="Ionicons"
+              name="ios-person-remove"
+              {...props}
+            />
+          ),
+          badge: authUser.receivedContactRequestsCount,
+          to: 'BlockList'
         }}
       />
       <Drawer.Screen

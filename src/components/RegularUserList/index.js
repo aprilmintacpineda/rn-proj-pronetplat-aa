@@ -4,15 +4,15 @@ import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
 import ListEmpty from 'components/ListEmpty';
 
-function ContactList () {
+function BlockList (dataFlatListProps) {
   return (
     <DataFlatList
-      endpoint="/my-contacts"
       ListEmptyComponent={ListEmpty}
       RowComponent={RowComponent}
       LoadingPlaceHolder={ContactsLoadingPlaceholder}
+      {...dataFlatListProps}
     />
   );
 }
 
-export default React.memo(ContactList);
+export default React.memo(BlockList);

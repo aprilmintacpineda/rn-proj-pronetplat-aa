@@ -1,3 +1,4 @@
+import { addEvents } from 'fluxible-js';
 import React from 'react';
 import { FlatList } from 'react-native';
 import DataFetch, { DataFetchContext } from './DataFetch';
@@ -13,6 +14,7 @@ function Body ({
   RowComponent,
   renderItem,
   ListFooterComponent = null,
+  events = {},
   ...dataFlatList
 }) {
   const {
@@ -22,7 +24,8 @@ function Body ({
     isRefreshing,
     fetchData,
     isFetching,
-    updateData
+    updateData,
+    filterData
   } = React.useContext(DataFetchContext);
 
   const renderRow = React.useCallback(
@@ -39,6 +42,17 @@ function Body ({
     },
     [updateData, RowComponent, renderItem]
   );
+
+  React.useEffect(() => {
+    const eventNames = Object.keys(events);
+
+    if (!eventNames.length) return;
+
+    return addEvents(eventNames, (payload, event) => {
+      const callback = events[event];
+      callback(payload, { filterData, updateData });
+    });
+  }, [events, filterData, updateData]);
 
   if (isFirstFetch) {
     return (

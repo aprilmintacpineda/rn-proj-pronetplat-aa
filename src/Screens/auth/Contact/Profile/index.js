@@ -56,6 +56,8 @@ function ContactProfile ({
           contactId: contactData.id
         }
       });
+
+      emitEvent('userUnblocked', contactData.id);
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -94,6 +96,8 @@ function ContactProfile ({
           contactId: contactData.id
         }
       });
+
+      emitEvent('userBlocked', contactData.id);
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -204,9 +208,7 @@ function ContactProfile ({
         }
       });
 
-      emitEvent('respondedToContactRequest', {
-        contactId: contactData.id
-      });
+      emitEvent('respondedToContactRequest', contactData.id);
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -232,9 +234,7 @@ function ContactProfile ({
         }
       });
 
-      emitEvent('respondedToContactRequest', {
-        contactId: contactData.id
-      });
+      emitEvent('respondedToContactRequest', contactData.id);
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -262,7 +262,7 @@ function ContactProfile ({
   }, [contactData.id, refreshData]);
 
   React.useEffect(() => {
-    let actions = [];
+    const actions = [];
 
     if (
       !isError &&
@@ -270,12 +270,10 @@ function ContactProfile ({
       !isRefreshing &&
       data &&
       !data.sentContactRequest &&
-      !data.receivedContactRequest &&
-      !data.blockedByUser &&
-      !data.contactBlocked
+      !data.receivedContactRequest
     ) {
-      actions = [
-        {
+      if (!data.contactBlocked) {
+        actions.push({
           title: 'Remove',
           icon: props => (
             <RNVectorIcon
@@ -302,8 +300,11 @@ function ContactProfile ({
             );
           },
           disabled: isDisabled
-        },
-        {
+        });
+      }
+
+      if (!data.blockedByUser && !data.contactBlocked) {
+        actions.push({
           title: 'Block',
           icon: props => (
             <RNVectorIcon
@@ -314,8 +315,8 @@ function ContactProfile ({
           ),
           onPress: blockUser,
           disabled: isDisabled
-        }
-      ];
+        });
+      }
     }
 
     setOptions({

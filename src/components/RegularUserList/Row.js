@@ -6,7 +6,7 @@ import TouchableButtonLink from 'components/TouchableButtonLink';
 import UserAvatar from 'components/UserAvatar';
 import { getFullName, renderContactTitle } from 'libs/contact';
 
-function ContactListRow ({ index, ...contactData }) {
+function BlockListRow ({ index, ...contactData }) {
   const fullName = getFullName(contactData);
   const delay = (index % 10) * 50;
 
@@ -38,4 +38,4 @@ function ContactListRow ({ index, ...contactData }) {
   );
 }
 
-export default React.memo(ContactListRow);
+export default React.memo(BlockListRow);
