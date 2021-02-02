@@ -152,7 +152,6 @@ function Navigations () {
               {...props}
             />
           ),
-          badge: authUser.receivedContactRequestsCount,
           to: 'BlockList'
         }}
       />
