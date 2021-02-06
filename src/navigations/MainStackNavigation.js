@@ -9,6 +9,7 @@ import BlockList from 'Screens/auth/BlockList';
 import ContactProfile from 'Screens/auth/Contact/Profile';
 import ContactRequests from 'Screens/auth/ContactRequests';
 import Notifications from 'Screens/auth/Notifications';
+import Settings from 'Screens/auth/Settings';
 
 const Stack = createStackNavigator();
 
@@ -61,6 +62,14 @@ function MainStackNavigation () {
         component={BlockList}
         options={{
           title: 'Blocked Users',
+          ...TransitionPresets.ModalSlideFromBottomIOS
+        }}
+      />
+      <Stack.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          title: 'Settings',
           ...TransitionPresets.ModalSlideFromBottomIOS
         }}
       />

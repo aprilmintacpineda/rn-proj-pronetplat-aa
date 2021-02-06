@@ -5,7 +5,7 @@ import DataFlatList from 'components/DataFlatList';
 import ListEmpty from 'components/ListEmpty';
 
 const events = {
-  respondedToContactRequest: ({ contactId }, { filterData }) => {
+  respondedToContactRequest: (contactId, { filterData }) => {
     filterData(data => data.senderId !== contactId);
   }
 };

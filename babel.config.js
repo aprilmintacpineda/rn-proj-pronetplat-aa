@@ -15,7 +15,16 @@ module.exports = {
     production: {
       plugins: [
         'react-native-paper/babel',
-        'transform-remove-console'
+        'transform-remove-console',
+        [
+          'babel-plugin-transform-strip-block',
+          {
+            requireDirective: false,
+            identifiers: [
+              { start: 'devOnly:start', end: 'devOnly:end' }
+            ]
+          }
+        ]
       ]
     }
   }

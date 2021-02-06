@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fetch as checkInternet } from '@react-native-community/netinfo';
 import iid from '@react-native-firebase/iid';
 import { initializeStore, store, updateStore } from 'fluxible-js';
@@ -31,7 +32,20 @@ const options = {
 
 const asyncStorage = {
   setItem: (key, value) => RNSInfo.setItem(key, value, options),
-  getItem: key => RNSInfo.getItem(key, options)
+  getItem: async key => {
+    const hasRunBefore = await AsyncStorage.getItem('hasRunBefore');
+
+    if (!hasRunBefore) {
+      await Promise.all([
+        AsyncStorage.setItem('hasRunBefore', 'true'),
+        RNSInfo.deleteItem(key, options)
+      ]);
+
+      return null;
+    }
+
+    return RNSInfo.getItem(key, options);
+  }
 };
 
 export function restore ({
@@ -48,6 +62,12 @@ async function onInitComplete () {
       updateStore({ initComplete: true });
       return;
     }
+
+    if (
+      !store.authUser.completedFirstSetupAt ||
+      !store.authUser.emailVerifiedAt
+    )
+      throw new Error('User has not complete setup');
 
     const deviceToken = await iid().getToken();
 

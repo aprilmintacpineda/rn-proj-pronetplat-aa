@@ -141,6 +141,21 @@ function Navigations () {
         }}
       />
       <Drawer.Screen
+        name="SettingsPlaceHolder"
+        component={PlaceholderScreen}
+        options={{
+          drawerLabel: 'Settings',
+          drawerIcon: props => (
+            <RNVectorIcon
+              provider="Ionicons"
+              name="ios-settings"
+              {...props}
+            />
+          ),
+          to: 'Settings'
+        }}
+      />
+      <Drawer.Screen
         name="BlockedUsersPlaceHolder"
         component={PlaceholderScreen}
         options={{
