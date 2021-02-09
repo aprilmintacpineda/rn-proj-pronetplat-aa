@@ -9,7 +9,8 @@ module.exports = {
         root: ['./src'],
         alias
       }
-    ]
+    ],
+    'optional-require'
   ],
   env: {
     production: {
