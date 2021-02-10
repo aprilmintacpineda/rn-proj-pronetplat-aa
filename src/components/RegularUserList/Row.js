@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper';
 import Animatable from 'components/Animatable';
 import TouchableButtonLink from 'components/TouchableButtonLink';
 import UserAvatar from 'components/UserAvatar';
-import { getFullName, renderContactTitle } from 'libs/contact';
+import { getFullName, renderUserTitle } from 'libs/user';
 
 function BlockListRow ({ index, ...contactData }) {
   const fullName = getFullName(contactData);
@@ -30,7 +30,7 @@ function BlockListRow ({ index, ...contactData }) {
             <Text numberOfLines={1} style={{ fontSize: 18 }}>
               {fullName}
             </Text>
-            {renderContactTitle(contactData)}
+            {renderUserTitle(contactData)}
           </View>
         </View>
       </TouchableButtonLink>

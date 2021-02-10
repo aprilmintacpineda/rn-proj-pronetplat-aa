@@ -6,7 +6,7 @@ import Caption from 'components/Caption';
 import TimeAgo from 'components/TimeAgo';
 import TouchableButtonLink from 'components/TouchableButtonLink';
 import UserAvatar from 'components/UserAvatar';
-import { getFullName, renderContactTitle } from 'libs/contact';
+import { getFullName, renderUserTitle } from 'libs/user';
 
 function ContactRequestRow ({ sender, createdAt, index }) {
   const fullName = getFullName(sender);
@@ -21,7 +21,7 @@ function ContactRequestRow ({ sender, createdAt, index }) {
             <Text numberOfLines={1} style={{ fontSize: 18 }}>
               {fullName}
             </Text>
-            {renderContactTitle(sender)}
+            {renderUserTitle(sender)}
             <Caption>
               <TimeAgo dateFrom={createdAt} />
             </Caption>

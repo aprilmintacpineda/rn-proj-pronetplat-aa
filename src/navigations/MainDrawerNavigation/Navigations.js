@@ -4,8 +4,10 @@ import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { Divider, Drawer as RNPDrawer } from 'react-native-paper';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
+import UserWidget from './UserWidget';
 import RNVectorIcon from 'components/RNVectorIcon';
 import { logout } from 'fluxible/actions/user';
+import { hasCompletedSetup } from 'libs/user';
 import MainStackNavigation from 'navigations/MainStackNavigation';
 import FirstSetup from 'Screens/auth/FirstSetup';
 
@@ -38,6 +40,8 @@ function drawerContent (props) {
 
   return (
     <>
+      <UserWidget />
+      <Divider style={{ margin: 10, marginVertical: 20 }} />
       {drawerItems}
       <Divider style={{ margin: 10, marginVertical: 20 }} />
       <RNPDrawer.Item
@@ -83,7 +87,7 @@ function Navigations () {
 
   const drawerType = width >= 768 ? 'permanent' : 'slide';
 
-  const initialRouteName = authUser.completedFirstSetupAt
+  const initialRouteName = hasCompletedSetup(authUser)
     ? 'MainStackNavigation'
     : 'FirstSetup';
 

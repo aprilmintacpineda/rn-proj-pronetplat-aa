@@ -5,7 +5,8 @@ export const paperTheme = {
   ...paperDefaultTheme,
   colors: {
     ...paperDefaultTheme.colors,
-    success: '#28a745'
+    success: '#28a745',
+    primaryAccent: `${paperDefaultTheme.colors.primary}30`
   }
 };
 

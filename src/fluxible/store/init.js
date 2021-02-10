@@ -4,6 +4,7 @@ import iid from '@react-native-firebase/iid';
 import { initializeStore, store, updateStore } from 'fluxible-js';
 import RNSInfo from 'react-native-sensitive-info';
 import { STAGE } from 'env';
+import { hasCompletedSetup } from 'libs/user';
 import { xhr } from 'libs/xhr';
 
 async function hasInternet () {
@@ -64,7 +65,7 @@ async function onInitComplete () {
     }
 
     if (
-      !store.authUser.completedFirstSetupAt ||
+      !hasCompletedSetup(store.authUser) ||
       !store.authUser.emailVerifiedAt
     )
       throw new Error('User has not complete setup');

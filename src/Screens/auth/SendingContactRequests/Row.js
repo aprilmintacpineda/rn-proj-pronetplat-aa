@@ -18,8 +18,8 @@ import useHasInternet from 'hooks/useHasInternet';
 import {
   addToContact,
   getFullName,
-  renderContactTitle
-} from 'libs/contact';
+  renderUserTitle
+} from 'libs/user';
 import { paperTheme } from 'theme';
 
 const { colors } = paperTheme;
@@ -99,7 +99,7 @@ function PendingContactRequestRow ({ index, ...contactData }) {
               <UserAvatar user={contactData} />
               <View style={{ marginLeft: 15, flex: 1 }}>
                 <Text style={{ fontSize: 18 }}>{fullName}</Text>
-                {renderContactTitle(contactData)}
+                {renderUserTitle(contactData)}
                 {isError ? (
                   <StatusCaption
                     isError

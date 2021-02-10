@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+import rnfs from 'react-native-fs';
 import { lookup } from 'react-native-mime-types';
 
 class File {
@@ -11,6 +13,16 @@ class File {
     this.uri = value.path || value.uri;
     this.name = this.uri.split('/').reverse()[0];
     this.mimeType = lookup(this.uri);
+  }
+
+  async getSize () {
+    const filePath =
+      Platform.OS === 'ios'
+        ? this.uri
+        : this.uri.replace(/file:/, '');
+
+    const stat = await rnfs.stat(filePath);
+    this.size = stat.size / 1024 ** 2;
   }
 }
 

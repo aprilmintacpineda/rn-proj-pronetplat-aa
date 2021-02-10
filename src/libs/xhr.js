@@ -1,5 +1,4 @@
 import { store } from 'fluxible-js';
-import File from 'classes/File';
 import { API_BASE_URL } from 'env';
 
 function clean (path) {
@@ -44,10 +43,13 @@ export async function xhr (
 
   if (store.authToken)
     config.headers.Authorization = `Bearer ${store.authToken}`;
+
   if (options.body) config.body = JSON.stringify(options.body);
   const response = await fetch(url, config);
+
   if (response.status < 200 || response.status >= 300)
     throw response;
+
   return response;
 }
 
@@ -61,47 +63,5 @@ export async function uploadFileToSignedUrl ({ signedUrl, file }) {
   });
 
   if (response.status !== 200) throw response;
-  return response;
-}
-
-export async function xhrWithFile (
-  path,
-  { method = 'post', ...options } = {}
-) {
-  const url = resolveUrl(path);
-  const config = {
-    ...options,
-    method,
-    headers: {
-      'content-type': 'multipart/form-data',
-      ...options.headers
-    },
-    body: new FormData()
-  };
-
-  if (store.authToken)
-    config.headers.Authorization = `Bearer ${store.authToken}`;
-
-  Object.keys(options.body).forEach(key => {
-    let value = options.body[key];
-
-    if (value) {
-      if (value.constructor === File) {
-        value = {
-          uri: value.uri,
-          type: value.mimeType,
-          name: value.name
-        };
-      } else {
-        value = value.toString();
-      }
-    }
-
-    config.body.append(key, value);
-  });
-
-  const response = await fetch(url, config);
-  if (response.status < 200 || response.status >= 300)
-    throw response;
   return response;
 }

@@ -18,9 +18,9 @@ import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import useDataFetch from 'hooks/useDataFetch';
 import {
   getFullName,
-  renderContactTitle,
+  renderUserTitle,
   getPersonalPronoun
-} from 'libs/contact';
+} from 'libs/user';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
@@ -631,11 +631,14 @@ function ContactProfile ({
         >
           <UserAvatar user={contactData} size={100} />
           <View style={{ marginTop: 15 }}>
-            <Headline style={{ textAlign: 'center' }}>
+            <Headline
+              style={{ textAlign: 'center' }}
+              numberOfLines={3}
+            >
               {fullName}
             </Headline>
             <View style={{ alignItems: 'center' }}>
-              {renderContactTitle(contactData, {
+              {renderUserTitle(contactData, {
                 style: { textAlign: 'center' },
                 numberOfLines: 3
               })}

@@ -1,6 +1,6 @@
 import React from 'react';
 import Avatar from './Avatar';
-import { getInitials } from 'libs/contact';
+import { getInitials } from 'libs/user';
 
 function UserAvatar ({ user, ...avatarProps }) {
   return (

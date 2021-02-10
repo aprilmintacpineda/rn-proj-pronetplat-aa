@@ -23,7 +23,7 @@ export function getInitials ({ firstName, middleName, surname }) {
   ).toUpperCase();
 }
 
-export function renderContactTitle (
+export function renderUserTitle (
   { jobTitle, company },
   { numberOfLines = 2, style } = {}
 ) {
@@ -187,4 +187,10 @@ export function getPersonalPronoun (userData) {
       lowercase: 'her'
     }
   };
+}
+
+export function hasCompletedSetup (user) {
+  return (
+    user.firstName && user.surname && user.gender && user.jobTitle
+  );
 }
