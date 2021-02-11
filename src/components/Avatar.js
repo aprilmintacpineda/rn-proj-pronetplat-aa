@@ -1,24 +1,32 @@
 import React from 'react';
 import { Avatar as RNPAvatar } from 'react-native-paper';
+import useState from 'hooks/useState';
 
 function Avatar ({ size = 60, uri, label }) {
-  const [isError, setIsError] = React.useState(false);
+  const { updateState, state } = useState({
+    uri: null,
+    isError: false
+  });
 
-  const onError = React.useCallback(event => {
-    console.log('Avatar Error', event.nativeEvent.error);
-    setIsError(true);
-  }, []);
+  const onError = React.useCallback(
+    event => {
+      console.log('Avatar Error', event.nativeEvent.error);
+      updateState({ isError: true });
+    },
+    [updateState]
+  );
 
   React.useEffect(() => {
-    return () => {
-      if (isError) setIsError(false);
-    };
-  }, [isError, uri]);
+    updateState({
+      isError: false,
+      uri
+    });
+  }, [updateState, uri]);
 
-  if (uri && !isError) {
+  if (state.uri && !state.isError) {
     return (
       <RNPAvatar.Image
-        source={{ uri }}
+        source={{ uri: state.uri }}
         size={size}
         onError={onError}
       />

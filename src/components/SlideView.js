@@ -6,16 +6,14 @@ import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimen
 function SlideView ({ scrollEnabled = false, children, page = 1 }) {
   const { width } = useWindowDimensions();
   const scrollViewRef = React.useRef();
-  const contentOffset = React.useRef((page - 1) * width).current;
-  const prevPageRef = React.useRef(page);
+  const contentOffset = React.useRef((page - 1) * width);
 
   React.useEffect(() => {
-    const prevPage = prevPageRef.current;
+    const newOffset = (page - 1) * width;
 
-    if (page !== prevPage) {
-      prevPageRef.current = page;
+    if (contentOffset.current !== newOffset) {
       scrollViewRef.current.scrollTo({
-        x: (page - 1) * width,
+        x: newOffset,
         animated: true
       });
     }
@@ -29,7 +27,7 @@ function SlideView ({ scrollEnabled = false, children, page = 1 }) {
       showsHorizontalScrollIndicator={false}
       decelerationRate="normal"
       scrollEnabled={scrollEnabled}
-      contentOffset={{ x: contentOffset }}
+      contentOffset={{ x: contentOffset.current }}
     >
       <View style={{ flexDirection: 'row' }}>
         {children.map((child, i) => (

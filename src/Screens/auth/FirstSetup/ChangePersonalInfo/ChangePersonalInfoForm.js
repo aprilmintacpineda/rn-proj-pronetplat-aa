@@ -9,12 +9,12 @@ import TextInput from 'components/FormWithContext/TextInput';
 
 const genderOptions = ['male', 'female'];
 
-function ChangePersonalInfoForm ({ onSave }) {
+function ChangePersonalInfoForm ({ onNext }) {
   const { isSubmitSuccess } = React.useContext(FormContext);
 
   React.useEffect(() => {
-    if (isSubmitSuccess) onSave();
-  }, [isSubmitSuccess, onSave]);
+    if (isSubmitSuccess) onNext();
+  }, [isSubmitSuccess, onNext]);
 
   return (
     <ScrollView>

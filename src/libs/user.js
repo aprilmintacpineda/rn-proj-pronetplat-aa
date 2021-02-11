@@ -191,6 +191,10 @@ export function getPersonalPronoun (userData) {
 
 export function hasCompletedSetup (user) {
   return (
-    user.firstName && user.surname && user.gender && user.jobTitle
+    user.firstName &&
+    user.surname &&
+    user.gender &&
+    user.jobTitle &&
+    user.profilePicture
   );
 }

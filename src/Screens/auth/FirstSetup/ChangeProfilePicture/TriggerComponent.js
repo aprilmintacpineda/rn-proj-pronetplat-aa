@@ -1,26 +1,17 @@
 import React from 'react';
 import Button from 'components/Button';
-import RNVectorIcon from 'components/RNVectorIcon';
 
-function editIcon (props) {
-  return (
-    <RNVectorIcon provider="Ionicons" name="ios-pencil" {...props} />
-  );
-}
-
-function TriggerComponent ({ onDone, ...btnProps }) {
+function TriggerComponent ({ status, disabled, onPress }) {
   return (
     <>
       <Button
         mode="contained"
         style={{ marginTop: 20 }}
-        icon={editIcon}
-        {...btnProps}
+        loading={status === 'uploading'}
+        disabled={disabled}
+        onPress={onPress}
       >
-        Change
-      </Button>
-      <Button onPress={onDone} style={{ marginTop: 10 }}>
-        Continue
+        Upload picture
       </Button>
     </>
   );

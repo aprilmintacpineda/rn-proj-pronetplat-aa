@@ -57,75 +57,86 @@ async function waitForPicture (url) {
 
 function ChangeProfilePicture ({
   TriggerComponent,
-  triggerComponentProps
+  triggerComponentProps,
+  onSuccess
 }) {
   const modalRef = React.useRef();
-  const [isDisabled, setIsDisabled] = React.useState(false);
+  const [status, setStatus] = React.useState('initial');
+
+  const resetStatus = React.useCallback(() => {
+    setStatus('initial');
+  }, []);
 
   const openUploadOptions = React.useCallback(() => {
     modalRef.current.open();
   }, []);
 
-  const uploadPicture = React.useCallback(async picture => {
-    try {
-      setIsDisabled(true);
+  const uploadPicture = React.useCallback(
+    async picture => {
+      try {
+        setStatus('uploading');
 
-      const file = new File(picture);
-      await file.getSize();
+        const file = new File(picture);
+        await file.getSize();
 
-      if (file.size >= 5) {
-        showErrorPopup({
-          message: 'File must be less than 5mb.'
-        });
+        if (file.size >= 5) {
+          showErrorPopup({
+            message: 'File must be less than 5mb.'
+          });
 
-        return;
-      }
-
-      if (
-        validate(file.mimeType, ['options:image/jpeg,image/png'])
-      ) {
-        showErrorPopup({
-          message: 'Please select only JPG or PNG images.'
-        });
-
-        return;
-      }
-
-      let response = await xhr('/change-profile-picture', {
-        method: 'post',
-        body: {
-          mimeType: file.mimeType
+          return;
         }
-      });
 
-      const { signedUrl, profilePicture } = await response.json();
+        if (
+          validate(file.mimeType, ['options:image/jpeg,image/png'])
+        ) {
+          showErrorPopup({
+            message: 'Please select only JPG or PNG images.'
+          });
 
-      await uploadFileToSignedUrl({
-        signedUrl,
-        file
-      });
+          return;
+        }
 
-      await waitForPicture(profilePicture);
-      const deviceToken = await iid().getToken();
+        let response = await xhr('/change-profile-picture', {
+          method: 'post',
+          body: {
+            mimeType: file.mimeType
+          }
+        });
 
-      response = await xhr('/validate-auth', {
-        method: 'post',
-        body: { deviceToken }
-      });
+        const { signedUrl, profilePicture } = await response.json();
 
-      const { userData, authToken } = await response.json();
+        await uploadFileToSignedUrl({
+          signedUrl,
+          file
+        });
 
-      updateStore({
-        authUser: userData,
-        authToken
-      });
-    } catch (error) {
-      console.log(error);
-      showRequestFailedPopup();
-    } finally {
-      setIsDisabled(false);
-    }
-  }, []);
+        await waitForPicture(profilePicture);
+        const deviceToken = await iid().getToken();
+
+        response = await xhr('/validate-auth', {
+          method: 'post',
+          body: { deviceToken }
+        });
+
+        const { userData, authToken } = await response.json();
+
+        updateStore({
+          authUser: userData,
+          authToken
+        });
+
+        if (onSuccess) onSuccess();
+
+        setStatus('uploadSuccess');
+      } catch (error) {
+        console.log(error);
+        showRequestFailedPopup();
+        setStatus('uploadFailed');
+      }
+    },
+    [onSuccess]
+  );
 
   const selectPicture = React.useCallback(async () => {
     const results = await requestMultiple(galeryPermissions);
@@ -155,8 +166,8 @@ function ChangeProfilePicture ({
     try {
       let uploadResult = launchImageLibraryAsync({
         allowsEditing: true,
-        aspect: [4, 4],
-        quality: 0.8
+        aspect: [1, 1],
+        quality: 0.7
       });
 
       modalRef.current.close();
@@ -194,8 +205,8 @@ function ChangeProfilePicture ({
     try {
       let uploadResult = launchCameraAsync({
         allowsEditing: true,
-        aspect: [4, 4],
-        quality: 0.8
+        aspect: [1, 1],
+        quality: 0.7
       });
 
       modalRef.current.close();
@@ -211,7 +222,9 @@ function ChangeProfilePicture ({
     <>
       <TriggerComponent
         onPress={openUploadOptions}
-        disabled={isDisabled}
+        disabled={status === 'uploading'}
+        status={status}
+        resetStatus={resetStatus}
         {...triggerComponentProps}
       />
       <Portal>

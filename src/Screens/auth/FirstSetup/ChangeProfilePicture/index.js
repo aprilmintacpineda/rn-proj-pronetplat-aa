@@ -6,7 +6,7 @@ import Avatar from 'components/Avatar';
 import ChangeProfilePictureWidget from 'components/ChangeProfilePictureWidget';
 import FormContainer from 'components/FormContainer';
 
-function ChangeProfilePicture (props) {
+function ChangeProfilePicture ({ onNext, ...triggerComponentProps }) {
   return (
     <ScrollView>
       <FormContainer>
@@ -23,7 +23,8 @@ function ChangeProfilePicture (props) {
         </View>
         <ChangeProfilePictureWidget
           TriggerComponent={TriggerComponent}
-          triggerComponentProps={props}
+          triggerComponentProps={triggerComponentProps}
+          onSuccess={onNext}
         />
       </FormContainer>
     </ScrollView>
