@@ -19,11 +19,11 @@
     "@react-native-async-storage/async-storage": "^1.13.4",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/netinfo": "^5.9.10",
-    "@react-native-firebase/analytics": "^10.6.4",
-    "@react-native-firebase/app": "^10.6.4",
-    "@react-native-firebase/crashlytics": "^10.6.4",
-    "@react-native-firebase/iid": "^10.6.4",
-    "@react-native-firebase/messaging": "^10.6.4",
+    "@react-native-firebase/analytics": "^10.7.0",
+    "@react-native-firebase/app": "^10.7.0",
+    "@react-native-firebase/crashlytics": "^10.7.0",
+    "@react-native-firebase/iid": "^10.7.0",
+    "@react-native-firebase/messaging": "^10.7.0",
     "@react-navigation/bottom-tabs": "^5.11.7",
     "@react-navigation/drawer": "^5.12.3",
     "@react-navigation/native": "^5.9.2",
@@ -31,7 +31,7 @@
     "date-fns": "^2.17.0",
     "expo-image-picker": "^10.0.0",
     "fluxible-js": "^5.0.11",
-    "husky": "4.3.8",
+    "husky": "5.0.9",
     "patch-package": "^6.2.2",
     "postinstall-postinstall": "^2.1.0",
     "react": "17.0.1",
@@ -83,11 +83,6 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.js": [
