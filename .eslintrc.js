@@ -32,7 +32,8 @@ module.exports = {
     'plugin:import/warnings'
   ],
   globals: {
-    Atomics: 'readonly'
+    Atomics: 'readonly',
+    __DEV__: 'readonly'
   },
   parser: '@babel/eslint-parser',
   parserOptions: {
