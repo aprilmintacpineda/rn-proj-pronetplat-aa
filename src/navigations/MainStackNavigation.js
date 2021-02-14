@@ -1,10 +1,16 @@
+import messaging from '@react-native-firebase/messaging';
 import {
   TransitionPresets,
   createStackNavigator
 } from '@react-navigation/stack';
+import { store, updateStore } from 'fluxible-js';
 import React from 'react';
+import { AppState } from 'react-native';
 import header from './header';
 import MainTabNavigation from './MainTabNavigation';
+import { navigationRef } from 'App';
+import { getInitials } from 'libs/user';
+import { displayNotification } from 'PopupManager/NotificationPopup';
 import BlockList from 'Screens/auth/BlockList';
 import ContactProfile from 'Screens/auth/Contact/Profile';
 import ContactRequests from 'Screens/auth/ContactRequests';
@@ -20,6 +26,70 @@ const screenOptions = {
 };
 
 function MainStackNavigation () {
+  React.useEffect(() => {
+    (async () => {
+      const openedNotif = await messaging().getInitialNotification();
+      console.log('openedNotif', openedNotif);
+
+      await messaging().requestPermission();
+    })();
+
+    const unsubscribe = messaging().onMessage(
+      async remoteMessage => {
+        console.log('onMessage', remoteMessage);
+
+        if (!store.authUser || AppState.currentState !== 'active')
+          return;
+
+        const { data, notification } = remoteMessage;
+        const { title, body } = notification;
+        const { type, category, profilePicture } = data;
+
+        const screensByType = {
+          contactRequest: 'ContactProfile',
+          contactRequestAccepted: 'ContactProfile',
+          contactRequestCancelled: 'ContactProfile',
+          contactRequestDeclined: 'ContactProfile'
+        };
+
+        switch (category) {
+          case 'contactRequest':
+            updateStore({
+              authUser: {
+                ...store.authUser,
+                receivedContactRequestsCount:
+                  store.authUser.receivedContactRequestsCount + 1
+              }
+            });
+            break;
+          case 'notification':
+            updateStore({
+              authUser: {
+                ...store.authUser,
+                notificationsCount:
+                  store.authUser.notificationsCount + 1
+              }
+            });
+            break;
+        }
+
+        displayNotification({
+          title,
+          body,
+          avatarUri: profilePicture,
+          avatarLabel: getInitials(data),
+          onPress: () => {
+            const targetScreen = screensByType[type];
+            if (targetScreen)
+              navigationRef.current.navigate(targetScreen, data);
+          }
+        });
+      }
+    );
+
+    return unsubscribe;
+  }, []);
+
   return (
     <Stack.Navigator
       initialRouteName="MainTabNavigation"

@@ -21,6 +21,7 @@ export function getInitialStore () {
     authUser: null,
     authToken: null,
     initComplete: false,
+    deviceToken: null,
     toasts: [],
     sendingContactRequests: []
   };
@@ -59,6 +60,8 @@ export function restore ({
 
 async function onInitComplete () {
   try {
+    updateStore({ deviceToken: await iid().getToken() });
+
     if (!store.authToken || !(await hasInternet())) {
       updateStore({ initComplete: true });
       return;
@@ -70,13 +73,7 @@ async function onInitComplete () {
     )
       throw new Error('User has not complete setup');
 
-    const deviceToken = await iid().getToken();
-
-    const response = await xhr('/validate-auth', {
-      method: 'post',
-      body: { deviceToken }
-    });
-
+    const response = await xhr('/validate-auth', { method: 'post' });
     const { userData, authToken } = await response.json();
 
     updateStore({

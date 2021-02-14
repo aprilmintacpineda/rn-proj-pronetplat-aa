@@ -1,4 +1,3 @@
-import iid from '@react-native-firebase/iid';
 import {
   launchCameraAsync,
   launchImageLibraryAsync
@@ -112,12 +111,7 @@ function ChangeProfilePicture ({
         });
 
         await waitForPicture(profilePicture);
-        const deviceToken = await iid().getToken();
-
-        response = await xhr('/validate-auth', {
-          method: 'post',
-          body: { deviceToken }
-        });
+        response = await xhr('/validate-auth', { method: 'post' });
 
         const { userData, authToken } = await response.json();
 

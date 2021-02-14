@@ -37,6 +37,7 @@ export async function xhr (
     method,
     headers: {
       ...options.headers,
+      'device-token': store.deviceToken,
       'content-type': 'application/json'
     }
   };

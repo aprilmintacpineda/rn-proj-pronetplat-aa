@@ -1,4 +1,3 @@
-import messaging from '@react-native-firebase/messaging';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
@@ -73,18 +72,7 @@ function PlaceholderScreen () {
 
 function Navigations () {
   const { authUser } = useFluxibleStore(mapStates);
-
   const { width } = useWindowDimensions();
-
-  React.useEffect(() => {
-    (async () => {
-      const openedNotif = await messaging().getInitialNotification();
-      console.log('openedNotif', openedNotif);
-
-      await messaging().requestPermission();
-    })();
-  }, []);
-
   const drawerType = width >= 768 ? 'permanent' : 'slide';
 
   const initialRouteName = hasCompletedSetup(authUser)

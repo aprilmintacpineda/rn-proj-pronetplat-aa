@@ -4,15 +4,14 @@ import 'setDefaults';
 import crashlytics from '@react-native-firebase/crashlytics';
 import messaging from '@react-native-firebase/messaging';
 import { NavigationContainer } from '@react-navigation/native';
-import { store, updateStore } from 'fluxible-js';
+import { updateStore } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import {
   KeyboardAvoidingView,
   Platform,
   StatusBar,
-  View,
-  AppState
+  View
 } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
@@ -20,75 +19,11 @@ import FullSafeAreaView from 'components/FullSafeAreaView';
 import { initStore } from 'fluxible/store/init';
 import useHasInternet from 'hooks/useHasInternet';
 import { appMounted, logScreenView } from 'libs/logging';
-import { getInitials } from 'libs/user';
 import IndexStackNavigator from 'navigations/IndexStackNavigator';
 import PopupManager from 'PopupManager';
-import { displayNotification } from 'PopupManager/NotificationPopup';
 import { navigationTheme, paperTheme } from 'theme';
 
 export const navigationRef = React.createRef();
-
-messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('Message handled in the background!', remoteMessage);
-});
-
-messaging().onMessage(async remoteMessage => {
-  console.log('onMessage', remoteMessage);
-
-  if (!store.authUser || AppState.currentState !== 'active') return;
-
-  const { data, notification } = remoteMessage;
-  const { title, body } = notification;
-  const { type, category, profilePicture } = data;
-
-  const screensByType = {
-    contactRequest: 'ContactProfile',
-    contactRequestAccepted: 'ContactProfile',
-    contactRequestCancelled: 'ContactProfile',
-    contactRequestDeclined: 'ContactProfile'
-  };
-
-  switch (category) {
-    case 'contactRequest':
-      updateStore({
-        authUser: {
-          ...store.authUser,
-          receivedContactRequestsCount:
-            store.authUser.receivedContactRequestsCount + 1
-        }
-      });
-      break;
-    case 'notification':
-      updateStore({
-        authUser: {
-          ...store.authUser,
-          notificationsCount: store.authUser.notificationsCount + 1
-        }
-      });
-      break;
-  }
-
-  displayNotification({
-    title,
-    body,
-    avatarUri: profilePicture,
-    avatarLabel: getInitials(data),
-    onPress: () => {
-      const targetScreen = screensByType[type];
-      if (targetScreen)
-        navigationRef.current.navigate(targetScreen, data);
-    }
-  });
-});
-
-messaging().onTokenRefresh(async newToken => {
-  await crashlytics().setUserId(newToken);
-  console.log('onTokenRefresh', newToken);
-});
-
-messaging().onNotificationOpenedApp(async remoteMessage => {
-  console.log('onNotificationOpenedApp', remoteMessage);
-});
 
 const avoidBehavior = Platform.select({
   android: 'height',
@@ -114,7 +49,14 @@ function App () {
   }, []);
 
   React.useEffect(() => {
-    if (initComplete) RNBootSplash.hide();
+    if (initComplete) {
+      messaging().onTokenRefresh(async deviceToken => {
+        updateStore({ deviceToken });
+        await crashlytics().setUserId(deviceToken);
+      });
+
+      RNBootSplash.hide();
+    }
   }, [initComplete]);
 
   if (!initComplete) return null;
