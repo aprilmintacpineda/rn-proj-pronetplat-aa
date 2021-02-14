@@ -2405,35 +2405,35 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.9.10.tgz#97d3a9fa62a3a4838ec7a6ec91cfec5a26e365b6"
   integrity sha512-1NPlBA2Hu/KWc3EnQcDRPRX0x8Dg9tuQlQQVWVQjlg+u+PjCq7ANEtbikOFKp5yQqfF8tqzU5+84/IfDO8zpiA==
 
-"@react-native-firebase/analytics@^10.7.0":
-  version "10.7.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-10.7.0.tgz#6178028c34903d8b6300ce119b750a5ad8083f63"
-  integrity sha512-cdPf6UtjWQVOYYWJIyNLRJcHcCizdCx/Emqo19zXN69nTf/pCF5RFWJQdFdI7iDmOl48EMrVZ6bLpFvpvKBgug==
+"@react-native-firebase/analytics@^10.8.0":
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-10.8.0.tgz#38916b9aea07d5fda8504e97e29eb8d33fbd2228"
+  integrity sha512-Vf28RvSKpVDvCFJUsoxtHFUfrjYtx0jkZv/OZ8yHUTQxXKzpGPDDNdDTqIt3n4i/rhPMEUBrHQoy4caHvFUTfA==
 
-"@react-native-firebase/app@^10.7.0":
-  version "10.7.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-10.7.0.tgz#db0cd77c2d5e83024797073256d471dc9b27085c"
-  integrity sha512-C8H90p7lf+ZIxA22lxypuA7uJOWRX4GLlll6EXZTnUXHNYaIM8zW8/RPHECJZRPYwisbe+2pIlDwFJjyiRM+Jw==
+"@react-native-firebase/app@^10.8.0":
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-10.8.0.tgz#130dd841183d45ff378e6aab2b6e89a30d7c499d"
+  integrity sha512-VIWVpqb+V4ltOEmpUEfcsA/ZmcV+FLWGMlRGN+xB/cXorD3nYhYF/LPxOtX7TOHrlxPeL2dikLry9hKv4PlZCw==
   dependencies:
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/crashlytics@^10.7.0":
-  version "10.7.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-10.7.0.tgz#3a85792d7edfaeaf973a97a7fee6685070a5de39"
-  integrity sha512-wx2VPY2618SHODGErJ1jcEmG5zkjFR+uzjeY9p16CMTtqy9enuqblEnUo6kh+xscBQ1c1eJRomab6tUVQ9qECg==
+"@react-native-firebase/crashlytics@^10.8.0":
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-10.8.0.tgz#e5a094df2c020954954018da22d71f930ba87c4a"
+  integrity sha512-YpnP+ROOMrnpbc9nV7NX0pt+4sJv2ORQja6G958YLWHRONWvCuEgQT2ELfmIkfPBgrc8MVXztzmOLcL2InbfTg==
   dependencies:
     stacktrace-js "^2.0.0"
 
-"@react-native-firebase/iid@^10.7.0":
-  version "10.7.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/iid/-/iid-10.7.0.tgz#051f6fbc754d5641e28061e61a952bda4df2087c"
-  integrity sha512-mLTQcLetRma69lJ9UBypaK22ATnExzqf6Zk1bgXj4M5JiIK2RULBXx/29XuuY1MfcRdxSeEefDGMIlp+HJJJCQ==
+"@react-native-firebase/iid@^10.8.0":
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/iid/-/iid-10.8.0.tgz#ed57555a178edf87cffd5743f6e6e5d1c5055ad4"
+  integrity sha512-6vRNJAhftJc4cciYLGVk+KfLIeeR/oIehz7/G7J6tjCtbymkZ0d8f+bh/5l5n/p6l7sPdh4rI2BQY2TtrvPbUw==
 
-"@react-native-firebase/messaging@^10.7.0":
-  version "10.7.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-10.7.0.tgz#b9ac816a55cb59630cc107ebbcab1de487759cca"
-  integrity sha512-FMjh/QTyZzZ6GKfQZBW7xZSBzrSMILGNk+EP3RG5cyPVqbsYFxqBkxeFUnZEIc0q9YCHMB1hH1aKIthpPsRX3A==
+"@react-native-firebase/messaging@^10.8.0":
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-10.8.0.tgz#b306eba8f9c5bd1de153553d65abb23039892230"
+  integrity sha512-93xjjUhp61wIVADONX51Gry4k4luaENrsnbYjwxoUnWcG5vxHIAwPbeXwWIfEs1/oiv7vvXScc11WjE95LLfiw==
 
 "@react-navigation/bottom-tabs@^5.11.7":
   version "5.11.7"
@@ -8246,10 +8246,10 @@ react-devtools-core@^4.6.0:
     shell-quote "^1.6.1"
     ws "^7"
 
-react-fluxible@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/react-fluxible/-/react-fluxible-5.0.3.tgz#3630a3acce95a3deb4bfb313dce45d28c0beda8d"
-  integrity sha512-ehHhFr02vMeQ9vUbQcur7gJiPNpgdBC3/HzwTr7N9dqHjRJMV9H9QFXDtGSaplocjeSAYZLtsxygl4uIFqPVJQ==
+react-fluxible@^5.0.4:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/react-fluxible/-/react-fluxible-5.0.4.tgz#f5c21a5853ab99c31dbbef235dbddaabdf748f69"
+  integrity sha512-JzyD2nKfQES2M3E+CUWTYhOKDz9u7PtiqF90PgLpfgnoX1nv4IkubiQTSgwhRsa5ulX+DZUjBjOGf2h0yHkFxw==
 
 react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"

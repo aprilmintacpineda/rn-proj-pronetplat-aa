@@ -412,35 +412,35 @@ PODS:
     - React-jsi (= 0.63.4)
   - ReactNativeCameraKit (1.0.0):
     - React
-  - RNBootSplash (3.1.3):
+  - RNBootSplash (3.1.4):
     - React-Core
   - RNCAsyncStorage (1.13.4):
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
-  - RNFBAnalytics (10.7.0):
+  - RNFBAnalytics (10.8.0):
     - Firebase/Analytics (~> 7.6.0)
     - React-Core
     - RNFBApp
-  - RNFBApp (10.7.0):
+  - RNFBApp (10.8.0):
     - Firebase/CoreOnly (~> 7.6.0)
     - React-Core
-  - RNFBCrashlytics (10.7.0):
+  - RNFBCrashlytics (10.8.0):
     - Firebase/Crashlytics (~> 7.6.0)
     - React-Core
     - RNFBApp
-  - RNFBIid (10.7.0):
+  - RNFBIid (10.8.0):
     - Firebase/CoreOnly (~> 7.6.0)
     - FirebaseInstanceID
     - React-Core
     - RNFBApp
-  - RNFBMessaging (10.7.0):
+  - RNFBMessaging (10.8.0):
     - Firebase/Messaging (~> 7.6.0)
     - React-Core
     - RNFBApp
   - RNFS (2.16.6):
     - React
-  - RNGestureHandler (1.10.0):
+  - RNGestureHandler (1.10.1):
     - React-Core
   - RNPermissions (3.0.0):
     - React-Core
@@ -794,16 +794,16 @@ SPEC CHECKSUMS:
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   ReactNativeCameraKit: 5026c5884617eab92b096b62262eec2bbf9eb647
-  RNBootSplash: 43868f415d2a2c7b5365ebc8dd0f93abbce0f00c
+  RNBootSplash: 774bfb6219ceaf22f3f87f691ddc51e0746d6ff2
   RNCAsyncStorage: 44539979e1f234262d64d3ce86ec21cceb1b2c5e
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNFBAnalytics: 557c7e8257ab7900051d0511eaba1550767f8c1c
-  RNFBApp: d75aa9756bca20df2c902a3f7e11bc276f03c65b
-  RNFBCrashlytics: 06ae20e6b311b60bb9a09f4d92a98ec865c2366c
-  RNFBIid: e9bddd169b087112b4a39a1b0ec6b64437a1e1e2
-  RNFBMessaging: f44e16c7bef577cd9803d53fdce4656280b1ccc4
+  RNFBAnalytics: 90d32a12ca53f8cd6246030b7f1c12615c148f1f
+  RNFBApp: 97b618641633d6d23187a9d0537c3893482c483f
+  RNFBCrashlytics: bce8050df4a789ceba3984fbb66c4fc12158fdfd
+  RNFBIid: cc072afa03f2526a4cd55a44d774c60a40ea3e7c
+  RNFBMessaging: 9eae1103b79d94c6baa5bc43dabc9aba49dfb9da
   RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
-  RNGestureHandler: 03f587ba19a7e2d9fe48fb9aa6e33ace5fd07dd5
+  RNGestureHandler: 5e58135436aacc1c5d29b75547d3d2b9430d052c
   RNPermissions: 99dd8d4a30ff13509b949ca63cd1f69edc461775
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
   RNScreens: b6c9607e6fe47c1b6e2f1910d2acd46dd7ecea3a
