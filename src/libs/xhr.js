@@ -58,7 +58,7 @@ export async function uploadFileToSignedUrl ({ signedUrl, file }) {
   const response = await fetch(signedUrl, {
     method: 'put',
     headers: {
-      'Content-Type': file.mimeType
+      'Content-Type': file.type
     },
     body: { uri: file.uri }
   });

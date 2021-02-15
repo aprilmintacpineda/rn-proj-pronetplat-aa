@@ -12,7 +12,7 @@ class File {
 
     this.uri = value.path || value.uri;
     this.name = this.uri.split('/').reverse()[0];
-    this.mimeType = lookup(this.uri);
+    this.type = lookup(this.uri);
   }
 
   async getSize () {

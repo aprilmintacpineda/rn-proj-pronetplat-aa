@@ -86,9 +86,7 @@ function ChangeProfilePicture ({
           return;
         }
 
-        if (
-          validate(file.mimeType, ['options:image/jpeg,image/png'])
-        ) {
+        if (validate(file.type, ['options:image/jpeg,image/png'])) {
           showErrorPopup({
             message: 'Please select only JPG or PNG images.'
           });
@@ -99,20 +97,15 @@ function ChangeProfilePicture ({
         let response = await xhr('/change-profile-picture', {
           method: 'post',
           body: {
-            mimeType: file.mimeType
+            type: file.type
           }
         });
 
         const { signedUrl, profilePicture } = await response.json();
-
-        await uploadFileToSignedUrl({
-          signedUrl,
-          file
-        });
-
+        await uploadFileToSignedUrl({ signedUrl, file });
         await waitForPicture(profilePicture);
-        response = await xhr('/validate-auth', { method: 'post' });
 
+        response = await xhr('/validate-auth', { method: 'post' });
         const { userData, authToken } = await response.json();
 
         updateStore({
@@ -125,6 +118,7 @@ function ChangeProfilePicture ({
         setStatus('uploadSuccess');
       } catch (error) {
         console.log(error);
+
         showRequestFailedPopup();
         setStatus('uploadFailed');
       }
