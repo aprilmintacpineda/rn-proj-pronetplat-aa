@@ -1,10 +1,6 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
-import {
-  Placeholder,
-  PlaceholderMedia,
-  ShineOverlay
-} from 'rn-placeholder';
+import { Placeholder, PlaceholderMedia, Fade } from 'rn-placeholder';
 import useState from 'hooks/useState';
 
 function Avatar ({ size = 60, uri, label }) {
@@ -55,7 +51,7 @@ function Avatar ({ size = 60, uri, label }) {
               bottom: 0
             }}
           >
-            <Placeholder Animation={ShineOverlay}>
+            <Placeholder Animation={Fade}>
               <PlaceholderMedia
                 style={{ borderRadius: 100 }}
                 size={size}

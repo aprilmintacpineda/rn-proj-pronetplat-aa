@@ -6,7 +6,7 @@ import {
   Placeholder,
   PlaceholderLine,
   PlaceholderMedia,
-  ShineOverlay
+  Fade
 } from 'rn-placeholder';
 import ContactDetailRow from './Row';
 import Button from 'components/Button';
@@ -378,7 +378,7 @@ function ContactProfile ({
         isRefreshing)
     ) {
       return (
-        <Placeholder Animation={ShineOverlay}>
+        <Placeholder Animation={Fade}>
           <View style={{ margin: 15 }}>
             <PlaceholderLine width={30} height={8} />
             <View

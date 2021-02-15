@@ -4,7 +4,7 @@ import {
   Placeholder,
   PlaceholderLine,
   PlaceholderMedia,
-  ShineOverlay
+  Fade
 } from 'rn-placeholder';
 import ListItemSeparator from 'components/ListItemSeparator';
 
@@ -13,10 +13,7 @@ function ContactsLoadingPlaceholder ({ isFirstFetch, isFetching }) {
     return (
       <>
         {!isFirstFetch && <ListItemSeparator />}
-        <Placeholder
-          Animation={ShineOverlay}
-          style={{ padding: 15 }}
-        >
+        <Placeholder Animation={Fade} style={{ padding: 15 }}>
           <View style={{ flexDirection: 'row' }}>
             <PlaceholderMedia
               style={{ borderRadius: 100 }}
