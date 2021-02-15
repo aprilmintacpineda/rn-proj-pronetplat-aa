@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Avatar as RNPAvatar } from 'react-native-paper';
+import { Image, Text, View } from 'react-native';
 import {
   Placeholder,
   PlaceholderMedia,
@@ -40,12 +39,16 @@ function Avatar ({ size = 60, uri, label }) {
 
   if (state.uri && !isLoadError) {
     return (
-      <>
+      <View
+        style={{
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
         {!isLoadSuccess ? (
           <View
             style={{
               position: 'absolute',
-              overflow: 'hidden',
               top: 0,
               left: 0,
               right: 0,
@@ -60,33 +63,41 @@ function Avatar ({ size = 60, uri, label }) {
             </Placeholder>
           </View>
         ) : null}
-        <RNPAvatar.Image
+        <Image
           source={{ uri: state.uri }}
-          size={size}
           onError={onError}
           onLoad={onLoad}
           style={{
+            width: size,
+            height: size,
+            borderRadius: 100,
             backgroundColor: '#d0d1d5',
             borderColor: '#bbbdbf',
             borderWidth: 1,
             opacity: isLoadSuccess ? 1 : 0
           }}
         />
-      </>
+      </View>
     );
   }
 
   return (
-    <RNPAvatar.Text
-      label={label}
-      labelStyle={{ fontSize: Math.floor(size * 0.3) }}
-      size={size}
+    <View
       style={{
         backgroundColor: '#d0d1d5',
         borderColor: '#bbbdbf',
-        borderWidth: 1
+        borderWidth: 1,
+        borderRadius: 100,
+        width: size,
+        height: size,
+        alignItems: 'center',
+        justifyContent: 'center'
       }}
-    />
+    >
+      <Text style={{ fontSize: Math.floor(size * 0.4) }}>
+        {label}
+      </Text>
+    </View>
   );
 }
 
