@@ -73,7 +73,6 @@ function PlaceholderScreen () {
 function Navigations () {
   const { authUser } = useFluxibleStore(mapStates);
   const { width } = useWindowDimensions();
-  const drawerType = width >= 768 ? 'permanent' : 'slide';
 
   const initialRouteName = hasCompletedSetup(authUser)
     ? 'MainStackNavigation'
@@ -82,7 +81,7 @@ function Navigations () {
   return (
     <Drawer.Navigator
       initialRouteName={initialRouteName}
-      drawerType={drawerType}
+      drawerType={width >= 768 ? 'permanent' : 'slide'}
       drawerContent={drawerContent}
       screenOptions={screenOptions}
     >
@@ -145,21 +144,6 @@ function Navigations () {
             />
           ),
           to: 'Settings'
-        }}
-      />
-      <Drawer.Screen
-        name="BlockedUsersPlaceHolder"
-        component={PlaceholderScreen}
-        options={{
-          drawerLabel: 'Blocked Users',
-          drawerIcon: props => (
-            <RNVectorIcon
-              provider="Ionicons"
-              name="ios-person-remove"
-              {...props}
-            />
-          ),
-          to: 'BlockList'
         }}
       />
       <Drawer.Screen

@@ -112,6 +112,13 @@ function MainStackNavigation () {
         }}
       />
       <Stack.Screen
+        name="BlockList"
+        component={BlockList}
+        options={{
+          title: 'Blocked Users'
+        }}
+      />
+      <Stack.Screen
         name="ContactRequests"
         component={ContactRequests}
         options={{
@@ -124,14 +131,6 @@ function MainStackNavigation () {
         component={Notifications}
         options={{
           title: 'Notifications',
-          ...TransitionPresets.ModalSlideFromBottomIOS
-        }}
-      />
-      <Stack.Screen
-        name="BlockList"
-        component={BlockList}
-        options={{
-          title: 'Blocked Users',
           ...TransitionPresets.ModalSlideFromBottomIOS
         }}
       />
