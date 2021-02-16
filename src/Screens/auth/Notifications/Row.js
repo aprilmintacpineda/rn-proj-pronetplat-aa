@@ -4,7 +4,7 @@ import { Paragraph, Text } from 'react-native-paper';
 import Caption from 'components/Caption';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
-import TouchableButtonLink from 'components/TouchableButtonLink';
+import TouchableRipple from 'components/TouchableRipple';
 import UserAvatar from 'components/UserAvatar';
 import { getFullName, getPersonalPronoun } from 'libs/user';
 import { paperTheme, navigationTheme } from 'theme';
@@ -133,9 +133,9 @@ function NotificationRow (notification) {
     type === 'contactRequestCancelled'
   ) {
     return (
-      <TouchableButtonLink to="ContactProfile" params={actor}>
+      <TouchableRipple to="ContactProfile" params={actor}>
         <NotificationBody {...notification} />
-      </TouchableButtonLink>
+      </TouchableRipple>
     );
   }
 

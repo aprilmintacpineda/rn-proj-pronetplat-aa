@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Animatable from 'components/Animatable';
-import TouchableButtonLink from 'components/TouchableButtonLink';
+import TouchableRipple from 'components/TouchableRipple';
 import UserAvatar from 'components/UserAvatar';
 import { getFullName, renderUserTitle } from 'libs/user';
 
@@ -12,7 +12,7 @@ function BlockListRow ({ index, ...contactData }) {
 
   return (
     <Animatable animation="fadeInFromRight" delay={delay}>
-      <TouchableButtonLink to="ContactProfile" params={contactData}>
+      <TouchableRipple to="ContactProfile" params={contactData}>
         <View
           style={{
             flexDirection: 'row',
@@ -33,7 +33,7 @@ function BlockListRow ({ index, ...contactData }) {
             {renderUserTitle(contactData)}
           </View>
         </View>
-      </TouchableButtonLink>
+      </TouchableRipple>
     </Animatable>
   );
 }

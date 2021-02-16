@@ -1,31 +1,38 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import { Text } from 'react-native-paper';
+import { openSettings } from 'react-native-permissions';
 import ListItemSeparator from 'components/ListItemSeparator';
 import RNVectorIcon from 'components/RNVectorIcon';
-import TouchableButtonLink from 'components/TouchableButtonLink';
+import TouchableRipple from 'components/TouchableRipple';
+import { paperTheme } from 'theme';
 
 const menuList = [
   {
     title: 'Block list',
-    icon: (
-      <RNVectorIcon
-        size={35}
-        provider="MaterialCommunityIcons"
-        name="qrcode-remove"
-      />
-    ),
+    icon: {
+      provider: 'MaterialCommunityIcons',
+      name: 'qrcode-remove'
+    },
     to: 'BlockList'
+  },
+  {
+    title: 'App settings',
+    icon: {
+      provider: 'Ionicons',
+      name: 'ios-settings-outline'
+    },
+    onPress: openSettings
   }
 ];
 
 function renderItem ({ item }) {
   console.log('target', item);
 
-  const { title, icon, to } = item;
+  const { title, icon, to, onPress } = item;
 
   return (
-    <TouchableButtonLink to={to}>
+    <TouchableRipple to={to} onPress={onPress}>
       <View
         style={{
           flexDirection: 'row',
@@ -33,7 +40,11 @@ function renderItem ({ item }) {
           padding: 15
         }}
       >
-        {icon}
+        <RNVectorIcon
+          size={25}
+          color={paperTheme.colors.primary}
+          {...icon}
+        />
         <Text
           style={{
             marginLeft: 30
@@ -42,7 +53,7 @@ function renderItem ({ item }) {
           {title}
         </Text>
       </View>
-    </TouchableButtonLink>
+    </TouchableRipple>
   );
 }
 

@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper';
 import Animatable from 'components/Animatable';
 import Caption from 'components/Caption';
 import TimeAgo from 'components/TimeAgo';
-import TouchableButtonLink from 'components/TouchableButtonLink';
+import TouchableRipple from 'components/TouchableRipple';
 import UserAvatar from 'components/UserAvatar';
 import { getFullName, renderUserTitle } from 'libs/user';
 
@@ -14,7 +14,7 @@ function ContactRequestRow ({ sender, createdAt, index }) {
 
   return (
     <Animatable animation="fadeInFromRight" delay={delay}>
-      <TouchableButtonLink to="ContactProfile" params={sender}>
+      <TouchableRipple to="ContactProfile" params={sender}>
         <View style={{ flexDirection: 'row', padding: 15 }}>
           <UserAvatar user={sender} />
           <View style={{ flex: 1, marginLeft: 10 }}>
@@ -27,7 +27,7 @@ function ContactRequestRow ({ sender, createdAt, index }) {
             </Caption>
           </View>
         </View>
-      </TouchableButtonLink>
+      </TouchableRipple>
     </Animatable>
   );
 }
