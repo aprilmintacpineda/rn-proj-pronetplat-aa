@@ -78,7 +78,7 @@ index 5c90171..71befdb 100644
 +              {label}
 +            </Text>
 +          </View>
-+          {!isNaN(badge) ? <Badge visible={badge > 0}>{badge}</Badge> : null}
++          {!isNaN(badge) ? <Badge visible={Boolean(badge)}>{badge}</Badge> : null}
          </View>
        </TouchableRipple>
      </View>

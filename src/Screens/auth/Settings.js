@@ -9,7 +9,11 @@ const menuList = [
   {
     title: 'Block list',
     icon: (
-      <RNVectorIcon size={35} provider="Feather" name="user-x" />
+      <RNVectorIcon
+        size={35}
+        provider="MaterialCommunityIcons"
+        name="qrcode-remove"
+      />
     ),
     to: 'BlockList'
   }
@@ -32,7 +36,7 @@ function renderItem ({ item }) {
         {icon}
         <Text
           style={{
-            marginLeft: 15
+            marginLeft: 30
           }}
         >
           {title}

@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
+import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import RNVectorIcon from 'components/RNVectorIcon';
 import ContactList from 'Screens/auth/Contact/List';
 import MyCode from 'Screens/auth/MyCode';
@@ -8,7 +9,13 @@ import SendingContactRequests from 'Screens/auth/SendingContactRequests';
 
 const Tab = createBottomTabNavigator();
 
+function mapStates ({ sendingContactRequests }) {
+  return { sendingContactRequests };
+}
+
 function MainTabNavigation () {
+  const { sendingContactRequests } = useFluxibleStore(mapStates);
+
   return (
     <Tab.Navigator
       lazy={false}
@@ -21,12 +28,12 @@ function MainTabNavigation () {
         options={{
           tabBarIcon: props => (
             <RNVectorIcon
-              provider="AntDesign"
-              name="contacts"
+              provider="Feather"
+              name="user-check"
               {...props}
             />
           ),
-          tabBarLabel: 'Contacts'
+          tabBarLabel: 'My Contacts'
         }}
         name="ContactList"
         component={ContactList}
@@ -35,12 +42,12 @@ function MainTabNavigation () {
         options={{
           tabBarIcon: props => (
             <RNVectorIcon
-              provider="Ionicons"
-              name="qr-code-outline"
+              provider="MaterialCommunityIcons"
+              name="qrcode"
               {...props}
             />
           ),
-          tabBarLabel: 'My Code'
+          tabBarLabel: 'My QRCode'
         }}
         name="MyCode"
         component={MyCode}
@@ -49,12 +56,12 @@ function MainTabNavigation () {
         options={{
           tabBarIcon: props => (
             <RNVectorIcon
-              provider="Ionicons"
-              name="scan-outline"
+              provider="MaterialCommunityIcons"
+              name="qrcode-scan"
               {...props}
             />
           ),
-          tabBarLabel: 'Scan Code'
+          tabBarLabel: 'Scan QRCode'
         }}
         name="ScanCode"
         component={ScanCode}
@@ -64,8 +71,9 @@ function MainTabNavigation () {
           tabBarIcon: props => (
             <RNVectorIcon
               provider="MaterialCommunityIcons"
-              name="av-timer"
+              name="progress-upload"
               {...props}
+              badge={sendingContactRequests.length}
             />
           ),
           tabBarLabel: 'Pending'

@@ -1,4 +1,6 @@
 import React from 'react';
+import { View } from 'react-native';
+import { Badge } from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
@@ -13,9 +15,19 @@ const icons = {
   Feather
 };
 
-function RNVectorIcon ({ provider, ...iconProps }) {
+function RNVectorIcon ({ provider, badge, ...iconProps }) {
   const Icon = icons[provider];
-  return <Icon {...iconProps} />;
+  return (
+    <View style={{ position: 'relative' }}>
+      <Icon {...iconProps} />
+      <Badge
+        style={{ position: 'absolute', top: -8, right: -8 }}
+        visible={Boolean(badge)}
+      >
+        {badge}
+      </Badge>
+    </View>
+  );
 }
 
 export default React.memo(RNVectorIcon);

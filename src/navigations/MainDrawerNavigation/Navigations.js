@@ -92,8 +92,8 @@ function Navigations () {
           drawerLabel: 'Dashboard',
           drawerIcon: props => (
             <RNVectorIcon
-              provider="MaterialCommunityIcons"
-              name="view-dashboard"
+              provider="Ionicons"
+              name="ios-home-outline"
               {...props}
             />
           )
@@ -106,8 +106,8 @@ function Navigations () {
           drawerLabel: 'Contact Requests',
           drawerIcon: props => (
             <RNVectorIcon
-              provider="Ionicons"
-              name="ios-person-add"
+              provider="MaterialCommunityIcons"
+              name="qrcode-plus"
               {...props}
             />
           ),
@@ -122,8 +122,8 @@ function Navigations () {
           drawerLabel: 'Notifications',
           drawerIcon: props => (
             <RNVectorIcon
-              provider="Ionicons"
-              name="ios-notifications"
+              provider="Feather"
+              name="bell"
               {...props}
             />
           ),
@@ -138,8 +138,8 @@ function Navigations () {
           drawerLabel: 'Settings',
           drawerIcon: props => (
             <RNVectorIcon
-              provider="Ionicons"
-              name="ios-settings"
+              provider="Feather"
+              name="settings"
               {...props}
             />
           ),
