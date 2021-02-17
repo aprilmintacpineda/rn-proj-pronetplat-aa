@@ -231,7 +231,7 @@ function ChangeProfilePicture ({
           >
             <TouchableRipple
               onPress={selectPicture}
-              rippleColor={paperTheme.colors.primaryAccent}
+              rippleColor={paperTheme.colors.rippleColor}
             >
               <View
                 style={{
@@ -256,7 +256,7 @@ function ChangeProfilePicture ({
             </TouchableRipple>
             <TouchableRipple
               onPress={takePicture}
-              rippleColor={paperTheme.colors.primaryAccent}
+              rippleColor={paperTheme.colors.rippleColor}
             >
               <View
                 style={{

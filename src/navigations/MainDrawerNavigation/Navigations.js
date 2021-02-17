@@ -138,8 +138,8 @@ function Navigations () {
           drawerLabel: 'Settings',
           drawerIcon: props => (
             <RNVectorIcon
-              provider="MaterialCommunityIcons"
-              name="account-cog-outline"
+              provider="Ionicons"
+              name="ios-settings-outline"
               {...props}
             />
           ),

@@ -12,6 +12,7 @@ import { navigationRef } from 'App';
 import { getInitials } from 'libs/user';
 import { displayNotification } from 'PopupManager/NotificationPopup';
 import BlockList from 'Screens/auth/BlockList';
+import ChangePersonalInfo from 'Screens/auth/ChangePersonalInfo';
 import ContactProfile from 'Screens/auth/Contact/Profile';
 import ContactRequests from 'Screens/auth/ContactRequests';
 import Notifications from 'Screens/auth/Notifications';
@@ -120,6 +121,13 @@ function MainStackNavigation () {
         component={BlockList}
         options={{
           title: 'Blocked Users'
+        }}
+      />
+      <Stack.Screen
+        name="ChangePersonalInfo"
+        component={ChangePersonalInfo}
+        options={{
+          title: 'My Personal Info'
         }}
       />
       <Stack.Screen

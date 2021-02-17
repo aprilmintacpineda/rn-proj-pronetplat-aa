@@ -277,8 +277,8 @@ function ContactProfile ({
           title: 'Remove',
           icon: props => (
             <RNVectorIcon
-              provider="Ionicons"
-              name="ios-trash"
+              provider="MaterialCommunityIcons"
+              name="qrcode-minus"
               {...props}
             />
           ),
@@ -308,8 +308,8 @@ function ContactProfile ({
           title: 'Block',
           icon: props => (
             <RNVectorIcon
-              provider="Entypo"
-              name="block"
+              provider="MaterialCommunityIcons"
+              name="qrcode-remove"
               {...props}
             />
           ),

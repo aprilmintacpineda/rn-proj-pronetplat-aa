@@ -11,12 +11,10 @@ function FormWithContext ({
     endPoint = '',
     validators = {},
     validatorChains = null,
-    onBeforeSubmitEffect = null,
     onSubmit = null,
     onSubmitError = null,
     onSubmitSuccess = null,
     transformInput = null,
-    onBeforeSaveConfirm = null,
     ignoreResponse = false,
     stayDisabledOnSuccess = false
   },
@@ -29,21 +27,32 @@ function FormWithContext ({
       formValues,
       formErrors,
       status,
-      targetDocumentId,
       previousFormValues,
       isTouched
     },
     updateState
-  } = useState(() => ({
-    responseData: null,
-    previousFormValues: { ...initialFormValues },
-    formValues: { ...initialFormValues },
-    formErrors: {},
-    formContext: { ...initialFormContext },
-    status: 'initial',
-    targetDocumentId: null,
-    isTouched: false
-  }));
+  } = useState(() => {
+    const formValues =
+      initialFormValues.constructor === Function
+        ? initialFormValues()
+        : { ...initialFormValues };
+
+    const formContext =
+      initialFormContext &&
+      initialFormContext.constructor === Function
+        ? initialFormContext()
+        : {};
+
+    return {
+      formValues,
+      formContext,
+      previousFormValues: formValues,
+      formErrors: {},
+      status: 'initial',
+      isTouched: false,
+      responseData: null
+    };
+  });
 
   const isInitial = status === 'initial';
   const isSubmitting = status === 'submitting';
@@ -51,8 +60,6 @@ function FormWithContext ({
   const isSubmitError = status === 'submitError';
   const disabled =
     isSubmitting || (isSubmitSuccess && stayDisabledOnSuccess);
-  const operation = targetDocumentId ? 'update' : 'others';
-  const isUpdate = operation === 'update';
 
   const validateField = React.useCallback(
     (field, values) => {
@@ -60,31 +67,6 @@ function FormWithContext ({
       return validator ? validator(values) : '';
     },
     [validators]
-  );
-
-  const setEditMode = React.useCallback(
-    callback => {
-      updateState(oldState => {
-        const {
-          formValues = oldState.formValues,
-          targetDocumentId = null,
-          formContext = oldState.formContext
-        } = callback({
-          formValues: oldState.formValues,
-          formContext: oldState.formContext
-        });
-
-        return {
-          previousFormValues: { ...formValues },
-          formContext,
-          formValues,
-          targetDocumentId,
-          formErrors: {},
-          isTouched: true
-        };
-      });
-    },
-    [updateState]
   );
 
   const setField = React.useCallback(
@@ -157,95 +139,11 @@ function FormWithContext ({
     return hasError;
   }, [initialFormValues, formValues, validateField, updateState]);
 
-  const confirmSubmit = React.useCallback(async () => {
-    try {
-      let responseData = null;
-
-      if (onBeforeSubmitEffect)
-        await onBeforeSubmitEffect({ formValues, formContext });
-
-      if (onSubmit) {
-        responseData = await onSubmit({ formValues, formContext });
-      } else {
-        let method = null;
-        let path = null;
-
-        if (isUpdate) {
-          method = 'patch';
-          path = endPoint.replace(':id', targetDocumentId);
-        } else {
-          method = 'post';
-          path = endPoint.replace(':id', '');
-        }
-
-        const body = transformInput
-          ? await transformInput({ formValues, formContext })
-          : formValues;
-        const response = await xhr(path, { body, method });
-        if (!ignoreResponse) responseData = await response.json();
-      }
-
-      if (onSubmitSuccess) {
-        onSubmitSuccess({
-          responseData,
-          formValues,
-          formContext,
-          setContext,
-          operation,
-          isUpdate
-        });
-      }
-
-      updateState({
-        status: 'submitSuccess',
-        isTouched: true,
-        responseData: ignoreResponse ? null : responseData
-      });
-    } catch (error) {
-      console.error('useForm confirmSubmit', error);
-
-      if (onSubmitError) {
-        await onSubmitError({
-          error,
-          formValues,
-          formContext,
-          setContext
-        });
-      }
-
-      updateState({
-        status: 'submitError',
-        isTouched: true
-      });
-    }
-  }, [
-    onSubmit,
-    formValues,
-    formContext,
-    setContext,
-    onSubmitError,
-    onSubmitSuccess,
-    transformInput,
-    operation,
-    targetDocumentId,
-    endPoint,
-    ignoreResponse,
-    onBeforeSubmitEffect,
-    isUpdate,
-    updateState
-  ]);
-
-  const cancelSubmit = React.useCallback(() => {
-    updateState({
-      status: 'submitCancelled',
-      isTouched: true
-    });
-  }, [updateState]);
-
   const submitHandler = React.useCallback(
     async ev => {
+      if (ev && ev.preventDefault) ev.preventDefault();
+
       try {
-        if (ev && ev.preventDefault) ev.preventDefault();
         if (isSubmitting) return;
         if (validateForm()) return;
 
@@ -254,30 +152,43 @@ function FormWithContext ({
           isTouched: true
         });
 
-        if (onBeforeSaveConfirm) {
-          const result = await onBeforeSaveConfirm({
-            formValues,
-            formContext,
-            onConfirm: confirmSubmit,
-            onCancel: cancelSubmit,
-            operation,
-            targetDocumentId
+        let responseData = null;
+
+        if (onSubmit) {
+          responseData = await onSubmit({ formValues, formContext });
+        } else {
+          const body = transformInput
+            ? await transformInput({ formValues, formContext })
+            : formValues;
+
+          const response = await xhr(endPoint, {
+            body,
+            method: 'post'
           });
 
-          if (!result) {
-            updateState({
-              status: 'submitConfirmError',
-              isTouched: true
-            });
-          }
-        } else {
-          confirmSubmit();
+          if (!ignoreResponse) responseData = await response.json();
         }
+
+        if (onSubmitSuccess) {
+          onSubmitSuccess({
+            responseData,
+            formValues,
+            formContext,
+            setContext
+          });
+        }
+
+        updateState({
+          status: 'submitSuccess',
+          isTouched: true,
+          responseData: ignoreResponse ? null : responseData
+        });
       } catch (error) {
-        console.error('useForm submitHandler', error);
+        console.error('useForm confirmSubmit', error);
 
         if (onSubmitError) {
-          await onSubmitError(error, {
+          await onSubmitError({
+            error,
             formValues,
             formContext,
             setContext
@@ -293,45 +204,58 @@ function FormWithContext ({
     [
       validateForm,
       isSubmitting,
-      confirmSubmit,
       formContext,
       formValues,
-      onBeforeSaveConfirm,
-      onSubmitError,
       setContext,
-      cancelSubmit,
-      operation,
-      targetDocumentId,
-      updateState
+      updateState,
+      endPoint,
+      ignoreResponse,
+      onSubmit,
+      onSubmitSuccess,
+      onSubmitError,
+      transformInput
     ]
   );
 
-  const { onChangeHandlers } = React.useMemo(
-    () =>
-      Object.keys(initialFormValues).reduce(
-        (accumulator, field) => ({
-          onChangeHandlers: {
-            ...accumulator.onChangeHandlers,
-            [field]: value => {
-              setField(field, value);
-            }
+  const { onChangeHandlers } = React.useMemo(() => {
+    const formValues =
+      initialFormValues.constructor === Function
+        ? initialFormValues()
+        : initialFormValues;
+
+    return Object.keys(formValues).reduce(
+      (accumulator, field) => ({
+        onChangeHandlers: {
+          ...accumulator.onChangeHandlers,
+          [field]: value => {
+            setField(field, value);
           }
-        }),
-        {
-          onChangeHandlers: {}
         }
-      ),
-    [initialFormValues, setField]
-  );
+      }),
+      { onChangeHandlers: {} }
+    );
+  }, [initialFormValues, setField]);
 
   const resetForm = React.useCallback(() => {
+    const formValues =
+      initialFormValues.constructor === Function
+        ? initialFormValues()
+        : { ...initialFormValues };
+
+    const formContext =
+      initialFormContext &&
+      initialFormContext.constructor === Function
+        ? initialFormContext()
+        : {};
+
     updateState({
-      previousFormValues: { ...initialFormValues },
-      formValues: { ...initialFormValues },
+      formValues,
+      formContext,
+      previousFormValues: formValues,
       formErrors: {},
-      formContext: { ...initialFormContext },
       status: 'initial',
-      isTouched: false
+      isTouched: false,
+      responseData: null
     });
   }, [initialFormValues, initialFormContext, updateState]);
 
@@ -365,12 +289,9 @@ function FormWithContext ({
         isInitial,
         isSubmitSuccess,
         isSubmitError,
-        isUpdate,
         disabled,
         submitHandler,
         setContext,
-        setEditMode,
-        operation,
         resetForm,
         setForm,
         responseData,

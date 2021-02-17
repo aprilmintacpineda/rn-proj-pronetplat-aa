@@ -1,3 +1,4 @@
+import color from 'color';
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import { Text } from 'react-native-paper';
@@ -9,6 +10,14 @@ import { paperTheme } from 'theme';
 
 const menuList = [
   {
+    title: 'Personal Information',
+    icon: {
+      provider: 'MaterialCommunityIcons',
+      name: 'account-cog-outline'
+    },
+    to: 'ChangePersonalInfo'
+  },
+  {
     title: 'Block list',
     icon: {
       provider: 'MaterialCommunityIcons',
@@ -19,16 +28,18 @@ const menuList = [
   {
     title: 'App settings',
     icon: {
-      provider: 'Ionicons',
-      name: 'ios-settings-outline'
+      provider: 'MaterialCommunityIcons',
+      name: 'cellphone-cog'
     },
     onPress: openSettings
   }
 ];
 
-function renderItem ({ item }) {
-  console.log('target', item);
+const contentColor = color(paperTheme.colors.text)
+  .alpha(0.68)
+  .string();
 
+function renderItem ({ item }) {
   const { title, icon, to, onPress } = item;
 
   return (
@@ -40,14 +51,12 @@ function renderItem ({ item }) {
           padding: 15
         }}
       >
-        <RNVectorIcon
-          size={25}
-          color={paperTheme.colors.primary}
-          {...icon}
-        />
+        <RNVectorIcon size={25} color={contentColor} {...icon} />
         <Text
           style={{
-            marginLeft: 30
+            marginLeft: 32,
+            color: contentColor,
+            ...paperTheme.fonts.medium
           }}
         >
           {title}
