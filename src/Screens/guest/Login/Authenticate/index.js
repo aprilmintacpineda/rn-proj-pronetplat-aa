@@ -1,10 +1,7 @@
 import React from 'react';
 import AuthenticateForm from './AuthenticateForm';
 import FormWithContext from 'components/FormWithContext';
-import {
-  showErrorPopup,
-  showRequestFailedPopup
-} from 'fluxible/actions/popup';
+import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -18,14 +15,10 @@ const formOptions = {
       validate(password, ['required', 'maxLength:30'])
   },
   endPoint: '/login',
-  onSubmitError: ({ error }) => {
-    if (error.status === 403) {
-      showErrorPopup({
-        message: 'Inccorect email/password combination.'
-      });
-    } else {
-      showRequestFailedPopup();
-    }
+  onSubmitError: () => {
+    showRequestFailedPopup({
+      message: 'Inccorect email/password combination.'
+    });
   },
   stayDisabledOnSuccess: true
 };

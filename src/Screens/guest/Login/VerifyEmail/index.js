@@ -1,10 +1,7 @@
 import React from 'react';
 import VerifyEmailForm from './VerifyEmailForm';
 import FormWithContext from 'components/FormWithContext';
-import {
-  showErrorPopup,
-  showRequestFailedPopup
-} from 'fluxible/actions/popup';
+import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 import { xhr } from 'libs/xhr';
 
@@ -17,22 +14,14 @@ const formOptions = {
       validate(verificationCode, ['required', 'maxLength:20'])
   },
   onSubmitError: ({ error }) => {
-    switch (error.status) {
-      case 410:
-        showErrorPopup({
-          message:
-            'Your verification code has already expired. You can request a new one by tapping on resend code button.'
-        });
-        break;
-      case 403:
-        showErrorPopup({
-          message:
-            "Couldn't not verify your account. Either the verification code you provide has expired or is incorrect."
-        });
-        break;
-      default:
-        showRequestFailedPopup();
-    }
+    showRequestFailedPopup({
+      message:
+        error.status === 410
+          ? 'Your verification code has already expired. You can request a new one by tapping on resend code button.'
+          : error.status === 403
+          ? "Couldn't not verify your account. Either the verification code you provide has expired or is incorrect."
+          : undefined
+    });
   },
   onSubmit: async ({ formValues, formContext: { authToken } }) => {
     const response = await xhr('/verify-email', {
