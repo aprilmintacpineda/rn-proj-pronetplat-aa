@@ -1,5 +1,5 @@
 import React from 'react';
-import ResetPasswordForm from './ResetPasswordForm';
+import ChangePasswordForm from './ChangePasswordForm';
 import { navigationRef } from 'App';
 import FormWithContext from 'components/FormWithContext';
 import {
@@ -10,20 +10,17 @@ import validate from 'libs/validate';
 
 const formOptions = {
   initialFormValues: {
-    confirmationCode: '',
+    currentPassword: '',
     newPassword: '',
     retypeNewPassword: ''
-  },
-  initialFormContext: {
-    email: null
   },
   validatorChains: {
     newPassword: ['retypeNewPassword'],
     retypeNewPassword: ['newPassword']
   },
   validators: {
-    confirmationCode: ({ confirmationCode }) =>
-      validate(confirmationCode, ['required', 'maxLength:20']),
+    currentPassword: ({ currentPassword }) =>
+      validate(currentPassword, ['required', 'password']),
     newPassword: ({ newPassword, retypeNewPassword }) =>
       validate(newPassword, [
         'required',
@@ -36,32 +33,24 @@ const formOptions = {
         `matches:${newPassword},passwords`
       ])
   },
-  transformInput: ({ formValues, formContext }) => {
-    const { email } = formContext;
-
-    return {
-      ...formValues,
-      email
-    };
-  },
-  ignoreResponse: true,
-  endPoint: '/forgot-password-confirm',
+  onSubmitError: showRequestFailedPopup,
   onSubmitSuccess: () => {
     showSuccessPopup({
-      message:
-        'You have successfully reset your password. You may now login using your new password.'
+      message: 'You have successfully changed your password.'
     });
-    navigationRef.current.navigate('Login');
+
+    navigationRef.current.goBack();
   },
-  onSubmitError: showRequestFailedPopup
+  endPoint: '/change-password',
+  ignoreResponse: true
 };
 
-function ResetPassword (props) {
+function ChangePassword () {
   return (
     <FormWithContext formOptions={formOptions}>
-      <ResetPasswordForm {...props} />
+      <ChangePasswordForm />
     </FormWithContext>
   );
 }
 
-export default React.memo(ResetPassword);
+export default React.memo(ChangePassword);

@@ -12,6 +12,7 @@ import { navigationRef } from 'App';
 import { getInitials } from 'libs/user';
 import { displayNotification } from 'PopupManager/NotificationPopup';
 import BlockList from 'Screens/auth/BlockList';
+import ChangePassword from 'Screens/auth/ChangePassword';
 import ChangePersonalInfo from 'Screens/auth/ChangePersonalInfo';
 import ContactProfile from 'Screens/auth/Contact/Profile';
 import ContactRequests from 'Screens/auth/ContactRequests';
@@ -127,7 +128,14 @@ function MainStackNavigation () {
         name="ChangePersonalInfo"
         component={ChangePersonalInfo}
         options={{
-          title: 'My Personal Info'
+          title: 'Change My Personal Info'
+        }}
+      />
+      <Stack.Screen
+        name="ChangePassword"
+        component={ChangePassword}
+        options={{
+          title: 'Change My Password'
         }}
       />
       <Stack.Screen

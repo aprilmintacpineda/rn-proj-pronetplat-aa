@@ -10,12 +10,20 @@ import { paperTheme } from 'theme';
 
 const menuList = [
   {
-    title: 'Personal Information',
+    title: 'Change Personal Information',
     icon: {
       provider: 'MaterialCommunityIcons',
-      name: 'account-cog-outline'
+      name: 'account-edit-outline'
     },
     to: 'ChangePersonalInfo'
+  },
+  {
+    title: 'Change Password',
+    icon: {
+      provider: 'MaterialCommunityIcons',
+      name: 'shield-key-outline'
+    },
+    to: 'ChangePassword'
   },
   {
     title: 'Block list',

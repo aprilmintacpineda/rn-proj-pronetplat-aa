@@ -79,7 +79,7 @@ function ResetPasswordForm ({ email }) {
           style={{ marginBottom: 20 }}
           disabled={isResending}
         >
-          Reset password
+          Reset my password
         </SubmitButton>
         <Button to="Login" color="red" disabled={isResending}>
           Cancel
