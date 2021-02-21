@@ -13,9 +13,7 @@ function Avatar ({ size = 60, uri, label }) {
   const isLoadSuccess = state.status === 'loadSuccess';
 
   const onLoad = React.useCallback(() => {
-    setTimeout(() => {
-      updateState({ status: 'loadSuccess' });
-    }, 3000);
+    updateState({ status: 'loadSuccess' });
   }, [updateState]);
 
   const onError = React.useCallback(

@@ -26,6 +26,14 @@ const menuList = [
     to: 'ChangePassword'
   },
   {
+    title: 'My contact details',
+    icon: {
+      provider: 'MaterialCommunityIcons',
+      name: 'card-account-details-outline'
+    },
+    to: 'ContactDetails'
+  },
+  {
     title: 'Block list',
     icon: {
       provider: 'MaterialCommunityIcons',

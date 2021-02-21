@@ -48,32 +48,32 @@ function MainStackNavigation () {
           const { title, body } = notification;
           const { type, category, profilePicture } = data;
 
-          const screensByType = {
-            contactRequest: 'ContactProfile',
-            contactRequestAccepted: 'ContactProfile',
-            contactRequestCancelled: 'ContactProfile',
-            contactRequestDeclined: 'ContactProfile'
-          };
+          if (type === 'contactRequestCancelled') {
+            updateStore({
+              authUser: {
+                ...store.authUser,
+                receivedContactRequestsCount:
+                  store.authUser.receivedContactRequestsCount - 1
+              }
+            });
+          } else if (type === 'contactRequest') {
+            updateStore({
+              authUser: {
+                ...store.authUser,
+                receivedContactRequestsCount:
+                  store.authUser.receivedContactRequestsCount + 1
+              }
+            });
+          }
 
-          switch (category) {
-            case 'contactRequest':
-              updateStore({
-                authUser: {
-                  ...store.authUser,
-                  receivedContactRequestsCount:
-                    store.authUser.receivedContactRequestsCount + 1
-                }
-              });
-              break;
-            case 'notification':
-              updateStore({
-                authUser: {
-                  ...store.authUser,
-                  notificationsCount:
-                    store.authUser.notificationsCount + 1
-                }
-              });
-              break;
+          if (category === 'notification') {
+            updateStore({
+              authUser: {
+                ...store.authUser,
+                notificationsCount:
+                  store.authUser.notificationsCount + 1
+              }
+            });
           }
 
           displayNotification({
@@ -82,6 +82,13 @@ function MainStackNavigation () {
             avatarUri: profilePicture,
             avatarLabel: getInitials(data),
             onPress: () => {
+              const screensByType = {
+                contactRequest: 'ContactProfile',
+                contactRequestAccepted: 'ContactProfile',
+                contactRequestCancelled: 'ContactProfile',
+                contactRequestDeclined: 'ContactProfile'
+              };
+
               const targetScreen = screensByType[type];
               if (targetScreen)
                 navigationRef.current.navigate(targetScreen, data);

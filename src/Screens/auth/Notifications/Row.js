@@ -26,19 +26,30 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
       icon = (
         <RNVectorIcon
           provider="MaterialCommunityIcons"
-          name="account-check"
+          name="account-check-outline"
           size={25}
           color={success}
         />
       );
       break;
+    case 'contactRequestCancelled':
     case 'contactRequestDeclined':
       icon = (
         <RNVectorIcon
           provider="MaterialCommunityIcons"
-          name="account-cancel"
+          name="account-cancel-outline"
           size={25}
           color={error}
+        />
+      );
+      break;
+    case 'contactRequestFollowUp':
+      icon = (
+        <RNVectorIcon
+          provider="MaterialCommunityIcons"
+          name="account-alert-outline"
+          size={25}
+          color={primary}
         />
       );
       break;
