@@ -126,13 +126,9 @@ export async function addToContact (targetContact) {
     console.log('error', error);
 
     if (error.status === 422) {
-      const { pendingSentRequest } = await error.json();
-
       updateOrCreateToast({
         id: toastId,
-        message: pendingSentRequest
-          ? `Already sent a contact request to ${fullName}`
-          : `${fullName} has already sent you a contact request.`,
+        message: `There's an existing contact request with ${fullName}.`,
         icon,
         type: 'error'
       });
