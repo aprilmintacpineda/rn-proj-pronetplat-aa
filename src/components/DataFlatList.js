@@ -25,7 +25,8 @@ function Body ({
     fetchData,
     isFetching,
     updateData,
-    filterData
+    filterData,
+    concatData
   } = React.useContext(DataFetchContext);
 
   const renderRow = React.useCallback(
@@ -50,9 +51,9 @@ function Body ({
 
     return addEvents(eventNames, (payload, event) => {
       const callback = events[event];
-      callback(payload, { filterData, updateData });
+      callback(payload, { filterData, updateData, concatData });
     });
-  }, [events, filterData, updateData]);
+  }, [events, filterData, updateData, concatData]);
 
   if (isFirstFetch) {
     return (

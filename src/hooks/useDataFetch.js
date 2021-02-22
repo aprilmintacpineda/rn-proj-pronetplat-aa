@@ -51,6 +51,15 @@ function useDataFetch ({
     [updateState]
   );
 
+  const concatData = React.useCallback(
+    newData => {
+      updateState(({ data }) => ({
+        data: data.concat(newData)
+      }));
+    },
+    [updateState]
+  );
+
   const fetchData = React.useCallback(
     async refresh => {
       const isRefresh = refresh === true;
@@ -134,7 +143,8 @@ function useDataFetch ({
     refreshData,
     fetchData,
     updateData,
-    filterData
+    filterData,
+    concatData
   };
 }
 

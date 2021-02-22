@@ -16,7 +16,8 @@ function FormWithContext ({
     onSubmitSuccess = null,
     transformInput = null,
     ignoreResponse = false,
-    stayDisabledOnSuccess = false
+    stayDisabledOnSuccess = false,
+    resetOnSuccess = false
   },
   children
 }) {
@@ -178,10 +179,17 @@ function FormWithContext ({
           });
         }
 
-        updateState({
-          status: 'submitSuccess',
-          isTouched: true,
-          responseData: ignoreResponse ? null : responseData
+        updateState(oldState => {
+          return {
+            status: 'submitSuccess',
+            isTouched: !resetOnSuccess,
+            responseData: ignoreResponse ? null : responseData,
+            formValues: resetOnSuccess
+              ? initialFormValues.constructor === Function
+                ? initialFormValues()
+                : { ...initialFormValues }
+              : oldState.formValues
+          };
         });
       } catch (error) {
         console.error('useForm confirmSubmit', error);
@@ -213,7 +221,9 @@ function FormWithContext ({
       onSubmit,
       onSubmitSuccess,
       onSubmitError,
-      transformInput
+      transformInput,
+      initialFormValues,
+      resetOnSuccess
     ]
   );
 

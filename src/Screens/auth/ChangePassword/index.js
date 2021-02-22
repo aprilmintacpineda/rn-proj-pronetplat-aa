@@ -47,7 +47,8 @@ const formOptions = {
     navigationRef.current.goBack();
   },
   endPoint: '/change-password',
-  ignoreResponse: true
+  ignoreResponse: true,
+  stayDisabledOnSuccess: true
 };
 
 function ChangePassword () {

@@ -15,6 +15,8 @@ import BlockList from 'Screens/auth/BlockList';
 import ChangePassword from 'Screens/auth/ChangePassword';
 import ChangePersonalInfo from 'Screens/auth/ChangePersonalInfo';
 import ContactProfile from 'Screens/auth/Contact/Profile';
+import ContactDetailsAdd from 'Screens/auth/ContactDetail/ContactDetailsAdd';
+import ContactDetailsList from 'Screens/auth/ContactDetail/List';
 import ContactRequests from 'Screens/auth/ContactRequests';
 import Notifications from 'Screens/auth/Notifications';
 import Settings from 'Screens/auth/Settings';
@@ -143,6 +145,20 @@ function MainStackNavigation () {
         component={ChangePassword}
         options={{
           title: 'Change My Password'
+        }}
+      />
+      <Stack.Screen
+        name="ContactDetails"
+        component={ContactDetailsList}
+        options={{
+          title: 'My Contact Details'
+        }}
+      />
+      <Stack.Screen
+        name="ContactDetailsAdd"
+        component={ContactDetailsAdd}
+        options={{
+          title: 'My Contact Details'
         }}
       />
       <Stack.Screen

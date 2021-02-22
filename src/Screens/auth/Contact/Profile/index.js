@@ -2,15 +2,10 @@ import { emitEvent, store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { ScrollView, View, Alert } from 'react-native';
 import { Headline, Text, Divider } from 'react-native-paper';
-import {
-  Placeholder,
-  PlaceholderLine,
-  PlaceholderMedia,
-  Fade
-} from 'rn-placeholder';
 import ContactDetailRow from './Row';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
+import ContactDetailLoadingPlaceholder from 'components/ContactDetailLoadingPlaceholder';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
 import UserAvatar from 'components/UserAvatar';
@@ -376,45 +371,8 @@ function ContactProfile ({
         data.blockedByUser ||
         data.contactBlocked) &&
         isRefreshing)
-    ) {
-      return (
-        <Placeholder Animation={Fade}>
-          <View style={{ margin: 15 }}>
-            <PlaceholderLine width={30} height={8} />
-            <View
-              style={{
-                marginLeft: 15,
-                marginBottom: 15,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-              }}
-            >
-              <PlaceholderLine width={50} />
-              <PlaceholderMedia
-                style={{ borderRadius: 100 }}
-                size={50}
-              />
-            </View>
-            <View
-              style={{
-                marginLeft: 15,
-                marginBottom: 15,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-              }}
-            >
-              <PlaceholderLine width={50} />
-              <PlaceholderMedia
-                style={{ borderRadius: 100 }}
-                size={50}
-              />
-            </View>
-          </View>
-        </Placeholder>
-      );
-    }
+    )
+      return <ContactDetailLoadingPlaceholder />;
 
     if (data.blockedByUser || data.contactBlocked) {
       return (
