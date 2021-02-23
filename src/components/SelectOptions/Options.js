@@ -7,9 +7,11 @@ import { paperTheme } from 'theme';
 
 const { primary } = DefaultTheme.colors;
 
-function Options ({ value, options, onChange }) {
+function Options ({ value, options, onChange, labelUpperCase }) {
   return options.map((option, i) => {
-    const label = camelToTitleCase(option);
+    const label = labelUpperCase
+      ? option.toUpperCase()
+      : camelToTitleCase(option);
     const isSelected = value === option;
 
     return (

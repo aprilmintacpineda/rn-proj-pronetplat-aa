@@ -3,23 +3,20 @@ import { View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { Portal } from 'react-native-paper';
 import Options from './Options';
-import { FormContext } from 'components/FormWithContext/index';
 import TextInput from 'components/TextInput';
 import { camelToTitleCase } from 'libs/strings';
 
 function SelectOptions ({
-  field,
   options,
   labelSuffix,
-  disabled: disabledFromProps,
+  disabled,
+  onChange,
+  value,
+  error,
+  label,
+  labelUpperCase = false,
   ...textInputProps
 }) {
-  const {
-    onChangeHandlers,
-    formValues,
-    formErrors,
-    disabled
-  } = React.useContext(FormContext);
   const modalizeRef = React.useRef();
 
   const openModal = React.useCallback(() => {
@@ -30,10 +27,6 @@ function SelectOptions ({
     modalizeRef.current.close();
   }, []);
 
-  const value = formValues[field];
-  const error = formErrors[field];
-  const onChange = onChangeHandlers[field];
-  let label = camelToTitleCase(field);
   const displayValue = camelToTitleCase(value);
 
   const handleChange = React.useCallback(
@@ -52,7 +45,7 @@ function SelectOptions ({
         value={displayValue}
         error={error}
         label={label}
-        disabled={disabledFromProps || disabled}
+        disabled={disabled}
         {...textInputProps}
         onPress={openModal}
       />
@@ -64,6 +57,7 @@ function SelectOptions ({
         >
           <View style={{ margin: 20, marginTop: 40 }}>
             <Options
+              labelUpperCase={labelUpperCase}
               options={options}
               onChange={handleChange}
               value={value}

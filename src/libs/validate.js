@@ -11,6 +11,24 @@ const validationRules = {
 
     return '';
   },
+  url (value) {
+    if (
+      value.length > 1000 ||
+      // eslint-disable-next-line
+      !/^((https?:\/\/)?[a-zA-Z0-9_-]+\.)?[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)?([a-zA-Z0-9\/]+)?\/?$/.test(
+        value
+      )
+    )
+      return 'Invalid URL';
+
+    return '';
+  },
+  contactOther (value) {
+    if (!this.email(value) || !this.url(value))
+      return 'That seems to be inappropriate for the selected type.';
+
+    return '';
+  },
   required (value) {
     if (!value || !value.length) return 'Required.';
     return '';

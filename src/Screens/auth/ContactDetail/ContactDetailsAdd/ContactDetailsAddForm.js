@@ -1,9 +1,20 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
+import { FormContext } from 'components/FormWithContext';
+import SelectOptions from 'components/FormWithContext/SelectOptions';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
 
+const contactDetailTypeOptions = [
+  'mobile',
+  'telephone',
+  'website',
+  'email'
+];
+
 function ContactDetailsAddForm () {
+  const { formValues } = React.useContext(FormContext);
+
   return (
     <ScrollView>
       <View
@@ -11,7 +22,11 @@ function ContactDetailsAddForm () {
           padding: 15
         }}
       >
-        <TextInput field="value" />
+        <SelectOptions
+          field="type"
+          options={contactDetailTypeOptions}
+        />
+        <TextInput field="value" type={formValues.type} />
         <TextInput
           multiline
           numberOfLines={8}

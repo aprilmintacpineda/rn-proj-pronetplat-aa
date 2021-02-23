@@ -11,13 +11,36 @@ import validate from 'libs/validate';
 const formOptions = {
   initialFormValues: {
     value: '',
-    description: ''
+    description: '',
+    type: 'email'
+  },
+  validatorChains: {
+    type: ['value']
   },
   validators: {
-    value: ({ value }) =>
-      validate(value, ['required', 'maxLength:255']),
-    description: ({ description }) =>
-      validate(description, ['required', 'maxLength:150'])
+    value: ({ value, type }) => {
+      switch (type) {
+        case 'email':
+          return validate(value, ['required', 'email']);
+        case 'website':
+          return validate(value, ['required', 'url']);
+        default:
+          return validate(value, [
+            'required',
+            'maxLength:255',
+            'contactOther'
+          ]);
+      }
+    },
+    description: ({ description }) => {
+      return validate(description, ['required', 'maxLength:150']);
+    },
+    type: ({ type }) => {
+      return validate(type, [
+        'required',
+        'options:mobile,telephone,website,email'
+      ]);
+    }
   },
   onSubmitSuccess: ({ responseData }) => {
     showSuccessPopup({

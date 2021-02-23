@@ -12,6 +12,32 @@ const propsBasedOnTypes = {
     autoCapitalize: 'none',
     autoCorrect: false
   },
+  mobile: {
+    autoCapitalize: 'none',
+    autoCorrect: false,
+    autoCompleteType: 'tel',
+    keyboardType: 'phone-pad',
+    textContentType: 'telephoneNumber'
+  },
+  telephone: {
+    autoCapitalize: 'none',
+    autoCorrect: false,
+    autoCompleteType: 'tel',
+    keyboardType: 'phone-pad',
+    textContentType: 'telephoneNumber'
+  },
+  url: {
+    autoCapitalize: 'none',
+    autoCorrect: false,
+    keyboardType: 'url',
+    textContentType: 'URL'
+  },
+  website: {
+    autoCapitalize: 'none',
+    autoCorrect: false,
+    keyboardType: 'url',
+    textContentType: 'URL'
+  },
   password: {
     secureTextEntry: true,
     autoCapitalize: 'none',
