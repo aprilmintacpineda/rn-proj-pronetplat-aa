@@ -21,7 +21,7 @@ index 3b71389..a874e2b 100644
        )}
      </View>
 diff --git a/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx b/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
-index 5c90171..71befdb 100644
+index 503cfab..cd3933d 100644
 --- a/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
 +++ b/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
 @@ -5,6 +5,7 @@ import Text from '../Typography/Text';
@@ -40,7 +40,7 @@ index 5c90171..71befdb 100644
    ...rest
  }: Props) => {
    const { colors, roundness } = theme;
-@@ -99,22 +101,25 @@ const DrawerItem = ({
+@@ -100,22 +102,25 @@ const DrawerItem = ({
          accessibilityState={{ selected: active }}
          accessibilityLabel={accessibilityLabel}
        >
@@ -82,7 +82,7 @@ index 5c90171..71befdb 100644
          </View>
        </TouchableRipple>
      </View>
-@@ -130,12 +135,17 @@ const styles = StyleSheet.create({
+@@ -131,12 +136,17 @@ const styles = StyleSheet.create({
    },
    wrapper: {
      flexDirection: 'row',

@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/native';
 import React from 'react';
-import { CameraKitCamera } from 'react-native-camera-kit';
+import { Camera } from 'react-native-camera-kit';
 import { Button, Text } from 'react-native-paper';
 import { openSettings } from 'react-native-permissions';
 import CenteredSurface from 'components/CenteredSurface';
@@ -35,16 +35,14 @@ function ScanCode () {
   }
 
   return (
-    <CameraKitCamera
+    <Camera
       style={{ flex: 1, backgroundColor: '#000' }}
-      cameraOptions={{
-        flashMode: 'off',
-        focusMode: 'off',
-        zoomMode: 'off'
-      }}
+      flashMode="off"
+      focusMode="off"
+      zoomMode="off"
+      torchMode="off"
       scanBarcode={isFocused}
       onReadCode={onReadCode}
-      hideControls
       saveToCameraRoll={false}
     />
   );
