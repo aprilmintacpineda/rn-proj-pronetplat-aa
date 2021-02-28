@@ -8,6 +8,14 @@ import RNVectorIcon from 'components/RNVectorIcon';
 const events = {
   contactDetailsAdded: (contactDetail, { concatData }) => {
     concatData(contactDetail);
+  },
+  contactDetailsDeleted: (
+    deletedContactDetailid,
+    { filterData }
+  ) => {
+    filterData(
+      contactDetail => contactDetail.id !== deletedContactDetailid
+    );
   }
 };
 

@@ -1,3 +1,4 @@
+import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import { Alert, View } from 'react-native';
 import { Text, Title } from 'react-native-paper';
@@ -5,16 +6,29 @@ import Caption from 'components/Caption';
 import Menu from 'components/Menu';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
+import { showRequestFailedPopup } from 'fluxible/actions/popup';
+import { xhr } from 'libs/xhr';
 
 function ContactDetailRow (props) {
   const [isDeleting, setIsDeleting] = React.useState(false);
 
-  const { value, description, updatedAt } = props;
+  const { id, value, description, updatedAt } = props;
 
   const deleteContactDetail = React.useCallback(async () => {
-    console.log('delete');
-    setIsDeleting(true);
-  }, []);
+    try {
+      setIsDeleting(true);
+
+      await xhr(`/contact-details-delete/${id}`, {
+        method: 'delete'
+      });
+
+      emitEvent('contactDetailsDeleted', id);
+    } catch (error) {
+      console.log(error);
+      showRequestFailedPopup();
+      setIsDeleting(false);
+    }
+  }, [id]);
 
   const menus = React.useMemo(() => {
     return [
