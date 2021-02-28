@@ -1,65 +1,136 @@
 import React from 'react';
 import { Linking, Text, View } from 'react-native';
-import { TouchableRipple } from 'react-native-paper';
+import { Caption, TouchableRipple } from 'react-native-paper';
 import RNVectorIcon from 'components/RNVectorIcon';
 import { paperTheme } from 'theme';
 
-const { primary } = paperTheme.colors.primary;
-
-function ContactDetailRow ({ type, value, disabled }) {
-  const iconSize = 20;
-  let actionIcon = null;
-
-  switch (type) {
-    case 'email':
-      actionIcon = (
-        <RNVectorIcon
-          provider="Feather"
-          name="send"
-          color={primary}
-          size={iconSize}
-        />
-      );
-      break;
-    case 'mobile':
-      actionIcon = (
-        <RNVectorIcon
-          provider="AntDesign"
-          name="message1"
-          size={iconSize}
-          color={primary}
-        />
-      );
-      break;
-    case 'telephone':
-      actionIcon = (
-        <RNVectorIcon
-          provider="Feather"
-          name="phone-call"
-          size={iconSize}
-          color={primary}
-        />
-      );
-      break;
-  }
-
-  const send = React.useCallback(() => {
-    let url = null;
+function ContactDetailRow ({ type, value, description, disabled }) {
+  const actionButtons = React.useMemo(() => {
+    const actions = [];
+    const iconSize = 20;
 
     switch (type) {
       case 'email':
-        url = `mailto:${value}`;
+        actions.push(
+          <View
+            style={{
+              backgroundColor: '#d0d1d5',
+              borderRadius: 100,
+              overflow: 'hidden',
+              flexDirection: 'row',
+              marginLeft: 15
+            }}
+          >
+            <TouchableRipple
+              onPress={() => {
+                Linking.openURL(`mailto:${value}`);
+              }}
+              style={{ padding: 10 }}
+              disabled={disabled}
+            >
+              <RNVectorIcon
+                provider="Feather"
+                name="send"
+                color={paperTheme.colors.primary}
+                size={iconSize}
+              />
+            </TouchableRipple>
+          </View>
+        );
         break;
       case 'mobile':
-        url = `sms:${value}`;
+        actions.push(
+          <View
+            style={{
+              backgroundColor: '#d0d1d5',
+              borderRadius: 100,
+              overflow: 'hidden',
+              flexDirection: 'row',
+              marginLeft: 15
+            }}
+          >
+            <TouchableRipple
+              onPress={() => {
+                Linking.openURL(`sms:${value}`);
+              }}
+              style={{ padding: 10 }}
+              disabled={disabled}
+            >
+              <RNVectorIcon
+                provider="Ionicons"
+                name="chatbox-ellipses-outline"
+                color={paperTheme.colors.primary}
+                size={iconSize}
+              />
+            </TouchableRipple>
+          </View>
+        );
         break;
-      case 'telephone':
-        url = `tel:${value}`;
+      case 'website':
+        actions.push(
+          <View
+            style={{
+              backgroundColor: '#d0d1d5',
+              borderRadius: 100,
+              overflow: 'hidden',
+              flexDirection: 'row',
+              marginLeft: 15
+            }}
+          >
+            <TouchableRipple
+              onPress={() => {
+                Linking.openURL(
+                  !/^https?:\/\//.test(value)
+                    ? `https://${value}`
+                    : value
+                );
+              }}
+              style={{ padding: 10 }}
+              disabled={disabled}
+            >
+              <RNVectorIcon
+                provider="Feather"
+                name="external-link"
+                color={paperTheme.colors.primary}
+                size={iconSize}
+              />
+            </TouchableRipple>
+          </View>
+        );
         break;
     }
 
-    Linking.openURL(url);
-  }, [type, value]);
+    if (type === 'mobile' || type === 'telephone') {
+      actions.push(
+        <View
+          style={{
+            backgroundColor: '#d0d1d5',
+            borderRadius: 100,
+            overflow: 'hidden',
+            flexDirection: 'row',
+            marginLeft: 15
+          }}
+        >
+          <TouchableRipple
+            onPress={() => {
+              Linking.openURL(`tel:${value}`);
+            }}
+            style={{ padding: 10 }}
+            disabled={disabled}
+          >
+            <RNVectorIcon
+              provider="Feather"
+              name="phone-call"
+              size={iconSize}
+              color={paperTheme.colors.primary}
+            />
+          </TouchableRipple>
+        </View>
+      );
+    }
+
+    return actions;
+  }, [disabled, type, value]);
 
   return (
     <View
@@ -67,26 +138,17 @@ function ContactDetailRow ({ type, value, disabled }) {
         marginBottom: 15,
         marginLeft: 15,
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'space-between'
       }}
     >
-      <Text style={{ fontSize: 16 }}>{value}</Text>
-      <View
-        style={{
-          backgroundColor: '#d0d1d5',
-          borderRadius: 100,
-          overflow: 'hidden'
-        }}
-      >
-        <TouchableRipple
-          onPress={send}
-          style={{ padding: 10 }}
-          disabled={disabled}
-        >
-          {actionIcon}
-        </TouchableRipple>
+      <View style={{ flex: 1 }}>
+        <Text style={{ fontSize: 16 }} numberOfLines={1}>
+          {value}
+        </Text>
+        <Caption>{description}</Caption>
       </View>
+      <View style={{ flexDirection: 'row' }}>{actionButtons}</View>
     </View>
   );
 }

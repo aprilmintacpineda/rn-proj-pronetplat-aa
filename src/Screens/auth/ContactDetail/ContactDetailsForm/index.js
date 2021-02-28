@@ -33,7 +33,7 @@ const formOptions = {
       }
     },
     description: ({ description }) => {
-      return validate(description, ['required', 'maxLength:150']);
+      return validate(description, ['required', 'maxLength:100']);
     },
     type: ({ type }) => {
       return validate(type, [

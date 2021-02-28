@@ -55,7 +55,7 @@ function ContactDetailsAddForm () {
           multiline
           numberOfLines={8}
           displayCharsRemaining
-          maxLength={150}
+          maxLength={100}
           field="description"
           helperText="A helpful description for your contacts."
         />

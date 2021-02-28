@@ -12,14 +12,16 @@ const validationRules = {
     return '';
   },
   url (value) {
+    if (/^http:\/\//.test(value)) return 'Always use HTTPS.';
+    if (value.length > 1000) return 'Use shorter url';
+
     if (
-      value.length > 1000 ||
       // eslint-disable-next-line
-      !/^((https?:\/\/)?[a-zA-Z0-9_-]+\.)?[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)?([a-zA-Z0-9\/]+)?\/?$/.test(
+      !/(?:(?:http|https):\/\/)?([-a-zA-Z0-9.]{2,256}\.[a-z]{2,10})\b(?:\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gim.test(
         value
       )
     )
-      return 'Invalid URL';
+      return 'invalid url';
 
     return '';
   },

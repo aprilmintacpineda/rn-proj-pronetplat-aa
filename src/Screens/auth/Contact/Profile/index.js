@@ -31,6 +31,7 @@ function ContactProfile ({
     error,
     data,
     isRefreshing,
+    isFetching,
     refreshData,
     isFirstFetch
   } = useDataFetch({
@@ -357,8 +358,14 @@ function ContactProfile ({
         data.blockedByUser ||
         data.contactBlocked) &&
         isRefreshing)
-    )
-      return <ContactDetailLoadingPlaceholder />;
+    ) {
+      return (
+        <ContactDetailLoadingPlaceholder
+          isFirstFetch={isFirstFetch}
+          isFetching={isFetching}
+        />
+      );
+    }
 
     if (data.blockedByUser || data.contactBlocked) {
       return (
@@ -502,11 +509,19 @@ function ContactProfile ({
           plural: 'Telephone numbers',
           singular: 'Telephone number'
         }
+      },
+      website: {
+        data: [],
+        labels: {
+          plural: 'Website',
+          singular: 'Websites'
+        }
       }
     };
 
     data.forEach(contactData => {
       const { type } = contactData;
+
       types[type].data.push(
         <ContactDetailRow
           key={contactData.id}
@@ -543,7 +558,9 @@ function ContactProfile ({
 
           return (
             <View key={label} style={{ marginBottom: 15 }}>
-              <Caption>{label}</Caption>
+              <View style={{ marginBottom: 10 }}>
+                <Caption>{label}</Caption>
+              </View>
               {data}
               {index < groupLastIndex ? <Divider /> : null}
             </View>
@@ -564,7 +581,9 @@ function ContactProfile ({
     isRefreshing,
     sendFollowUp,
     sendRequest,
-    unblockUser
+    unblockUser,
+    isFetching,
+    isFirstFetch
   ]);
 
   return (
