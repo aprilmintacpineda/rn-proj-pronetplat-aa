@@ -26,6 +26,10 @@ function ContactProfile ({
   const fullName = getFullName(contactData);
   const [isDisabled, setIsDisabled] = React.useState(false);
 
+  const onSuccess = React.useCallback(() => {
+    setIsDisabled(false);
+  }, []);
+
   const {
     isError,
     error,
@@ -35,12 +39,9 @@ function ContactProfile ({
     refreshData,
     isFirstFetch
   } = useDataFetch({
-    endpoint: `/contacts/${contactData.id}`
+    endpoint: `/contacts/${contactData.id}`,
+    onSuccess
   });
-
-  React.useEffect(() => {
-    if (isRefreshing && isDisabled) setIsDisabled(false);
-  }, [isRefreshing, isDisabled]);
 
   const confirmUnblockUser = React.useCallback(async () => {
     try {

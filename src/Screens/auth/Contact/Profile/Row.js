@@ -8,6 +8,9 @@ function ContactDetailRow ({ type, value, description, disabled }) {
   const actionButtons = React.useMemo(() => {
     const actions = [];
     const iconSize = 20;
+    const iconColor = disabled
+      ? paperTheme.colors.disabled
+      : paperTheme.colors.primary;
 
     switch (type) {
       case 'email':
@@ -31,7 +34,7 @@ function ContactDetailRow ({ type, value, description, disabled }) {
               <RNVectorIcon
                 provider="Feather"
                 name="send"
-                color={paperTheme.colors.primary}
+                color={iconColor}
                 size={iconSize}
               />
             </TouchableRipple>
@@ -59,7 +62,7 @@ function ContactDetailRow ({ type, value, description, disabled }) {
               <RNVectorIcon
                 provider="Ionicons"
                 name="chatbox-ellipses-outline"
-                color={paperTheme.colors.primary}
+                color={iconColor}
                 size={iconSize}
               />
             </TouchableRipple>
@@ -91,7 +94,7 @@ function ContactDetailRow ({ type, value, description, disabled }) {
               <RNVectorIcon
                 provider="Feather"
                 name="external-link"
-                color={paperTheme.colors.primary}
+                color={iconColor}
                 size={iconSize}
               />
             </TouchableRipple>
@@ -122,7 +125,7 @@ function ContactDetailRow ({ type, value, description, disabled }) {
               provider="Feather"
               name="phone-call"
               size={iconSize}
-              color={paperTheme.colors.primary}
+              color={iconColor}
             />
           </TouchableRipple>
         </View>
