@@ -109,9 +109,8 @@ export async function addToContact (targetContact) {
   try {
     setSendingContactRequestStatus({ targetId, status: 'sending' });
 
-    await xhr('/add-to-contacts', {
-      method: 'post',
-      body: { contactId: targetId }
+    await xhr(`/add-to-contacts/${targetId}`, {
+      method: 'post'
     });
 
     updateOrCreateToast({

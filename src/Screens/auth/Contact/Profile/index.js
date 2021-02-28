@@ -45,11 +45,8 @@ function ContactProfile ({
     try {
       setIsDisabled(true);
 
-      await xhr('/unblock-user', {
-        method: 'post',
-        body: {
-          contactId: contactData.id
-        }
+      await xhr(`/unblock-user/${contactData.id}`, {
+        method: 'post'
       });
 
       emitEvent('userUnblocked', contactData.id);
@@ -85,11 +82,8 @@ function ContactProfile ({
     try {
       setIsDisabled(true);
 
-      await xhr('/block-user', {
-        method: 'post',
-        body: {
-          contactId: contactData.id
-        }
+      await xhr(`/block-user/${contactData.id}`, {
+        method: 'post'
       });
 
       emitEvent('userBlocked', contactData.id);
@@ -124,9 +118,8 @@ function ContactProfile ({
   const sendFollowUp = React.useCallback(async () => {
     try {
       setIsDisabled(true);
-      await xhr('/send-follow-up', {
-        method: 'post',
-        body: { contactId: contactData.id }
+      await xhr(`/send-follow-up/${contactData.id}`, {
+        method: 'post'
       });
     } catch (error) {
       console.log(error);
@@ -140,9 +133,8 @@ function ContactProfile ({
     try {
       setIsDisabled(true);
 
-      await xhr('/add-to-contacts', {
-        method: 'post',
-        body: { contactId: contactData.id }
+      await xhr(`/add-to-contacts/${contactData.id}`, {
+        method: 'post'
       });
     } catch (error) {
       console.log(error);
@@ -156,9 +148,8 @@ function ContactProfile ({
   const confirmCancelContactRequest = React.useCallback(async () => {
     try {
       setIsDisabled(true);
-      await xhr('/cancel-contact-request', {
-        method: 'post',
-        body: { contactId: contactData.id }
+      await xhr(`/cancel-contact-request/${contactData.id}`, {
+        method: 'post'
       });
     } catch (error) {
       console.log('error', error);
@@ -190,9 +181,8 @@ function ContactProfile ({
     try {
       setIsDisabled(true);
 
-      await xhr('/accept-contact-request', {
-        method: 'post',
-        body: { senderId: contactData.id }
+      await xhr(`/accept-contact-request/${contactData.id}`, {
+        method: 'post'
       });
 
       updateStore({
@@ -216,9 +206,8 @@ function ContactProfile ({
     try {
       setIsDisabled(true);
 
-      await xhr('/decline-contact-request', {
-        method: 'post',
-        body: { senderId: contactData.id }
+      await xhr(`/decline-contact-request/${contactData.id}`, {
+        method: 'post'
       });
 
       updateStore({
@@ -242,11 +231,8 @@ function ContactProfile ({
     try {
       setIsDisabled(true);
 
-      await xhr('/remove-from-contacts', {
-        method: 'post',
-        body: {
-          contactId: contactData.id
-        }
+      await xhr(`/remove-from-contacts/${contactData.id}`, {
+        method: 'post'
       });
     } catch (error) {
       console.log(error);
