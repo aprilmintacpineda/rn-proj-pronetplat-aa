@@ -1,6 +1,6 @@
 import { emitEvent } from 'fluxible-js';
 import React from 'react';
-import ContactDetailsAddForm from './ContactDetailsAddForm';
+import Form from './Form';
 import FormWithContext from 'components/FormWithContext';
 import {
   showRequestFailedPopup,
@@ -42,22 +42,23 @@ const formOptions = {
       ]);
     }
   },
-  onSubmitSuccess: ({ responseData }) => {
+  onSubmitSuccess: ({ targetId, responseData }) => {
     showSuccessPopup({
       message: 'Your contact detail has been added.'
     });
 
-    emitEvent('contactDetailsAdded', responseData);
+    if (!targetId) emitEvent('contactDetailsAdded', responseData);
+    else emitEvent('contactDetailsUpdated', responseData);
   },
   onSubmitError: showRequestFailedPopup,
-  endPoint: '/contact-details-add',
+  endPoint: '/contact-details/:targetId',
   resetOnSuccess: true
 };
 
 function ContactDetailsAdd () {
   return (
     <FormWithContext formOptions={formOptions}>
-      <ContactDetailsAddForm />
+      <Form />
     </FormWithContext>
   );
 }

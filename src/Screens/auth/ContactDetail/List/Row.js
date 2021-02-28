@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import { Alert, View } from 'react-native';
@@ -9,16 +10,17 @@ import TimeAgo from 'components/TimeAgo';
 import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import { xhr } from 'libs/xhr';
 
-function ContactDetailRow (props) {
+function ContactDetailRow (contactDetail) {
   const [isDeleting, setIsDeleting] = React.useState(false);
+  const { navigate } = useNavigation();
 
-  const { id, value, description, updatedAt } = props;
+  const { id, value, description, updatedAt } = contactDetail;
 
   const deleteContactDetail = React.useCallback(async () => {
     try {
       setIsDeleting(true);
 
-      await xhr(`/contact-details-delete/${id}`, {
+      await xhr(`/contact-details/${id}`, {
         method: 'delete'
       });
 
@@ -42,7 +44,7 @@ function ContactDetailRow (props) {
           />
         ),
         onPress: () => {
-          console.log('edit');
+          navigate('ContactDetailsForm', contactDetail);
         }
       },
       {
@@ -73,7 +75,7 @@ function ContactDetailRow (props) {
         }
       }
     ];
-  }, [deleteContactDetail]);
+  }, [deleteContactDetail, navigate, contactDetail]);
 
   return (
     <View

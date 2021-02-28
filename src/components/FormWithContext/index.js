@@ -29,7 +29,8 @@ function FormWithContext ({
       formErrors,
       status,
       previousFormValues,
-      isTouched
+      isTouched,
+      targetId
     },
     updateState
   } = useState(() => {
@@ -51,7 +52,8 @@ function FormWithContext ({
       formErrors: {},
       status: 'initial',
       isTouched: false,
-      responseData: null
+      responseData: null,
+      targetId: null
     };
   });
 
@@ -61,6 +63,17 @@ function FormWithContext ({
   const isSubmitError = status === 'submitError';
   const disabled =
     isSubmitting || (isSubmitSuccess && stayDisabledOnSuccess);
+
+  const setUpdateMode = React.useCallback(
+    ({ targetId, formValues, formContext }) => {
+      updateState({
+        targetId,
+        formValues,
+        formContext
+      });
+    },
+    [updateState]
+  );
 
   const validateField = React.useCallback(
     (field, values) => {
@@ -162,9 +175,20 @@ function FormWithContext ({
             ? await transformInput({ formValues, formContext })
             : formValues;
 
-          const response = await xhr(endPoint, {
+          let finalEndpoint = '';
+          let method = '';
+
+          if (targetId) {
+            finalEndpoint = endPoint.replace(/:targetId+/, targetId);
+            method = 'patch';
+          } else {
+            finalEndpoint = endPoint.replace(/:targetId+/, '');
+            method = 'post';
+          }
+
+          const response = await xhr(finalEndpoint, {
             body,
-            method: 'post'
+            method
           });
 
           if (!ignoreResponse) responseData = await response.json();
@@ -175,7 +199,8 @@ function FormWithContext ({
             responseData,
             formValues,
             formContext,
-            setContext
+            setContext,
+            targetId
           });
         }
 
@@ -184,11 +209,12 @@ function FormWithContext ({
             status: 'submitSuccess',
             isTouched: !resetOnSuccess,
             responseData: ignoreResponse ? null : responseData,
-            formValues: resetOnSuccess
-              ? initialFormValues.constructor === Function
-                ? initialFormValues()
-                : { ...initialFormValues }
-              : oldState.formValues
+            formValues:
+              resetOnSuccess && !targetId
+                ? initialFormValues.constructor === Function
+                  ? initialFormValues()
+                  : { ...initialFormValues }
+                : oldState.formValues
           };
         });
       } catch (error) {
@@ -223,7 +249,8 @@ function FormWithContext ({
       onSubmitError,
       transformInput,
       initialFormValues,
-      resetOnSuccess
+      resetOnSuccess,
+      targetId
     ]
   );
 
@@ -306,7 +333,8 @@ function FormWithContext ({
         setForm,
         responseData,
         isTouched,
-        stayDisabledOnSuccess
+        stayDisabledOnSuccess,
+        setUpdateMode
       }}
     >
       {children}

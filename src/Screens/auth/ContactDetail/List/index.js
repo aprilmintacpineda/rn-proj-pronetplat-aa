@@ -6,16 +6,21 @@ import ListEmpty from 'components/ListEmpty';
 import RNVectorIcon from 'components/RNVectorIcon';
 
 const events = {
-  contactDetailsAdded: (contactDetail, { concatData }) => {
+  contactDetailsAdded (contactDetail, { concatData }) {
     concatData(contactDetail);
   },
-  contactDetailsDeleted: (
-    deletedContactDetailid,
-    { filterData }
-  ) => {
+  contactDetailsDeleted (deletedContactDetailid, { filterData }) {
     filterData(
       contactDetail => contactDetail.id !== deletedContactDetailid
     );
+  },
+  contactDetailsUpdated (updatedContactDetail, { updateData }) {
+    updateData(contactDetail => {
+      if (contactDetail.id !== updatedContactDetail.id)
+        return contactDetail;
+
+      return updatedContactDetail;
+    });
   }
 };
 
@@ -35,7 +40,7 @@ function ContactDetailsList ({
             />
           ),
           onPress: () => {
-            navigate('ContactDetailsAdd');
+            navigate('ContactDetailsForm');
           }
         }
       ]

@@ -15,7 +15,7 @@ import BlockList from 'Screens/auth/BlockList';
 import ChangePassword from 'Screens/auth/ChangePassword';
 import ChangePersonalInfo from 'Screens/auth/ChangePersonalInfo';
 import ContactProfile from 'Screens/auth/Contact/Profile';
-import ContactDetailsAdd from 'Screens/auth/ContactDetail/ContactDetailsAdd';
+import ContactDetailsForm from 'Screens/auth/ContactDetail/ContactDetailsForm';
 import ContactDetailsList from 'Screens/auth/ContactDetail/List';
 import ContactRequests from 'Screens/auth/ContactRequests';
 import Notifications from 'Screens/auth/Notifications';
@@ -155,10 +155,10 @@ function MainStackNavigation () {
         }}
       />
       <Stack.Screen
-        name="ContactDetailsAdd"
-        component={ContactDetailsAdd}
+        name="ContactDetailsForm"
+        component={ContactDetailsForm}
         options={{
-          title: 'My Contact Details'
+          title: ''
         }}
       />
       <Stack.Screen

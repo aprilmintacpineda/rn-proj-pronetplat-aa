@@ -1,3 +1,4 @@
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { FormContext } from 'components/FormWithContext';
@@ -13,7 +14,30 @@ const contactDetailTypeOptions = [
 ];
 
 function ContactDetailsAddForm () {
-  const { formValues } = React.useContext(FormContext);
+  const { setOptions } = useNavigation();
+  const { params: contactDetail } = useRoute();
+  const { formValues, setUpdateMode } = React.useContext(
+    FormContext
+  );
+
+  console.log('params', contactDetail);
+
+  React.useEffect(() => {
+    if (!contactDetail) {
+      setOptions({ title: 'Add contact detail' });
+    } else {
+      setOptions({ title: 'Edit contact detail' });
+
+      setUpdateMode({
+        targetId: contactDetail.id,
+        formValues: {
+          value: contactDetail.value,
+          description: contactDetail.description,
+          type: contactDetail.type
+        }
+      });
+    }
+  }, [setOptions, setUpdateMode, contactDetail]);
 
   return (
     <ScrollView>
