@@ -1,4 +1,3 @@
-import analytics from '@react-native-firebase/analytics';
 import React from 'react';
 import RegisterForm from './RegisterForm';
 import { navigationRef } from 'App';
@@ -7,6 +6,7 @@ import {
   showRequestFailedPopup,
   showSuccessPopup
 } from 'fluxible/actions/popup';
+import { logRegister } from 'libs/logging';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -34,19 +34,20 @@ const formOptions = {
       ])
   },
   ignoreResponse: true,
-  endPoint: '/register',
+  endPoint: 'register',
   onSubmitError: showRequestFailedPopup,
   transformInput: ({
     formValues: { retypePassword: _1, ...formValues }
   }) => formValues,
   onSubmitSuccess: async () => {
+    logRegister();
+
     showSuccessPopup({
       message:
         "You're account has been created. Please check your inbox for the confirmation code that you need to verify your email"
     });
 
     navigationRef.current.navigate('Login');
-    await analytics().logSignUp({ method: 'embedded' });
   }
 };
 

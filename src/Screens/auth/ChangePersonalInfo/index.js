@@ -37,7 +37,7 @@ const formOptions = {
     showSuccessPopup({ message: 'Changes saved.' });
     updateStore({ authUser: userData, authToken });
   },
-  endPoint: '/change-personal-info'
+  endPoint: 'change-personal-info'
 };
 
 function ChangePersonalInfo (props) {

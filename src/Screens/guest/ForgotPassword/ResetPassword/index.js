@@ -45,7 +45,7 @@ const formOptions = {
     };
   },
   ignoreResponse: true,
-  endPoint: '/forgot-password-confirm',
+  endPoint: 'forgot-password-confirm',
   onSubmitSuccess: () => {
     showSuccessPopup({
       message:

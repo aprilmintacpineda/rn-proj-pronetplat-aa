@@ -1,5 +1,6 @@
 import React from 'react';
 import useState from 'hooks/useState';
+import { logEvent } from 'libs/logging';
 import { xhr } from 'libs/xhr';
 
 export const FormContext = React.createContext();
@@ -61,6 +62,7 @@ function FormWithContext ({
   const isSubmitting = status === 'submitting';
   const isSubmitSuccess = status === 'submitSuccess';
   const isSubmitError = status === 'submitError';
+  const isValidationFailed = status === 'formValidationFailed';
   const disabled =
     isSubmitting || (isSubmitSuccess && stayDisabledOnSuccess);
 
@@ -145,12 +147,15 @@ function FormWithContext ({
 
     if (hasError) {
       updateState({
+        status: 'formValidationFailed',
         formErrors: newFormErrors,
         isTouched: true
       });
+
+      return newFormErrors;
     }
 
-    return hasError;
+    return false;
   }, [initialFormValues, formValues, validateField, updateState]);
 
   const submitHandler = React.useCallback(
@@ -159,12 +164,17 @@ function FormWithContext ({
 
       try {
         if (isSubmitting) return;
-        if (validateForm()) return;
 
-        updateState({
-          status: 'submitting',
-          isTouched: true
-        });
+        const validationErrors = validateForm();
+
+        if (validationErrors) {
+          logEvent('formValidationFailed', {
+            endPoint,
+            errors: validationErrors
+          });
+
+          return;
+        }
 
         let responseData = null;
 
@@ -334,7 +344,8 @@ function FormWithContext ({
         responseData,
         isTouched,
         stayDisabledOnSuccess,
-        setUpdateMode
+        setUpdateMode,
+        isValidationFailed
       }}
     >
       {children}

@@ -4,12 +4,12 @@ import { logLogin, logLogout } from 'libs/logging';
 import { xhr } from 'libs/xhr';
 
 export function login ({ userData, authToken }) {
-  updateStore({ authUser: userData, authToken });
   logLogin();
+  updateStore({ authUser: userData, authToken });
 }
 
 export function logout () {
+  logLogout();
   xhr('/logout', { method: 'post' });
   updateStore(restore(getInitialStore()));
-  logLogout();
 }

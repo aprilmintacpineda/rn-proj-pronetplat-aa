@@ -51,7 +51,7 @@ const formOptions = {
     else emitEvent('contactDetailsUpdated', responseData);
   },
   onSubmitError: showRequestFailedPopup,
-  endPoint: '/contact-details/:targetId',
+  endPoint: 'contact-details/:targetId',
   resetOnSuccess: true
 };
 

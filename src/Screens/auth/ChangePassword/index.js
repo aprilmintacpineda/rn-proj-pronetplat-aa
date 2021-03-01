@@ -46,7 +46,7 @@ const formOptions = {
 
     navigationRef.current.goBack();
   },
-  endPoint: '/change-password',
+  endPoint: 'change-password',
   ignoreResponse: true,
   stayDisabledOnSuccess: true
 };

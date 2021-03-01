@@ -11,7 +11,7 @@ const formOptions = {
   validators: {
     email: ({ email }) => validate(email, ['required', 'email'])
   },
-  endPoint: '/forgot-password-send',
+  endPoint: 'forgot-password-send',
   onSubmitError: showRequestFailedPopup,
   ignoreResponse: true
 };

@@ -44,8 +44,8 @@ function App () {
   const hasInternet = useHasInternet();
 
   React.useEffect(() => {
-    initStore();
     appMounted();
+    initStore();
   }, []);
 
   React.useEffect(() => {

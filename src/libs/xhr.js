@@ -1,4 +1,5 @@
 import { store } from 'fluxible-js';
+import { logEvent } from './logging';
 import { API_BASE_URL } from 'env';
 
 function clean (path) {
@@ -46,21 +47,45 @@ export async function xhr (
     config.headers.Authorization = `Bearer ${store.authToken}`;
 
   if (options.body) config.body = JSON.stringify(options.body);
+
+  logEvent('apiCall', {
+    path,
+    method,
+    step: 'request'
+  });
+
+  const startTime = performance.now();
   const response = await fetch(url, config);
 
-  if (response.status < 200 || response.status >= 300)
-    throw response;
+  logEvent('apiCall', {
+    path,
+    method,
+    step: 'response',
+    timeTaken: Math.abs(Math.ceil(performance.now() - startTime)),
+    responseStatus: response.status
+  });
 
+  if (response.status < 200 || response.status > 299) throw response;
   return response;
 }
 
 export async function uploadFileToSignedUrl ({ signedUrl, file }) {
+  logEvent('s3Upload', { step: 'request' });
+
+  const startTime = performance.now();
+
   const response = await fetch(signedUrl, {
     method: 'put',
     headers: {
       'Content-Type': file.type
     },
     body: { uri: file.uri }
+  });
+
+  logEvent('s3Upload', {
+    step: 'response',
+    timeTaken: Math.abs(Math.ceil(performance.now() - startTime)),
+    responseStatus: response.status
   });
 
   if (response.status !== 200) throw response;

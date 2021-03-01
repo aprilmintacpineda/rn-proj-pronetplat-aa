@@ -34,7 +34,7 @@ const formOptions = {
     updateStore({ authUser: userData, authToken });
   },
   stayDisabledOnSuccess: true,
-  endPoint: '/change-personal-info'
+  endPoint: 'change-personal-info'
 };
 
 function ChangePersonalInfo (props) {

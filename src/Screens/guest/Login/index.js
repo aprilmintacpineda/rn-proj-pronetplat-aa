@@ -1,3 +1,8 @@
+import {
+  format,
+  formatDistance,
+  formatDistanceToNow
+} from 'date-fns';
 import React from 'react';
 import Authenticate from './Authenticate';
 import LoginContext from './LoginContext';
@@ -9,9 +14,12 @@ import {
 } from 'fluxible/actions/popup';
 import { login } from 'fluxible/actions/user';
 import useState from 'hooks/useState';
+import { logEvent } from 'libs/logging';
 import { xhr } from 'libs/xhr';
 
 function Login ({ navigation: { replace } }) {
+  const dateFormat = 'MMMM dd, yyyy';
+
   const { state, updateState } = useState({
     page: 1,
     emailCodeCanSendAt: null,
@@ -31,6 +39,13 @@ function Login ({ navigation: { replace } }) {
   const onLogin = React.useCallback(
     ({ userData, authToken }) => {
       if (!userData.emailVerifiedAt) {
+        const accountCreateDate = new Date(userData.createdAt);
+
+        logEvent('emailNotVerified', {
+          accountCreatedAt: format(accountCreateDate, dateFormat),
+          timeLapse: formatDistanceToNow(accountCreateDate)
+        });
+
         updateState({
           page: 2,
           emailCodeCanSendAt: userData.emailCodeCanSendAt,
@@ -46,6 +61,15 @@ function Login ({ navigation: { replace } }) {
 
   const onVerified = React.useCallback(
     ({ userData, authToken }) => {
+      const accountCreateDate = new Date(userData.createdAt);
+      const emailVerifyDate = new Date(userData.emailVerifiedAt);
+
+      logEvent('emailVerified', {
+        accountCreatedAt: format(accountCreateDate, dateFormat),
+        emailVerifiedAt: format(emailVerifyDate, dateFormat),
+        timeLapse: formatDistance(accountCreateDate, emailVerifyDate)
+      });
+
       login({ userData, authToken });
       replace('LoggedInStack');
     },

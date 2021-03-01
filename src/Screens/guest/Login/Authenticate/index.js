@@ -14,7 +14,7 @@ const formOptions = {
     password: ({ password }) =>
       validate(password, ['required', 'maxLength:30'])
   },
-  endPoint: '/login',
+  endPoint: 'login',
   onSubmitError: () => {
     showRequestFailedPopup({
       message: 'Inccorect email/password combination.'
