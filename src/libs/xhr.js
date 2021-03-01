@@ -1,5 +1,6 @@
 import { store } from 'fluxible-js';
 import { logEvent } from './logging';
+import Timer from 'classes/Timer';
 import { API_BASE_URL } from 'env';
 
 function clean (path) {
@@ -54,14 +55,15 @@ export async function xhr (
     step: 'request'
   });
 
-  const startTime = performance.now();
+  const timer = new Timer();
+  timer.reset();
   const response = await fetch(url, config);
 
   logEvent('apiCall', {
     path,
     method,
     step: 'response',
-    timeTaken: Math.abs(Math.ceil(performance.now() - startTime)),
+    timeTaken: timer.lap(),
     responseStatus: response.status
   });
 
@@ -72,7 +74,8 @@ export async function xhr (
 export async function uploadFileToSignedUrl ({ signedUrl, file }) {
   logEvent('s3Upload', { step: 'request' });
 
-  const startTime = performance.now();
+  const timer = new Timer();
+  timer.reset();
 
   const response = await fetch(signedUrl, {
     method: 'put',
@@ -84,7 +87,7 @@ export async function uploadFileToSignedUrl ({ signedUrl, file }) {
 
   logEvent('s3Upload', {
     step: 'response',
-    timeTaken: Math.abs(Math.ceil(performance.now() - startTime)),
+    timeTaken: timer.lap(),
     responseStatus: response.status
   });
 

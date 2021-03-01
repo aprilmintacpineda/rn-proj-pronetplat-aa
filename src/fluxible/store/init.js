@@ -4,6 +4,7 @@ import iid from '@react-native-firebase/iid';
 import { initializeStore, store, updateStore } from 'fluxible-js';
 import RNSInfo from 'react-native-sensitive-info';
 import { STAGE } from 'env';
+import { logLogin } from 'libs/logging';
 import { hasCompletedSetup } from 'libs/user';
 import { xhr } from 'libs/xhr';
 
@@ -75,6 +76,8 @@ async function onInitComplete () {
 
     const response = await xhr('/validate-auth', { method: 'post' });
     const { userData, authToken } = await response.json();
+
+    logLogin('verifyAuth');
 
     updateStore({
       initComplete: true,
