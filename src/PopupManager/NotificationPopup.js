@@ -5,7 +5,6 @@ import RNNotificationPopup from 'react-native-push-notification-popup';
 import Avatar from 'components/Avatar';
 import Caption from 'components/Caption';
 import FullSafeAreaView from 'components/FullSafeAreaView';
-import { notifAlert } from 'libs/sounds';
 
 const notificationPopupRef = React.createRef();
 
@@ -16,7 +15,6 @@ export function displayNotification (params) {
   )
     return;
 
-  notifAlert.play();
   notificationPopupRef.current.show(params);
 }
 

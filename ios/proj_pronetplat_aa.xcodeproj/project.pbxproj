@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4EE4E4079579D7ABFBC711A1 /* libPods-proj_pronetplat_aa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 645383EEFDB8927941A1BE84 /* libPods-proj_pronetplat_aa.a */; };
 		577492C8CEB02CD1C9A666C9 /* libPods-proj_pronetplat_aa-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C96EC0D5CEEEABFEB80BD8D5 /* libPods-proj_pronetplat_aa-tvOSTests.a */; };
-		7C824FA825A0386D001ECD19 /* notif_alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C824FA725A0386D001ECD19 /* notif_alert.mp3 */; };
 		7CDC4811258F128D009DE44B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CDC480B258F128D009DE44B /* main.m */; };
 		7CDC4812258F128D009DE44B /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CDC480C258F128D009DE44B /* BootSplash.storyboard */; };
 		7CDC4813258F128D009DE44B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CDC480D258F128D009DE44B /* Images.xcassets */; };
@@ -62,7 +61,6 @@
 		679AABDABDC64E642A8A483F /* Pods-proj_pronetplat_aa.localdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa.localdebug.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa/Pods-proj_pronetplat_aa.localdebug.xcconfig"; sourceTree = "<group>"; };
 		7B8028F75E38D29EC92F6611 /* Pods-proj_pronetplat_aa-tvOS.stagingrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj_pronetplat_aa-tvOS.stagingrelease.xcconfig"; path = "Target Support Files/Pods-proj_pronetplat_aa-tvOS/Pods-proj_pronetplat_aa-tvOS.stagingrelease.xcconfig"; sourceTree = "<group>"; };
 		7C824F2125A03604001ECD19 /* Info_production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_production.plist; sourceTree = "<group>"; };
-		7C824FA725A0386D001ECD19 /* notif_alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = notif_alert.mp3; sourceTree = "<group>"; };
 		7CDC480A258F128D009DE44B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7CDC480B258F128D009DE44B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7CDC480C258F128D009DE44B /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BootSplash.storyboard; sourceTree = "<group>"; };
@@ -185,14 +183,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7C824F3325A036EB001ECD19 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				7C824FA725A0386D001ECD19 /* notif_alert.mp3 */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		7CDC4809258F128D009DE44B /* proj_pronetplat_aa */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,7 +220,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				7C824F3325A036EB001ECD19 /* Resources */,
 				7CDC4809258F128D009DE44B /* proj_pronetplat_aa */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				7CDC49FC258F1934009DE44B /* proj_pronetplat_aaTests */,
@@ -283,7 +272,6 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "proj_pronetplat_aa" */;
 			buildPhases = (
 				2CC2C3B0C8590BEF4DF4C243 /* [CP] Check Pods Manifest.lock */,
-				7CE9B20B25984E4E0034A8AE /* Generate GoogleService-Info.plist */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -403,7 +391,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C824FA825A0386D001ECD19 /* notif_alert.mp3 in Resources */,
 				7CDC4812258F128D009DE44B /* BootSplash.storyboard in Resources */,
 				7CDC4813258F128D009DE44B /* Images.xcassets in Resources */,
 				7CE9B20625984E3C0034A8AE /* GoogleService-Info.plist in Resources */,
@@ -680,24 +667,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-proj_pronetplat_aa/Pods-proj_pronetplat_aa-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		7CE9B20B25984E4E0034A8AE /* Generate GoogleService-Info.plist */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Generate GoogleService-Info.plist";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cp \"GoogleService-Info-$TARGET_ENV.plist\" \"proj_pronetplat_aa/GoogleService-Info.plist\"\necho \"Copied GoogleService-Info-$TARGET_ENV.plist to proj_pronetplat_aa/GoogleService-Info.plist\"\n";
 		};
 		7FB34975AD8AFCE7C81EA799 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
