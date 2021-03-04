@@ -1,8 +1,8 @@
 import React from 'react';
 import RowComponent from './Row';
-import ContactDetailLoadingPlaceholder from 'components/ContactDetailLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
 import ListEmpty from 'components/ListEmpty';
+import MyContactDetailLoadingPlaceholder from 'components/MyContactDetailLoadingPlaceholder';
 import RNVectorIcon from 'components/RNVectorIcon';
 
 const events = {
@@ -52,7 +52,7 @@ function ContactDetailsList ({
       endpoint="/contact-details"
       ListEmptyComponent={ListEmpty}
       RowComponent={RowComponent}
-      LoadingPlaceHolder={ContactDetailLoadingPlaceholder}
+      LoadingPlaceHolder={MyContactDetailLoadingPlaceholder}
       events={events}
     />
   );
