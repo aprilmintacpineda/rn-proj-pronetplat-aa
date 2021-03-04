@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "607742568195",
+    "project_id": "rn-proj-pronetplat-aa",
+    "storage_bucket": "rn-proj-pronetplat-aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607742568195:android:bc59dba3f388e19d38eb36",
+        "android_client_info": {
+          "package_name": "com.aprmp.projpronetplataa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607742568195-44pm6eehetlg461o21ppb5srpi63c6q8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL1dTyUL9Bauscj_At98bk5pA5xyA5cJc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607742568195-44pm6eehetlg461o21ppb5srpi63c6q8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "607742568195-5aqrr8fk6l14nrm3mvi8e3p1no2fc118.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aprmp.projpronetplataa"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

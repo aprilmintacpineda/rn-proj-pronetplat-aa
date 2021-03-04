@@ -1,0 +1,30 @@
+default_platform(:android)
+
+package_name = "com.aprmp.projpronetplataa"
+
+platform :android do
+  desc "Build and deploy to internal track"
+  lane :internal do
+    gradle(task: "clean bundleRelease")
+
+    upload_to_play_store(
+      package_name: package_name,
+      track: "internal",
+      aab: "app/build/outputs/bundle/release/app-release.aab",
+      release_status: "draft"
+    )
+
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
+  end
+
+  desc "Build and deploy to production"
+  lane :production do
+    gradle(task: "clean bundleRelease")
+
+    upload_to_play_store(
+      package_name: package_name,
+      aab: "app/build/outputs/bundle/release/app-release.aab"
+    )
+  end
+end
