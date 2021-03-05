@@ -71,7 +71,9 @@ jobs:
         run: cd ios && pod install
 
       - name: Bundle mainjs
-        run: yarn bundle-js
+        run: |
+          cp src/env.example.js > src/env.js
+          yarn bundle-js
 
       - name: Setup files
         run: |

@@ -57,5 +57,6 @@ jobs:
 
       - name: Build and deploy
         run: |
+          cp src/env.example.js > src/env.js
           cd android
           bundle exec fastlane android internal
