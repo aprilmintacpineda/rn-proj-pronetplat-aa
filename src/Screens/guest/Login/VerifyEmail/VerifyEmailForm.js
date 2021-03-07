@@ -7,7 +7,7 @@ import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
 import LoginContext from 'root/Screens/guest/Login/LoginContext';
 
-function VerifyEmailForm ({ onCancel, onVerified, onResendCode }) {
+function VerifyEmailForm ({ onVerified, onResendCode }) {
   const {
     responseData,
     isSubmitSuccess,
@@ -49,13 +49,6 @@ function VerifyEmailForm ({ onCancel, onVerified, onResendCode }) {
         >
           Submit
         </SubmitButton>
-        <Button
-          onPress={onCancel}
-          color="red"
-          disabled={isResending}
-        >
-          Cancel
-        </Button>
       </FormContainer>
       <View style={{ margin: 20 }}>
         <Button

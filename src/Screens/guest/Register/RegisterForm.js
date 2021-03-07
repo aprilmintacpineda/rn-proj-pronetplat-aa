@@ -2,7 +2,6 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import FormContainer from 'components/FormContainer';
 import { FormContext } from 'components/FormWithContext';
-import Button from 'components/FormWithContext/Button';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
 import PasswordStrength from 'components/PasswordStrength';
@@ -26,9 +25,6 @@ function RegisterForm () {
         <SubmitButton style={{ marginBottom: 20 }}>
           Create account
         </SubmitButton>
-        <Button to="Login" color="red">
-          Cancel
-        </Button>
       </FormContainer>
     </ScrollView>
   );
