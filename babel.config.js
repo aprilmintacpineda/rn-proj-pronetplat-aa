@@ -10,7 +10,22 @@ module.exports = {
         alias
       }
     ],
-    'optional-require'
+    'optional-require',
+    [
+      'search-and-replace',
+      {
+        rules: [
+          {
+            search: /__STAGE__/gm,
+            replace: process.env.STAGE
+          },
+          {
+            search: /__API_BASE_URL__/gm,
+            replace: process.env.API_BASE_URL
+          }
+        ]
+      }
+    ]
   ],
   env: {
     production: {

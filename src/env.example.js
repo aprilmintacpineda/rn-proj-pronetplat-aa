@@ -1,3 +1,2 @@
-export const STAGE = 'prod';
-export const API_BASE_URL =
-  'https://luh5c5ormk.execute-api.ap-southeast-1.amazonaws.com/dev/';
+export const STAGE = '__STAGE__';
+export const API_BASE_URL = '__API_BASE_URL__';
