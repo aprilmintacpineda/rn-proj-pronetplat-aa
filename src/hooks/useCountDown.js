@@ -14,6 +14,7 @@ function calcTime ({ start = null, duration = null, toTime = null }) {
     countDownEnd = toTime
       ? new Date(toTime)
       : add(new Date(start), duration);
+
     isDone = isPast(countDownEnd);
   }
 
@@ -38,23 +39,19 @@ function useCountDown (props) {
   const timer = React.useRef(null);
   const [state, setState] = React.useState(() => calcTime(props));
 
-  const count = React.useCallback(() => {
-    const timerState = calcTime(props);
-    if (!timerState.isDone) timer.current = setTimeout(count, 500);
-    setState(timerState);
-  }, [props]);
-
-  const { isDone } = state;
-
   React.useEffect(() => {
-    if (isDone) return;
+    function count () {
+      const timerState = calcTime(props);
+      if (!timerState.isDone) timer.current = setTimeout(count, 500);
+      setState(timerState);
+    }
 
     timer.current = setTimeout(count, 500);
 
     return () => {
       clearTimeout(timer.current);
     };
-  }, [isDone, count]);
+  }, [props]);
 
   return state;
 }
