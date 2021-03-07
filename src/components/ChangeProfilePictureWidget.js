@@ -33,10 +33,13 @@ const galeryPermissions = Platform.select({
 });
 
 async function waitForPicture (url) {
-  await new Promise(resolve => setTimeout(resolve, 3000));
+  // this wait time was derived from the time for
+  // profilePictureUploaded function to complete
+  // processing the new profile picture
+  await new Promise(resolve => setTimeout(resolve, 2000));
 
   let isSuccess = false;
-  let nextWaitTime = 500;
+  let nextWaitTime = 0;
 
   do {
     try {
@@ -57,7 +60,8 @@ async function waitForPicture (url) {
 function ChangeProfilePicture ({
   TriggerComponent,
   triggerComponentProps,
-  onSuccess
+  onSuccess,
+  firstSetup = false
 }) {
   const modalRef = React.useRef();
   const [status, setStatus] = React.useState('initial');
@@ -105,7 +109,11 @@ function ChangeProfilePicture ({
         await uploadFileToSignedUrl({ signedUrl, file });
         await waitForPicture(profilePicture);
 
-        response = await xhr('/validate-auth', { method: 'post' });
+        const endPoint = firstSetup
+          ? '/setup-complete'
+          : '/validate-auth';
+
+        response = await xhr(endPoint, { method: 'post' });
         const { userData, authToken } = await response.json();
 
         updateStore({
@@ -123,7 +131,7 @@ function ChangeProfilePicture ({
         setStatus('uploadFailed');
       }
     },
-    [onSuccess]
+    [onSuccess, firstSetup]
   );
 
   const selectPicture = React.useCallback(async () => {

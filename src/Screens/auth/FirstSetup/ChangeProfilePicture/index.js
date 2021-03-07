@@ -25,6 +25,7 @@ function ChangeProfilePicture ({ onNext, ...triggerComponentProps }) {
           TriggerComponent={TriggerComponent}
           triggerComponentProps={triggerComponentProps}
           onSuccess={onNext}
+          firstSetup
         />
       </FormContainer>
     </ScrollView>
