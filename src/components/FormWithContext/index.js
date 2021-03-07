@@ -176,6 +176,11 @@ function FormWithContext ({
           return;
         }
 
+        updateState({
+          status: 'submitting',
+          isTouched: true
+        });
+
         let responseData = null;
 
         if (onSubmit) {
