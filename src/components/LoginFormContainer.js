@@ -5,8 +5,8 @@ import FormContainer from './FormContainer';
 function LoginFormContainer ({ children }) {
   return (
     <FormContainer>
-      <Headline>Quaint</Headline>
-      <Subheading>Tired of calling cards? We got you.</Subheading>
+      <Headline>EntrepConnect</Headline>
+      <Subheading>Make professional connections</Subheading>
       <Divider style={{ marginVertical: 20 }} />
       {children}
     </FormContainer>

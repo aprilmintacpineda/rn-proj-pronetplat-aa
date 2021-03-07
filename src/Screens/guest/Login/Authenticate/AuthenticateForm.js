@@ -28,8 +28,8 @@ function AuthenticateForm ({ onLogin }) {
   return (
     <ScrollView>
       <FormContainer>
-        <Headline>Quaint</Headline>
-        <Subheading>Tired of calling cards? We got you.</Subheading>
+        <Headline>EntrepConnect</Headline>
+        <Subheading>Make professional connections.</Subheading>
         <Divider style={{ marginVertical: 20 }} />
         <TextInput field="email" type="email" />
         <TextInput field="password" type="password" />

@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Quaint</string>
+	<string name="app_name">
+		EntrepConnect
+	</string>
 </resources>

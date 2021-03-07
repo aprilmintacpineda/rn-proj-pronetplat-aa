@@ -51,7 +51,7 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
-google-secret-key.json
+google-service-account-key.json
 *.keystore.*
 FastlaneDeploymentCI.p8
 
