@@ -28,14 +28,6 @@ function Login ({ navigation: { replace } }) {
 
   const { page, authToken } = state;
 
-  const onCancel = React.useCallback(() => {
-    updateState({
-      page: 1,
-      emailCodeCanSendAt: null,
-      authToken: null
-    });
-  }, [updateState]);
-
   const onLogin = React.useCallback(
     ({ userData, authToken }) => {
       if (!userData.emailVerifiedAt) {
@@ -84,12 +76,21 @@ function Login ({ navigation: { replace } }) {
           Authorization: `bearer ${authToken}`
         }
       });
-      const { emailCodeCanSendAt } = await response.json();
+
+      const {
+        userData,
+        authToken: newAuthToken
+      } = await response.json();
+
       showSuccessPopup({
         message:
           'We have sent your new verification code to your email.'
       });
-      updateState({ emailCodeCanSendAt });
+
+      updateState({
+        authToken: newAuthToken,
+        emailCodeCanSendAt: userData.emailCodeCanSendAt
+      });
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -102,7 +103,6 @@ function Login ({ navigation: { replace } }) {
         <Authenticate onLogin={onLogin} />
         <VerifyEmail
           onVerified={onVerified}
-          onCancel={onCancel}
           onResendCode={onResendCode}
         />
       </SlideView>
