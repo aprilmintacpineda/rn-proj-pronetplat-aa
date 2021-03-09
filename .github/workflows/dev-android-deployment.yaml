@@ -15,7 +15,8 @@ jobs:
     continue-on-error: false
     env:
       STAGE: "dev"
-      API_BASE_URL: "https://luh5c5ormk.execute-api.ap-southeast-1.amazonaws.com/dev/"
+      API_BASE_URL: "https://apiv1dev.entrepic.com"
+      NODE_ENV: "production"
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:

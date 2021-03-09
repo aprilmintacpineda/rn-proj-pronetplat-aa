@@ -15,7 +15,7 @@ jobs:
     continue-on-error: false
     env:
       STAGE: "dev"
-      API_BASE_URL: "https://luh5c5ormk.execute-api.ap-southeast-1.amazonaws.com/dev/"
+      API_BASE_URL: "https://apiv1dev.entrepic.com"
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
       APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
@@ -23,6 +23,7 @@ jobs:
       ITUNES_TEAM_ID: ${{ secrets.ITUNES_TEAM_ID }}
       APPSTORE_TEAM_ID: ${{ secrets.APPSTORE_TEAM_ID }}
       MATCH_REPO_SSH: ${{ secrets.MATCH_REPO_SSH }}
+      NODE_ENV: "production"
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:

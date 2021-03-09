@@ -15,7 +15,8 @@ jobs:
     continue-on-error: false
     env:
       STAGE: "prod"
-      API_BASE_URL: "https://apiv1.entrepconnect.app/"
+      API_BASE_URL: "https://apiv1.entrepic.com"
+      NODE_ENV: "production"
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
