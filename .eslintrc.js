@@ -73,7 +73,6 @@ module.exports = {
     'react/prop-types': 0,
     'react/display-name': 0,
     'rest-spread-spacing': ['error', 'never'],
-    'no-inline-comments': 'error',
     'jsx-quotes': ['error', 'prefer-double'],
     'prefer-spread': ['error'],
     'prefer-const': 'error',

@@ -1,16 +1,22 @@
 const alias = require('./importAliases');
 
-module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
-  plugins: [
-    [
-      'module-resolver',
-      {
-        root: ['./src'],
-        alias
-      }
-    ],
-    'optional-require',
+const presets = ['module:metro-react-native-babel-preset'];
+
+const plugins = [
+  [
+    'module-resolver',
+    {
+      root: ['./src'],
+      alias
+    }
+  ]
+];
+
+if (process.env.NODE_ENV === 'production') {
+  plugins.push(
+    'optional-require', // react-native-paper
+    'react-native-paper/babel', // react-native-paper
+    'transform-remove-console',
     [
       'search-and-replace',
       {
@@ -26,13 +32,12 @@ module.exports = {
         ]
       }
     ]
-  ],
-  env: {
-    production: {
-      plugins: [
-        'react-native-paper/babel',
-        'transform-remove-console'
-      ]
-    }
-  }
+  );
+}
+
+plugins.push('react-native-reanimated/plugin'); // must be the last item
+
+module.exports = {
+  presets,
+  plugins
 };
