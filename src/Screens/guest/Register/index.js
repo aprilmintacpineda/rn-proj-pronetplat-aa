@@ -2,10 +2,7 @@ import React from 'react';
 import RegisterForm from './RegisterForm';
 import { navigationRef } from 'App';
 import FormWithContext from 'components/FormWithContext';
-import {
-  showRequestFailedPopup,
-  showSuccessPopup
-} from 'fluxible/actions/popup';
+import { showSuccessPopup } from 'fluxible/actions/popup';
 import { logRegister } from 'libs/logging';
 import validate from 'libs/validate';
 
@@ -35,7 +32,6 @@ const formOptions = {
   },
   ignoreResponse: true,
   endPoint: 'register',
-  onSubmitError: showRequestFailedPopup,
   transformInput: ({
     formValues: { retypePassword: _1, ...formValues }
   }) => formValues,

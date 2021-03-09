@@ -66,7 +66,8 @@ export function showErrorPopup ({ message, buttons = null }) {
 }
 
 export async function showRequestFailedPopup ({
-  message = 'Could not process your request at this time.'
+  message,
+  ...errorPopupArgs
 } = {}) {
   const { isConnected, isInternetReachable } = await NetInfo.fetch();
 
@@ -76,7 +77,11 @@ export async function showRequestFailedPopup ({
         'Could not connect. Please check your internet connection.'
     });
   } else {
-    showErrorPopup({ message });
+    showErrorPopup({
+      message:
+        message || 'Could not process your request at this time.',
+      ...errorPopupArgs
+    });
   }
 }
 

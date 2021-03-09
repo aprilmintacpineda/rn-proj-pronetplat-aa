@@ -2,10 +2,7 @@ import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import Form from './Form';
 import FormWithContext from 'components/FormWithContext';
-import {
-  showRequestFailedPopup,
-  showSuccessPopup
-} from 'fluxible/actions/popup';
+import { showSuccessPopup } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -50,7 +47,6 @@ const formOptions = {
     if (!targetId) emitEvent('contactDetailsAdded', responseData);
     else emitEvent('contactDetailsUpdated', responseData);
   },
-  onSubmitError: showRequestFailedPopup,
   endPoint: 'contact-details/:targetId',
   resetOnSuccess: true
 };

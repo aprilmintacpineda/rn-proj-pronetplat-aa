@@ -2,10 +2,7 @@ import React from 'react';
 import ResetPasswordForm from './ResetPasswordForm';
 import { navigationRef } from 'App';
 import FormWithContext from 'components/FormWithContext';
-import {
-  showRequestFailedPopup,
-  showSuccessPopup
-} from 'fluxible/actions/popup';
+import { showSuccessPopup } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -52,8 +49,7 @@ const formOptions = {
         'You have successfully reset your password. You may now login using your new password.'
     });
     navigationRef.current.navigate('Login');
-  },
-  onSubmitError: showRequestFailedPopup
+  }
 };
 
 function ResetPassword (props) {

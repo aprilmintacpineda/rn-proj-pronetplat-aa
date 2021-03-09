@@ -1,4 +1,5 @@
 import React from 'react';
+import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import useState from 'hooks/useState';
 import { logEvent } from 'libs/logging';
 import { xhr } from 'libs/xhr';
@@ -18,7 +19,8 @@ function FormWithContext ({
     transformInput = null,
     ignoreResponse = false,
     stayDisabledOnSuccess = false,
-    resetOnSuccess = false
+    resetOnSuccess = false,
+    formErrorMessage = null
   },
   children
 }) {
@@ -235,6 +237,14 @@ function FormWithContext ({
       } catch (error) {
         console.error('useForm confirmSubmit', error);
 
+        if (error.status >= 500) {
+          showRequestFailedPopup();
+        } else {
+          showRequestFailedPopup(
+            formErrorMessage && formErrorMessage(error)
+          );
+        }
+
         if (onSubmitError) {
           await onSubmitError({
             error,
@@ -265,7 +275,8 @@ function FormWithContext ({
       transformInput,
       initialFormValues,
       resetOnSuccess,
-      targetId
+      targetId,
+      formErrorMessage
     ]
   );
 

@@ -2,10 +2,7 @@ import React from 'react';
 import ChangePasswordForm from './ChangePasswordForm';
 import { navigationRef } from 'App';
 import FormWithContext from 'components/FormWithContext';
-import {
-  showRequestFailedPopup,
-  showSuccessPopup
-} from 'fluxible/actions/popup';
+import { showSuccessPopup } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -33,12 +30,10 @@ const formOptions = {
         `matches:${newPassword},passwords`
       ])
   },
-  onSubmitError: () => {
-    showRequestFailedPopup({
-      message:
-        'The password you entered may have been incorrect. Please try again.'
-    });
-  },
+  formErrorMessage: () => ({
+    message:
+      'The password you entered may have been incorrect. Please try again.'
+  }),
   onSubmitSuccess: () => {
     showSuccessPopup({
       message: 'You have successfully changed your password.'

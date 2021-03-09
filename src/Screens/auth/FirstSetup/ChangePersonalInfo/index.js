@@ -2,7 +2,6 @@ import { updateStore } from 'fluxible-js';
 import React from 'react';
 import ChangePersonalInfoForm from './ChangePersonalInfoForm';
 import FormWithContext from 'components/FormWithContext';
-import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
 
 const formOptions = {
@@ -29,7 +28,6 @@ const formOptions = {
     company: ({ company }) => validate(company, ['maxLength:255']),
     bio: ({ bio }) => validate(bio, ['maxLength:255'])
   },
-  onSubmitError: showRequestFailedPopup,
   onSubmitSuccess: ({ responseData: { userData, authToken } }) => {
     updateStore({ authUser: userData, authToken });
   },
