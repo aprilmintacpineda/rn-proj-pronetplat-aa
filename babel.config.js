@@ -3,6 +3,7 @@ const alias = require('./importAliases');
 const presets = ['module:metro-react-native-babel-preset'];
 
 const plugins = [
+  'optional-require',
   [
     'module-resolver',
     {
@@ -14,7 +15,6 @@ const plugins = [
 
 if (process.env.NODE_ENV === 'production') {
   plugins.push(
-    'optional-require', // react-native-paper
     'react-native-paper/babel', // react-native-paper
     'transform-remove-console',
     [
