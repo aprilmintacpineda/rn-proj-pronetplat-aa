@@ -7,7 +7,7 @@ import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { AppState } from 'react-native';
 import header from './header';
-import MainTabNavigation from './MainTabNavigation';
+import LoggedInTabNavigation from './LoggedInTabNavigation';
 import { navigationRef } from 'App';
 import { getInitials } from 'libs/user';
 import { displayNotification } from 'PopupManager/NotificationPopup';
@@ -29,7 +29,7 @@ const screenOptions = {
   gestureEnabled: true
 };
 
-function MainStackNavigation () {
+function LoggedInStackNavigation () {
   React.useEffect(() => {
     let unsubscribe = null;
 
@@ -107,13 +107,13 @@ function MainStackNavigation () {
 
   return (
     <Stack.Navigator
-      initialRouteName="MainTabNavigation"
+      initialRouteName="LoggedInTabNavigation"
       headerMode="screen"
       screenOptions={screenOptions}
     >
       <Stack.Screen
-        name="MainTabNavigation"
-        component={MainTabNavigation}
+        name="LoggedInTabNavigation"
+        component={LoggedInTabNavigation}
         options={{
           isMainScreen: true,
           title: ''
@@ -189,4 +189,4 @@ function MainStackNavigation () {
   );
 }
 
-export default React.memo(MainStackNavigation);
+export default React.memo(LoggedInStackNavigation);

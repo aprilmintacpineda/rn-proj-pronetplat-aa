@@ -29,7 +29,7 @@ function mapStates ({ authUser }) {
 
 function IndexStackNavigator () {
   const { authUser } = useFluxibleStore(mapStates);
-  const initialRouteName = authUser ? 'LoggedInStack' : 'Login';
+  const initialRouteName = authUser ? 'LoggedInRoutes' : 'Login';
 
   return (
     <Stack.Navigator
@@ -52,7 +52,7 @@ function IndexStackNavigator () {
         component={ForgotPassword}
       />
       <Stack.Screen
-        name="LoggedInStack"
+        name="LoggedInRoutes"
         component={MainDrawerNavigation}
         options={loginChangeStackOptions}
       />

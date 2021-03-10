@@ -13,7 +13,7 @@ function mapStates ({ sendingContactRequests }) {
   return { sendingContactRequests };
 }
 
-function MainTabNavigation () {
+function LoggedInTabNavigation () {
   const { sendingContactRequests } = useFluxibleStore(mapStates);
 
   return (
@@ -85,4 +85,4 @@ function MainTabNavigation () {
   );
 }
 
-export default React.memo(MainTabNavigation);
+export default React.memo(LoggedInTabNavigation);

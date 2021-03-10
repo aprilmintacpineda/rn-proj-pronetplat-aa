@@ -45,7 +45,7 @@ function Login ({ navigation: { replace } }) {
         });
       } else {
         login({ userData, authToken });
-        replace('LoggedInStack');
+        replace('LoggedInRoutes');
       }
     },
     [updateState, replace]
@@ -63,7 +63,7 @@ function Login ({ navigation: { replace } }) {
       });
 
       login({ userData, authToken });
-      replace('LoggedInStack');
+      replace('LoggedInRoutes');
     },
     [replace]
   );

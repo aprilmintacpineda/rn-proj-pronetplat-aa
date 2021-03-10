@@ -7,7 +7,7 @@ import UserWidget from './UserWidget';
 import RNVectorIcon from 'components/RNVectorIcon';
 import { logout } from 'fluxible/actions/user';
 import { hasCompletedSetup } from 'libs/user';
-import MainStackNavigation from 'navigations/MainStackNavigation';
+import LoggedInStackNavigation from 'navigations/LoggedInStackNavigation';
 import FirstSetup from 'Screens/auth/FirstSetup';
 
 const Drawer = createDrawerNavigator();
@@ -75,7 +75,7 @@ function Navigations () {
   const { width } = useWindowDimensions();
 
   const initialRouteName = hasCompletedSetup(authUser)
-    ? 'MainStackNavigation'
+    ? 'LoggedInStackNavigation'
     : 'FirstSetup';
 
   return (
@@ -86,8 +86,8 @@ function Navigations () {
       screenOptions={screenOptions}
     >
       <Drawer.Screen
-        name="MainStackNavigation"
-        component={MainStackNavigation}
+        name="LoggedInStackNavigation"
+        component={LoggedInStackNavigation}
         options={{
           drawerLabel: 'Dashboard',
           drawerIcon: props => (
