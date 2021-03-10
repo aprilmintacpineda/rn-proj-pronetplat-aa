@@ -40,7 +40,6 @@ function drawerContent (props) {
   return (
     <>
       <UserWidget />
-      <Divider style={{ margin: 10, marginVertical: 20 }} />
       {drawerItems}
       <Divider style={{ margin: 10, marginVertical: 20 }} />
       <RNPDrawer.Item

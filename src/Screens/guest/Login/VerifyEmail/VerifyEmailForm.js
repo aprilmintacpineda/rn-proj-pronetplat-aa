@@ -1,6 +1,5 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import FormContainer from 'components/FormContainer';
 import { FormContext } from 'components/FormWithContext';
 import Button from 'components/FormWithContext/Button';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
@@ -41,7 +40,7 @@ function VerifyEmailForm ({ onVerified, onResendCode }) {
 
   return (
     <ScrollView>
-      <FormContainer>
+      <View style={{ margin: 20 }}>
         <TextInput field="verificationCode" type="code" />
         <SubmitButton
           style={{ marginBottom: 10 }}
@@ -49,18 +48,18 @@ function VerifyEmailForm ({ onVerified, onResendCode }) {
         >
           Submit
         </SubmitButton>
-      </FormContainer>
-      <View style={{ margin: 20 }}>
-        <Button
-          onPress={resendCode}
-          loading={isResending}
-          disabled={isResending}
-          countDown={{
-            toTime: emailCodeCanSendAt
-          }}
-        >
-          {({ timeLeftStr }) => `Resend Code ${timeLeftStr}`}
-        </Button>
+        <View style={{ margin: 20 }}>
+          <Button
+            onPress={resendCode}
+            loading={isResending}
+            disabled={isResending}
+            countDown={{
+              toTime: emailCodeCanSendAt
+            }}
+          >
+            {({ timeLeftStr }) => `Resend Code ${timeLeftStr}`}
+          </Button>
+        </View>
       </View>
     </ScrollView>
   );

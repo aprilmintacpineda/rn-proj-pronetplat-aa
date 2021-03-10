@@ -6,6 +6,7 @@ import TriggerComponent from './TriggerComponent';
 import ChangeProfilePictureWidget from 'components/ChangeProfilePictureWidget';
 import UserAvatar from 'components/UserAvatar';
 import { getFullName, renderUserTitle } from 'libs/user';
+import { paperTheme } from 'theme';
 
 function mapStates ({ authUser }) {
   return { authUser };
@@ -15,7 +16,14 @@ function UserWidget () {
   const { authUser } = useFluxibleStore(mapStates);
 
   return (
-    <View style={{ alignItems: 'center', marginTop: 20 }}>
+    <View
+      style={{
+        alignItems: 'center',
+        backgroundColor: paperTheme.colors.accent,
+        paddingVertical: 20,
+        marginBottom: 20
+      }}
+    >
       <View style={{ position: 'relative' }}>
         <UserAvatar user={authUser} size={100} />
         <ChangeProfilePictureWidget
@@ -23,12 +31,15 @@ function UserWidget () {
         />
       </View>
       <View style={{ marginTop: 15 }}>
-        <Headline style={{ textAlign: 'center' }} numberOfLines={3}>
+        <Headline
+          style={{ textAlign: 'center', color: '#fff' }}
+          numberOfLines={3}
+        >
           {getFullName(authUser)}
         </Headline>
         <View style={{ alignItems: 'center' }}>
           {renderUserTitle(authUser, {
-            style: { textAlign: 'center' },
+            style: { textAlign: 'center', color: '#fff' },
             numberOfLines: 3
           })}
         </View>

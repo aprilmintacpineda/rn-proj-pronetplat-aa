@@ -3,12 +3,17 @@ import {
   TransitionPresets,
   createStackNavigator
 } from '@react-navigation/stack';
-import { store, updateStore } from 'fluxible-js';
+import { store } from 'fluxible-js';
 import React from 'react';
 import { AppState } from 'react-native';
 import header from './header';
 import LoggedInTabNavigation from './LoggedInTabNavigation';
 import { navigationRef } from 'App';
+import {
+  decrementContactRequestsCount,
+  incrementContactRequestsCount,
+  incrementNotificationsCount
+} from 'fluxible/actions/user';
 import { getInitials } from 'libs/user';
 import { displayNotification } from 'PopupManager/NotificationPopup';
 import BlockList from 'Screens/auth/BlockList';
@@ -50,33 +55,13 @@ function LoggedInStackNavigation () {
           const { title, body } = notification;
           const { type, category, profilePicture } = data;
 
-          if (type === 'contactRequestCancelled') {
-            updateStore({
-              authUser: {
-                ...store.authUser,
-                receivedContactRequestsCount:
-                  store.authUser.receivedContactRequestsCount - 1
-              }
-            });
-          } else if (type === 'contactRequest') {
-            updateStore({
-              authUser: {
-                ...store.authUser,
-                receivedContactRequestsCount:
-                  store.authUser.receivedContactRequestsCount + 1
-              }
-            });
-          }
+          if (type === 'contactRequestCancelled')
+            decrementContactRequestsCount();
+           else if (type === 'contactRequest')
+            incrementContactRequestsCount();
 
-          if (category === 'notification') {
-            updateStore({
-              authUser: {
-                ...store.authUser,
-                notificationsCount:
-                  store.authUser.notificationsCount + 1
-              }
-            });
-          }
+          if (category === 'notification')
+            incrementNotificationsCount();
 
           displayNotification({
             title,

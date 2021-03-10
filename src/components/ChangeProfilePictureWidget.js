@@ -237,54 +237,66 @@ function ChangeProfilePicture ({
               marginTop: 10
             }}
           >
-            <TouchableRipple
-              onPress={selectPicture}
-              rippleColor={paperTheme.colors.rippleColor}
+            <View
+              style={{
+                borderWidth: 1,
+                borderColor: paperTheme.colors.primary,
+                borderRadius: paperTheme.roundness
+              }}
             >
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  padding: 15,
-                  borderWidth: 1,
-                  borderColor: paperTheme.colors.primary,
-                  borderRadius: 4
-                }}
+              <TouchableRipple
+                onPress={selectPicture}
+                rippleColor={paperTheme.colors.rippleColor}
               >
-                <RNVectorIcon
-                  provider="MaterialCommunityIcons"
-                  name="file-upload"
-                  size={40}
-                  color={paperTheme.colors.primary}
-                />
-                <Text style={{ marginTop: 10 }}>
-                  Select a picture
-                </Text>
-              </View>
-            </TouchableRipple>
-            <TouchableRipple
-              onPress={takePicture}
-              rippleColor={paperTheme.colors.rippleColor}
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    margin: 15
+                  }}
+                >
+                  <RNVectorIcon
+                    provider="MaterialCommunityIcons"
+                    name="file-upload"
+                    size={40}
+                    color={paperTheme.colors.primary}
+                  />
+                  <Text style={{ marginTop: 10 }}>
+                    Select a picture
+                  </Text>
+                </View>
+              </TouchableRipple>
+            </View>
+            <View
+              style={{
+                borderWidth: 1,
+                borderColor: paperTheme.colors.primary,
+                borderRadius: paperTheme.roundness
+              }}
             >
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  padding: 15,
-                  borderWidth: 1,
-                  borderColor: paperTheme.colors.primary,
-                  borderRadius: 4
-                }}
+              <TouchableRipple
+                onPress={takePicture}
+                rippleColor={paperTheme.colors.rippleColor}
               >
-                <RNVectorIcon
-                  provider="Ionicons"
-                  name="ios-camera"
-                  size={40}
-                  color={paperTheme.colors.primary}
-                />
-                <Text style={{ marginTop: 10 }}>Take a picture</Text>
-              </View>
-            </TouchableRipple>
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    margin: 15
+                  }}
+                >
+                  <RNVectorIcon
+                    provider="Ionicons"
+                    name="ios-camera"
+                    size={40}
+                    color={paperTheme.colors.primary}
+                  />
+                  <Text style={{ marginTop: 10 }}>
+                    Take a picture
+                  </Text>
+                </View>
+              </TouchableRipple>
+            </View>
           </View>
         </Modalize>
       </Portal>

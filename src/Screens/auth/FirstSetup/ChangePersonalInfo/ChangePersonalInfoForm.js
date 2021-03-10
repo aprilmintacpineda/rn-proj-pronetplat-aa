@@ -1,7 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { Divider, Headline, Subheading } from 'react-native-paper';
-import FormContainer from 'components/FormContainer';
 import { FormContext } from 'components/FormWithContext';
 import SelectOptions from 'components/FormWithContext/SelectOptions';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
@@ -18,7 +17,7 @@ function ChangePersonalInfoForm ({ onNext }) {
 
   return (
     <ScrollView>
-      <FormContainer>
+      <View style={{ margin: 20 }}>
         <Headline>Setup your account</Headline>
         <Subheading>
           Formally introduce yourself to your contacts by telling
@@ -43,9 +42,9 @@ function ChangePersonalInfoForm ({ onNext }) {
           field="bio"
           helperText="A short description of the services you offer."
         />
-      </FormContainer>
-      <View style={{ margin: 20 }}>
-        <SubmitButton>Save</SubmitButton>
+        <View style={{ margin: 20 }}>
+          <SubmitButton>Save</SubmitButton>
+        </View>
       </View>
     </ScrollView>
   );

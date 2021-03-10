@@ -28,14 +28,12 @@ export function renderUserTitle (
   { numberOfLines = 2, style } = {}
 ) {
   return (
-    <Paragraph numberOfLines={numberOfLines}>
-      <Text style={[{ fontWeight: 'bold' }, style]}>{jobTitle}</Text>
+    <Paragraph numberOfLines={numberOfLines} style={style}>
+      <Text style={{ fontWeight: 'bold' }}>{jobTitle}</Text>
       {company ? (
         <>
           <Text> at </Text>
-          <Text style={[{ fontWeight: 'bold' }, style]}>
-            {company}
-          </Text>
+          <Text style={{ fontWeight: 'bold' }}>{company}</Text>
         </>
       ) : null}
     </Paragraph>

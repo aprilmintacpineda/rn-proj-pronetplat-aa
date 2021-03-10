@@ -1,6 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
-import FormContainer from 'components/FormContainer';
+import { ScrollView, View } from 'react-native';
 import { FormContext } from 'components/FormWithContext';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
@@ -13,19 +12,15 @@ function RegisterForm () {
 
   return (
     <ScrollView>
-      <FormContainer>
+      <View style={{ margin: 20 }}>
         <TextInput field="email" type="email" />
-        <TextInput field="password" type="password" />
         <PasswordStrength value={password} />
-        <TextInput
-          style={{ marginTop: 15 }}
-          field="retypePassword"
-          type="password"
-        />
+        <TextInput field="password" type="password" />
+        <TextInput field="retypePassword" type="password" />
         <SubmitButton style={{ marginBottom: 20 }}>
           Create account
         </SubmitButton>
-      </FormContainer>
+      </View>
     </ScrollView>
   );
 }

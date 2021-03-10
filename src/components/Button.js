@@ -44,6 +44,7 @@ function Button ({
           : null,
         style
       ]}
+      dark
       color={color}
       disabled={disabled || !isDone}
       {...rnpButtonProps}

@@ -106,11 +106,11 @@ function TriggerComponent ({ onPress, status, resetStatus }) {
       <View
         style={{
           borderRadius: 100,
-          backgroundColor: '#fff'
+          backgroundColor: paperTheme.colors.primary
         }}
       >
         <IconButton
-          color={paperTheme.colors.primary}
+          color="#fff"
           size={25}
           style={{
             margin: 0,

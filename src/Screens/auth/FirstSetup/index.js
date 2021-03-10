@@ -24,7 +24,7 @@ function FirstSetup ({ navigation: { navigate } }) {
   }, []);
 
   const onDone = React.useCallback(() => {
-    navigate('MainStackNavigation');
+    navigate('LoggedInStackNavigation');
   }, [navigate]);
 
   return (

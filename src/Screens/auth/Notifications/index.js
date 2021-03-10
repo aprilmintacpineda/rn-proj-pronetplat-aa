@@ -1,20 +1,9 @@
-import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import RowComponent from './Row';
 import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
 import ListEmpty from 'components/ListEmpty';
-
-function resetNotificationsCount () {
-  if (store.authUser.notificationsCount) {
-    updateStore({
-      authUser: {
-        ...store.authUser,
-        notificationsCount: 0
-      }
-    });
-  }
-}
+import { resetNotificationsCount } from 'fluxible/actions/user';
 
 function Notifications () {
   return (

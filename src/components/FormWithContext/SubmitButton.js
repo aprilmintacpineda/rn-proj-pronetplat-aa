@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button as RNPButton } from 'react-native-paper';
 import { FormContext } from '.';
+import Button from 'components/Button';
 
 function SubmitButton ({
   children,
@@ -10,7 +10,7 @@ function SubmitButton ({
   const { submitHandler, disabled } = React.useContext(FormContext);
 
   return (
-    <RNPButton
+    <Button
       onPress={submitHandler}
       disabled={disabled || disabedFromProps}
       mode="contained"
@@ -18,7 +18,7 @@ function SubmitButton ({
       {...btnProps}
     >
       {children}
-    </RNPButton>
+    </Button>
   );
 }
 

@@ -1,3 +1,4 @@
+import Color from 'color';
 import React from 'react';
 import { View } from 'react-native';
 import { Paragraph, Text } from 'react-native-paper';
@@ -107,7 +108,9 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
       style={{
         flexDirection: 'row',
         padding: 15,
-        backgroundColor: !seenAt ? `${primary}10` : undefined
+        backgroundColor: !seenAt
+          ? Color(paperTheme.colors.primary).alpha(0.12).toString()
+          : undefined
       }}
     >
       <View style={{ position: 'relative' }}>

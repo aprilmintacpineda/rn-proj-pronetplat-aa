@@ -4,12 +4,11 @@ import { Divider, Headline, Subheading } from 'react-native-paper';
 import TriggerComponent from './TriggerComponent';
 import Avatar from 'components/Avatar';
 import ChangeProfilePictureWidget from 'components/ChangeProfilePictureWidget';
-import FormContainer from 'components/FormContainer';
 
 function ChangeProfilePicture ({ onNext, ...triggerComponentProps }) {
   return (
     <ScrollView>
-      <FormContainer>
+      <View style={{ margin: 20 }}>
         <Headline>Setup your account</Headline>
         <Subheading>
           Add a profile picture to allow your contacts to recognize
@@ -27,7 +26,7 @@ function ChangeProfilePicture ({ onNext, ...triggerComponentProps }) {
           onSuccess={onNext}
           firstSetup
         />
-      </FormContainer>
+      </View>
     </ScrollView>
   );
 }

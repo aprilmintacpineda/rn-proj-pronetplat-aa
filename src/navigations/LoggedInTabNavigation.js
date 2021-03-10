@@ -6,6 +6,7 @@ import ContactList from 'Screens/auth/Contact/List';
 import MyCode from 'Screens/auth/MyCode';
 import ScanCode from 'Screens/auth/ScanCode';
 import SendingContactRequests from 'Screens/auth/SendingContactRequests';
+import { paperTheme } from 'theme';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,7 +22,8 @@ function LoggedInTabNavigation () {
       lazy={false}
       tabBarOptions={{
         labelPosition: 'below-icon',
-        keyboardHidesTabBar: true
+        keyboardHidesTabBar: true,
+        inactiveTintColor: paperTheme.colors.accent
       }}
     >
       <Tab.Screen

@@ -1,4 +1,4 @@
-import { emitEvent, store, updateStore } from 'fluxible-js';
+import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import { ScrollView, View, Alert } from 'react-native';
 import { Headline, Text, Divider } from 'react-native-paper';
@@ -10,6 +10,7 @@ import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
 import UserAvatar from 'components/UserAvatar';
 import { showRequestFailedPopup } from 'fluxible/actions/popup';
+import { decrementContactRequestsCount } from 'fluxible/actions/user';
 import useDataFetch from 'hooks/useDataFetch';
 import {
   getFullName,
@@ -187,14 +188,7 @@ function ContactProfile ({
         method: 'post'
       });
 
-      updateStore({
-        authUser: {
-          ...store.authUser,
-          receivedContactRequestsCount:
-            store.authUser.receivedContactRequestsCount - 1
-        }
-      });
-
+      decrementContactRequestsCount();
       emitEvent('respondedToContactRequest', contactData.id);
     } catch (error) {
       console.log(error);
@@ -212,14 +206,7 @@ function ContactProfile ({
         method: 'post'
       });
 
-      updateStore({
-        authUser: {
-          ...store.authUser,
-          receivedContactRequestsCount:
-            store.authUser.receivedContactRequestsCount - 1
-        }
-      });
-
+      decrementContactRequestsCount();
       emitEvent('respondedToContactRequest', contactData.id);
     } catch (error) {
       console.log(error);

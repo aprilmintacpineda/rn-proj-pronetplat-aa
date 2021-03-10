@@ -40,7 +40,7 @@ const formOptions = {
 
     showSuccessPopup({
       message:
-        "You're account has been created. Please check your inbox for the confirmation code that you need to verify your email"
+        "You're account will be created. Please wait for the email we sent you for further instructions."
     });
 
     navigationRef.current.navigate('Login');

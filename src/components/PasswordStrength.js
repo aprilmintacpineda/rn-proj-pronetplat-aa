@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { HelperText, DefaultTheme } from 'react-native-paper';
+import { HelperText, DefaultTheme, Text } from 'react-native-paper';
 import RNVectorIcon from './RNVectorIcon';
+import Surface from './Surface';
 
 const errorColor = DefaultTheme.colors.error;
 
@@ -67,7 +68,11 @@ function PasswordStrength ({ value }) {
   const specialChars = '!@#$%^&*()_+-={}|[]\\:";\'<>?,./';
 
   return (
-    <View>
+    <Surface style={{ marginBottom: 5 }}>
+      <Text style={{ marginBottom: 10 }}>
+        We encourage you to use a strong password. Please ensure te
+        following are met.
+      </Text>
       <Condition
         isValid={isWithinLen}
         label={`Must be ${minLength} to ${maxLength} characters long`}
@@ -88,7 +93,7 @@ function PasswordStrength ({ value }) {
         isValid={hasSpecialChars}
         label={`Must contain at least 2 special characters; ${specialChars}`}
       />
-    </View>
+    </Surface>
   );
 }
 

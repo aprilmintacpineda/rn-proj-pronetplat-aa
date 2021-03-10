@@ -29,8 +29,8 @@ export function getInitialStore () {
 }
 
 const options = {
-  sharedPreferencesName: `com.entrepconnect.${STAGE}.secured-data`,
-  keychainService: `com.entrepconnect.${STAGE}.secured-data`
+  sharedPreferencesName: `com.entrepic.${STAGE}.secured-data`,
+  keychainService: `com.entrepic.${STAGE}.secured-data`
 };
 
 const asyncStorage = {

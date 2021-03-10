@@ -1,8 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { Text } from 'react-native-paper';
-import Caption from 'components/Caption';
-import FormContainer from 'components/FormContainer';
+import { Subheading, Text } from 'react-native-paper';
 import { FormContext } from 'components/FormWithContext';
 import Button from 'components/FormWithContext/Button';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
@@ -62,19 +60,15 @@ function ResetPasswordForm ({ email }) {
 
   return (
     <ScrollView>
-      <FormContainer>
-        <Caption style={{ marginBottom: 20 }}>
+      <View style={{ margin: 20 }}>
+        <Subheading style={{ marginBottom: 20 }}>
           We have sent the confirmation code to your email. Please do
           not share that confirmation code with anyone.
-        </Caption>
+        </Subheading>
         <TextInput field="confirmationCode" type="code" />
-        <TextInput field="newPassword" type="password" />
         <PasswordStrength value={newPassword} />
-        <TextInput
-          style={{ marginTop: 15 }}
-          field="retypeNewPassword"
-          type="password"
-        />
+        <TextInput field="newPassword" type="password" />
+        <TextInput field="retypeNewPassword" type="password" />
         <SubmitButton
           style={{ marginBottom: 20 }}
           disabled={isResending}
@@ -84,7 +78,7 @@ function ResetPasswordForm ({ email }) {
         <Button to="Login" color="red" disabled={isResending}>
           Cancel
         </Button>
-      </FormContainer>
+      </View>
       <View style={{ margin: 20, marginBottom: 50 }}>
         <Text style={{ textAlign: 'center', marginBottom: 20 }}>
           Did not get the password reset code?

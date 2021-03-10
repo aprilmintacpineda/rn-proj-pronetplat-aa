@@ -63,7 +63,10 @@ function App () {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={paperTheme.colors.accent}
+      />
       <NavigationContainer
         ref={navigationRef}
         theme={navigationTheme}

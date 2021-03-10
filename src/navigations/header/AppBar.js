@@ -3,6 +3,7 @@ import { Appbar } from 'react-native-paper';
 import ActionsButton from './ActionsButton';
 import ToggleDrawerIcon from './ToggleDrawerIcon';
 import { camelToTitleCase } from 'libs/strings';
+import { paperTheme } from 'theme';
 
 function menuIcon (toggle) {
   return <ToggleDrawerIcon {...toggle} />;
@@ -22,7 +23,7 @@ function AppBar (props) {
   return (
     <Appbar.Header
       style={{
-        backgroundColor: '#fff',
+        backgroundColor: paperTheme.colors.accent,
         elevation: 2,
         justifyContent: 'space-between',
         alignItems: 'center'

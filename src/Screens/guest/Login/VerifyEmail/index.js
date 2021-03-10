@@ -21,8 +21,7 @@ const formOptions = {
         };
       case 403:
         return {
-          message:
-            "Couldn't not verify your account. Either the verification code you provide has expired or is incorrect."
+          message: 'Incorrect verification code.'
         };
     }
   },
