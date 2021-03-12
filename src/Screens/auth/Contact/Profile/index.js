@@ -6,8 +6,10 @@ import ContactDetailRow from './Row';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
 import ContactDetailLoadingPlaceholder from 'components/ContactDetailLoadingPlaceholder';
+import RefreshableView from 'components/RefreshableView';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
+import UnknownErrorView from 'components/UnknownErrorView';
 import UserAvatar from 'components/UserAvatar';
 import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import { decrementContactRequestsCount } from 'fluxible/actions/user';
@@ -336,7 +338,12 @@ function ContactProfile ({
         );
       }
 
-      return null;
+      return (
+        <UnknownErrorView
+          isRefreshing={isRefreshing}
+          onRefresh={refreshData}
+        />
+      );
     }
 
     if (
@@ -537,7 +544,20 @@ function ContactProfile ({
       []
     );
 
-    const groupLastIndex = groupedData.length - 1;
+    const len = groupedData.length;
+
+    if (!len) {
+      return (
+        <RefreshableView
+          onRefresh={refreshData}
+          isRefreshing={isRefreshing}
+        >
+          {fullName} does not have any contact information.
+        </RefreshableView>
+      );
+    }
+
+    const groupLastIndex = len - 1;
 
     return (
       <View style={{ margin: 15 }}>
@@ -571,7 +591,8 @@ function ContactProfile ({
     sendRequest,
     unblockUser,
     isFetching,
-    isFirstFetch
+    isFirstFetch,
+    refreshData
   ]);
 
   return (
@@ -590,7 +611,7 @@ function ContactProfile ({
             </Headline>
             <View style={{ alignItems: 'center' }}>
               {renderUserTitle(contactData, {
-                style: { textAlign: 'center' },
+                textAlign: 'center',
                 numberOfLines: 3
               })}
             </View>

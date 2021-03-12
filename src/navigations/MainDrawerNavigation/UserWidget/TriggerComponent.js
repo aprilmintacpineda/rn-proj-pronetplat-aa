@@ -1,7 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
-import { ActivityIndicator, IconButton } from 'react-native-paper';
+import { ActivityIndicator } from 'react-native-paper';
 import Animatable from 'components/Animatable';
+import IconButton from 'components/IconButton';
 import RNVectorIcon from 'components/RNVectorIcon';
 import { paperTheme } from 'theme';
 
@@ -103,23 +104,7 @@ function TriggerComponent ({ onPress, status, resetStatus }) {
         alignItems: 'flex-end'
       }}
     >
-      <View
-        style={{
-          borderRadius: 100,
-          backgroundColor: paperTheme.colors.primary
-        }}
-      >
-        <IconButton
-          color="#fff"
-          size={25}
-          style={{
-            margin: 0,
-            padding: 0
-          }}
-          onPress={onPress}
-          icon={editIcon}
-        />
-      </View>
+      <IconButton onPress={onPress} icon={editIcon} />
     </View>
   );
 }

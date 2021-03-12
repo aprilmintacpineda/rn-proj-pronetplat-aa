@@ -25,15 +25,19 @@ export function getInitials ({ firstName, middleName, surname }) {
 
 export function renderUserTitle (
   { jobTitle, company },
-  { numberOfLines = 2, style } = {}
+  { numberOfLines = 2, textAlign, color } = {}
 ) {
   return (
-    <Paragraph numberOfLines={numberOfLines} style={style}>
-      <Text style={{ fontWeight: 'bold' }}>{jobTitle}</Text>
+    <Paragraph numberOfLines={numberOfLines}>
+      <Text style={{ fontWeight: 'bold', textAlign, color }}>
+        {jobTitle}
+      </Text>
       {company ? (
         <>
-          <Text> at </Text>
-          <Text style={{ fontWeight: 'bold' }}>{company}</Text>
+          <Text style={{ textAlign, color }}> at </Text>
+          <Text style={{ fontWeight: 'bold', textAlign, color }}>
+            {company}
+          </Text>
         </>
       ) : null}
     </Paragraph>

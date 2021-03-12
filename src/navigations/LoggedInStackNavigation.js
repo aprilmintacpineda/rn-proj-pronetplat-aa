@@ -57,7 +57,7 @@ function LoggedInStackNavigation () {
 
           if (type === 'contactRequestCancelled')
             decrementContactRequestsCount();
-           else if (type === 'contactRequest')
+          else if (type === 'contactRequest')
             incrementContactRequestsCount();
 
           if (category === 'notification')

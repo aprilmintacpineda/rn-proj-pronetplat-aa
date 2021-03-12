@@ -1,12 +1,12 @@
 import React from 'react';
 import RefreshableView from './RefreshableView';
 
-function ListEmpty (refreshableViewProps) {
+function UnknownErrorView (refreshableViewProps) {
   return (
     <RefreshableView {...refreshableViewProps}>
-      List appears to be empty.
+      An unknown error occured, Please try again.
     </RefreshableView>
   );
 }
 
-export default React.memo(ListEmpty);
+export default React.memo(UnknownErrorView);

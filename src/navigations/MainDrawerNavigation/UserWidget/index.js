@@ -39,7 +39,8 @@ function UserWidget () {
         </Headline>
         <View style={{ alignItems: 'center' }}>
           {renderUserTitle(authUser, {
-            style: { textAlign: 'center', color: '#fff' },
+            textAlign: 'center',
+            color: '#fff',
             numberOfLines: 3
           })}
         </View>

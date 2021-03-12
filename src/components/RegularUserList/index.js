@@ -4,7 +4,7 @@ import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
 import ListEmpty from 'components/ListEmpty';
 
-function BlockList (dataFlatListProps) {
+function RegularUserList (dataFlatListProps) {
   return (
     <DataFlatList
       ListEmptyComponent={ListEmpty}
@@ -15,4 +15,4 @@ function BlockList (dataFlatListProps) {
   );
 }
 
-export default React.memo(BlockList);
+export default React.memo(RegularUserList);

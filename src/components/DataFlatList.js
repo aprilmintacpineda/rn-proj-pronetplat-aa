@@ -2,6 +2,7 @@ import { addEvents } from 'fluxible-js';
 import React from 'react';
 import { FlatList } from 'react-native';
 import DataFetch, { DataFetchContext } from './DataFetch';
+import ListEmpty from './ListEmpty';
 import ListItemSeparator from './ListItemSeparator';
 
 function defaultKeyExtractor ({ id }) {
@@ -83,6 +84,12 @@ function Body ({
       }
       ItemSeparatorComponent={ListItemSeparator}
       renderItem={renderRow}
+      ListEmptyComponent={
+        <ListEmpty
+          onRefresh={refreshData}
+          isRefreshing={isRefreshing}
+        />
+      }
       {...dataFlatList}
     />
   );
