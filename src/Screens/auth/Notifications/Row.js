@@ -10,7 +10,7 @@ import UserAvatar from 'components/UserAvatar';
 import { getFullName, getPersonalPronoun } from 'libs/user';
 import { paperTheme, navigationTheme } from 'theme';
 
-const { success, error, primary } = paperTheme.colors;
+const { error, primary } = paperTheme.colors;
 const { background: backgroundColor } = navigationTheme.colors;
 
 const replacers = {
@@ -29,7 +29,7 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
           provider="MaterialCommunityIcons"
           name="account-check-outline"
           size={25}
-          color={success}
+          color={primary}
         />
       );
       break;

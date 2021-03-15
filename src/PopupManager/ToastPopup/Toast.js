@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper';
 import Animatable from 'components/Animatable';
 import { paperTheme } from 'theme';
 
-const { success, error } = paperTheme.colors;
+const { primary, error } = paperTheme.colors;
 
 function Toast ({ id, message, icon = null, type, updateCount }) {
   const [hasExpired, setHasExpired] = React.useState(false);
@@ -35,7 +35,7 @@ function Toast ({ id, message, icon = null, type, updateCount }) {
 
   const color =
     type === 'success'
-      ? success
+      ? primary
       : type === 'error'
       ? error
       : undefined;

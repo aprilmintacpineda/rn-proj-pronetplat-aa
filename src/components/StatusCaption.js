@@ -5,11 +5,11 @@ import Caption from './Caption';
 import RNVectorIcon from './RNVectorIcon';
 import { paperTheme } from 'theme';
 
-const { success, error } = paperTheme.colors;
+const { primary, error } = paperTheme.colors;
 
 function StatusCaption ({ isError, message }) {
   let iconName = 'checkmark-circle-outline';
-  let color = success;
+  let color = primary;
 
   if (isError) {
     iconName = 'alert-circle-outline';

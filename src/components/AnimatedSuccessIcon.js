@@ -15,7 +15,7 @@ function AnimatedSuccessIcon ({ size = 20, ...animatableProps }) {
         provider="Ionicons"
         name="ios-checkmark-circle-outline"
         size={size}
-        color={paperTheme.colors.success}
+        color={paperTheme.colors.primary}
       />
     </Animatable>
   );
