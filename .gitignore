@@ -42,18 +42,13 @@ buck-out/
 !debug.keystore
 
 # fastlane
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/
-
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
-google-service-account-key.json
+service-account.json
 *.keystore.*
 FastlaneDeploymentCI.p8
+vendor/
 
 # Bundle artifact
 *.jsbundle
@@ -65,10 +60,6 @@ FastlaneDeploymentCI.p8
 src/env.js
 .ignore_*
 
-# GoogleServices
+# firebase
 GoogleService-Info.plist
-GoogleService-Info-*.plist
 google-services.json
-
-# Ruby
-vendor/
