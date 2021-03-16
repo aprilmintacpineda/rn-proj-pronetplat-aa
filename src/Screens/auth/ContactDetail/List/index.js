@@ -1,11 +1,10 @@
 import React from 'react';
 import RowComponent from './Row';
 import DataFlatList from 'components/DataFlatList';
-import ListEmpty from 'components/ListEmpty';
 import MyContactDetailLoadingPlaceholder from 'components/MyContactDetailLoadingPlaceholder';
 import RNVectorIcon from 'components/RNVectorIcon';
 
-const events = {
+const eventListeners = {
   contactDetailsAdded (contactDetail, { concatData }) {
     concatData(contactDetail);
   },
@@ -50,10 +49,9 @@ function ContactDetailsList ({
   return (
     <DataFlatList
       endpoint="/contact-details"
-      ListEmptyComponent={ListEmpty}
       RowComponent={RowComponent}
       LoadingPlaceHolder={MyContactDetailLoadingPlaceholder}
-      events={events}
+      eventListeners={eventListeners}
     />
   );
 }

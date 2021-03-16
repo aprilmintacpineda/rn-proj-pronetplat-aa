@@ -5,17 +5,13 @@ import DataFetch, { DataFetchContext } from './DataFetch';
 import ListEmpty from './ListEmpty';
 import ListItemSeparator from './ListItemSeparator';
 
-function defaultKeyExtractor ({ id }) {
-  return id;
-}
-
 function Body ({
   LoadingPlaceHolder,
-  keyExtractor = defaultKeyExtractor,
+  keyField = 'id',
   RowComponent,
   renderItem,
   ListFooterComponent = null,
-  events = {},
+  eventListeners = null,
   ...dataFlatList
 }) {
   const {
@@ -45,16 +41,21 @@ function Body ({
     [updateData, RowComponent, renderItem]
   );
 
+  const keyExtractor = React.useCallback(item => item[keyField], [
+    keyField
+  ]);
+
   React.useEffect(() => {
-    const eventNames = Object.keys(events);
+    if (!eventListeners) return;
 
-    if (!eventNames.length) return;
-
-    return addEvents(eventNames, (payload, event) => {
-      const callback = events[event];
-      callback(payload, { filterData, updateData, concatData });
-    });
-  }, [events, filterData, updateData, concatData]);
+    return addEvents(
+      Object.keys(eventListeners),
+      (payload, event) => {
+        const callback = eventListeners[event];
+        callback(payload, { filterData, updateData, concatData });
+      }
+    );
+  }, [eventListeners, filterData, updateData, concatData]);
 
   if (isFirstFetch) {
     return (

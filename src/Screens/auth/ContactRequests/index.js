@@ -2,9 +2,8 @@ import React from 'react';
 import RowComponent from './Row';
 import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
-import ListEmpty from 'components/ListEmpty';
 
-const events = {
+const eventListeners = {
   respondedToContactRequest: (contactId, { filterData }) => {
     filterData(data => data.senderId !== contactId);
   }
@@ -14,10 +13,9 @@ function ContactRequests () {
   return (
     <DataFlatList
       endpoint="/received-contact-requests"
-      ListEmptyComponent={ListEmpty}
       RowComponent={RowComponent}
       LoadingPlaceHolder={ContactsLoadingPlaceholder}
-      events={events}
+      eventListeners={eventListeners}
     />
   );
 }
