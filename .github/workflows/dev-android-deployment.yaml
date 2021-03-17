@@ -59,9 +59,9 @@ jobs:
 
       - name: Build and deploy
         run: |
-          cp src/env.example.js > src/env.js
+          cp src/env.example.js src/env.js
           yarn replacer -f src/env.js -p __STAGE__ -r "prod"
           yarn replacer -f src/env.js -p __API_BASE_URL__ -r "https://apiv1dev.entrepic.com"
-          yarn replacer -f android/gradle.properties -p __KEYSTOR_PASSWORD__ -r "${{ secrets.KEYSTORE_PASSWORD }}"
+          yarn replacer -f android/gradle.properties -p __KEYSTOR_PASSWORD__ -r '${{ secrets.KEYSTORE_PASSWORD }}'
           cd android
           bundle exec fastlane android internal

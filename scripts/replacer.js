@@ -13,6 +13,8 @@ const cmdArgs = require('command-line-args');
     optionDefinitions
   );
 
+  console.log(file, placeholder, replacement);
+
   const filePath = path.join(__dirname, '../', file);
   let fileContent = await fs.readFile(filePath, 'utf-8');
   fileContent = fileContent.replaceAll(placeholder, replacement);
