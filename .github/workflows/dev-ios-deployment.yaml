@@ -21,7 +21,6 @@
 #       ITUNES_TEAM_ID: ${{ secrets.ITUNES_TEAM_ID }}
 #       APPSTORE_TEAM_ID: ${{ secrets.APPSTORE_TEAM_ID }}
 #       MATCH_REPO_SSH: ${{ secrets.MATCH_REPO_SSH }}
-#       NODE_ENV: "production"
 
 #     # Steps represent a sequence of tasks that will be executed as part of the job
 #     steps:
@@ -76,7 +75,7 @@
 #           cp src/env.example.js src/env.js
 #           yarn replacer -f src/env.js -p __STAGE__ -r "dev"
 #           yarn replacer -f src/env.js -p __API_BASE_URL__ -r "https://apiv1dev.entrepic.com"
-#           yarn bundle-js
+#           NODE_ENV=production yarn bundle-js
 
 #       - name: Setup files
 #         run: |
