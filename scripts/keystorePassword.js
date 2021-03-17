@@ -7,6 +7,9 @@ const path = require('path');
     '../android/gradle.properties'
   );
   let fileContents = await fs.readFile(filePath, 'utf-8');
+
+  console.log(fileContents);
+
   fileContents = fileContents.replaceAll(
     '__KEYSTORE_PASSWORD__',
     process.env.KEYSTORE_PASSWORD
