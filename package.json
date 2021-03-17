@@ -14,7 +14,8 @@
     "bootsplash": "react-native generate-bootsplash assets/bootsplash_logo_original.png --background-color=28003A --logo-width=150",
     "patch-packages": "patch-package react-native-paper react-native-push-notification-popup rn-placeholder",
     "bundle-js": "react-native bundle --entry-file index.js --bundle-output ios/main.jsbundle",
-    "postversion": "react-native-version"
+    "postversion": "react-native-version",
+    "keystore-password": "node scripts/keystorePassword.js"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.14.1",
