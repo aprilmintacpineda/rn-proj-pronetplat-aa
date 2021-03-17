@@ -9,14 +9,10 @@ const path = require('path');
     );
     let fileContents = await fs.readFile(filePath, 'utf-8');
 
-    console.log(fileContents);
-
     fileContents = fileContents.replace(
       /__KEYSTORE_PASSWORD__/gim,
       process.env.KEYSTORE_PASSWORD
     );
-
-    console.log(fileContents);
 
     await fs.writeFile(filePath, fileContents);
   } catch (error) {
