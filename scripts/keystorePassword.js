@@ -11,8 +11,8 @@ const path = require('path');
 
     console.log(fileContents);
 
-    fileContents = fileContents.replaceAll(
-      '__KEYSTORE_PASSWORD__',
+    fileContents = fileContents.replace(
+      /__KEYSTORE_PASSWORD__/gim,
       process.env.KEYSTORE_PASSWORD
     );
 
