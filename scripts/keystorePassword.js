@@ -23,4 +23,6 @@ const path = require('path');
     console.log(error);
     process.exit(1);
   }
+
+  process.exit(1);
 })();
