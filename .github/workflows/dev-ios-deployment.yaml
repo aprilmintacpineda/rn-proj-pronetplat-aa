@@ -14,8 +14,6 @@ jobs:
     runs-on: macos-latest
     continue-on-error: false
     env:
-      STAGE: "dev"
-      API_BASE_URL: "https://apiv1dev.entrepic.com"
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
       APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
@@ -76,12 +74,14 @@ jobs:
       - name: Bundle mainjs
         run: |
           cp src/env.example.js > src/env.js
+          yarn replacer -f src/env.js -p __STAGE__ -r "dev"
+          yarn replacer -f src/env.js -p __API_BASE_URL__ -r "https://apiv1dev.entrepic.com"
           yarn bundle-js
 
       - name: Setup files
         run: |
           echo "${{ secrets.P8_AUTH_KEY }}" > FastlaneDeploymentCI.p8
-          echo "${{ secrets.GOOGLE_SERVICES_PLIST }}" > ios/proj_pronetplat_aa/GoogleService-Info.plist
+          echo "${{ secrets.GOOGLE_SERVICES_PLIST_DEV }}" > ios/proj_pronetplat_aa/GoogleService-Info.plist
 
       - name: Build and deploy
         run: |

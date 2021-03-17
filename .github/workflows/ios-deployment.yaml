@@ -76,12 +76,14 @@ jobs:
       - name: Bundle mainjs
         run: |
           cp src/env.example.js > src/env.js
+          yarn replacer -f src/env.js -p __STAGE__ -r "prod"
+          yarn replacer -f src/env.js -p __API_BASE_URL__ -r "https://apiv1dev.entrepic.com"
           yarn bundle-js
 
       - name: Setup files
         run: |
           echo "${{ secrets.P8_AUTH_KEY }}" > FastlaneDeploymentCI.p8
-          echo "${{ secrets.GOOGLE_SERVICES_PLIST }}" > ios/proj_pronetplat_aa/GoogleService-Info.plist
+          echo "${{ secrets.GOOGLE_SERVICES_PLIST_PROD }}" > ios/proj_pronetplat_aa/GoogleService-Info.plist
 
       - name: Build and deploy
         run: |

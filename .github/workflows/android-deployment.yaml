@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: false
     env:
-      STAGE: "prod"
-      API_BASE_URL: "https://apiv1.entrepic.com"
       NODE_ENV: "production"
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -55,12 +53,15 @@ jobs:
       - name: Setup files
         run: |
           echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}' > android/google-service-account-key.json
-          echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > android/app/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICES_JSON_PROD }}' > android/app/google-services.json
           echo "${{ secrets.ANDROID_SIGNING_KEY }}" > my-upload-key.keystore.asc
           gpg -d --passphrase "${{ secrets.ANDROID_SIGNING_KEY_PASSPHRASE }}" --batch my-upload-key.keystore.asc > android/app/my-upload-key.keystore
 
       - name: Build and deploy
         run: |
           cp src/env.example.js > src/env.js
+          yarn replacer -f src/env.js -p __STAGE__ -r "prod"
+          yarn replacer -f src/env.js -p __API_BASE_URL__ -r "https://apiv1.entrepic.com"
+          yarn replacer -f android/gradle.properties -p __KEYSTOR_PASSWORD__ -r "${{ secrets.KEYSTORE_PASSWORD }}"
           cd android
           bundle exec fastlane android internal

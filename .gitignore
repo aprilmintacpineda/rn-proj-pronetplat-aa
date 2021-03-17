@@ -47,7 +47,7 @@ buck-out/
 */fastlane/screenshots
 service-account.json
 *.keystore.*
-FastlaneDeploymentCI.p8
+*.p8
 vendor/
 
 # Bundle artifact
