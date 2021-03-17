@@ -11,5 +11,8 @@ const path = require('path');
     '__KEYSTORE_PASSWORD__',
     process.env.KEYSTORE_PASSWORD
   );
+
+  console.log(fileContents);
+
   await fs.writeFile(filePath, fileContents);
 })();

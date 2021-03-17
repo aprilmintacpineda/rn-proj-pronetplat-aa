@@ -1,85 +1,85 @@
-name: dev-ios-deployment
+# name: dev-ios-deployment
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the dev branch
-on:
-  release:
-    types: [prereleased]
+# # Controls when the action will run. Triggers the workflow on push or pull request
+# # events but only for the dev branch
+# on:
+#   release:
+#     types: [prereleased]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: macos-latest
-    continue-on-error: false
-    env:
-      STAGE: "dev"
-      API_BASE_URL: "https://apiv1dev.entrepic.com"
-      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-      APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
-      APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
-      APPLE_ID: ${{ secrets.APPLE_ID }}
-      ITUNES_TEAM_ID: ${{ secrets.ITUNES_TEAM_ID }}
-      APPSTORE_TEAM_ID: ${{ secrets.APPSTORE_TEAM_ID }}
-      MATCH_REPO_SSH: ${{ secrets.MATCH_REPO_SSH }}
+# # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# jobs:
+#   # This workflow contains a single job called "build"
+#   build:
+#     # The type of runner that the job will run on
+#     runs-on: macos-latest
+#     continue-on-error: false
+#     env:
+#       STAGE: "dev"
+#       API_BASE_URL: "https://apiv1dev.entrepic.com"
+#       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+#       APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+#       APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+#       APPLE_ID: ${{ secrets.APPLE_ID }}
+#       ITUNES_TEAM_ID: ${{ secrets.ITUNES_TEAM_ID }}
+#       APPSTORE_TEAM_ID: ${{ secrets.APPSTORE_TEAM_ID }}
+#       MATCH_REPO_SSH: ${{ secrets.MATCH_REPO_SSH }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@master
+#     # Steps represent a sequence of tasks that will be executed as part of the job
+#     steps:
+#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - uses: actions/checkout@master
 
-      - uses: webfactory/ssh-agent@v0.5.0
-        with:
-          ssh-private-key: ${{ secrets.MATCH_REPO_KEY }}
+#       - uses: webfactory/ssh-agent@v0.5.0
+#         with:
+#           ssh-private-key: ${{ secrets.MATCH_REPO_KEY }}
 
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.6
-          bundler-cache: true
+#       - uses: ruby/setup-ruby@v1
+#         with:
+#           ruby-version: 2.6
+#           bundler-cache: true
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+#       - name: Get yarn cache directory path
+#         id: yarn-cache-dir-path
+#         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+#       - uses: actions/cache@v2
+#         with:
+#           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+#           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+#           restore-keys: |
+#             ${{ runner.os }}-yarn-
 
-      - uses: actions/cache@v2
-        with:
-          path: Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-
+#       - uses: actions/cache@v2
+#         with:
+#           path: Pods
+#           key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
+#           restore-keys: |
+#             ${{ runner.os }}-pods-
 
-      - name: Versions
-        run: |
-          echo "Yarn: $(yarn --version)"
-          echo "Node: $(node --version)"
-          echo "Ruby: $(ruby --version)"
-          echo "Bundler: $(bundle --version)"
+#       - name: Versions
+#         run: |
+#           echo "Yarn: $(yarn --version)"
+#           echo "Node: $(node --version)"
+#           echo "Ruby: $(ruby --version)"
+#           echo "Bundler: $(bundle --version)"
 
-      - name: Install node modules
-        run: yarn
+#       - name: Install node modules
+#         run: yarn
 
-      - name: Install cocoapods
-        run: cd ios && pod install
+#       - name: Install cocoapods
+#         run: cd ios && pod install
 
-      - name: Bundle mainjs
-        run: |
-          cp src/env.example.js src/env.js
-          yarn bundle-js
+#       - name: Bundle mainjs
+#         run: |
+#           cp src/env.example.js src/env.js
+#           yarn bundle-js
 
-      - name: Setup files
-        run: |
-          echo "${{ secrets.P8_AUTH_KEY }}" > ios/FastlaneDeploymentCI.p8
-          echo "${{ secrets.GOOGLE_SERVICES_PLIST }}" > ios/proj_pronetplat_aa/GoogleService-Info.plist
+#       - name: Setup files
+#         run: |
+#           echo "${{ secrets.P8_AUTH_KEY }}" > ios/FastlaneDeploymentCI.p8
+#           echo "${{ secrets.GOOGLE_SERVICES_PLIST }}" > ios/proj_pronetplat_aa/GoogleService-Info.plist
 
-      - name: Build and deploy
-        run: |
-          cd ios
-          bundle exec fastlane ios release
+#       - name: Build and deploy
+#         run: |
+#           cd ios
+#           bundle exec fastlane ios release
