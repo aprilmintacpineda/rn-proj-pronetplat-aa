@@ -10,7 +10,7 @@ platform :android do
     upload_to_play_store(
       package_name: package_name,
       track: "internal",
-      aab: "android/app/build/outputs/bundle/productionRelease/app-production-release.aab",
+      aab: "app/build/outputs/bundle/productionRelease/app-production-release.aab",
       release_status: "draft"
     )
   end
