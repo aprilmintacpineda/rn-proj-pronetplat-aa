@@ -2,20 +2,25 @@ const fs = require('fs').promises;
 const path = require('path');
 
 (async () => {
-  const filePath = path.join(
-    __dirname,
-    '../android/gradle.properties'
-  );
-  let fileContents = await fs.readFile(filePath, 'utf-8');
+  try {
+    const filePath = path.join(
+      __dirname,
+      '../android/gradle.properties'
+    );
+    let fileContents = await fs.readFile(filePath, 'utf-8');
 
-  console.log(fileContents);
+    console.log(fileContents);
 
-  fileContents = fileContents.replaceAll(
-    '__KEYSTORE_PASSWORD__',
-    process.env.KEYSTORE_PASSWORD
-  );
+    fileContents = fileContents.replaceAll(
+      '__KEYSTORE_PASSWORD__',
+      process.env.KEYSTORE_PASSWORD
+    );
 
-  console.log(fileContents);
+    console.log(fileContents);
 
-  await fs.writeFile(filePath, fileContents);
+    await fs.writeFile(filePath, fileContents);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
 })();
