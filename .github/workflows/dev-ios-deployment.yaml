@@ -67,7 +67,9 @@
 #         run: yarn
 
 #       - name: Install cocoapods
-#         run: cd ios && pod install
+#         run: |
+#           cd ios
+#           pod install
 
 #       - name: Bundle mainjs
 #         run: |

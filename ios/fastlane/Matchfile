@@ -2,6 +2,8 @@ git_url(ENV["MATCH_REPO_SSH"])
 
 storage_mode("git")
 
+type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
+
 app_identifier([
   "com.aprmp.projpronetplataa",
   "com.aprmp.projpronetplataa.dev"
