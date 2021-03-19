@@ -42,7 +42,7 @@ export async function logEvent (eventName, params) {
   });
 }
 
-export async function logLogin (method = 'form') {
+export async function logLogin (method = 'login') {
   crashlytics().log('User logged in');
   await analytics().logLogin({ method });
 }

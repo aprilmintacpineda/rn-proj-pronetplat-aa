@@ -11,7 +11,7 @@ function Button ({
   params,
   style,
   mode,
-  color,
+  color = paperTheme.colors.primary,
   disabled,
   countDown = null,
   ...rnpButtonProps

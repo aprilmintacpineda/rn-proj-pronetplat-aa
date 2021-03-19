@@ -8,10 +8,33 @@ export function login ({ userData, authToken }) {
   updateStore({ authUser: userData, authToken });
 }
 
+export function reAuth ({ userData, authToken }) {
+  logLogin('reAuth');
+
+  if (store.authUser.id !== userData.id) {
+    updateStore({
+      authUser: userData,
+      authToken,
+      sendingContactRequests: [],
+      relogin: false
+    });
+  } else {
+    updateStore({
+      authUser: userData,
+      authToken,
+      relogin: false
+    });
+  }
+}
+
 export function logout () {
   logLogout();
   xhr('/logout', { method: 'post' });
-  updateStore(restore(getInitialStore()));
+
+  updateStore({
+    ...restore(getInitialStore()),
+    relogin: false
+  });
 }
 
 export function decrementContactRequestsCount () {

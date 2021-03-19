@@ -101,7 +101,7 @@ function LoggedInStackNavigation () {
         component={LoggedInTabNavigation}
         options={{
           isMainScreen: true,
-          title: ''
+          title: 'Dashboard'
         }}
       />
       <Stack.Screen

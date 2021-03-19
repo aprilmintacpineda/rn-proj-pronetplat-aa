@@ -19,6 +19,7 @@ export function getInitialStore () {
       shown: false,
       body: null
     },
+    relogin: false,
     authUser: null,
     authToken: null,
     initComplete: false,
@@ -60,20 +61,29 @@ export function restore ({
 }
 
 async function onInitComplete () {
+  updateStore({ deviceToken: await iid().getToken() });
+
+  if (!(await hasInternet())) {
+    updateStore({ initComplete: true });
+    return;
+  }
+
+  if (
+    !store.authToken ||
+    !hasCompletedSetup(store.authUser) ||
+    !store.authUser.emailVerifiedAt
+  ) {
+    updateStore({
+      initComplete: true,
+      authUser: null,
+      authToken: null,
+      sendingContactRequests: []
+    });
+
+    return;
+  }
+
   try {
-    updateStore({ deviceToken: await iid().getToken() });
-
-    if (!store.authToken || !(await hasInternet())) {
-      updateStore({ initComplete: true });
-      return;
-    }
-
-    if (
-      !hasCompletedSetup(store.authUser) ||
-      !store.authUser.emailVerifiedAt
-    )
-      throw new Error('User has not complete setup');
-
     const response = await xhr('/validate-auth', { method: 'post' });
     const { userData, authToken } = await response.json();
 
@@ -89,8 +99,7 @@ async function onInitComplete () {
 
     updateStore({
       initComplete: true,
-      authUser: null,
-      authToken: null
+      reAuth: true
     });
   }
 }
