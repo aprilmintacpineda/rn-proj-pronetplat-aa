@@ -15,7 +15,7 @@ jobs:
     continue-on-error: false
     env:
       STAGE: "dev"
-      API_BASE_URL: "https://apiv1dev.entrepic.com"
+      API_BASE_URL: "https://apiv1.entrepic.com"
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
