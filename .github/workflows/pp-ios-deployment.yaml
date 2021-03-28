@@ -84,4 +84,4 @@ jobs:
       - name: Build and deploy
         run: |
           cd ios
-          bundle exec fastlane ios preprod
+          NODE_ENV=production bundle exec fastlane ios preprod

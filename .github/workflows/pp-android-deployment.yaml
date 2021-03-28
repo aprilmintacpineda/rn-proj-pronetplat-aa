@@ -57,9 +57,9 @@ jobs:
           echo "${{ secrets.ANDROID_SIGNING_KEY }}" > my-upload-key.keystore.b64
           base64 -d my-upload-key.keystore.b64 > android/app/my-upload-key.keystore
           yarn keystore-password
+          cp src/env.example.js src/env.js
 
       - name: Build and deploy
         run: |
-          cp src/env.example.js src/env.js
           cd android
-          bundle exec fastlane android preprod
+          NODE_ENV=production bundle exec fastlane android preprod
