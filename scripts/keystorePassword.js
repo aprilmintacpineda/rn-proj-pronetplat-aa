@@ -7,6 +7,7 @@ const path = require('path');
       __dirname,
       '../android/gradle.properties'
     );
+
     let fileContents = await fs.readFile(filePath, 'utf-8');
 
     fileContents = fileContents.replace(
