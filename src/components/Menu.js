@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu as RNPMenu, IconButton } from 'react-native-paper';
 import RNVectorIcon from './RNVectorIcon';
+import { paperTheme } from 'theme';
 
 function menuIcon (props) {
   return (
@@ -16,7 +17,8 @@ function Menu ({
   menus,
   IconComponent = IconButton,
   size,
-  disabled
+  disabled,
+  color = paperTheme.colors.accent
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -34,6 +36,7 @@ function Menu ({
           icon={menuIcon}
           onPress={toggleActionMenu}
           disabled={disabled}
+          color={color}
         />
       }
     >

@@ -25,7 +25,7 @@ export function getInitials ({ firstName, middleName, surname }) {
 
 export function renderUserTitle (
   { jobTitle, company },
-  { numberOfLines = 2, textAlign, color } = {}
+  { numberOfLines = 2, textAlign, color = '#000' } = {}
 ) {
   return (
     <Paragraph numberOfLines={numberOfLines}>
