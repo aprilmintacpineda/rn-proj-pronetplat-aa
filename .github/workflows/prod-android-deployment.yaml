@@ -46,7 +46,7 @@ jobs:
           echo "Bundler: $(bundle --version)"
 
       - name: Install node modules
-        run: yarn
+        run: yarn --prefer-offline
 
       - name: Setup files
         env:
