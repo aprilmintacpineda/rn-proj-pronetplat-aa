@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: false
     env:
-      STAGE: "dev"
+      STAGE: prod
       API_BASE_URL: "https://apiv1.entrepic.com"
 
     # Steps represent a sequence of tasks that will be executed as part of the job
