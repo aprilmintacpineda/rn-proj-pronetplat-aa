@@ -52,6 +52,7 @@ service-account.json
 *.keystore.*
 *.p8
 vendor/
+*/fastlane/.env
 
 # Bundle artifact
 *.jsbundle
