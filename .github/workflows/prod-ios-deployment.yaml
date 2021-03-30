@@ -71,15 +71,14 @@ jobs:
           cd ios
           pod install
 
-      - name: Bundle mainjs
-        run: |
-          cp src/env.example.js src/env.js
-          NODE_ENV=production yarn bundle-js
-
       - name: Setup files
         run: |
+          cp src/env.example.js src/env.js
           echo "${{ secrets.P8_AUTH_KEY }}" > ios/FastlaneDeploymentCI.p8
           echo "${{ secrets.GOOGLE_SERVICES_PLIST }}" > ios/proj_pronetplat_aa/GoogleService-Info.plist
+
+      # - name: Bundle mainjs
+      #   run: NODE_ENV=production yarn bundle-js
 
       - name: Build and deploy
         run: |
