@@ -35,7 +35,8 @@ platform :ios do
       scheme: scheme,
       configuration: configuration,
       clean: true,
-      silent: true
+      silent: true,
+      suppress_xcode_output: true
     )
 
     upload_to_testflight(
