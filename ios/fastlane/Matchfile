@@ -1,4 +1,4 @@
-git_url(ENV["MATCH_REPO_SSH"])
+git_url(ENV["MATCH_REPO"])
 
 storage_mode("git")
 

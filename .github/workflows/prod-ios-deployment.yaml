@@ -22,16 +22,13 @@ jobs:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       ITUNES_TEAM_ID: ${{ secrets.ITUNES_TEAM_ID }}
       APPSTORE_TEAM_ID: ${{ secrets.APPSTORE_TEAM_ID }}
-      MATCH_REPO_SSH: ${{ secrets.MATCH_REPO_SSH }}
+      MATCH_REPO: ${{ secrets.MATCH_REPO }}
+      MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.GIT_PAT }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@master
-
-      - uses: webfactory/ssh-agent@v0.5.0
-        with:
-          ssh-private-key: ${{ secrets.MATCH_REPO_KEY }}
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -77,10 +74,7 @@ jobs:
           echo "${{ secrets.P8_AUTH_KEY }}" > ios/FastlaneDeploymentCI.p8
           echo "${{ secrets.GOOGLE_SERVICES_PLIST }}" > ios/proj_pronetplat_aa/GoogleService-Info.plist
 
-      # - name: Bundle mainjs
-      #   run: NODE_ENV=production yarn bundle-js
-
       - name: Build and deploy
         run: |
           cd ios
-          NODE_ENV=production bundle exec fastlane ios preprod
+          bundle exec fastlane ios preprod
