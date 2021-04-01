@@ -8,6 +8,7 @@ global_job_config:
   prologue:
     commands:
       - checkout
+      - cache restore
   env_vars:
     - name: STAGE
       value: "prod"
@@ -48,15 +49,24 @@ blocks:
             - cp src/env.example.js src/env.js
             - cp ~/FastlaneDeploymentCI.p8 ios/FastlaneDeploymentCI.p8
             - cp ~/GoogleService-Info.plist ios/proj_pronetplat_aa/GoogleService-Info.plist
-            - yarn --prefer-offline
+            - yarn
             - bundle
             - cd ios
+            - pod install
             - bundle exec fastlane ios preprod
+            - cd ..
+            - cache store
   - name: Production Android
     dependencies: []
     run:
       when: branch = 'master'
     task:
+      agent:
+        machine:
+          type: e1-standard-2
+        containers:
+          - name: main
+            image: 'reactnativecommunity/react-native-android'
       secrets:
         - name: rn-proj-pronetplat-aa-android
       env_vars:
@@ -71,7 +81,9 @@ blocks:
             - cp android/template.gradle.properties android/gradle.properties
             - cp src/env.example.js src/env.js
             - yarn keystore-password
-            - yarn --prefer-offline
+            - yarn
             - bundle
             - cd android
             - bundle exec fastlane android preprod
+            - cd ..
+            - cache store
