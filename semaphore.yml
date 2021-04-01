@@ -23,51 +23,55 @@ blocks:
         machine:
           type: a1-standard-4
           os_image: macos-xcode12
-      # secrets:
-      #   - name: rn-proj-pronetplat-aa-ios
-      # env_vars:
-      #   - name: STAGE
-      #     value: "prod"
-      #   - name: API_BASE_URL
-      #     value: "https://apiv1.entrepic.com"
-        # MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        # APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
-        # APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
-        # APPLE_ID: ${{ secrets.APPLE_ID }}
-        # ITUNES_TEAM_ID: ${{ secrets.ITUNES_TEAM_ID }}
-        # APPSTORE_TEAM_ID: ${{ secrets.APPSTORE_TEAM_ID }}
-        # MATCH_REPO: ${{ secrets.MATCH_REPO }}
-        # MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.GIT_PAT }}
+      secrets:
+        - name: rn-proj-pronetplat-aa-ios
+      env_vars:
+        - name: MATCH_PASSWORD
+          value: $MATCH_PASSWORD
+        - name: APPSTORE_KEY_ID
+          value: $APPSTORE_KEY_ID
+        - name: APPSTORE_ISSUER_ID
+          value: $APPSTORE_ISSUER_ID
+        - name: APPLE_ID
+          value: $APPLE_ID
+        - name: ITUNES_TEAM_ID
+          value: $ITUNES_TEAM_ID
+        - name: APPSTORE_TEAM_ID
+          value: $APPSTORE_TEAM_ID
+        - name: MATCH_REPO
+          value: $MATCH_REPO
+        - name: MATCH_GIT_BASIC_AUTHORIZATION
+          value: $GIT_PAT
       jobs:
         - name: Build and deploy ios
           commands:
-            - node test.js
-            # - cp src/env.example.js src/env.js
-            # - cp ~/FastlaneDeploymentCI.p8 ios/FastlaneDeploymentCI.p8
-            # - cp ~/GoogleService-Info.plist ios/proj_pronetplat_aa/GoogleService-Info.plist
-            # - yarn --prefer-offline
-            # - bundle
-            # - cd ios
-            # - bundle exec fastlane ios preprod
+            - cp src/env.example.js src/env.js
+            - cp ~/FastlaneDeploymentCI.p8 ios/FastlaneDeploymentCI.p8
+            - cp ~/GoogleService-Info.plist ios/proj_pronetplat_aa/GoogleService-Info.plist
+            - yarn --prefer-offline
+            - bundle
+            - cd ios
+            - bundle exec fastlane ios preprod
   - name: Production Android
     dependencies: []
     run:
       when: branch = 'master'
     task:
-      # secrets:
-      #   - name: rn-proj-pronetplat-aa-android
+      secrets:
+        - name: rn-proj-pronetplat-aa-android
+      env_vars:
+        - name: KEYSTORE_PASSWORD
+          value: $KEYSTORE_PASSWORD
       jobs:
         - name: Build and deploy android
           commands:
-            - node test.js
-            # - cp ~/service-account.json android/service-account.json
-            # - cp ~/google-services.json android/app/google-services.json
-            # - cp ~/my-upload-key.keystore.b64 android/app/my-upload-key.keystore.b64
-            # - base64 -d android/app/my-upload-key.keystore.b64 > android/app/my-upload-key.keystore
-            # - cp android/template.gradle.properties android/gradle.properties
-            # - yarn keystore-password
-            # - cp src/env.example.js src/env.js
-            # - yarn --prefer-offline
-            # - bundle
-            # - cd android
-            # - bundle exec fastlane android preprod
+            - cp ~/service-account.json android/service-account.json
+            - cp ~/google-services.json android/app/google-services.json
+            - cp ~/my-upload-key.keystore android/app/my-upload-key.keystore
+            - cp android/template.gradle.properties android/gradle.properties
+            - cp src/env.example.js src/env.js
+            - yarn keystore-password
+            - yarn --prefer-offline
+            - bundle
+            - cd android
+            - bundle exec fastlane android preprod
