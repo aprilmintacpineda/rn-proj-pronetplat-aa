@@ -1,11 +1,5 @@
 version: v1.0
 name: Initial Pipeline
-agent:
-  machine:
-    type: e1-standard-2
-  containers:
-    - name: main
-      image: sickcodes/docker-osx:big-sur
 global_job_config:
   prologue:
     commands:
@@ -21,6 +15,10 @@ blocks:
     run:
       when: branch = 'master'
     task:
+      agent:
+        machine:
+          type: a1-standard-4
+          os_image: macos-xcode12
       # secrets:
       #   - name: rn-proj-pronetplat-aa-ios
       # env_vars:
@@ -52,6 +50,10 @@ blocks:
     run:
       when: branch = 'master'
     task:
+      agent:
+        machine:
+          type: e1-standard-2
+          os_image: ubuntu1804
       # secrets:
       #   - name: rn-proj-pronetplat-aa-android
       jobs:
