@@ -47,7 +47,7 @@ blocks:
           commands:
             - node --version
             - yarn --version
-            - bundler --version
+            - bundle --version
             - pod -- version
             - cp src/env.example.js src/env.js
             - cp ~/FastlaneDeploymentCI.p8 ios/FastlaneDeploymentCI.p8
@@ -78,7 +78,7 @@ blocks:
           commands:
             - node --version
             - yarn --version
-            - bundler --version
+            - bundle --version
             - cp ~/service-account.json android/service-account.json
             - cp ~/google-services.json android/app/google-services.json
             - cp ~/my-upload-key.keystore android/app/my-upload-key.keystore
