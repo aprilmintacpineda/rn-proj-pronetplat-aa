@@ -45,11 +45,6 @@ blocks:
       jobs:
         - name: Build and deploy ios
           commands:
-            - node --version
-            - yarn --version
-            - ruby --version
-            - pod -- version
-            - bundle --version
             - cp src/env.example.js src/env.js
             - cp ~/FastlaneDeploymentCI.p8 ios/FastlaneDeploymentCI.p8
             - cp ~/GoogleService-Info.plist ios/proj_pronetplat_aa/GoogleService-Info.plist
@@ -77,10 +72,6 @@ blocks:
       jobs:
         - name: Build and deploy android
           commands:
-            - node --version
-            - yarn --version
-            - ruby --version
-            - bundle --version
             - cp ~/service-account.json android/service-account.json
             - cp ~/google-services.json android/app/google-services.json
             - cp ~/my-upload-key.keystore android/app/my-upload-key.keystore
