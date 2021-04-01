@@ -6,16 +6,66 @@ agent:
   containers:
     - name: main
       image: sickcodes/docker-osx:big-sur
+global_job_config:
+  prologue:
+    commands:
+      - checkout
+  env_vars:
+    - name: STAGE
+      value: "prod"
+    - name: API_BASE_URL
+      value: "https://apiv1.entrepic.com"
 blocks:
-  - name: Production
+  - name: Production iOS
     dependencies: []
     run:
       when: branch = 'master'
     task:
       # secrets:
-      #   - name: rn-proj-pronetplat-aa
+      #   - name: rn-proj-pronetplat-aa-ios
+      # env_vars:
+      #   - name: STAGE
+      #     value: "prod"
+      #   - name: API_BASE_URL
+      #     value: "https://apiv1.entrepic.com"
+        # MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        # APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+        # APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+        # APPLE_ID: ${{ secrets.APPLE_ID }}
+        # ITUNES_TEAM_ID: ${{ secrets.ITUNES_TEAM_ID }}
+        # APPSTORE_TEAM_ID: ${{ secrets.APPSTORE_TEAM_ID }}
+        # MATCH_REPO: ${{ secrets.MATCH_REPO }}
+        # MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.GIT_PAT }}
       jobs:
-        - name: test
+        - name: Build and deploy ios
           commands:
-            - checkout
-            - echo "Hello world"
+            - node test.js
+            # - cp src/env.example.js src/env.js
+            # - cp ~/FastlaneDeploymentCI.p8 ios/FastlaneDeploymentCI.p8
+            # - cp ~/GoogleService-Info.plist ios/proj_pronetplat_aa/GoogleService-Info.plist
+            # - yarn --prefer-offline
+            # - bundle
+            # - cd ios
+            # - bundle exec fastlane ios preprod
+  - name: Production Android
+    dependencies: []
+    run:
+      when: branch = 'master'
+    task:
+      # secrets:
+      #   - name: rn-proj-pronetplat-aa-android
+      jobs:
+        - name: Build and deploy android
+          commands:
+            - node test.js
+            # - cp ~/service-account.json android/service-account.json
+            # - cp ~/google-services.json android/app/google-services.json
+            # - cp ~/my-upload-key.keystore.b64 android/app/my-upload-key.keystore.b64
+            # - base64 -d android/app/my-upload-key.keystore.b64 > android/app/my-upload-key.keystore
+            # - cp android/template.gradle.properties android/gradle.properties
+            # - yarn keystore-password
+            # - cp src/env.example.js src/env.js
+            # - yarn --prefer-offline
+            # - bundle
+            # - cd android
+            # - bundle exec fastlane android preprod
