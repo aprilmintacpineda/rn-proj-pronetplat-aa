@@ -41,8 +41,7 @@ platform :ios do
 
     upload_to_testflight(
       api_key: api_key,
-      groups: groups,
-      skip_waiting_for_build_processing: true
+      groups: groups
     )
 
     clean_build_artifacts
