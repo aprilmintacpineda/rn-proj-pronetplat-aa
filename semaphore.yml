@@ -12,8 +12,8 @@ blocks:
     run:
       when: branch = 'master'
     task:
-      secrets:
-        - name: rn-proj-pronetplat-aa
+      # secrets:
+      #   - name: rn-proj-pronetplat-aa
       jobs:
         - name: test
           commands:
