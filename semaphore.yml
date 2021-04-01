@@ -47,13 +47,14 @@ blocks:
           commands:
             - node --version
             - yarn --version
-            - bundle --version
+            - ruby --version
             - pod -- version
+            - bundle --version
             - cp src/env.example.js src/env.js
             - cp ~/FastlaneDeploymentCI.p8 ios/FastlaneDeploymentCI.p8
             - cp ~/GoogleService-Info.plist ios/proj_pronetplat_aa/GoogleService-Info.plist
-            - yarn --ignore-engines --prefer-offline
             - bundle
+            - yarn --ignore-engines --prefer-offline
             - cd ios
             - pod install
             - bundle exec fastlane ios preprod
@@ -78,6 +79,7 @@ blocks:
           commands:
             - node --version
             - yarn --version
+            - ruby --version
             - bundle --version
             - cp ~/service-account.json android/service-account.json
             - cp ~/google-services.json android/app/google-services.json
@@ -85,7 +87,7 @@ blocks:
             - cp android/template.gradle.properties android/gradle.properties
             - cp src/env.example.js src/env.js
             - yarn keystore-password
-            - yarn --ignore-engines --prefer-offline
             - bundle
+            - yarn --ignore-engines --prefer-offline
             - cd android
             - bundle exec fastlane android preprod
