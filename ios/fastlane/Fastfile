@@ -36,13 +36,13 @@ platform :ios do
       configuration: configuration,
       clean: true,
       silent: true,
-      suppress_xcode_output: true,
-      skip_waiting_for_build_processing: true
+      suppress_xcode_output: true
     )
 
     upload_to_testflight(
       api_key: api_key,
-      groups: groups
+      groups: groups,
+      skip_waiting_for_build_processing: true
     )
 
     clean_build_artifacts
