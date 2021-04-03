@@ -32,11 +32,11 @@
 		<false />
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Give $(PRODUCT_NAME) permission to use camera</string>
+	<string>Allow $(PRODUCT_NAME) to use the camera</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Give $(PRODUCT_NAME) permission to record audio.</string>
+	<string>Allow $(PRODUCT_NAME) to use the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Give $(PRODUCT_NAME) permission to use photo library</string>
+	<string>Allow $(PRODUCT_NAME) to use the photo library</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Ionicons.ttf</string>
