@@ -75,15 +75,12 @@ export function sendContactRequest (targetUser) {
     if (targetUser.id === store.authUser.id)
       throw new Error('Cannot send request to self.');
 
-    const pendingContactRequest = store.sendingContactRequests.find(
-      ({ id }) => targetUser.id === id
-    );
-
-    if (pendingContactRequest) {
-      if (pendingContactRequest.status === 'error')
-        addToContact(pendingContactRequest);
+    if (
+      store.sendingContactRequests.find(
+        ({ id }) => targetUser.id === id
+      )
+    )
       return;
-    }
 
     updateStore({
       sendingContactRequests: store.sendingContactRequests.concat({

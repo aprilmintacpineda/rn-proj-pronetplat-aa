@@ -7,6 +7,7 @@ import CenteredSurface from 'components/CenteredSurface';
 import useCameraPermission from 'hooks/useCameraPermissions';
 import { logEvent } from 'libs/logging';
 import { sendContactRequest } from 'libs/user';
+import { paperTheme } from 'theme';
 
 function onReadCode (event) {
   try {
@@ -39,16 +40,21 @@ function ScanCode () {
     );
   }
 
+  if (!isFocused) return null;
+
   return (
     <Camera
       style={{ flex: 1, backgroundColor: '#000' }}
       flashMode="off"
-      focusMode="off"
+      focusMode="on"
       zoomMode="off"
       torchMode="off"
-      scanBarcode={isFocused}
+      scanBarcode
       onReadCode={onReadCode}
       saveToCameraRoll={false}
+      showFrame
+      laserColor={paperTheme.colors.error}
+      frameColor={paperTheme.colors.error}
     />
   );
 }
