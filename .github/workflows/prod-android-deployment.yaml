@@ -60,6 +60,9 @@ jobs:
           yarn keystore-password
           cp src/env.example.js src/env.js
 
+      - name: Patch packages
+        run: yarn patch-package
+
       - name: Build and deploy
         run: |
           cd android
