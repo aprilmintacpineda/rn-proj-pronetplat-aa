@@ -42,7 +42,7 @@ function ChangePersonalInfoForm ({ onNext }) {
           field="bio"
           helperText="A short description of the services you offer."
         />
-        <View style={{ margin: 20 }}>
+        <View style={{ marginTop: 20 }}>
           <SubmitButton>Save</SubmitButton>
         </View>
       </View>
