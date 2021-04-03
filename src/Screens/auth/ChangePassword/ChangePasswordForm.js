@@ -18,8 +18,8 @@ function ChangePasswordForm () {
         }}
       >
         <TextInput field="currentPassword" type="password" />
-        <TextInput field="newPassword" type="password" />
         <PasswordStrength value={newPassword} />
+        <TextInput field="newPassword" type="password" />
         <TextInput field="retypeNewPassword" type="password" />
         <SubmitButton>Change my password</SubmitButton>
       </View>
