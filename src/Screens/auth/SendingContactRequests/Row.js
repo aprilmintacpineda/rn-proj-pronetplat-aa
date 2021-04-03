@@ -140,22 +140,21 @@ function PendingContactRequestRow ({ index, ...contactData }) {
           adjustToContentHeight
         >
           <View style={{ margin: 20, marginTop: 40 }}>
-            {isError ? (
-              <Button
-                onPress={sendContactRequest}
-                mode="outlined"
-                color={colors.primary}
-                icon={props => (
-                  <RNVectorIcon
-                    provider="Ionicons"
-                    name="ios-refresh-circle-outline"
-                    {...props}
-                  />
-                )}
-              >
-                Resend request
-              </Button>
-            ) : null}
+            <Button
+              onPress={sendContactRequest}
+              mode="outlined"
+              color={colors.primary}
+              icon={props => (
+                <RNVectorIcon
+                  provider="Ionicons"
+                  name="ios-refresh-circle-outline"
+                  {...props}
+                />
+              )}
+              disabled={!isError}
+            >
+              Resend request
+            </Button>
             <Button
               onPress={removeItem}
               mode="contained"
@@ -168,6 +167,7 @@ function PendingContactRequestRow ({ index, ...contactData }) {
                 />
               )}
               style={{ marginTop: 15 }}
+              disabled={!isError}
             >
               Remove
             </Button>
