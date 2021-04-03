@@ -4,7 +4,7 @@ import iid from '@react-native-firebase/iid';
 import { initializeStore, store, updateStore } from 'fluxible-js';
 import RNSInfo from 'react-native-sensitive-info';
 import { STAGE } from 'env';
-import { logLogin } from 'libs/logging';
+import { logEvent, logLogin } from 'libs/logging';
 import { hasCompletedSetup } from 'libs/user';
 import { xhr } from 'libs/xhr';
 
@@ -100,6 +100,10 @@ async function onInitComplete () {
     updateStore({
       initComplete: true,
       reAuth: true
+    });
+
+    logEvent('validateAuthError', {
+      message: error.message
     });
   }
 }

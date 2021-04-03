@@ -3,7 +3,7 @@ import RefreshableView from './RefreshableView';
 
 function ListEmpty (refreshableViewProps) {
   return (
-    <RefreshableView {...refreshableViewProps}>
+    <RefreshableView {...refreshableViewProps} hideIndicator>
       List appears to be empty.
     </RefreshableView>
   );

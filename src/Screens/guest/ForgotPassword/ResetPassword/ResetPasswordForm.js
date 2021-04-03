@@ -11,6 +11,7 @@ import {
   showSuccessPopup
 } from 'fluxible/actions/popup';
 import useState from 'hooks/useState';
+import { logEvent } from 'libs/logging';
 import { xhr } from 'libs/xhr';
 
 const duration = { minutes: 5 };
@@ -49,6 +50,10 @@ function ResetPasswordForm ({ email }) {
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
+
+      logEvent('resendCodeError', {
+        message: error.message
+      });
     } finally {
       updateState({ isResending: false });
     }

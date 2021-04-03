@@ -8,6 +8,7 @@ import Menu from 'components/Menu';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
 import { showRequestFailedPopup } from 'fluxible/actions/popup';
+import { logEvent } from 'libs/logging';
 import { xhr } from 'libs/xhr';
 
 function ContactDetailRow (contactDetail) {
@@ -29,6 +30,10 @@ function ContactDetailRow (contactDetail) {
       console.log(error);
       showRequestFailedPopup();
       setIsDeleting(false);
+
+      logEvent('deleteContactDetailError', {
+        message: error.message
+      });
     }
   }, [id]);
 

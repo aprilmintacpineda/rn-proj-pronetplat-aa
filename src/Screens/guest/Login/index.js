@@ -94,6 +94,10 @@ function Login ({ navigation: { replace } }) {
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
+
+      logEvent('onResendCodeError', {
+        message: error.message
+      });
     }
   }, [updateState, authToken]);
 

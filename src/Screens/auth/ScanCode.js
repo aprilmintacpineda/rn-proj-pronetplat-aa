@@ -5,6 +5,7 @@ import { Button, Text } from 'react-native-paper';
 import { openSettings } from 'react-native-permissions';
 import CenteredSurface from 'components/CenteredSurface';
 import useCameraPermission from 'hooks/useCameraPermissions';
+import { logEvent } from 'libs/logging';
 import { sendContactRequest } from 'libs/user';
 
 function onReadCode (event) {
@@ -12,6 +13,10 @@ function onReadCode (event) {
     const targetUser = JSON.parse(event.nativeEvent.codeStringValue);
     sendContactRequest(targetUser);
   } catch (error) {
+    logEvent('onReadCodeError', {
+      errorMessage: error.message
+    });
+
     console.log(error);
   }
 }

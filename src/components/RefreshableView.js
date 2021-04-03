@@ -11,14 +11,21 @@ function refresIcon (props) {
   );
 }
 
-function RefreshableView ({ children, onRefresh, isRefreshing }) {
+function RefreshableView ({
+  children,
+  onRefresh,
+  isRefreshing,
+  hideIndicator = false
+}) {
   return (
     <View style={{ margin: 15, alignItems: 'center' }}>
       <Title style={{ textAlign: 'center', marginBottom: 15 }}>
         {children}
       </Title>
       {isRefreshing ? (
-        <ActivityIndicator color={paperTheme.colors.accent} />
+        hideIndicator ? null : (
+          <ActivityIndicator color={paperTheme.colors.accent} />
+        )
       ) : (
         <IconButton onPress={onRefresh} icon={refresIcon} />
       )}

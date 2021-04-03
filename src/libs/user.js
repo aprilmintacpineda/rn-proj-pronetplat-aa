@@ -1,6 +1,7 @@
 import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { Paragraph, Text } from 'react-native-paper';
+import { logEvent } from './logging';
 import UserAvatar from 'components/UserAvatar';
 import { toast, updateOrCreateToast } from 'fluxible/actions/popup';
 import { xhr } from 'libs/xhr';
@@ -91,6 +92,10 @@ export function sendContactRequest (targetUser) {
       })
     });
   } catch (error) {
+    logEvent('sendContactRequestError', {
+      error: error.message
+    });
+
     console.log(error);
   }
 }
@@ -138,6 +143,8 @@ export async function addToContact (targetContact) {
         targetId,
         status: 'success'
       });
+
+      logEvent('addToContactAlreadyExists');
     } else {
       setSendingContactRequestStatus({ targetId, status: 'error' });
 
@@ -146,6 +153,10 @@ export async function addToContact (targetContact) {
         message: `Failed to send contact request to ${fullName}`,
         icon,
         type: 'error'
+      });
+
+      logEvent('addToContactError', {
+        responseStatusCode: error.status
       });
     }
   }

@@ -18,6 +18,7 @@ import {
   showErrorPopup,
   showRequestFailedPopup
 } from 'fluxible/actions/popup';
+import { logEvent } from 'libs/logging';
 import validate from 'libs/validate';
 import { uploadFileToSignedUrl, xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
@@ -129,6 +130,10 @@ function ChangeProfilePicture ({
 
         showRequestFailedPopup();
         setStatus('uploadFailed');
+
+        logEvent('profilePictureUploadError', {
+          message: error.message
+        });
       }
     },
     [onSuccess, firstSetup]
@@ -172,6 +177,10 @@ function ChangeProfilePicture ({
       uploadPicture(uploadResult);
     } catch (error) {
       console.log('error', error);
+
+      logEvent('selectPictureError', {
+        message: error.message
+      });
     }
   }, [uploadPicture]);
 
@@ -211,6 +220,10 @@ function ChangeProfilePicture ({
       uploadPicture(uploadResult);
     } catch (error) {
       console.log('error', error);
+
+      logEvent('takePictureError', {
+        message: error.message
+      });
     }
   }, [uploadPicture]);
 

@@ -14,6 +14,7 @@ import UserAvatar from 'components/UserAvatar';
 import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import { decrementContactRequestsCount } from 'fluxible/actions/user';
 import useDataFetch from 'hooks/useDataFetch';
+import { logEvent } from 'libs/logging';
 import {
   getFullName,
   renderUserTitle,
@@ -58,6 +59,10 @@ function ContactProfile ({
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
+
+      logEvent('confirmUnblockUserError', {
+        message: error.message
+      });
     } finally {
       refreshData();
     }
@@ -95,6 +100,10 @@ function ContactProfile ({
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
+
+      logEvent('confirmBlockUserError', {
+        message: error.message
+      });
     } finally {
       refreshData();
     }
@@ -129,6 +138,10 @@ function ContactProfile ({
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
+
+      logEvent('sendFollowUpError', {
+        message: error.message
+      });
     } finally {
       refreshData();
     }
@@ -144,6 +157,10 @@ function ContactProfile ({
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
+
+      logEvent('sendRequestError', {
+        message: error.message
+      });
     } finally {
       refreshData();
     }
@@ -159,6 +176,10 @@ function ContactProfile ({
     } catch (error) {
       console.log('error', error);
       showRequestFailedPopup();
+
+      logEvent('confirmCancelContactRequestError', {
+        message: error.message
+      });
     } finally {
       refreshData();
     }
@@ -195,6 +216,10 @@ function ContactProfile ({
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
+
+      logEvent('acceptContactRequestError', {
+        message: error.message
+      });
     } finally {
       refreshData();
     }
@@ -213,6 +238,10 @@ function ContactProfile ({
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
+
+      logEvent('declineContactRequestError', {
+        message: error.message
+      });
     } finally {
       refreshData();
     }
@@ -228,6 +257,10 @@ function ContactProfile ({
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
+
+      logEvent('confirmRemoveFromContactsError', {
+        message: error.message
+      });
     } finally {
       refreshData();
     }
