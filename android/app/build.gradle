@@ -124,7 +124,6 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
-    ndkVersion rootProject.ext.ndkVersion
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
@@ -137,8 +136,8 @@ android {
         applicationId "com.aprmp.projpronetplataa"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 13
-        versionName "0.1.0"
+        versionCode 12
+        versionName "0.0.12"
     }
     splits {
         abi {
@@ -189,7 +188,7 @@ android {
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
-                        defaultConfig.versionCode * 1000 + versionCodes.get(abi)
+                        versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
             }
 
         }
