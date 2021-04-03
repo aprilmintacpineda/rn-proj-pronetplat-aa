@@ -1,4 +1,6 @@
 apply plugin: "com.android.application"
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
@@ -155,6 +157,10 @@ android {
             keyPassword 'android'
         }
         release {
+            firebaseCrashlytics {
+                nativeSymbolUploadEnabled true
+            }
+
             storeFile file(MYAPP_UPLOAD_STORE_FILE)
             storePassword MYAPP_UPLOAD_STORE_PASSWORD
             keyAlias MYAPP_UPLOAD_KEY_ALIAS
@@ -249,5 +255,3 @@ project.ext.vectoricons = [
 ]
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
