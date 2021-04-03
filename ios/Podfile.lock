@@ -416,7 +416,7 @@ PODS:
     - React-Core
   - RNBootSplash (3.2.0):
     - React-Core
-  - RNCAsyncStorage (1.14.1):
+  - RNCAsyncStorage (1.15.1):
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
@@ -446,7 +446,7 @@ PODS:
     - React-Core
   - RNPermissions (3.0.1):
     - React-Core
-  - RNReanimated (2.0.1):
+  - RNReanimated (2.1.0):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -475,7 +475,7 @@ PODS:
     - React-RCTVibration
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (2.18.1):
+  - RNScreens (3.0.0):
     - React-Core
   - RNSVG (12.1.0):
     - React
@@ -816,7 +816,7 @@ SPEC CHECKSUMS:
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   ReactNativeCameraKit: 4a48dab8133c54a28e3c73df077c54ac8d8e33b0
   RNBootSplash: 24175aa28fe203b10c48dc34e78d946fd33c77af
-  RNCAsyncStorage: fe58eec522885718d6b297b7b658bf87d7ca557b
+  RNCAsyncStorage: 08719e311ab90492c2dafd6d6fb7ffb396493638
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNFBAnalytics: 11873c6dccab66da20fc1c75fc47c88244845410
   RNFBApp: d9ab9f2e63c70a9974294bb44c749b728cd4028f
@@ -826,8 +826,8 @@ SPEC CHECKSUMS:
   RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNPermissions: 4c8a37b4dde50f1f152bf8cd08c4a43d2355829e
-  RNReanimated: c5e9d841d33ed7f83861462756cec7146e73afaa
-  RNScreens: f7ad633b2e0190b77b6a7aab7f914fad6f198d8d
+  RNReanimated: 70f662b5232dd5d19ccff581e919a54ea73df51c
+  RNScreens: e8e8dd0588b5da0ab57dcca76ab9b2d8987757e0
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   UMAppLoader: 92d044af52626af3d81a69796ad666fc7a9a7d78
@@ -846,6 +846,6 @@ SPEC CHECKSUMS:
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 6969ecea334c0730ab198a7b5622f795e1094b1c
+PODFILE CHECKSUM: 643c8807329949f09bd39eef5e976cdca6509b5c
 
 COCOAPODS: 1.10.1
