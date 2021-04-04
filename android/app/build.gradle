@@ -138,8 +138,8 @@ android {
         applicationId "com.aprmp.projpronetplataa"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 16
-        versionName "1.0.3"
+        versionCode 17
+        versionName "1.0.4"
     }
     splits {
         abi {
