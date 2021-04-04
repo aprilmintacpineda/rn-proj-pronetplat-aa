@@ -75,7 +75,7 @@ index 503cfab..cd3933d 100644
 +                },
 +              ]}
 +            >
-+              {label}
++              I am patch-package
 +            </Text>
 +          </View>
 +          {!isNaN(badge) ? <Badge visible={Boolean(badge)}>{badge}</Badge> : null}
