@@ -6,7 +6,9 @@ function useDataFetch ({
   endpoint,
   params = null,
   prefetch = true,
-  onSuccess
+  onSuccess = null,
+  onError = null,
+  onFetchDone = null
 }) {
   const {
     state: { data, status, nextToken, error, canFetchMore },
@@ -25,6 +27,7 @@ function useDataFetch ({
   const isFirstFetch = isInitial || (isFetching && !data);
   const isError = status === 'fetchError';
   const isSuccess = status === 'fetchSuccess';
+  const isFetchDone = isError || isSuccess;
 
   const filterData = React.useCallback(
     shouldKeep => {
@@ -127,7 +130,17 @@ function useDataFetch ({
 
   React.useEffect(() => {
     if (isSuccess && onSuccess) onSuccess();
-  }, [isSuccess, onSuccess]);
+    if (isError && onError) onError();
+    if (isFetchDone && onFetchDone)
+      onFetchDone({ isSuccess, isError });
+  }, [
+    isSuccess,
+    isError,
+    isFetchDone,
+    onFetchDone,
+    onError,
+    onSuccess
+  ]);
 
   return {
     data,

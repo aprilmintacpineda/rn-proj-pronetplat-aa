@@ -30,7 +30,7 @@ function ContactProfile ({
   const fullName = getFullName(contactData);
   const [isDisabled, setIsDisabled] = React.useState(false);
 
-  const onSuccess = React.useCallback(() => {
+  const onFetchDone = React.useCallback(() => {
     setIsDisabled(false);
   }, []);
 
@@ -44,7 +44,7 @@ function ContactProfile ({
     isFirstFetch
   } = useDataFetch({
     endpoint: `/contacts/${contactData.id}`,
-    onSuccess
+    onFetchDone
   });
 
   const confirmUnblockUser = React.useCallback(async () => {
@@ -361,7 +361,7 @@ function ContactProfile ({
             </Button>
             <Button
               onPress={blockUser}
-              mode="contained"
+              mode="outlined"
               disabled={isDisabled}
               color={paperTheme.colors.error}
             >
