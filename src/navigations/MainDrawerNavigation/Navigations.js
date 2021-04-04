@@ -32,7 +32,7 @@ function drawerContent (props) {
         label={drawerLabel}
         icon={drawerIcon}
         active={index === i}
-        badge={badge}
+        badge={badge | 10}
       />
     );
   });
