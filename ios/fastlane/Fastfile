@@ -7,7 +7,7 @@ workspace = "proj_pronetplat_aa.xcworkspace"
 # If you build for multiple environments, you might wanna set this specifically on build_app
 configuration = 'Release'
 scheme = "Production"
-
+info_plist_path = "proj_pronetplat_aa/Info.plist"
 key_id = ENV["APPSTORE_KEY_ID"] # The key id of the p8 file
 issuer_id = ENV["APPSTORE_ISSUER_ID"] # issuer id on appstore connect
 key_filepath = "FastlaneDeploymentCI.p8" # The path to p8 file generated on appstore connect
@@ -29,6 +29,14 @@ platform :ios do
     )
 
     match(api_key: api_key)
+
+    set_info_plist_value(
+      path: info_plist_path,
+      output_file_name: info_plist_path,
+      key: "NSAppTransportSecurity",
+      subkey: "NSAllowsArbitraryLoads",
+      value: false
+    )
 
     build_app(
       workspace: workspace,
