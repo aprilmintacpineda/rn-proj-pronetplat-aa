@@ -240,9 +240,9 @@ function FormWithContext ({
         if (error.status >= 500) {
           showRequestFailedPopup();
         } else {
-          showRequestFailedPopup(
-            formErrorMessage && formErrorMessage(error)
-          );
+          showRequestFailedPopup({
+            message: formErrorMessage && formErrorMessage(error)
+          });
         }
 
         if (onSubmitError) {
