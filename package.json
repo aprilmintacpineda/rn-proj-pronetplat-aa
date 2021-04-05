@@ -1,6 +1,6 @@
 {
   "name": "proj_pronetplat_aa",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "private": true,
   "scripts": {
     "android-dev": "cd android && ./gradlew clean && cd .. && react-native run-android --variant=devDebug",
