@@ -22,7 +22,8 @@ function MyCode () {
     gender: authUser.gender,
     bio: authUser.bio,
     company: authUser.company,
-    jobTitle: authUser.jobTitle
+    jobTitle: authUser.jobTitle,
+    isTestAccount: authUser.isTestAccount
   });
 
   return (

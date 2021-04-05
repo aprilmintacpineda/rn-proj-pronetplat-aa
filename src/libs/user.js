@@ -68,19 +68,23 @@ export function sendContactRequest (targetUser) {
       !targetUser.surname ||
       !targetUser.jobTitle ||
       !targetUser.gender ||
-      !targetUser.profilePicture
+      !targetUser.profilePicture ||
+      !targetUser.isTestAccount
     )
       throw new Error('Invalid target user data');
 
     if (targetUser.id === store.authUser.id)
       throw new Error('Cannot send request to self.');
 
+    if (targetUser.isTestAccount !== store.authUser.isTestAccount)
+      throw new Error('isTestAccount not compatible');
+
     if (
       store.sendingContactRequests.find(
         ({ id }) => targetUser.id === id
       )
     )
-      return;
+      throw new Error('Already peviously scanned.');
 
     updateStore({
       sendingContactRequests: store.sendingContactRequests.concat({
