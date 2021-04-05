@@ -7,7 +7,6 @@ import validate from 'libs/validate';
 
 const formOptions = {
   initialFormValues: {
-    email: '',
     password: ''
   },
   validators: {

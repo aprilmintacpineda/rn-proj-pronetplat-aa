@@ -1,20 +1,12 @@
-import { store } from 'fluxible-js';
 import React from 'react';
 import { Alert, ScrollView, View } from 'react-native';
 import { Divider, Headline, Text } from 'react-native-paper';
-import { FormContext } from 'components/FormWithContext';
 import Button from 'components/FormWithContext/Button';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
 import { logout } from 'fluxible/actions/user';
 
 function AuthenticateForm () {
-  const { setField } = React.useContext(FormContext);
-
-  React.useEffect(() => {
-    setField('email', store.authUser.email);
-  }, [setField]);
-
   const logoutDiag = React.useCallback(() => {
     Alert.alert(
       null,
