@@ -38,7 +38,7 @@ async function waitForPicture (url) {
   // this wait time was derived from the time for
   // profilePictureUploaded function to complete
   // processing the new profile picture
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  await sleep(2);
 
   let isSuccess = false;
 
