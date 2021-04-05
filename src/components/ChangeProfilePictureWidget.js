@@ -19,6 +19,7 @@ import {
   showRequestFailedPopup
 } from 'fluxible/actions/popup';
 import { logEvent } from 'libs/logging';
+import { sleep } from 'libs/time';
 import validate from 'libs/validate';
 import { uploadFileToSignedUrl, xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
@@ -40,21 +41,17 @@ async function waitForPicture (url) {
   await new Promise(resolve => setTimeout(resolve, 2000));
 
   let isSuccess = false;
-  let nextWaitTime = 0;
 
   do {
     try {
       await fetch(url, { method: 'head' });
       isSuccess = true;
     } catch (error) {
-      nextWaitTime += 500;
-
-      await new Promise(resolve =>
-        setTimeout(resolve, nextWaitTime)
-      );
+      await sleep(1);
     }
   } while (!isSuccess);
 
+  await sleep(1);
   return true;
 }
 
