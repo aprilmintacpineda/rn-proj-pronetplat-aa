@@ -41,7 +41,9 @@ const formOptions = {
   },
   onSubmitSuccess: ({ targetId, responseData }) => {
     showSuccessPopup({
-      message: 'Your contact detail has been added.'
+      message: !targetId
+        ? 'Your contact detail has been added.'
+        : 'Your changes were saved.'
     });
 
     if (!targetId) emitEvent('contactDetailsAdded', responseData);
