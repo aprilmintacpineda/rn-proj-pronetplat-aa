@@ -481,7 +481,8 @@ function ContactProfile ({ contactData }) {
         <View
           style={{
             marginHorizontal: 15,
-            marginTop: 50
+            marginTop: 50,
+            marginBottom: 10
           }}
         >
           <Text
