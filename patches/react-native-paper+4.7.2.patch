@@ -1,29 +1,5 @@
-diff --git a/node_modules/react-native-paper/lib/module/components/Avatar/AvatarImage.js b/node_modules/react-native-paper/lib/module/components/Avatar/AvatarImage.js
-index aa97826..a0c6136 100644
---- a/node_modules/react-native-paper/lib/module/components/Avatar/AvatarImage.js
-+++ b/node_modules/react-native-paper/lib/module/components/Avatar/AvatarImage.js
-@@ -30,6 +30,8 @@ const AvatarImage = ({
-   source,
-   style,
-   theme,
-+  onError,
-+  onLoad,
-   ...rest
- }) => {
-   const {
-@@ -53,7 +55,9 @@ const AvatarImage = ({
-       width: size,
-       height: size,
-       borderRadius: size / 2
--    }
-+    },
-+    onError: onError,
-+    onLoad: onLoad
-   }));
- };
- 
 diff --git a/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js b/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js
-index a5137b3..0839f26 100644
+index a5137b3..2394378 100644
 --- a/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js
 +++ b/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js
 @@ -7,6 +7,7 @@ import Text from '../Typography/Text';
@@ -38,40 +14,42 @@ index a5137b3..0839f26 100644
    style,
    onPress,
    accessibilityLabel,
-+  badge = 0,
++  badge,
    ...rest
  }) => {
    const {
-@@ -71,6 +73,8 @@ const DrawerItem = ({
-       selected: active
-     },
+@@ -73,11 +75,17 @@ const DrawerItem = ({
      accessibilityLabel: accessibilityLabel
-+  }, /*#__PURE__*/React.createElement(View, {
-+    style: styles.badgeContainer
    }, /*#__PURE__*/React.createElement(View, {
      style: styles.wrapper
-   }, icon ? /*#__PURE__*/React.createElement(Icon, {
-@@ -85,7 +89,9 @@ const DrawerItem = ({
-       ...font,
-       marginLeft: labelMargin
-     }]
--  }, label))));
-+  }, label)), /*#__PURE__*/React.createElement(Badge, {
+-  }, icon ? /*#__PURE__*/React.createElement(Icon, {
++  }, icon ? /*#__PURE__*/React.createElement(View, {
++    style: styles.iconContainer
++  }, /*#__PURE__*/React.createElement(Icon, {
+     source: icon,
+     size: 24,
+     color: contentColor
+-  }) : null, /*#__PURE__*/React.createElement(Text, {
++  }), /*#__PURE__*/React.createElement(View, {
++    style: styles.badgeContainer
++  }, /*#__PURE__*/React.createElement(Badge, {
 +    visible: Boolean(badge)
-+  }, badge))));
- };
- 
- DrawerItem.displayName = 'Drawer.Item';
-@@ -101,6 +107,12 @@ const styles = StyleSheet.create({
++  }, badge))) : null, /*#__PURE__*/React.createElement(Text, {
+     selectable: false,
+     numberOfLines: 1,
+     style: [styles.label, {
+@@ -101,6 +109,14 @@ const styles = StyleSheet.create({
    },
    label: {
      marginRight: 32
 +  },
 +  badgeContainer: {
-+    flexDirection: 'row',
-+    justifyContent: 'space-between',
-+    alignItems: 'center',
-+    padding: 8
++    position: 'absolute',
++    top: -8,
++    right: -8
++  },
++  iconContainer: {
++    position: 'relative'
    }
  });
  export default withTheme(DrawerItem);
