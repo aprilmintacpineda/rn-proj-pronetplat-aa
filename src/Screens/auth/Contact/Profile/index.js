@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { Title } from 'react-native-paper';
 import DisplayProfile from './DisplayProfile';
 
-function mapStates (authUser) {
+function mapStates ({ authUser }) {
   return { authUser };
 }
 

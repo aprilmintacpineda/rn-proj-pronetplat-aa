@@ -24,7 +24,10 @@ function SendingContactRequests () {
   if (!sendingContactRequests.length) {
     return (
       <CenteredSurface>
-        <Title>No pending contact requests.</Title>
+        <Title style={{ marginBottom: 10 }}>
+          Scan your QR codes of your network to add to add them to
+          your contacts
+        </Title>
         <Text style={{ marginBottom: 10 }}>
           When you scan the QR code of your contacts, they will
           appear here and {"you'll"} see the results real-time.
@@ -33,7 +36,7 @@ function SendingContactRequests () {
           <Text style={{ fontWeight: 'bold' }}>No internet? </Text>
           <Text>
             You can scan the QR code of your contacts even when you
-            {"don't"} have internet, they will appear here and when
+            {" don't"} have internet, they will appear here and when
             you connect to the internet, the app will automatically
             process them.
           </Text>
