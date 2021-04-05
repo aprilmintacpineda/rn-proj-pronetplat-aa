@@ -29,7 +29,7 @@ export function renderUserTitle (
   { numberOfLines = 2, textAlign, color = '#000' } = {}
 ) {
   return (
-    <Paragraph numberOfLines={numberOfLines}>
+    <Paragraph numberOfLines={numberOfLines} style={{ textAlign }}>
       <Text style={{ fontWeight: 'bold', textAlign, color }}>
         {jobTitle}
       </Text>
@@ -69,7 +69,8 @@ export function sendContactRequest (targetUser) {
       !targetUser.jobTitle ||
       !targetUser.gender ||
       !targetUser.profilePicture ||
-      !targetUser.isTestAccount
+      (targetUser.isTestAccount !== true &&
+        targetUser.isTestAccount !== false)
     )
       throw new Error('Invalid target user data');
 
