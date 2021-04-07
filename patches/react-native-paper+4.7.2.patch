@@ -1,3 +1,27 @@
+diff --git a/node_modules/react-native-paper/lib/module/components/Avatar/AvatarImage.js b/node_modules/react-native-paper/lib/module/components/Avatar/AvatarImage.js
+index aa97826..a0c6136 100644
+--- a/node_modules/react-native-paper/lib/module/components/Avatar/AvatarImage.js
++++ b/node_modules/react-native-paper/lib/module/components/Avatar/AvatarImage.js
+@@ -30,6 +30,8 @@ const AvatarImage = ({
+   source,
+   style,
+   theme,
++  onError,
++  onLoad,
+   ...rest
+ }) => {
+   const {
+@@ -53,7 +55,9 @@ const AvatarImage = ({
+       width: size,
+       height: size,
+       borderRadius: size / 2
+-    }
++    },
++    onError: onError,
++    onLoad: onLoad
+   }));
+ };
+ 
 diff --git a/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js b/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js
 index a5137b3..2394378 100644
 --- a/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js
@@ -52,4 +76,94 @@ index a5137b3..2394378 100644
 +    position: 'relative'
    }
  });
+ export default withTheme(DrawerItem);
+diff --git a/node_modules/react-native-paper/src/components/Avatar/AvatarImage.tsx b/node_modules/react-native-paper/src/components/Avatar/AvatarImage.tsx
+index 3b71389..e500f6b 100644
+--- a/node_modules/react-native-paper/src/components/Avatar/AvatarImage.tsx
++++ b/node_modules/react-native-paper/src/components/Avatar/AvatarImage.tsx
+@@ -31,6 +31,8 @@ type Props = React.ComponentPropsWithRef<typeof View> & {
+    * @optional
+    */
+   theme: ReactNativePaper.Theme;
++  onError?: () => undefined;
++  onLoad?: () => undefined;
+ };
+ 
+ /**
+@@ -58,6 +60,8 @@ const AvatarImage = ({
+   source,
+   style,
+   theme,
++  onError,
++  onLoad,
+   ...rest
+ }: Props) => {
+   const { colors } = theme;
+@@ -82,6 +86,8 @@ const AvatarImage = ({
+         <Image
+           source={source}
+           style={{ width: size, height: size, borderRadius: size / 2 }}
++          onError={onError}
++          onLoad={onLoad}
+         />
+       )}
+     </View>
+diff --git a/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx b/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
+index 503cfab..071d734 100644
+--- a/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
++++ b/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
+@@ -5,6 +5,7 @@ import Text from '../Typography/Text';
+ import Icon, { IconSource } from '../Icon';
+ import TouchableRipple from '../TouchableRipple/TouchableRipple';
+ import { withTheme } from '../../core/theming';
++import Badge from '../Badge';
+ 
+ type Props = React.ComponentPropsWithRef<typeof View> & {
+   /**
+@@ -32,6 +33,7 @@ type Props = React.ComponentPropsWithRef<typeof View> & {
+    * @optional
+    */
+   theme: ReactNativePaper.Theme;
++  badge: number;
+ };
+ 
+ /**
+@@ -67,6 +69,7 @@ const DrawerItem = ({
+   style,
+   onPress,
+   accessibilityLabel,
++  badge,
+   ...rest
+ }: Props) => {
+   const { colors, roundness } = theme;
+@@ -101,7 +104,14 @@ const DrawerItem = ({
+         accessibilityLabel={accessibilityLabel}
+       >
+         <View style={styles.wrapper}>
+-          {icon ? <Icon source={icon} size={24} color={contentColor} /> : null}
++          {icon ? (
++            <View style={styles.iconContainer}>
++              <Icon source={icon} size={24} color={contentColor} />
++              <View style={styles.badgeContainer}>
++                <Badge visible={Boolean(badge)}>{badge}</Badge>
++              </View>
++            </View>
++          ) : null}
+           <Text
+             selectable={false}
+             numberOfLines={1}
+@@ -137,6 +147,14 @@ const styles = StyleSheet.create({
+   label: {
+     marginRight: 32,
+   },
++  badgeContainer: {
++    position: 'absolute',
++    top: -8,
++    right: -8,
++  },
++  iconContainer: {
++    position: 'relative',
++  },
+ });
+ 
  export default withTheme(DrawerItem);
