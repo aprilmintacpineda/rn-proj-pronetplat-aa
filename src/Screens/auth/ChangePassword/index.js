@@ -30,10 +30,12 @@ const formOptions = {
         `matches:${newPassword},passwords`
       ])
   },
-  formErrorMessage: () => ({
-    message:
-      'The password you entered may have been incorrect. Please try again.'
-  }),
+  formErrorMessages: {
+    403: {
+      message:
+        'The password you entered seems to be incorrect. Please try again.'
+    }
+  },
   onSubmitSuccess: () => {
     showSuccessPopup({
       message: 'You have successfully changed your password.'

@@ -14,9 +14,11 @@ const formOptions = {
       validate(password, ['required', 'maxLength:30'])
   },
   endPoint: 'login',
-  formErrorMessage: () => ({
-    message: 'Incorect email/password combination.'
-  }),
+  formErrorMessages: {
+    403: {
+      message: 'Incorect email/password combination.'
+    }
+  },
   stayDisabledOnSuccess: true
 };
 

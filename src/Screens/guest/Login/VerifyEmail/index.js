@@ -12,17 +12,13 @@ const formOptions = {
     verificationCode: ({ verificationCode }) =>
       validate(verificationCode, ['required', 'maxLength:20'])
   },
-  formErrorMessage: error => {
-    switch (error.status) {
-      case 410:
-        return {
-          message:
-            'Your verification code has already expired. You can request a new one by tapping on resend code button.'
-        };
-      case 403:
-        return {
-          message: 'Incorrect verification code.'
-        };
+  formErrorMessages: {
+    410: {
+      message:
+        'Your verification code has already expired. You can request a new one by tapping on resend code button.'
+    },
+    403: {
+      message: 'Incorrect verification code.'
     }
   },
   onSubmit: async ({ formValues, formContext: { authToken } }) => {

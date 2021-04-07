@@ -20,7 +20,7 @@ function FormWithContext ({
     ignoreResponse = false,
     stayDisabledOnSuccess = false,
     resetOnSuccess = false,
-    formErrorMessage = null
+    formErrorMessages = {}
   },
   children
 }) {
@@ -236,14 +236,7 @@ function FormWithContext ({
         });
       } catch (error) {
         console.error('FormwithContext confirmSubmit', error);
-
-        if (error.status >= 500) {
-          showRequestFailedPopup();
-        } else {
-          showRequestFailedPopup(
-            formErrorMessage && formErrorMessage(error)
-          );
-        }
+        showRequestFailedPopup(formErrorMessages[error.status]);
 
         if (onSubmitError) {
           await onSubmitError({
@@ -276,7 +269,7 @@ function FormWithContext ({
       initialFormValues,
       resetOnSuccess,
       targetId,
-      formErrorMessage
+      formErrorMessages
     ]
   );
 

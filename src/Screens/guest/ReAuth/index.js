@@ -19,9 +19,12 @@ const formOptions = {
     reAuth({ userData, authToken });
     navigationRef.current.navigate('LoggedInRoutes');
   },
-  formErrorMessage: () => ({
-    message: 'Your password seems to be incorrect.'
-  }),
+  formErrorMessages: {
+    403: {
+      message:
+        'The password you entered seems to be incorrect. Please try again.'
+    }
+  },
   stayDisabledOnSuccess: true
 };
 
