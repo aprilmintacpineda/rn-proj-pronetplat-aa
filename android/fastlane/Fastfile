@@ -11,7 +11,7 @@ platform :android do
       package_name: package_name,
       track: "internal",
       aab: "app/build/outputs/bundle/productionRelease/app-production-release.aab",
-      release_status: "draft"
+      release_status: "completed"
     )
   end
 end
