@@ -32,11 +32,11 @@
 		<true />
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to use the camera</string>
+	<string>$(PRODUCT_NAME) uses your camera to be able to scan QR codes of your contacts in the Scan Code screen.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to use the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to use the photo library</string>
+	<string>$(PRODUCT_NAME) uses your photo library to allow you to select a photo to upload, such as when changing profile picture.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Ionicons.ttf</string>
