@@ -17,7 +17,7 @@ const formOptions = {
   },
   validators: {
     currentPassword: ({ currentPassword }) =>
-      validate(currentPassword, ['required', 'password']),
+      validate(currentPassword, ['required']),
     newPassword: ({ newPassword, retypeNewPassword }) =>
       validate(newPassword, [
         'required',
