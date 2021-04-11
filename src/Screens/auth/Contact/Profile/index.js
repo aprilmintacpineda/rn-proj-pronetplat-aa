@@ -11,7 +11,10 @@ function mapStates ({ authUser }) {
 function ContactProfile ({ route: { params: contactData } }) {
   const { authUser } = useFluxibleStore(mapStates);
 
-  if (authUser.isTestAccount !== contactData.isTestAccount) {
+  if (
+    String(authUser.isTestAccount) !==
+    String(contactData.isTestAccount)
+  ) {
     return (
       <View style={{ margin: 15, alignItems: 'center' }}>
         <Title style={{ textAlign: 'center', marginBottom: 15 }}>
