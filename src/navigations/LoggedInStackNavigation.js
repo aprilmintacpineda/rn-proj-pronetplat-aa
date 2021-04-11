@@ -48,8 +48,7 @@ function LoggedInStackNavigation () {
         unsubscribe = messaging().onMessage(async remoteMessage => {
           console.log('onMessage', remoteMessage);
 
-          if (!store.authUser || AppState.currentState !== 'active')
-            return;
+          if (!store.authUser) return;
 
           const { data, notification } = remoteMessage;
           const { title, body } = notification;
@@ -62,6 +61,8 @@ function LoggedInStackNavigation () {
 
           if (category === 'notification')
             incrementNotificationsCount();
+
+          if (AppState.currentState !== 'active') return;
 
           displayNotification({
             title,
