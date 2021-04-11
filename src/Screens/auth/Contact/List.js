@@ -2,7 +2,7 @@ import React from 'react';
 import RegularUserList from 'components/RegularUserList';
 
 const eventListeners = {
-  userBlocked: (contactId, { filterData }) => {
+  removedFromContact: (contactId, { filterData }) => {
     filterData(data => data.id !== contactId);
   }
 };

@@ -95,7 +95,7 @@ function ContactProfile ({ contactData }) {
         method: 'post'
       });
 
-      emitEvent('userBlocked', contactData.id);
+      emitEvent('removedFromContact', contactData.id);
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -253,6 +253,8 @@ function ContactProfile ({ contactData }) {
       await xhr(`/remove-from-contacts/${contactData.id}`, {
         method: 'post'
       });
+
+      emitEvent('removedFromContact', contactData.id);
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
