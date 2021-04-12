@@ -16,6 +16,7 @@ import {
 } from 'fluxible/actions/user';
 import { getInitials } from 'libs/user';
 import { displayNotification } from 'PopupManager/NotificationPopup';
+import About from 'Screens/auth/About';
 import BlockList from 'Screens/auth/BlockList';
 import ChangePassword from 'Screens/auth/ChangePassword';
 import ChangePersonalInfo from 'Screens/auth/ChangePersonalInfo';
@@ -168,6 +169,14 @@ function LoggedInStackNavigation () {
         component={Settings}
         options={{
           title: 'Settings',
+          ...TransitionPresets.ModalSlideFromBottomIOS
+        }}
+      />
+      <Stack.Screen
+        name="About"
+        component={About}
+        options={{
+          title: 'About',
           ...TransitionPresets.ModalSlideFromBottomIOS
         }}
       />

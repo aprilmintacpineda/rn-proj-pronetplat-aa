@@ -43,6 +43,20 @@ function drawerContent (props) {
       {drawerItems}
       <Divider style={{ margin: 10, marginVertical: 20 }} />
       <RNPDrawer.Item
+        onPress={() => {
+          navigate('About');
+        }}
+        label="About Entrepic"
+        icon={props => (
+          <RNVectorIcon
+            provider="AntDesign"
+            name="infocirlceo"
+            {...props}
+          />
+        )}
+      />
+      <Divider style={{ margin: 10, marginVertical: 20 }} />
+      <RNPDrawer.Item
         onPress={logout}
         label="Logout"
         icon={props => (
