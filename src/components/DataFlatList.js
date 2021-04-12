@@ -96,10 +96,11 @@ function Body ({
   );
 }
 
-function DataFlatList ({ endpoint, onSuccess, ...props }) {
+function DataFlatList ({ endpoint, onSuccess, children, ...props }) {
   return (
     <DataFetch endpoint={endpoint} onSuccess={onSuccess}>
       <Body {...props} />
+      {children}
     </DataFetch>
   );
 }

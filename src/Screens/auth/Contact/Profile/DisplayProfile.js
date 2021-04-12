@@ -95,7 +95,7 @@ function ContactProfile ({ contactData }) {
         method: 'post'
       });
 
-      emitEvent('removedFromContact', contactData.id);
+      emitEvent('refreshMyContactList');
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -212,6 +212,7 @@ function ContactProfile ({ contactData }) {
 
       decrementContactRequestsCount();
       emitEvent('respondedToContactRequest', contactData.id);
+      emitEvent('refreshMyContactList');
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -234,6 +235,7 @@ function ContactProfile ({ contactData }) {
 
       decrementContactRequestsCount();
       emitEvent('respondedToContactRequest', contactData.id);
+      emitEvent('refreshMyContactList');
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -254,7 +256,7 @@ function ContactProfile ({ contactData }) {
         method: 'post'
       });
 
-      emitEvent('removedFromContact', contactData.id);
+      emitEvent('refreshMyContactList');
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();

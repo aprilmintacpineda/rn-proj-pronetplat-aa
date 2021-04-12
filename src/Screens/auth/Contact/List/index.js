@@ -1,9 +1,11 @@
+import { updateStore } from 'fluxible-js';
 import React from 'react';
+import RefreshController from './RefreshController';
 import RegularUserList from 'components/RegularUserList';
 
 const eventListeners = {
-  removedFromContact: (contactId, { filterData }) => {
-    filterData(data => data.id !== contactId);
+  refreshMyContactList: () => {
+    updateStore({ refreshMyContactList: true });
   }
 };
 
@@ -12,7 +14,9 @@ function ContactList () {
     <RegularUserList
       endpoint="/my-contacts"
       eventListeners={eventListeners}
-    />
+    >
+      <RefreshController />
+    </RegularUserList>
   );
 }
 
