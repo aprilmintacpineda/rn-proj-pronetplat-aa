@@ -1,22 +1,27 @@
-import { updateStore } from 'fluxible-js';
+import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import RefreshController from './RefreshController';
-import RegularUserList from 'components/RegularUserList';
+import Row from './Row';
+import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
+import DataFlatList from 'components/DataFlatList';
 
 const eventListeners = {
   refreshMyContactList: () => {
-    updateStore({ refreshMyContactList: true });
+    if (!store.refreshMyContactList)
+      updateStore({ refreshMyContactList: true });
   }
 };
 
 function ContactList () {
   return (
-    <RegularUserList
+    <DataFlatList
+      LoadingPlaceHolder={ContactsLoadingPlaceholder}
       endpoint="/my-contacts"
       eventListeners={eventListeners}
+      RowComponent={Row}
     >
       <RefreshController />
-    </RegularUserList>
+    </DataFlatList>
   );
 }
 

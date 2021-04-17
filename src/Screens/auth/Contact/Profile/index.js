@@ -8,12 +8,12 @@ function mapStates ({ authUser }) {
   return { authUser };
 }
 
-function ContactProfile ({ route: { params: contactData } }) {
+function ContactProfile ({ route: { params: contact } }) {
   const { authUser } = useFluxibleStore(mapStates);
 
   if (
     String(authUser.isTestAccount) !==
-    String(contactData.isTestAccount)
+    String(contact.user.isTestAccount)
   ) {
     return (
       <View style={{ margin: 15, alignItems: 'center' }}>
@@ -24,7 +24,7 @@ function ContactProfile ({ route: { params: contactData } }) {
     );
   }
 
-  return <DisplayProfile contactData={contactData} />;
+  return <DisplayProfile contact={contact} />;
 }
 
 export default React.memo(ContactProfile);
