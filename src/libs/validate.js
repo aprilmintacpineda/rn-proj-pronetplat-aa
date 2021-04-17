@@ -32,7 +32,9 @@ const validationRules = {
     return '';
   },
   required (value) {
-    if (!value || !value.length) return 'Required.';
+    if (value === '' || value === undefined || value === null)
+      return 'Required.';
+
     return '';
   },
   maxLength (value, [max]) {
@@ -77,12 +79,16 @@ const validationRules = {
   matches (value, [payload, fieldName]) {
     if (value !== payload) return `${fieldName} must match.`;
     return '';
+  },
+  bool (value) {
+    if (value !== true && value !== false) return 'Invalid.';
+    return '';
   }
 };
 
 function validate (value, rules) {
   const isOptional = !rules.includes('required');
-  if (!value && isOptional) return;
+  if (validationRules.required(value) && isOptional) return;
 
   const numRules = rules.length;
 

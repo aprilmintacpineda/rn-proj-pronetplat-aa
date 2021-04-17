@@ -7,15 +7,23 @@ import Caption from 'components/Caption';
 import Menu from 'components/Menu';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
+import Tooltip from 'components/Tooltip';
 import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import { logEvent } from 'libs/logging';
 import { xhr } from 'libs/xhr';
+import { paperTheme } from 'theme';
 
 function ContactDetailRow (contactDetail) {
   const [isDeleting, setIsDeleting] = React.useState(false);
   const { navigate } = useNavigation();
 
-  const { id, value, description, updatedAt } = contactDetail;
+  const {
+    id,
+    value,
+    description,
+    isCloseFriendsOnly,
+    updatedAt
+  } = contactDetail;
 
   const deleteContactDetail = React.useCallback(async () => {
     try {
@@ -93,7 +101,31 @@ function ContactDetailRow (contactDetail) {
       }}
     >
       <View>
-        <Title>{value}</Title>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center'
+          }}
+        >
+          {isCloseFriendsOnly ? (
+            <View style={{ marginRight: 10 }}>
+              <Tooltip
+                content={
+                  <Text>Only close friends can see this.</Text>
+                }
+                placement="right"
+              >
+                <RNVectorIcon
+                  provider="MaterialCommunityIcons"
+                  name="star"
+                  size={20}
+                  color={paperTheme.colors.primary}
+                />
+              </Tooltip>
+            </View>
+          ) : null}
+          <Title>{value}</Title>
+        </View>
         <Text>{description}</Text>
         <Caption>
           Last updated <TimeAgo dateFrom={updatedAt} />

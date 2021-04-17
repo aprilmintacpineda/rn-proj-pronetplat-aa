@@ -9,12 +9,15 @@ const formOptions = {
   initialFormValues: {
     value: '',
     description: '',
-    type: 'email'
+    type: 'email',
+    isCloseFriendsOnly: false
   },
   validatorChains: {
     type: ['value']
   },
   validators: {
+    isCloseFriendsOnly: ({ isCloseFriendsOnly }) =>
+      validate(isCloseFriendsOnly, ['required', 'bool']),
     value: ({ value, type }) => {
       switch (type) {
         case 'email':

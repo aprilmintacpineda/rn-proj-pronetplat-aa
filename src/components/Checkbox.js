@@ -1,15 +1,34 @@
+import RNCheckBox from '@react-native-community/checkbox';
 import React from 'react';
-import CheckBoxComponent from 'react-native-bouncy-checkbox';
+import { Platform } from 'react-native';
 import { paperTheme } from 'theme';
 
-function Checkbox (props) {
+function CheckboxAndroid (props) {
   return (
-    <CheckBoxComponent
+    <RNCheckBox
       {...props}
-      fillColor={paperTheme.colors.primary}
-      iconStyle={{ borderColor: paperTheme.colors.primary }}
+      tintColors={{
+        true: paperTheme.colors.primary
+      }}
+      style={{ marginRight: 5 }}
     />
   );
 }
 
-export default React.memo(Checkbox);
+function CheckboxIos (props) {
+  return (
+    <RNCheckBox
+      {...props}
+      onCheckColor={paperTheme.colors.primary}
+      onTintColor={paperTheme.colors.primary}
+      style={{ marginRight: 10 }}
+    />
+  );
+}
+
+export default React.memo(
+  Platform.select({
+    android: CheckboxAndroid,
+    ios: CheckboxIos
+  })
+);

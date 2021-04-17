@@ -2,9 +2,16 @@ import React from 'react';
 import { Linking, Text, View } from 'react-native';
 import { Caption, TouchableRipple } from 'react-native-paper';
 import RNVectorIcon from 'components/RNVectorIcon';
+import Tooltip from 'components/Tooltip';
 import { paperTheme } from 'theme';
 
-function ContactDetailRow ({ type, value, description, disabled }) {
+function ContactDetailRow ({
+  type,
+  value,
+  description,
+  isCloseFriendsOnly,
+  disabled
+}) {
   const actionButtons = React.useMemo(() => {
     const actions = [];
     const iconSize = 20;
@@ -146,9 +153,30 @@ function ContactDetailRow ({ type, value, description, disabled }) {
       }}
     >
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 16 }} numberOfLines={1}>
-          {value}
-        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center'
+          }}
+        >
+          {isCloseFriendsOnly ? (
+            <Tooltip
+              content={<Text>Only close friends can see this.</Text>}
+              placement="right"
+            >
+              <RNVectorIcon
+                provider="MaterialCommunityIcons"
+                name="star"
+                size={20}
+                color={paperTheme.colors.primary}
+                style={{ marginRight: 5 }}
+              />
+            </Tooltip>
+          ) : null}
+          <Text style={{ fontSize: 16 }} numberOfLines={1}>
+            {value}
+          </Text>
+        </View>
         <Caption>{description}</Caption>
       </View>
       <View style={{ flexDirection: 'row' }}>{actionButtons}</View>

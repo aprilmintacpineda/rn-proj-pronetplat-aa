@@ -1,7 +1,9 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
+import { Caption, Text } from 'react-native-paper';
 import { FormContext } from 'components/FormWithContext';
+import Checkbox from 'components/FormWithContext/Checkbox';
 import SelectOptions from 'components/FormWithContext/SelectOptions';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
@@ -20,8 +22,6 @@ function ContactDetailsAddForm () {
     FormContext
   );
 
-  console.log('params', contactDetail);
-
   React.useEffect(() => {
     if (!contactDetail) {
       setOptions({ title: 'Add contact detail' });
@@ -33,7 +33,9 @@ function ContactDetailsAddForm () {
         formValues: {
           value: contactDetail.value,
           description: contactDetail.description,
-          type: contactDetail.type
+          type: contactDetail.type,
+          isCloseFriendsOnly:
+            contactDetail.isCloseFriendsOnly || false
         }
       });
     }
@@ -59,6 +61,23 @@ function ContactDetailsAddForm () {
           field="description"
           helperText="A helpful description for your contacts."
         />
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            marginBottom: 30
+          }}
+        >
+          <Checkbox field="isCloseFriendsOnly" />
+          <View style={{ flex: 1 }}>
+            <Text>Close friends only</Text>
+            <Caption>
+              When this is checked. This will only be visible to your
+              close friends.
+            </Caption>
+          </View>
+        </View>
         <SubmitButton>Save</SubmitButton>
       </View>
     </ScrollView>
