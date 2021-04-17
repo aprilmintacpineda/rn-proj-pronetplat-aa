@@ -1,7 +1,7 @@
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { Modalize } from 'react-native-modalize';
-import { Portal } from 'react-native-paper';
+import { Portal } from 'react-native-portalize';
 import { clearPopup } from 'fluxible/actions/popup';
 
 function mapStates ({ popup }) {

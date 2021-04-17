@@ -61,23 +61,18 @@ function ContactDetailsAddForm () {
           field="description"
           helperText="A helpful description for your contacts."
         />
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-            marginBottom: 30
-          }}
-        >
-          <Checkbox field="isCloseFriendsOnly" />
-          <View style={{ flex: 1 }}>
-            <Text>Close friends only</Text>
-            <Caption>
-              When this is checked. This will only be visible to your
-              close friends.
-            </Caption>
-          </View>
-        </View>
+        <Checkbox
+          field="isCloseFriendsOnly"
+          content={
+            <>
+              <Text>Close friends only</Text>
+              <Caption>
+                When this is checked. This will only be visible to
+                your close friends.
+              </Caption>
+            </>
+          }
+        />
         <SubmitButton>Save</SubmitButton>
       </View>
     </ScrollView>

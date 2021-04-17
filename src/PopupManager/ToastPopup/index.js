@@ -1,7 +1,7 @@
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { View } from 'react-native';
-import { Portal } from 'react-native-paper';
+import { Portal } from 'react-native-portalize';
 import Toast from './Toast';
 
 function mapStates ({ toasts }) {

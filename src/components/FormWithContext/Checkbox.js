@@ -2,7 +2,7 @@ import React from 'react';
 import { FormContext } from '.';
 import CheckboxComponent from 'components/Checkbox';
 
-function Checkbox ({ field }) {
+function Checkbox ({ field, ...props }) {
   const {
     formValues,
     disabled,
@@ -11,6 +11,7 @@ function Checkbox ({ field }) {
 
   return (
     <CheckboxComponent
+      {...props}
       value={formValues[field]}
       onValueChange={onChangeHandlers[field]}
       disabled={disabled}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppState, View } from 'react-native';
-import { Card, Portal, Text } from 'react-native-paper';
+import { Card, Text } from 'react-native-paper';
+import { Portal } from 'react-native-portalize';
 import RNNotificationPopup from 'react-native-push-notification-popup';
 import Avatar from 'components/Avatar';
 import Caption from 'components/Caption';

@@ -3,19 +3,9 @@ import {
   TransitionPresets,
   createStackNavigator
 } from '@react-navigation/stack';
-import { store } from 'fluxible-js';
 import React from 'react';
-import { AppState } from 'react-native';
 import header from './header';
 import LoggedInTabNavigation from './LoggedInTabNavigation';
-import { navigationRef } from 'App';
-import {
-  decrementContactRequestsCount,
-  incrementContactRequestsCount,
-  incrementNotificationsCount
-} from 'fluxible/actions/user';
-import { getInitials } from 'libs/user';
-import { displayNotification } from 'PopupManager/NotificationPopup';
 import About from 'Screens/auth/About';
 import BlockList from 'Screens/auth/BlockList';
 import ChangePassword from 'Screens/auth/ChangePassword';
@@ -37,59 +27,7 @@ const screenOptions = {
 
 function LoggedInStackNavigation () {
   React.useEffect(() => {
-    let unsubscribe = null;
-
-    (async () => {
-      const openedNotif = await messaging().getInitialNotification();
-      console.log('openedNotif', openedNotif);
-
-      const wasNotifAuthorized = await messaging().requestPermission();
-
-      if (wasNotifAuthorized) {
-        unsubscribe = messaging().onMessage(async remoteMessage => {
-          console.log('onMessage', remoteMessage);
-
-          if (!store.authUser) return;
-
-          const { data, notification } = remoteMessage;
-          const { title, body } = notification;
-          const { type, category, profilePicture } = data;
-
-          if (type === 'contactRequestCancelled')
-            decrementContactRequestsCount();
-          else if (type === 'contactRequest')
-            incrementContactRequestsCount();
-
-          if (category === 'notification')
-            incrementNotificationsCount();
-
-          if (AppState.currentState !== 'active') return;
-
-          displayNotification({
-            title,
-            body,
-            avatarUri: profilePicture,
-            avatarLabel: getInitials(data),
-            onPress: () => {
-              const screensByType = {
-                contactRequest: 'ContactProfile',
-                contactRequestAccepted: 'ContactProfile',
-                contactRequestCancelled: 'ContactProfile',
-                contactRequestDeclined: 'ContactProfile'
-              };
-
-              const targetScreen = screensByType[type];
-              if (targetScreen)
-                navigationRef.current.navigate(targetScreen, data);
-            }
-          });
-        });
-      }
-    })();
-
-    return () => {
-      if (unsubscribe) unsubscribe();
-    };
+    messaging().requestPermission();
   }, []);
 
   return (

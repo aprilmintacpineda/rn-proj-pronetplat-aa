@@ -1,5 +1,7 @@
 import React from 'react';
-import RegularUserList from 'components/RegularUserList';
+import Row from './Row';
+import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
+import DataFlatList from 'components/DataFlatList';
 
 const eventListeners = {
   userUnblocked: (contactId, { filterData }) => {
@@ -9,9 +11,11 @@ const eventListeners = {
 
 function BlockList () {
   return (
-    <RegularUserList
+    <DataFlatList
       endpoint="/block-list"
       eventListeners={eventListeners}
+      RowComponent={Row}
+      LoadingPlaceHolder={ContactsLoadingPlaceholder}
     />
   );
 }

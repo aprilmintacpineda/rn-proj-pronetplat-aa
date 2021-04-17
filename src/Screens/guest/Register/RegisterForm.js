@@ -22,28 +22,24 @@ function RegisterForm () {
         <PasswordStrength value={password} />
         <TextInput field="password" type="password" />
         <TextInput field="retypePassword" type="password" />
-        <View
-          style={{
-            marginBottom: 20,
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-            justifyContent: 'space-between'
-          }}
-        >
-          <Checkbox onPress={setAgreed} />
-          <Text style={{ flex: 1 }}>
-            Please tick the box on the left if you acknowledge that
-            you have read, understood, and agreed with our{' '}
-            <TextLink to="https://entrepic.com/privacy-policy">
-              privacy policy
-            </TextLink>{' '}
-            and{' '}
-            <TextLink to="https://entrepic.com/terms-and-conditions">
-              terms and conditions
-            </TextLink>
-            .
-          </Text>
-        </View>
+        <Checkbox
+          value={hasAgreed}
+          onValueChange={setAgreed}
+          content={
+            <Text>
+              Please tick the box on the left if you acknowledge that
+              you have read, understood, and agreed with our{' '}
+              <TextLink to="https://entrepic.com/privacy-policy">
+                privacy policy
+              </TextLink>{' '}
+              and{' '}
+              <TextLink to="https://entrepic.com/terms-and-conditions">
+                terms and conditions
+              </TextLink>
+              .
+            </Text>
+          }
+        />
         <SubmitButton
           style={{ marginBottom: 20 }}
           disabled={!hasAgreed}
