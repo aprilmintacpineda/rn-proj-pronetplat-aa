@@ -10,7 +10,7 @@ import { paperTheme } from 'theme';
 
 const menuList = [
   {
-    title: 'Change Personal Information',
+    title: 'Change my personal information',
     icon: {
       provider: 'MaterialCommunityIcons',
       name: 'account-edit-outline'
@@ -18,7 +18,7 @@ const menuList = [
     to: 'ChangePersonalInfo'
   },
   {
-    title: 'Change Password',
+    title: 'Change my password',
     icon: {
       provider: 'MaterialCommunityIcons',
       name: 'shield-key-outline'
@@ -34,7 +34,7 @@ const menuList = [
     to: 'ContactDetails'
   },
   {
-    title: 'Block list',
+    title: 'My  block list',
     icon: {
       provider: 'MaterialCommunityIcons',
       name: 'qrcode-remove'
