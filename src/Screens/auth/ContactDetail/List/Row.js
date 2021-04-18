@@ -1,14 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
 import { emitEvent } from 'fluxible-js';
 import React from 'react';
-import { Alert, View } from 'react-native';
+import { View } from 'react-native';
 import { Text, Title } from 'react-native-paper';
 import Caption from 'components/Caption';
 import Menu from 'components/Menu';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
 import Tooltip from 'components/Tooltip';
-import { showRequestFailedPopup } from 'fluxible/actions/popup';
+import {
+  showConfirmDialog,
+  showRequestFailedPopup
+} from 'fluxible/actions/popup';
 import { logEvent } from 'libs/logging';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
@@ -70,21 +73,12 @@ function ContactDetailRow (contactDetail) {
           />
         ),
         onPress: () => {
-          Alert.alert(
-            null,
-            'Are you sure you want to delete this contact detail?',
-            [
-              {
-                text: 'Yes',
-                style: 'destructive',
-                onPress: deleteContactDetail
-              },
-              {
-                text: 'No',
-                style: 'cancel'
-              }
-            ]
-          );
+          showConfirmDialog({
+            message:
+              'Are you sure you want to delete that contact detail?',
+            onConfirm: deleteContactDetail,
+            isDestructive: true
+          });
         }
       }
     ];

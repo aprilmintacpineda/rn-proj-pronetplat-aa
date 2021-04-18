@@ -1,8 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Modalize } from 'react-native-modalize';
-import { Portal } from 'react-native-paper';
 import Options from './Options';
+import Modalize from 'components/Modalize';
 import TextInput from 'components/TextInput';
 import { camelToTitleCase } from 'libs/strings';
 
@@ -49,22 +47,14 @@ function SelectOptions ({
         {...textInputProps}
         onPress={openModal}
       />
-      <Portal>
-        <Modalize
-          ref={modalizeRef}
-          adjustToContentHeight
-          handlePosition="inside"
-        >
-          <View style={{ margin: 20, marginTop: 40 }}>
-            <Options
-              labelUpperCase={labelUpperCase}
-              options={options}
-              onChange={handleChange}
-              value={value}
-            />
-          </View>
-        </Modalize>
-      </Portal>
+      <Modalize ref={modalizeRef}>
+        <Options
+          labelUpperCase={labelUpperCase}
+          options={options}
+          onChange={handleChange}
+          value={value}
+        />
+      </Modalize>
     </>
   );
 }

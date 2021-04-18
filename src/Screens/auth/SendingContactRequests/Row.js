@@ -1,16 +1,15 @@
 import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { View } from 'react-native';
-import { Modalize } from 'react-native-modalize';
 import {
   Text,
   TouchableRipple,
-  ActivityIndicator,
-  Portal
+  ActivityIndicator
 } from 'react-native-paper';
 import Animatable from 'components/Animatable';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
+import Modalize from 'components/Modalize';
 import RNVectorIcon from 'components/RNVectorIcon';
 import StatusCaption from 'components/StatusCaption';
 import UserAvatar from 'components/UserAvatar';
@@ -133,47 +132,39 @@ function PendingContactRequestRow ({ index, ...contactData }) {
           </View>
         </Animatable>
       </TouchableRipple>
-      <Portal>
-        <Modalize
-          ref={modalizeRef}
-          handlePosition="inside"
-          adjustToContentHeight
+      <Modalize ref={modalizeRef}>
+        <Button
+          onPress={sendContactRequest}
+          mode="outlined"
+          color={colors.primary}
+          icon={props => (
+            <RNVectorIcon
+              provider="Ionicons"
+              name="ios-refresh-circle-outline"
+              {...props}
+            />
+          )}
+          disabled={!isError}
         >
-          <View style={{ margin: 20, marginTop: 40 }}>
-            <Button
-              onPress={sendContactRequest}
-              mode="outlined"
-              color={colors.primary}
-              icon={props => (
-                <RNVectorIcon
-                  provider="Ionicons"
-                  name="ios-refresh-circle-outline"
-                  {...props}
-                />
-              )}
-              disabled={!isError}
-            >
-              Resend request
-            </Button>
-            <Button
-              onPress={removeItem}
-              mode="contained"
-              color={colors.error}
-              icon={props => (
-                <RNVectorIcon
-                  provider="Ionicons"
-                  name="ios-trash"
-                  {...props}
-                />
-              )}
-              style={{ marginTop: 15 }}
-              disabled={!isError}
-            >
-              Remove
-            </Button>
-          </View>
-        </Modalize>
-      </Portal>
+          Resend request
+        </Button>
+        <Button
+          onPress={removeItem}
+          mode="contained"
+          color={colors.error}
+          icon={props => (
+            <RNVectorIcon
+              provider="Ionicons"
+              name="ios-trash"
+              {...props}
+            />
+          )}
+          style={{ marginTop: 15 }}
+          disabled={!isError}
+        >
+          Remove
+        </Button>
+      </Modalize>
     </>
   );
 }

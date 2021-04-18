@@ -1,7 +1,7 @@
 import NetInfo from '@react-native-community/netinfo';
 import { store, updateStore } from 'fluxible-js';
 import React from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import AnimatedErrorIcon from 'components/AnimatedErrorIcon';
 import AnimatedSuccessIcon from 'components/AnimatedSuccessIcon';
@@ -123,4 +123,23 @@ export function updateOrCreateToast ({ id, ...params }) {
   }
 
   return toast(params);
+}
+
+export function showConfirmDialog ({
+  title = null,
+  message,
+  onConfirm,
+  isDestructive
+}) {
+  Alert.alert(title, message, [
+    {
+      onPress: onConfirm,
+      style: isDestructive ? 'destructive' : 'default',
+      text: 'Yes'
+    },
+    {
+      style: 'cancel',
+      text: 'No'
+    }
+  ]);
 }

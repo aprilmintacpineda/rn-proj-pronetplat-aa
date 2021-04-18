@@ -1,28 +1,20 @@
 import React from 'react';
-import { Alert, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Divider, Headline, Text } from 'react-native-paper';
 import Button from 'components/FormWithContext/Button';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
+import { showConfirmDialog } from 'fluxible/actions/popup';
 import { logout } from 'fluxible/actions/user';
 
 function AuthenticateForm () {
   const logoutDiag = React.useCallback(() => {
-    Alert.alert(
-      null,
-      'Are you sure you want to log out? QR codes you scanned offline will be lost.',
-      [
-        {
-          style: 'destructive',
-          text: 'Yes',
-          onPress: logout
-        },
-        {
-          style: 'cancel',
-          text: 'No'
-        }
-      ]
-    );
+    showConfirmDialog({
+      message:
+        'Are you sure you want to log out? QR codes you scanned offline will be lost.',
+      onConfirm: logout,
+      isDestructive: true
+    });
   }, []);
 
   return (

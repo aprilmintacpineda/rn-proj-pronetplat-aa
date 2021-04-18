@@ -1,12 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import { emitEvent } from 'fluxible-js';
 import React from 'react';
-import {
-  ScrollView,
-  View,
-  Alert,
-  RefreshControl
-} from 'react-native';
+import { ScrollView, View, RefreshControl } from 'react-native';
 import { Headline, Text, Divider } from 'react-native-paper';
 import ContactDetailRow from './Row';
 import Caption from 'components/Caption';
@@ -15,7 +10,10 @@ import RefreshableView from 'components/RefreshableView';
 import RNVectorIcon from 'components/RNVectorIcon';
 import UnknownErrorView from 'components/UnknownErrorView';
 import UserAvatar from 'components/UserAvatar';
-import { showRequestFailedPopup } from 'fluxible/actions/popup';
+import {
+  showConfirmDialog,
+  showRequestFailedPopup
+} from 'fluxible/actions/popup';
 import useDataFetch from 'hooks/useDataFetch';
 import { logEvent } from 'libs/logging';
 import {
@@ -184,21 +182,11 @@ function ContactProfile ({ contact }) {
           />
         ),
         onPress: () => {
-          Alert.alert(
-            null,
-            `Are you sure you want to remove ${fullName} from your contacts?`,
-            [
-              {
-                text: 'No',
-                style: 'cancel'
-              },
-              {
-                text: 'Yes',
-                onPress: confirmRemoveFromContacts,
-                style: 'destructive'
-              }
-            ]
-          );
+          showConfirmDialog({
+            message: `Are you sure you want to remove ${fullName} from your contacts?`,
+            onConfirm: confirmRemoveFromContacts,
+            isDestructive: true
+          });
         },
         disabled: isDisabled || isMenuDisabled
       },
@@ -214,21 +202,11 @@ function ContactProfile ({ contact }) {
         onPress: () => {
           const personalPronoun = getPersonalPronoun(user);
 
-          Alert.alert(
-            null,
-            `Are you sure you want to block ${fullName}? ${personalPronoun.subjective.ucfirst} will no longer be able to see your contact details and ${personalPronoun.subjective.lowercase} will be removed from your contacts.`,
-            [
-              {
-                text: 'No',
-                style: 'cancel'
-              },
-              {
-                text: 'Yes',
-                onPress: confirmBlockUser,
-                style: 'destructive'
-              }
-            ]
-          );
+          showConfirmDialog({
+            message: `Are you sure you want to block ${fullName}? ${personalPronoun.subjective.ucfirst} will no longer be able to see your contact details and ${personalPronoun.subjective.lowercase} will be removed from your contacts.`,
+            onConfirm: confirmBlockUser,
+            isDestructive: true
+          });
         },
         disabled: isDisabled || isMenuDisabled
       }

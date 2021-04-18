@@ -1,14 +1,17 @@
 import { emitEvent } from 'fluxible-js';
 import React from 'react';
-import { Alert, View } from 'react-native';
-import { Modalize } from 'react-native-modalize';
-import { Headline, Portal, Text } from 'react-native-paper';
+import { View } from 'react-native';
+import { Text } from 'react-native-paper';
 import Animatable from 'components/Animatable';
 import Button from 'components/Button';
 import Checkbox from 'components/Checkbox';
 import TouchableRipple from 'components/TouchableRipple';
 import UserAvatar from 'components/UserAvatar';
-import { showRequestFailedPopup } from 'fluxible/actions/popup';
+import UserModalize from 'components/UserModalize';
+import {
+  showConfirmDialog,
+  showRequestFailedPopup
+} from 'fluxible/actions/popup';
 import useState from 'hooks/useState';
 import {
   addToContact,
@@ -50,21 +53,10 @@ function BlockListRow ({ index, ...user }) {
   }, [updateState, shouldAddToContact, user]);
 
   const unblock = React.useCallback(async () => {
-    Alert.alert(
-      null,
-      `Are you sure you want to unblock ${fullName}?`,
-      [
-        {
-          onPress: confirmUnblock,
-          style: 'destructive',
-          text: 'Yes'
-        },
-        {
-          style: 'cancel',
-          text: 'No'
-        }
-      ]
-    );
+    showConfirmDialog({
+      message: `Are you sure you want to unblock ${fullName}?`,
+      onConfirm: confirmUnblock
+    });
   }, [fullName, confirmUnblock]);
 
   return (
@@ -93,66 +85,23 @@ function BlockListRow ({ index, ...user }) {
           </View>
         </TouchableRipple>
       </Animatable>
-      <Portal>
-        <Modalize
-          adjustToContentHeight
-          ref={modalRef}
-          handlePosition="inside"
+      <UserModalize user={user} ref={modalRef}>
+        <Checkbox
+          value={addToContact}
+          onValueChange={setShouldAddToContact}
+          content={
+            <Text>Also send contact request to {fullName}</Text>
+          }
+          disabled={isDisabled}
+        />
+        <Button
+          mode="contained"
+          onPress={unblock}
+          disabled={isDisabled}
         >
-          <View
-            style={{ padding: 15, marginTop: 30, marginBottom: 30 }}
-          >
-            <View style={{ marginBottom: 30 }}>
-              <View
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <UserAvatar user={user} size={100} />
-                <View style={{ marginTop: 15 }}>
-                  <Headline
-                    style={{ textAlign: 'center' }}
-                    numberOfLines={3}
-                  >
-                    {fullName}
-                  </Headline>
-                  <View style={{ alignItems: 'center' }}>
-                    {renderUserTitle(user, {
-                      textAlign: 'center',
-                      numberOfLines: 3
-                    })}
-                  </View>
-                </View>
-              </View>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  marginTop: 15,
-                  color: 'gray'
-                }}
-              >
-                {user.bio}
-              </Text>
-            </View>
-            <Checkbox
-              value={addToContact}
-              onValueChange={setShouldAddToContact}
-              content={
-                <Text>Also send contact request to {fullName}</Text>
-              }
-              disabled={isDisabled}
-            />
-            <Button
-              mode="contained"
-              onPress={unblock}
-              disabled={isDisabled}
-            >
-              Unblock
-            </Button>
-          </View>
-        </Modalize>
-      </Portal>
+          Unblock
+        </Button>
+      </UserModalize>
     </>
   );
 }

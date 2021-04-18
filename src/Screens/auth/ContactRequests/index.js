@@ -4,8 +4,8 @@ import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
 
 const eventListeners = {
-  respondedToContactRequest: (contactId, { filterData }) => {
-    filterData(data => data.senderId !== contactId);
+  respondedToContactRequest: (senderId, { filterData }) => {
+    filterData(data => data.senderId !== senderId);
   }
 };
 

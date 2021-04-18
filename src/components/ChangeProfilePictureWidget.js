@@ -5,13 +5,13 @@ import {
 import { updateStore } from 'fluxible-js';
 import React from 'react';
 import { Platform, View } from 'react-native';
-import { Modalize } from 'react-native-modalize';
-import { Portal, Text, TouchableRipple } from 'react-native-paper';
+import { Text, TouchableRipple } from 'react-native-paper';
 import {
   openSettings,
   PERMISSIONS,
   requestMultiple
 } from 'react-native-permissions';
+import Modalize from './Modalize';
 import File from 'classes/File';
 import RNVectorIcon from 'components/RNVectorIcon';
 import {
@@ -233,83 +233,73 @@ function ChangeProfilePicture ({
         resetStatus={resetStatus}
         {...triggerComponentProps}
       />
-      <Portal>
-        <Modalize
-          adjustToContentHeight
-          ref={modalRef}
-          handlePosition="inside"
+      <Modalize ref={modalRef}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-evenly'
+          }}
         >
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-evenly',
-              paddingVertical: 20,
-              marginTop: 10
+              borderWidth: 1,
+              borderColor: paperTheme.colors.primary,
+              borderRadius: paperTheme.roundness
             }}
           >
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: paperTheme.colors.primary,
-                borderRadius: paperTheme.roundness
-              }}
+            <TouchableRipple
+              onPress={selectPicture}
+              rippleColor={paperTheme.colors.rippleColor}
             >
-              <TouchableRipple
-                onPress={selectPicture}
-                rippleColor={paperTheme.colors.rippleColor}
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  margin: 15
+                }}
               >
-                <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: 15
-                  }}
-                >
-                  <RNVectorIcon
-                    provider="MaterialCommunityIcons"
-                    name="file-upload"
-                    size={40}
-                    color={paperTheme.colors.primary}
-                  />
-                  <Text style={{ marginTop: 10 }}>
-                    Select a picture
-                  </Text>
-                </View>
-              </TouchableRipple>
-            </View>
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: paperTheme.colors.primary,
-                borderRadius: paperTheme.roundness
-              }}
-            >
-              <TouchableRipple
-                onPress={takePicture}
-                rippleColor={paperTheme.colors.rippleColor}
-              >
-                <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: 15
-                  }}
-                >
-                  <RNVectorIcon
-                    provider="Ionicons"
-                    name="ios-camera"
-                    size={40}
-                    color={paperTheme.colors.primary}
-                  />
-                  <Text style={{ marginTop: 10 }}>
-                    Take a picture
-                  </Text>
-                </View>
-              </TouchableRipple>
-            </View>
+                <RNVectorIcon
+                  provider="MaterialCommunityIcons"
+                  name="file-upload"
+                  size={40}
+                  color={paperTheme.colors.primary}
+                />
+                <Text style={{ marginTop: 10 }}>
+                  Select a picture
+                </Text>
+              </View>
+            </TouchableRipple>
           </View>
-        </Modalize>
-      </Portal>
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: paperTheme.colors.primary,
+              borderRadius: paperTheme.roundness
+            }}
+          >
+            <TouchableRipple
+              onPress={takePicture}
+              rippleColor={paperTheme.colors.rippleColor}
+            >
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  margin: 15
+                }}
+              >
+                <RNVectorIcon
+                  provider="Ionicons"
+                  name="ios-camera"
+                  size={40}
+                  color={paperTheme.colors.primary}
+                />
+                <Text style={{ marginTop: 10 }}>Take a picture</Text>
+              </View>
+            </TouchableRipple>
+          </View>
+        </View>
+      </Modalize>
     </>
   );
 }
