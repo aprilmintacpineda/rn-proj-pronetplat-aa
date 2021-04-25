@@ -26,7 +26,8 @@ function AppBar (props) {
         backgroundColor: paperTheme.colors.accent,
         elevation: 2,
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 0
       }}
     >
       {!isMainScreen && canGoBack() ? (
