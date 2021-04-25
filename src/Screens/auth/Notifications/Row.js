@@ -19,7 +19,7 @@ const replacers = {
     getPersonalPronoun(user.gender).possessive.lowercase
 };
 
-function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
+function NotificationBody ({ user, body, createdAt, type, seenAt }) {
   let icon = null;
 
   switch (type) {
@@ -77,7 +77,7 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
           currentText = '';
         }
 
-        const value = replacer(actor);
+        const value = replacer(user);
 
         texts.push(
           <Text
@@ -101,7 +101,7 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
     }, []);
 
     return texts;
-  }, [body, actor]);
+  }, [body, user]);
 
   return (
     <View
@@ -114,7 +114,7 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
       }}
     >
       <View style={{ position: 'relative' }}>
-        <UserAvatar user={actor} />
+        <UserAvatar user={user} />
         <View
           style={{
             position: 'absolute',
@@ -138,7 +138,7 @@ function NotificationBody ({ actor, body, createdAt, type, seenAt }) {
 }
 
 function NotificationRow (notification) {
-  const { type, actor } = notification;
+  const { type } = notification;
 
   if (
     type === 'contactRequestAccepted' ||
@@ -147,7 +147,7 @@ function NotificationRow (notification) {
     type === 'contactRequestCancelled'
   ) {
     return (
-      <TouchableRipple to="ContactProfile" params={actor}>
+      <TouchableRipple to="ContactProfile" params={notification}>
         <NotificationBody {...notification} />
       </TouchableRipple>
     );
