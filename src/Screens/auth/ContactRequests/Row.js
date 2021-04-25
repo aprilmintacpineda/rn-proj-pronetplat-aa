@@ -47,6 +47,7 @@ function ContactRequestRow ({ sender, createdAt, index }) {
 
       decrementContactRequestsCount();
       emitEvent('respondedToContactRequest', sender.id);
+      emitEvent('refreshMyContactList');
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();

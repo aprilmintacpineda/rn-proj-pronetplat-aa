@@ -9,11 +9,19 @@ function Checkbox ({ field, ...props }) {
     onChangeHandlers
   } = React.useContext(FormContext);
 
+  const value = formValues[field];
+  const onChangeHandler = onChangeHandlers[field];
+
+  const onChange = React.useCallback(() => {
+    onChangeHandler(!value);
+  }, [onChangeHandler, value]);
+
   return (
     <CheckboxComponent
       {...props}
-      value={formValues[field]}
-      onValueChange={onChangeHandlers[field]}
+      disableBuiltInState
+      isChecked={value}
+      onPress={onChange}
       disabled={disabled}
     />
   );

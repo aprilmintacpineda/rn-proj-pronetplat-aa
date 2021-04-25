@@ -1,52 +1,9 @@
-import RNCheckBox from '@react-native-community/checkbox';
 import React from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
+import RNCheckBox from 'react-native-bouncy-checkbox';
 import { paperTheme } from 'theme';
 
-function CheckboxAndroid ({ disabled, ...props }) {
-  return (
-    <RNCheckBox
-      {...props}
-      disabled={disabled}
-      tintColors={{
-        true: disabled
-          ? paperTheme.colors.disabled
-          : paperTheme.colors.primary,
-        false: disabled ? paperTheme.colors.disabled : undefined
-      }}
-      style={{ marginRight: 5 }}
-    />
-  );
-}
-
-function CheckboxIos ({ disabled, ...props }) {
-  return (
-    <RNCheckBox
-      {...props}
-      disabled={disabled}
-      onCheckColor={
-        disabled
-          ? paperTheme.colors.disabled
-          : paperTheme.colors.primary
-      }
-      onTintColor={
-        disabled
-          ? paperTheme.colors.disabled
-          : paperTheme.colors.primary
-      }
-      style={{ marginRight: 10 }}
-    />
-  );
-}
-
-const CheckboxComponent = React.memo(
-  Platform.select({
-    android: CheckboxAndroid,
-    ios: CheckboxIos
-  })
-);
-
-function Checkbox ({ content = null, ...props }) {
+function Checkbox ({ content = null, ...checkboxProps }) {
   return (
     <View
       style={{
@@ -56,7 +13,13 @@ function Checkbox ({ content = null, ...props }) {
         marginBottom: 30
       }}
     >
-      <CheckboxComponent {...props} />
+      <RNCheckBox
+        {...checkboxProps}
+        fillColor={paperTheme.colors.primary}
+        iconStyle={{
+          borderColor: paperTheme.colors.primary
+        }}
+      />
       <View style={{ flex: 1 }}>{content}</View>
     </View>
   );

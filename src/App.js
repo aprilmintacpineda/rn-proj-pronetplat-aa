@@ -95,10 +95,10 @@ function App () {
           avatarLabel: getInitials(data),
           onPress: () => {
             const screensByType = {
-              contactRequest: 'ContactProfile',
+              contactRequest: 'ContactRequests',
               contactRequestAccepted: 'ContactProfile',
-              contactRequestCancelled: 'ContactProfile',
-              contactRequestDeclined: 'ContactProfile'
+              contactRequestCancelled: 'Notifications',
+              contactRequestDeclined: 'Notifications'
             };
 
             const targetScreen = screensByType[type];
