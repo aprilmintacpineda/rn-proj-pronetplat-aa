@@ -17,6 +17,7 @@ import { decrementContactRequestsCount } from 'fluxible/actions/user';
 import useState from 'hooks/useState';
 import { getFullName, renderUserTitle } from 'libs/user';
 import { xhr } from 'libs/xhr';
+import { paperTheme } from 'theme';
 
 function ContactRequestRow ({ sender, createdAt, index }) {
   const fullName = getFullName(sender);
@@ -97,6 +98,37 @@ function ContactRequestRow ({ sender, createdAt, index }) {
     });
   }, [fullName, confirmDecline]);
 
+  const confirmBlockUser = React.useCallback(async () => {
+    try {
+      updateState({
+        isLoading: true,
+        action: 'block'
+      });
+
+      await xhr(`/block-user/${sender.id}`, {
+        method: 'post'
+      });
+
+      decrementContactRequestsCount();
+      emitEvent('respondedToContactRequest', sender.id);
+    } catch (error) {
+      console.log(error);
+      showRequestFailedPopup();
+
+      updateState({
+        isLoading: false,
+        action: ''
+      });
+    }
+  }, [sender.id, updateState]);
+
+  const blockUser = React.useCallback(() => {
+    showConfirmDialog({
+      message: `Are you sure you want to block ${fullName}?`,
+      onConfirm: confirmBlockUser
+    });
+  }, [confirmBlockUser, fullName]);
+
   return (
     <>
       <Animatable animation="fadeInFromRight" delay={delay}>
@@ -132,6 +164,15 @@ function ContactRequestRow ({ sender, createdAt, index }) {
           loading={action === 'decline'}
         >
           Decline
+        </Button>
+        <Button
+          color={paperTheme.colors.error}
+          style={{ marginTop: 15 }}
+          onPress={blockUser}
+          disabled={isLoading}
+          loading={action === 'block'}
+        >
+          Block
         </Button>
       </UserModalize>
     </>

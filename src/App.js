@@ -74,7 +74,12 @@ function App () {
         if (!store.authUser || !store.initComplete || store.reAuth)
           return;
 
-        const { data, notification } = remoteMessage;
+        const {
+          data: { stringified },
+          notification
+        } = remoteMessage;
+
+        const data = JSON.parse(stringified);
         const { title, body } = notification;
         const { type, category, profilePicture } = data;
 

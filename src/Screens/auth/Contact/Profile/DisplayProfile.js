@@ -224,11 +224,11 @@ function ContactProfile ({ contact }) {
     }
   }, [user.id, refreshData]);
 
-  const confirmRemoveFromContacts = React.useCallback(async () => {
+  const confirmDisconnect = React.useCallback(async () => {
     try {
       setIsDisabled(true);
 
-      await xhr(`/remove-from-contacts/${user.id}`, {
+      await xhr(`/disconnect/${user.id}`, {
         method: 'post'
       });
 
@@ -237,7 +237,7 @@ function ContactProfile ({ contact }) {
       console.log(error);
       showRequestFailedPopup();
 
-      logEvent('confirmRemoveFromContactsError', {
+      logEvent('confirmDisconnectError', {
         message: error.message
       });
     } finally {
@@ -328,7 +328,7 @@ function ContactProfile ({ contact }) {
           disabled: isDisabled
         },
         {
-          title: 'Remove from contacts',
+          title: 'Disconnect',
           icon: props => (
             <RNVectorIcon
               provider="MaterialCommunityIcons"
@@ -338,8 +338,8 @@ function ContactProfile ({ contact }) {
           ),
           onPress: () => {
             showConfirmDialog({
-              message: `Are you sure you want to remove ${fullName} from your contacts?`,
-              onConfirm: confirmRemoveFromContacts,
+              message: `Are you sure you disconnect with ${fullName}? You won't be able to see each others contact details anymore.`,
+              onConfirm: confirmDisconnect,
               isDestructive: true
             });
           },
@@ -367,7 +367,7 @@ function ContactProfile ({ contact }) {
   }, [
     isDisabled,
     fullName,
-    confirmRemoveFromContacts,
+    confirmDisconnect,
     setOptions,
     confirmBlockUser,
     blockUser,
@@ -508,6 +508,14 @@ function ContactProfile ({ contact }) {
           >
             Cancel contact request
           </Button>
+          <Button
+            color={paperTheme.colors.error}
+            onPress={blockUser}
+            disabled={isDisabled}
+            style={{ marginTop: 15 }}
+          >
+            Block
+          </Button>
         </View>
       );
     }
@@ -544,13 +552,20 @@ function ContactProfile ({ contact }) {
             Accept
           </Button>
           <Button
-            color={paperTheme.colors.error}
             mode="outlined"
             onPress={declineContactRequest}
             disabled={isDisabled}
             style={{ marginTop: 15 }}
           >
             Decline
+          </Button>
+          <Button
+            color={paperTheme.colors.error}
+            onPress={blockUser}
+            disabled={isDisabled}
+            style={{ marginTop: 15 }}
+          >
+            Block
           </Button>
         </View>
       );

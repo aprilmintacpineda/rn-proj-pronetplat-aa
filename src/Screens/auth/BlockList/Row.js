@@ -35,7 +35,7 @@ function BlockListRow ({ index, ...user }) {
 
   const setShouldAddToContact = React.useCallback(() => {
     updateState(oldState => ({
-      addToContact: !oldState.addToContact
+      shouldAddToContact: !oldState.shouldAddToContact
     }));
   }, [updateState]);
 
@@ -87,8 +87,8 @@ function BlockListRow ({ index, ...user }) {
       </Animatable>
       <UserModalize user={user} ref={modalRef}>
         <Checkbox
-          value={addToContact}
-          onValueChange={setShouldAddToContact}
+          value={shouldAddToContact}
+          onChange={setShouldAddToContact}
           content={
             <Text>Also send contact request to {fullName}</Text>
           }
