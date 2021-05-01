@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { Divider, Headline, Text } from 'react-native-paper';
@@ -8,14 +9,21 @@ import { showConfirmDialog } from 'fluxible/actions/popup';
 import { logout } from 'fluxible/actions/user';
 
 function AuthenticateForm () {
+  const { replace } = useNavigation();
+
+  const confirmLogout = React.useCallback(() => {
+    logout();
+    replace('Login');
+  }, [replace]);
+
   const logoutDiag = React.useCallback(() => {
     showConfirmDialog({
       message:
         'Are you sure you want to log out? QR codes you scanned offline will be lost.',
-      onConfirm: logout,
+      onConfirm: confirmLogout,
       isDestructive: true
     });
-  }, []);
+  }, [confirmLogout]);
 
   return (
     <ScrollView>
