@@ -2,7 +2,7 @@ import React from 'react';
 import { FormContext } from '.';
 import CheckboxComponent from 'components/Checkbox';
 
-function Checkbox ({ field, ...props }) {
+function Checkbox ({ field, ...checkboxProps }) {
   const {
     formValues,
     disabled,
@@ -18,10 +18,9 @@ function Checkbox ({ field, ...props }) {
 
   return (
     <CheckboxComponent
-      {...props}
-      disableBuiltInState
-      isChecked={value}
-      onPress={onChange}
+      {...checkboxProps}
+      value={value}
+      onChange={onChange}
       disabled={disabled}
     />
   );

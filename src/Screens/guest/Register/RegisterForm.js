@@ -24,7 +24,7 @@ function RegisterForm () {
         <TextInput field="retypePassword" type="password" />
         <Checkbox
           value={hasAgreed}
-          onValueChange={setAgreed}
+          onChange={setAgreed}
           content={
             <Text>
               Please tick the box on the left if you acknowledge that
