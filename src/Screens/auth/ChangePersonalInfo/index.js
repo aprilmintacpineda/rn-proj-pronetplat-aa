@@ -17,17 +17,17 @@ const formOptions = {
   }),
   validators: {
     firstName: ({ firstName }) =>
-      validate(firstName, ['required', 'maxLength:255']),
+      validate(firstName, ['required', 'maxLength:50']),
     middleName: ({ middleName }) =>
-      validate(middleName, ['maxLength:255']),
+      validate(middleName, ['maxLength:50']),
     surname: ({ surname }) =>
-      validate(surname, ['required', 'maxLength:255']),
+      validate(surname, ['required', 'maxLength:50']),
     gender: ({ gender }) =>
       validate(gender, ['required', 'options:male,female']),
     jobTitle: ({ jobTitle }) =>
-      validate(jobTitle, ['required', 'maxLength:255']),
-    company: ({ company }) => validate(company, ['maxLength:255']),
-    bio: ({ bio }) => validate(bio, ['maxLength:255'])
+      validate(jobTitle, ['required', 'maxLength:50']),
+    company: ({ company }) => validate(company, ['maxLength:50']),
+    bio: ({ bio }) => validate(bio, ['maxLength:50'])
   },
   onSubmitSuccess: ({ responseData: { userData, authToken } }) => {
     showSuccessPopup({ message: 'Changes saved.' });
