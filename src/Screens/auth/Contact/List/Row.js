@@ -7,8 +7,7 @@ import UserAvatar from 'components/UserAvatar';
 import { getFullName, renderUserTitle } from 'libs/user';
 
 function ContactListRow ({ index, ...contact }) {
-  const { user } = contact;
-  const fullName = getFullName(user);
+  const fullName = getFullName(contact);
   const delay = (index % 10) * 50;
 
   return (
@@ -20,7 +19,7 @@ function ContactListRow ({ index, ...contact }) {
             margin: 15
           }}
         >
-          <UserAvatar user={user} />
+          <UserAvatar user={contact} />
           <View
             style={{
               marginLeft: 15,
@@ -31,7 +30,7 @@ function ContactListRow ({ index, ...contact }) {
             <Text numberOfLines={1} style={{ fontSize: 18 }}>
               {fullName}
             </Text>
-            {renderUserTitle(user)}
+            {renderUserTitle(contact)}
           </View>
         </View>
       </TouchableRipple>

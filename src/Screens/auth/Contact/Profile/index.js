@@ -12,8 +12,7 @@ function ContactProfile ({ route: { params: contact } }) {
   const { authUser } = useFluxibleStore(mapStates);
 
   if (
-    String(authUser.isTestAccount) !==
-    String(contact.user.isTestAccount)
+    String(authUser.isTestAccount) !== String(contact.isTestAccount)
   ) {
     return (
       <View style={{ margin: 15, alignItems: 'center' }}>

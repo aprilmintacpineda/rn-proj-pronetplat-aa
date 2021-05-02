@@ -138,7 +138,7 @@ function NotificationBody ({ user, body, createdAt, type, seenAt }) {
 }
 
 function NotificationRow (notification) {
-  const { type } = notification;
+  const { type, user } = notification;
 
   if (
     type === 'contactRequestAccepted' ||
@@ -147,7 +147,7 @@ function NotificationRow (notification) {
     type === 'contactRequestCancelled'
   ) {
     return (
-      <TouchableRipple to="ContactProfile" params={notification}>
+      <TouchableRipple to="ContactProfile" params={user}>
         <NotificationBody {...notification} />
       </TouchableRipple>
     );

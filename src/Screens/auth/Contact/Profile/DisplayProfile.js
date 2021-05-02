@@ -28,11 +28,9 @@ import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
 function ContactProfile ({ contact }) {
-  const { user, isCloseFriend } = contact;
-
-  const fullName = getFullName(user);
+  const fullName = getFullName(contact);
   const [isDisabled, setIsDisabled] = React.useState(false);
-  const { setOptions, setParams } = useNavigation();
+  const { setOptions } = useNavigation();
 
   const onFetchDone = React.useCallback(() => {
     setIsDisabled(false);
@@ -45,9 +43,10 @@ function ContactProfile ({ contact }) {
     isRefreshing,
     isFetching,
     refreshData,
-    isFirstFetch
+    isFirstFetch,
+    updateData
   } = useDataFetch({
-    endpoint: `/contacts/${user.id}`,
+    endpoint: `/contacts/${contact.id}`,
     onFetchDone
   });
 
@@ -55,11 +54,11 @@ function ContactProfile ({ contact }) {
     try {
       setIsDisabled(true);
 
-      await xhr(`/unblock-user/${user.id}`, {
+      await xhr(`/unblock-user/${contact.id}`, {
         method: 'post'
       });
 
-      emitEvent('userUnblocked', user.id);
+      emitEvent('userUnblocked', contact.id);
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -70,23 +69,23 @@ function ContactProfile ({ contact }) {
     } finally {
       refreshData();
     }
-  }, [user.id, refreshData]);
+  }, [contact.id, refreshData]);
 
   const unblockUser = React.useCallback(() => {
-    const personalPronoun = getPersonalPronoun(user);
+    const personalPronoun = getPersonalPronoun(contact);
 
     showConfirmDialog({
       message: `Are you sure you want to unblock ${fullName}? ${personalPronoun.subjective.ucfirst} will be able to send you a contact request again.`,
       onConfirm: confirmUnblockUser,
       isDestructive: true
     });
-  }, [fullName, user, confirmUnblockUser]);
+  }, [fullName, contact, confirmUnblockUser]);
 
   const confirmBlockUser = React.useCallback(async () => {
     try {
       setIsDisabled(true);
 
-      await xhr(`/block-user/${user.id}`, {
+      await xhr(`/block-user/${contact.id}`, {
         method: 'post'
       });
 
@@ -101,23 +100,23 @@ function ContactProfile ({ contact }) {
     } finally {
       refreshData();
     }
-  }, [user.id, refreshData]);
+  }, [contact.id, refreshData]);
 
   const blockUser = React.useCallback(() => {
-    const personalPronoun = getPersonalPronoun(user);
+    const personalPronoun = getPersonalPronoun(contact);
 
     showConfirmDialog({
       message: `Are you sure you want to block ${fullName}? ${personalPronoun.subjective.ucfirst} will no longer be able to see your contact details and ${personalPronoun.subjective.lowercase} will be removed from your contacts.`,
       onConfirm: confirmBlockUser,
       isDestructive: true
     });
-  }, [confirmBlockUser, fullName, user]);
+  }, [confirmBlockUser, fullName, contact]);
 
   const sendFollowUp = React.useCallback(async () => {
     try {
       setIsDisabled(true);
 
-      await xhr(`/send-follow-up/${user.id}`, {
+      await xhr(`/send-follow-up/${contact.id}`, {
         method: 'post'
       });
     } catch (error) {
@@ -130,13 +129,13 @@ function ContactProfile ({ contact }) {
     } finally {
       refreshData();
     }
-  }, [refreshData, user.id]);
+  }, [refreshData, contact.id]);
 
   const sendRequest = React.useCallback(async () => {
     try {
       setIsDisabled(true);
 
-      await xhr(`/add-to-contacts/${user.id}`, {
+      await xhr(`/add-to-contacts/${contact.id}`, {
         method: 'post'
       });
     } catch (error) {
@@ -150,12 +149,12 @@ function ContactProfile ({ contact }) {
       refreshData();
     }
     setIsDisabled(true);
-  }, [user, refreshData]);
+  }, [contact, refreshData]);
 
   const confirmCancelContactRequest = React.useCallback(async () => {
     try {
       setIsDisabled(true);
-      await xhr(`/cancel-contact-request/${user.id}`, {
+      await xhr(`/cancel-contact-request/${contact.id}`, {
         method: 'post'
       });
     } catch (error) {
@@ -168,7 +167,7 @@ function ContactProfile ({ contact }) {
     } finally {
       refreshData();
     }
-  }, [refreshData, user.id]);
+  }, [refreshData, contact.id]);
 
   const cancelContactRequest = React.useCallback(() => {
     showConfirmDialog({
@@ -182,12 +181,12 @@ function ContactProfile ({ contact }) {
     try {
       setIsDisabled(true);
 
-      await xhr(`/accept-contact-request/${user.id}`, {
+      await xhr(`/accept-contact-request/${contact.id}`, {
         method: 'post'
       });
 
       decrementContactRequestsCount();
-      emitEvent('respondedToContactRequest', user.id);
+      emitEvent('respondedToContactRequest', contact.id);
       emitEvent('refreshMyContactList');
     } catch (error) {
       console.log(error);
@@ -199,18 +198,18 @@ function ContactProfile ({ contact }) {
     } finally {
       refreshData();
     }
-  }, [user.id, refreshData]);
+  }, [contact.id, refreshData]);
 
   const declineContactRequest = React.useCallback(async () => {
     try {
       setIsDisabled(true);
 
-      await xhr(`/decline-contact-request/${user.id}`, {
+      await xhr(`/decline-contact-request/${contact.id}`, {
         method: 'post'
       });
 
       decrementContactRequestsCount();
-      emitEvent('respondedToContactRequest', user.id);
+      emitEvent('respondedToContactRequest', contact.id);
       emitEvent('refreshMyContactList');
     } catch (error) {
       console.log(error);
@@ -222,13 +221,13 @@ function ContactProfile ({ contact }) {
     } finally {
       refreshData();
     }
-  }, [user.id, refreshData]);
+  }, [contact.id, refreshData]);
 
   const confirmDisconnect = React.useCallback(async () => {
     try {
       setIsDisabled(true);
 
-      await xhr(`/disconnect/${user.id}`, {
+      await xhr(`/disconnect/${contact.id}`, {
         method: 'post'
       });
 
@@ -243,18 +242,18 @@ function ContactProfile ({ contact }) {
     } finally {
       refreshData();
     }
-  }, [user.id, refreshData]);
+  }, [contact.id, refreshData]);
 
   const markAsCloseFriend = React.useCallback(async () => {
     try {
       setIsDisabled(true);
 
-      await xhr(`/mark-as-close-friend/${user.id}`, {
+      await xhr(`/mark-as-close-friend/${contact.id}`, {
         method: 'post'
       });
 
-      setParams({
-        ...contact,
+      updateData({
+        ...data,
         isCloseFriend: true
       });
 
@@ -269,18 +268,18 @@ function ContactProfile ({ contact }) {
     } finally {
       setIsDisabled(false);
     }
-  }, [user.id, setParams, contact]);
+  }, [contact.id, data, updateData]);
 
   const unmarkAsCloseFriend = React.useCallback(async () => {
     try {
       setIsDisabled(true);
 
-      await xhr(`/unmark-as-close-friend/${user.id}`, {
+      await xhr(`/unmark-as-close-friend/${contact.id}`, {
         method: 'post'
       });
 
-      setParams({
-        ...contact,
+      updateData({
+        ...data,
         isCloseFriend: false
       });
 
@@ -295,7 +294,7 @@ function ContactProfile ({ contact }) {
     } finally {
       setIsDisabled(false);
     }
-  }, [user.id, setParams, contact]);
+  }, [contact.id, updateData, data]);
 
   React.useEffect(() => {
     const actions = [];
@@ -312,17 +311,17 @@ function ContactProfile ({ contact }) {
     ) {
       actions.push(
         {
-          title: !isCloseFriend
+          title: !data.isCloseFriend
             ? 'Mark as close friend'
             : 'Unmark as close friend',
           icon: props => (
             <RNVectorIcon
               provider="MaterialCommunityIcons"
-              name={isCloseFriend ? 'star' : 'star-outline'}
+              name={data.isCloseFriend ? 'star' : 'star-outline'}
               {...props}
             />
           ),
-          onPress: isCloseFriend
+          onPress: data.isCloseFriend
             ? unmarkAsCloseFriend
             : markAsCloseFriend,
           disabled: isDisabled
@@ -375,7 +374,6 @@ function ContactProfile ({ contact }) {
     isError,
     isFirstFetch,
     isRefreshing,
-    isCloseFriend,
     markAsCloseFriend,
     unmarkAsCloseFriend
   ]);
@@ -602,14 +600,14 @@ function ContactProfile ({ contact }) {
       }
     };
 
-    data.forEach(user => {
-      const { type } = user;
+    data.contactDetails.forEach(contactDetail => {
+      const { type } = contactDetail;
 
       types[type].data.push(
         <ContactDetailRow
-          key={user.id}
+          key={contactDetail.id}
           disabled={isDisabled}
-          {...user}
+          {...contactDetail}
         />
       );
     });
@@ -696,7 +694,7 @@ function ContactProfile ({ contact }) {
         <View
           style={{ alignItems: 'center', justifyContent: 'center' }}
         >
-          <UserAvatar user={user} size={100} />
+          <UserAvatar user={contact} size={100} />
           <View style={{ marginTop: 15 }}>
             <Headline
               style={{ textAlign: 'center' }}
@@ -705,7 +703,7 @@ function ContactProfile ({ contact }) {
               {fullName}
             </Headline>
             <View style={{ alignItems: 'center' }}>
-              {renderUserTitle(user, {
+              {renderUserTitle(contact, {
                 textAlign: 'center',
                 numberOfLines: 3
               })}
@@ -719,7 +717,7 @@ function ContactProfile ({ contact }) {
             color: 'gray'
           }}
         >
-          {user.bio}
+          {contact.bio}
         </Text>
       </View>
       {contactDetails}
