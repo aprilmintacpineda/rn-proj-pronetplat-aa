@@ -69,7 +69,7 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         name="ContactProfile"
         component={ContactProfile}
         options={{
-          title: 'Contact'
+          title: ''
         }}
       />
       <Stack.Screen

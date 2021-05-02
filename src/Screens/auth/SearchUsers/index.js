@@ -6,7 +6,8 @@ import DataFlatList from 'components/DataFlatList';
 
 function SearchUsers () {
   const [params, setParams] = React.useState({
-    search: ''
+    search: '',
+    searchBy: 'name'
   });
 
   return (
@@ -18,7 +19,7 @@ function SearchUsers () {
       RowComponent={Row}
       listEmptyMessage="No results found."
     >
-      <Search setParams={setParams} />
+      <Search params={params} setParams={setParams} />
     </DataFlatList>
   );
 }

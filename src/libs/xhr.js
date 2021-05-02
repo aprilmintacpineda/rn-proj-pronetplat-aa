@@ -15,7 +15,7 @@ function resolveUrl (path = '') {
   return `${cleanAPiBaseUrl}/${cleanPath}`;
 }
 
-export function xhrWithParams (url, params = {}) {
+export function xhrWithParams (url, params = {}, options) {
   const searchParams = new URLSearchParams();
 
   Object.keys(params).forEach(field => {
@@ -26,7 +26,7 @@ export function xhrWithParams (url, params = {}) {
   const search = searchParams.toString();
   const cleanPath = clean(url);
 
-  return xhr(`/${cleanPath}${search ? `?${search}` : ''}`);
+  return xhr(`/${cleanPath}${search ? `?${search}` : ''}`, options);
 }
 
 export async function xhr (
