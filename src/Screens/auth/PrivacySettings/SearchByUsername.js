@@ -15,10 +15,10 @@ function SearchByNameSettings () {
   const { authUser } = useFluxibleStore(mapStates);
 
   const {
-    state: { allowSearchByName, status },
+    state: { allowSearchByUsername, status },
     updateState
   } = useState({
-    allowSearchByName: authUser.allowSearchByName,
+    allowSearchByUsername: authUser.allowSearchByUsername,
     status: 'initial'
   });
 
@@ -27,13 +27,16 @@ function SearchByNameSettings () {
       try {
         updateState({
           status: 'submitting',
-          allowSearchByName: isChecked
+          allowSearchByUsername: isChecked
         });
 
-        const response = await xhr('/change-allow-search-by-name', {
-          method: 'post',
-          body: { allowSearchByName: isChecked }
-        });
+        const response = await xhr(
+          '/change-allow-search-by-username',
+          {
+            method: 'post',
+            body: { allowSearchByUsername: isChecked }
+          }
+        );
 
         const { userData, authToken } = await response.json();
         updateStore({ authUser: userData, authToken });
@@ -43,7 +46,7 @@ function SearchByNameSettings () {
 
         updateState({
           status: 'submitError',
-          allowSearchByName: !isChecked
+          allowSearchByUsername: !isChecked
         });
       }
     },
@@ -52,15 +55,15 @@ function SearchByNameSettings () {
 
   return (
     <Switch
-      value={allowSearchByName}
+      value={allowSearchByUsername}
       onChange={onChange}
       disabled={status === 'submitting'}
       content={
         <>
-          <Text>Allow others to find me by my name.</Text>
+          <Text>Allow others to find me by my username.</Text>
           <Caption>
             When checked, others can search for your account using
-            your name.
+            your username.
           </Caption>
         </>
       }
