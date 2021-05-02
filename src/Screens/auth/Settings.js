@@ -21,7 +21,7 @@ const menuList = [
     title: 'Change my password',
     icon: {
       provider: 'MaterialCommunityIcons',
-      name: 'shield-key-outline'
+      name: 'account-key'
     },
     to: 'ChangePassword'
   },
@@ -32,6 +32,14 @@ const menuList = [
       name: 'card-account-details-outline'
     },
     to: 'ContactDetails'
+  },
+  {
+    title: 'Privacy',
+    icon: {
+      provider: 'MaterialCommunityIcons',
+      name: 'eye-off-outline'
+    },
+    to: 'PrivacySettings'
   },
   {
     title: 'My  block list',

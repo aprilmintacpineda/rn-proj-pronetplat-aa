@@ -17,6 +17,7 @@ import ContactDetailsForm from 'Screens/auth/ContactDetail/ContactDetailsForm';
 import ContactDetailsList from 'Screens/auth/ContactDetail/List';
 import ContactRequests from 'Screens/auth/ContactRequests';
 import Notifications from 'Screens/auth/Notifications';
+import PrivacySettings from 'Screens/auth/PrivacySettings';
 import SearchUsers from 'Screens/auth/SearchUsers';
 import Settings from 'Screens/auth/Settings';
 
@@ -144,6 +145,13 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         options={{
           title: 'Search users',
           headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="PrivacySettings"
+        component={PrivacySettings}
+        options={{
+          title: 'Privacy settings'
         }}
       />
     </Stack.Navigator>

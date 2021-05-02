@@ -7,11 +7,16 @@ function Checkbox ({
   content = null,
   value,
   onChange,
+  disabled,
   ...checkboxProps
 }) {
   const onPress = React.useCallback(() => {
     onChange(!value);
   }, [value, onChange]);
+
+  const color = disabled
+    ? paperTheme.colors.disabled
+    : paperTheme.colors.primary;
 
   return (
     <View
@@ -24,12 +29,11 @@ function Checkbox ({
     >
       <RNCheckBox
         {...checkboxProps}
+        disabled={disabled}
         isChecked={value}
         onPress={onPress}
-        fillColor={paperTheme.colors.primary}
-        iconStyle={{
-          borderColor: paperTheme.colors.primary
-        }}
+        fillColor={color}
+        iconStyle={{ borderColor: color }}
         disableBuiltInState
       />
       <View style={{ flex: 1 }}>{content}</View>
