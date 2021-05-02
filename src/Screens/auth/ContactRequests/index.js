@@ -16,6 +16,7 @@ function ContactRequests () {
       RowComponent={RowComponent}
       LoadingPlaceHolder={ContactsLoadingPlaceholder}
       eventListeners={eventListeners}
+      listEmptyMessage="You haven't received any contact request yet."
     />
   );
 }

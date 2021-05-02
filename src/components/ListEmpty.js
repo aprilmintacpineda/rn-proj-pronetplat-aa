@@ -1,10 +1,13 @@
 import React from 'react';
 import RefreshableView from './RefreshableView';
 
-function ListEmpty (refreshableViewProps) {
+function ListEmpty ({
+  message = 'List appears to be empty.',
+  ...refreshableViewProps
+}) {
   return (
     <RefreshableView {...refreshableViewProps} hideIndicator>
-      List appears to be empty.
+      {message}
     </RefreshableView>
   );
 }

@@ -14,7 +14,6 @@ import {
   showRequestFailedPopup
 } from 'fluxible/actions/popup';
 import { decrementContactRequestsCount } from 'fluxible/actions/user';
-import useState from 'hooks/useState';
 import { getFullName, renderUserTitle } from 'libs/user';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
@@ -23,13 +22,7 @@ function ContactRequestRow ({ sender, createdAt, index }) {
   const fullName = getFullName(sender);
   const delay = (index % 10) * 100;
   const modalizeRef = React.useRef();
-  const {
-    state: { isLoading, action },
-    updateState
-  } = useState({
-    isLoading: false,
-    action: ''
-  });
+  const [action, setAction] = React.useState();
 
   const showPopup = React.useCallback(() => {
     modalizeRef.current.open();
@@ -37,10 +30,7 @@ function ContactRequestRow ({ sender, createdAt, index }) {
 
   const confirmAccept = React.useCallback(async () => {
     try {
-      updateState({
-        isLoading: true,
-        action: 'accept'
-      });
+      setAction('accept');
 
       await xhr(`/accept-contact-request/${sender.id}`, {
         method: 'post'
@@ -52,13 +42,9 @@ function ContactRequestRow ({ sender, createdAt, index }) {
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
-
-      updateState({
-        isLoading: false,
-        action: ''
-      });
+      setAction('');
     }
-  }, [updateState, sender.id]);
+  }, [sender.id]);
 
   const accept = React.useCallback(() => {
     showConfirmDialog({
@@ -69,10 +55,7 @@ function ContactRequestRow ({ sender, createdAt, index }) {
 
   const confirmDecline = React.useCallback(async () => {
     try {
-      updateState({
-        isLoading: true,
-        action: 'decline'
-      });
+      setAction('decline');
 
       await xhr(`/decline-contact-request/${sender.id}`, {
         method: 'post'
@@ -83,13 +66,9 @@ function ContactRequestRow ({ sender, createdAt, index }) {
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
-
-      updateState({
-        isLoading: false,
-        action: ''
-      });
+      setAction('');
     }
-  }, [updateState, sender.id]);
+  }, [sender.id]);
 
   const decline = React.useCallback(() => {
     showConfirmDialog({
@@ -100,10 +79,7 @@ function ContactRequestRow ({ sender, createdAt, index }) {
 
   const confirmBlockUser = React.useCallback(async () => {
     try {
-      updateState({
-        isLoading: true,
-        action: 'block'
-      });
+      setAction('block');
 
       await xhr(`/block-user/${sender.id}`, {
         method: 'post'
@@ -114,13 +90,9 @@ function ContactRequestRow ({ sender, createdAt, index }) {
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
-
-      updateState({
-        isLoading: false,
-        action: ''
-      });
+      setAction('');
     }
-  }, [sender.id, updateState]);
+  }, [sender.id]);
 
   const blockUser = React.useCallback(() => {
     showConfirmDialog({
@@ -151,7 +123,7 @@ function ContactRequestRow ({ sender, createdAt, index }) {
         <Button
           mode="contained"
           onPress={accept}
-          disabled={isLoading}
+          disabled={Boolean(action)}
           loading={action === 'accept'}
         >
           Accept
@@ -160,7 +132,7 @@ function ContactRequestRow ({ sender, createdAt, index }) {
           mode="outlined"
           style={{ marginTop: 15 }}
           onPress={decline}
-          disabled={isLoading}
+          disabled={Boolean(action)}
           loading={action === 'decline'}
         >
           Decline
@@ -169,7 +141,7 @@ function ContactRequestRow ({ sender, createdAt, index }) {
           color={paperTheme.colors.error}
           style={{ marginTop: 15 }}
           onPress={blockUser}
-          disabled={isLoading}
+          disabled={Boolean(action)}
           loading={action === 'block'}
         >
           Block

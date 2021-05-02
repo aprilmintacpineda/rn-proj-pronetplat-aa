@@ -12,10 +12,12 @@ function Body ({
   renderItem,
   ListFooterComponent = null,
   eventListeners = null,
+  listEmptyMessage,
   ...dataFlatList
 }) {
   const {
     data,
+    isInitial,
     isFirstFetch,
     refreshData,
     isRefreshing,
@@ -52,55 +54,83 @@ function Body ({
       Object.keys(eventListeners),
       (payload, event) => {
         const callback = eventListeners[event];
-        callback(payload, { filterData, updateData, concatData });
+        callback(payload, {
+          filterData,
+          updateData,
+          concatData,
+          refreshData
+        });
       }
     );
-  }, [eventListeners, filterData, updateData, concatData]);
-
-  if (isFirstFetch) {
-    return (
-      <LoadingPlaceHolder
-        isFetching={isFetching}
-        isFirstFetch={isFirstFetch}
-      />
-    );
-  }
+  }, [
+    eventListeners,
+    filterData,
+    updateData,
+    concatData,
+    refreshData
+  ]);
 
   return (
     <FlatList
       onRefresh={refreshData}
-      refreshing={isRefreshing}
+      refreshing={!isFirstFetch && isRefreshing}
       data={data}
       keyExtractor={keyExtractor}
       onEndReached={fetchData}
       onEndReachedThreshold={0.9}
-      ListFooterComponent={
-        <>
+      ListHeaderComponent={
+        isFirstFetch && (
           <LoadingPlaceHolder
             isFetching={isFetching}
             isFirstFetch={isFirstFetch}
           />
-          {ListFooterComponent}
-        </>
+        )
+      }
+      ListFooterComponent={
+        !isFirstFetch && (
+          <>
+            <LoadingPlaceHolder
+              isFetching={isFetching}
+              isFirstFetch={isFirstFetch}
+            />
+            {ListFooterComponent}
+          </>
+        )
       }
       ItemSeparatorComponent={ListItemSeparator}
       renderItem={renderRow}
       ListEmptyComponent={
-        <ListEmpty
-          onRefresh={refreshData}
-          isRefreshing={isRefreshing}
-        />
+        !isFirstFetch &&
+        !isInitial && (
+          <ListEmpty
+            message={listEmptyMessage}
+            onRefresh={refreshData}
+            isRefreshing={isRefreshing}
+          />
+        )
       }
       {...dataFlatList}
     />
   );
 }
 
-function DataFlatList ({ endpoint, onSuccess, children, ...props }) {
+function DataFlatList ({
+  endpoint,
+  onSuccess,
+  prefetch = true,
+  children,
+  params = null,
+  ...props
+}) {
   return (
-    <DataFetch endpoint={endpoint} onSuccess={onSuccess}>
-      <Body {...props} />
+    <DataFetch
+      endpoint={endpoint}
+      onSuccess={onSuccess}
+      prefetch={prefetch}
+      params={params}
+    >
       {children}
+      <Body {...props} />
     </DataFetch>
   );
 }

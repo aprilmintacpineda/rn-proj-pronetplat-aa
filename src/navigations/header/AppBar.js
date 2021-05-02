@@ -16,7 +16,8 @@ function AppBar (props) {
   const {
     isMainScreen = false,
     title = null,
-    actions
+    actions,
+    button = null
   } = scene.descriptor.options;
   const hasDrawerNavigation = Boolean(openDrawer);
 
@@ -50,6 +51,7 @@ function AppBar (props) {
           marginLeft: 0
         }}
       />
+      {button}
       {actions && <ActionsButton actions={actions} />}
     </Appbar.Header>
   );

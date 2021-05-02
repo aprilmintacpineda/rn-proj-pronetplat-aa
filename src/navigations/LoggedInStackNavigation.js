@@ -4,8 +4,10 @@ import {
   createStackNavigator
 } from '@react-navigation/stack';
 import React from 'react';
+import { Appbar } from 'react-native-paper';
 import header from './header';
 import LoggedInTabNavigation from './LoggedInTabNavigation';
+import RNVectorIcon from 'components/RNVectorIcon';
 import About from 'Screens/auth/About';
 import BlockList from 'Screens/auth/BlockList';
 import ChangePassword from 'Screens/auth/ChangePassword';
@@ -15,6 +17,7 @@ import ContactDetailsForm from 'Screens/auth/ContactDetail/ContactDetailsForm';
 import ContactDetailsList from 'Screens/auth/ContactDetail/List';
 import ContactRequests from 'Screens/auth/ContactRequests';
 import Notifications from 'Screens/auth/Notifications';
+import SearchUsers from 'Screens/auth/SearchUsers';
 import Settings from 'Screens/auth/Settings';
 
 const Stack = createStackNavigator();
@@ -25,10 +28,24 @@ const screenOptions = {
   gestureEnabled: true
 };
 
-function LoggedInStackNavigation () {
+function searchIcon (props) {
+  return (
+    <RNVectorIcon
+      {...props}
+      provider="Ionicons"
+      name="search-outline"
+    />
+  );
+}
+
+function LoggedInStackNavigation ({ navigation: { navigate } }) {
   React.useEffect(() => {
     messaging().requestPermission();
   }, []);
+
+  const searchUsers = React.useCallback(() => {
+    navigate('SearchUsers');
+  }, [navigate]);
 
   return (
     <Stack.Navigator
@@ -41,7 +58,10 @@ function LoggedInStackNavigation () {
         component={LoggedInTabNavigation}
         options={{
           isMainScreen: true,
-          title: 'Dashboard'
+          title: 'Dashboard',
+          button: (
+            <Appbar.Action icon={searchIcon} onPress={searchUsers} />
+          )
         }}
       />
       <Stack.Screen
@@ -116,6 +136,14 @@ function LoggedInStackNavigation () {
         options={{
           title: 'About',
           ...TransitionPresets.ModalSlideFromBottomIOS
+        }}
+      />
+      <Stack.Screen
+        name="SearchUsers"
+        component={SearchUsers}
+        options={{
+          title: 'Search users',
+          headerShown: false
         }}
       />
     </Stack.Navigator>

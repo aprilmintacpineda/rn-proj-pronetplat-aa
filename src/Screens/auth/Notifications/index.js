@@ -11,6 +11,7 @@ function Notifications () {
       RowComponent={RowComponent}
       LoadingPlaceHolder={ContactsLoadingPlaceholder}
       onSuccess={resetNotificationsCount}
+      listEmptyMessage="You haven't received any notifications yet."
     />
   );
 }

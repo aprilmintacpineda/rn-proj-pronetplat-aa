@@ -16,6 +16,7 @@ function BlockList () {
       eventListeners={eventListeners}
       RowComponent={Row}
       LoadingPlaceHolder={ContactsLoadingPlaceholder}
+      listEmptyMessage="No blocked users."
     />
   );
 }

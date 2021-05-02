@@ -19,6 +19,7 @@ function ContactList () {
       endpoint="/my-contacts"
       eventListeners={eventListeners}
       RowComponent={Row}
+      listEmptyMessage="You have no contacts yet."
     >
       <RefreshController />
     </DataFlatList>
