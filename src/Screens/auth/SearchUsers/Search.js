@@ -43,7 +43,7 @@ function Search ({ setParams }) {
     <Searchbar
       icon={Appbar.BackAction}
       onIconPress={goBack}
-      placeholder="User's name or username"
+      placeholder="Search by name"
       onChangeText={onChangeText}
       value={searchStr}
     />
