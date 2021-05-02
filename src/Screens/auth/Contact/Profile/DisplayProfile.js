@@ -684,10 +684,12 @@ function ContactProfile ({ contact }) {
   return (
     <ScrollView
       refreshControl={
-        <RefreshControl
-          refreshing={isRefreshing}
-          onRefresh={refreshData}
-        />
+        !isDisabled && (
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={refreshData}
+          />
+        )
       }
     >
       <View style={{ margin: 15, marginTop: 30 }}>
