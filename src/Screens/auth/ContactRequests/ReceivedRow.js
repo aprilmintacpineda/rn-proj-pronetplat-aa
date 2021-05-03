@@ -18,7 +18,7 @@ import { getFullName, renderUserTitle } from 'libs/user';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
-function ContactRequestRow ({ sender, createdAt, index }) {
+function ReceivedContactRequestRow ({ sender, createdAt, index }) {
   const fullName = getFullName(sender);
   const delay = (index % 10) * 100;
   const modalizeRef = React.useRef();
@@ -151,4 +151,4 @@ function ContactRequestRow ({ sender, createdAt, index }) {
   );
 }
 
-export default React.memo(ContactRequestRow);
+export default React.memo(ReceivedContactRequestRow);
