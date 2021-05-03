@@ -12,6 +12,7 @@ function SlideView ({ scrollEnabled = false, children, page = 1 }) {
     const newOffset = (page - 1) * width;
 
     if (contentOffset.current !== newOffset) {
+      contentOffset.current = newOffset;
       scrollViewRef.current.scrollTo({
         x: newOffset,
         animated: true
