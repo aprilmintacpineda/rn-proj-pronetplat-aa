@@ -5,6 +5,7 @@ import { Appbar, Chip, Searchbar } from 'react-native-paper';
 import { DataFetchContext } from 'components/DataFetch';
 import useDebouncedCallback from 'hooks/useDebouncedCallback';
 import useState from 'hooks/useState';
+import { paperTheme } from 'theme';
 
 function Search ({ params, setParams }) {
   const { updateData } = React.useContext(DataFetchContext);
@@ -61,6 +62,15 @@ function Search ({ params, setParams }) {
         placeholder="Search by name"
         onChangeText={onChangeText}
         value={searchStr}
+        style={{
+          backgroundColor: paperTheme.colors.accent,
+          borderRadius: 0
+        }}
+        iconColor="#fff"
+        placeholderTextColor="gray"
+        inputStyle={{
+          color: '#fff'
+        }}
       />
       <View style={{ flexDirection: 'row', margin: 10 }}>
         <Chip
