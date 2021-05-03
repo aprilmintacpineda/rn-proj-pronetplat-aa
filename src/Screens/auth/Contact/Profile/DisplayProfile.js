@@ -116,9 +116,21 @@ function ContactProfile ({ contact }) {
     try {
       setIsDisabled(true);
 
-      await xhr(`/send-follow-up/${contact.id}`, {
+      const response = await xhr(`/send-follow-up/${contact.id}`, {
         method: 'post'
       });
+
+      const newData = await response.json();
+
+      updateData({
+        ...data,
+        sentContactRequest: {
+          ...data.sentContactRequest,
+          canFollowUpAt: newData.canFollowUpAt
+        }
+      });
+
+      setIsDisabled(false);
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -126,10 +138,8 @@ function ContactProfile ({ contact }) {
       logEvent('sendFollowUpError', {
         message: error.message
       });
-    } finally {
-      refreshData();
     }
-  }, [refreshData, contact.id]);
+  }, [updateData, data, contact.id]);
 
   const sendRequest = React.useCallback(async () => {
     try {
