@@ -77,15 +77,15 @@ function Login ({ navigation: { replace } }) {
         }
       });
 
-      const {
-        userData,
-        authToken: newAuthToken
-      } = await response.json();
-
       showSuccessPopup({
         message:
           'We have sent your new verification code to your email.'
       });
+
+      const {
+        userData,
+        authToken: newAuthToken
+      } = await response.json();
 
       updateState({
         authToken: newAuthToken,
