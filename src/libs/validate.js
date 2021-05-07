@@ -1,4 +1,9 @@
 const validationRules = {
+  alphanumeric (value) {
+    if (/[^a-zA-Z0-9_]/.test(value))
+      return 'Only alphabets, numbers, and underscores are allowed.';
+    return '';
+  },
   email (value) {
     if (
       value.length > 320 ||

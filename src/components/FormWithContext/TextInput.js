@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormContext } from '.';
-import RNPTextInput from 'components/TextInput';
+import TextInputComponent from 'components/TextInput';
 import { camelToTitleCase } from 'libs/strings';
 
 function TextInput ({
@@ -24,7 +24,7 @@ function TextInput ({
   if (labelSuffix) label += ` ${labelSuffix}`;
 
   return (
-    <RNPTextInput
+    <TextInputComponent
       error={error}
       value={value}
       disabled={disabled}

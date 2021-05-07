@@ -1,7 +1,9 @@
 import { updateStore } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
+import { View } from 'react-native';
 import { Caption, Text } from 'react-native-paper';
+import ChangeUsername from './ChangeUsername';
 import Switch from 'components/Switch';
 import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import useState from 'hooks/useState';
@@ -54,20 +56,23 @@ function SearchByNameSettings () {
   );
 
   return (
-    <Switch
-      value={allowSearchByUsername}
-      onChange={onChange}
-      disabled={status === 'submitting'}
-      content={
-        <>
-          <Text>Allow others to find me by my username.</Text>
-          <Caption>
-            When checked, others can search for your account using
-            your username.
-          </Caption>
-        </>
-      }
-    />
+    <View>
+      <Switch
+        value={allowSearchByUsername}
+        onChange={onChange}
+        disabled={status === 'submitting'}
+        content={
+          <>
+            <Text>Allow others to find me by my username.</Text>
+            <Caption>
+              When checked, others can search for your account using
+              your username.
+            </Caption>
+          </>
+        }
+      />
+      <ChangeUsername />
+    </View>
   );
 }
 

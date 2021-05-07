@@ -1,12 +1,35 @@
 import React from 'react';
+import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { ScrollView, View } from 'react-native';
+import { FormContext } from 'components/FormWithContext';
 import SelectOptions from 'components/FormWithContext/SelectOptions';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
 
 const genderOptions = ['male', 'female'];
 
+function mapStates ({ authUser }) {
+  return { authUser };
+}
+
 function ChangePersonalInfoForm () {
+  const { authUser } = useFluxibleStore(mapStates);
+  const { setUpdateMode } = React.useContext(FormContext);
+
+  React.useEffect(() => {
+    setUpdateMode({
+      formValues: {
+        firstName: authUser.firstName,
+        middleName: authUser.middleName,
+        surname: authUser.surname,
+        gender: authUser.gender,
+        jobTitle: authUser.jobTitle,
+        company: authUser.company,
+        bio: authUser.bio
+      }
+    });
+  }, [authUser, setUpdateMode]);
+
   return (
     <ScrollView>
       <View style={{ margin: 15 }}>

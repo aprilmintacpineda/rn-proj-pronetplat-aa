@@ -1,5 +1,8 @@
 import React from 'react';
-import { showRequestFailedPopup } from 'fluxible/actions/popup';
+import {
+  showErrorPopup,
+  showRequestFailedPopup
+} from 'fluxible/actions/popup';
 import useState from 'hooks/useState';
 import { logEvent } from 'libs/logging';
 import { xhr } from 'libs/xhr';
@@ -33,7 +36,8 @@ function FormWithContext ({
       status,
       previousFormValues,
       isTouched,
-      targetId
+      targetId,
+      originalFormValues
     },
     updateState
   } = useState(() => {
@@ -49,6 +53,7 @@ function FormWithContext ({
         : {};
 
     return {
+      originalFormValues: null,
       formValues,
       formContext,
       previousFormValues: formValues,
@@ -71,6 +76,7 @@ function FormWithContext ({
   const setUpdateMode = React.useCallback(
     ({ targetId, formValues, formContext }) => {
       updateState({
+        originalFormValues: formValues,
         targetId,
         formValues,
         formContext
@@ -86,6 +92,21 @@ function FormWithContext ({
     },
     [validators]
   );
+
+  const formDidChange = React.useCallback(() => {
+    if (!originalFormValues) return true; // can't detect, just return true
+
+    const fieldChanged = Object.keys(formValues).find(field => {
+      const newValue = formValues[field];
+      const oldValue = originalFormValues[field];
+      return (
+        (newValue && newValue !== oldValue) ||
+        (!newValue && oldValue)
+      );
+    });
+
+    return Boolean(fieldChanged);
+  }, [originalFormValues, formValues]);
 
   const setField = React.useCallback(
     (field, value) => {
@@ -175,6 +196,11 @@ function FormWithContext ({
             errors: validationErrors
           });
 
+          return;
+        }
+
+        if (!formDidChange()) {
+          showErrorPopup({ message: 'No change to save.' });
           return;
         }
 
@@ -269,7 +295,8 @@ function FormWithContext ({
       initialFormValues,
       resetOnSuccess,
       targetId,
-      formErrorMessages
+      formErrorMessages,
+      formDidChange
     ]
   );
 
