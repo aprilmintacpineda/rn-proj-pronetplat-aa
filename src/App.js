@@ -102,8 +102,8 @@ function App () {
             const screensByType = {
               contactRequest: 'ContactRequests',
               contactRequestAccepted: 'ContactProfile',
-              contactRequestCancelled: 'Notifications',
-              contactRequestDeclined: 'Notifications'
+              contactRequestCancelled: 'ContactProfile',
+              contactRequestDeclined: 'ContactProfile'
             };
 
             const targetScreen = screensByType[type];
