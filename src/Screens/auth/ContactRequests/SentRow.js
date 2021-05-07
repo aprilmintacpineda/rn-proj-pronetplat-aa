@@ -11,7 +11,8 @@ import UserAvatar from 'components/UserAvatar';
 import UserModalize from 'components/UserModalize';
 import {
   showConfirmDialog,
-  showRequestFailedPopup
+  showRequestFailedPopup,
+  showSuccessPopup
 } from 'fluxible/actions/popup';
 import { logEvent } from 'libs/logging';
 import { getFullName, renderUserTitle } from 'libs/user';
@@ -41,6 +42,10 @@ function SentContactRequestRow ({
         method: 'post'
       });
 
+      showSuccessPopup({
+        message: `A follow up has been sent to ${fullName}.`
+      });
+
       const data = await response.json();
 
       emitEvent('sentFollowUp', data);
@@ -55,7 +60,7 @@ function SentContactRequestRow ({
 
       setAction('');
     }
-  }, [recipient.id]);
+  }, [recipient.id, fullName]);
 
   const confirmBlockUser = React.useCallback(async () => {
     try {

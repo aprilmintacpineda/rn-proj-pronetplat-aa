@@ -14,7 +14,8 @@ import UnknownErrorView from 'components/UnknownErrorView';
 import UserAvatar from 'components/UserAvatar';
 import {
   showRequestFailedPopup,
-  showConfirmDialog
+  showConfirmDialog,
+  showSuccessPopup
 } from 'fluxible/actions/popup';
 import { decrementContactRequestsCount } from 'fluxible/actions/user';
 import useDataFetch from 'hooks/useDataFetch';
@@ -120,6 +121,10 @@ function ContactProfile ({ contact }) {
         method: 'post'
       });
 
+      showSuccessPopup({
+        message: `A follow up has been sent to ${fullName}.`
+      });
+
       const newData = await response.json();
 
       updateData({
@@ -139,7 +144,7 @@ function ContactProfile ({ contact }) {
         message: error.message
       });
     }
-  }, [updateData, data, contact.id]);
+  }, [updateData, data, contact.id, fullName]);
 
   const sendRequest = React.useCallback(async () => {
     try {
