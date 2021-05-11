@@ -1,3 +1,4 @@
+import messaging from '@react-native-firebase/messaging';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
@@ -7,6 +8,7 @@ import UserWidget from './UserWidget';
 import RNVectorIcon from 'components/RNVectorIcon';
 import { logout } from 'fluxible/actions/user';
 import { hasCompletedSetup } from 'libs/user';
+import { initConnection } from 'libs/webSocket';
 import LoggedInStackNavigation from 'navigations/LoggedInStackNavigation';
 import FirstSetup from 'Screens/auth/FirstSetup';
 
@@ -90,6 +92,11 @@ function Navigations () {
   const initialRouteName = hasCompletedSetup(authUser)
     ? 'LoggedInStackNavigation'
     : 'FirstSetup';
+
+  React.useEffect(() => {
+    messaging().requestPermission();
+    return initConnection();
+  }, []);
 
   return (
     <Drawer.Navigator

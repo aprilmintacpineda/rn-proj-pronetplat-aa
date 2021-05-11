@@ -1,4 +1,3 @@
-import messaging from '@react-native-firebase/messaging';
 import {
   TransitionPresets,
   createStackNavigator
@@ -40,10 +39,6 @@ function searchIcon (props) {
 }
 
 function LoggedInStackNavigation ({ navigation: { navigate } }) {
-  React.useEffect(() => {
-    messaging().requestPermission();
-  }, []);
-
   const searchUsers = React.useCallback(() => {
     navigate('SearchUsers');
   }, [navigate]);
