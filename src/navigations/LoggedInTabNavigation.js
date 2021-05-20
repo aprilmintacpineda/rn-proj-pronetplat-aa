@@ -30,8 +30,8 @@ function LoggedInTabNavigation () {
         options={{
           tabBarIcon: props => (
             <RNVectorIcon
-              provider="Feather"
-              name="user-check"
+              provider="Ionicons"
+              name="ios-people-outline"
               {...props}
             />
           ),

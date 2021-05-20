@@ -7,24 +7,38 @@ import Tabs from 'components/Tabs';
 import Tab from 'components/Tabs/Tab';
 
 const receivedEventListeners = {
-  respondedToContactRequest: (senderId, { filterData }) => {
-    filterData(data => data.senderId !== senderId);
+  respondedToContactRequest: (senderId, { replaceData }) => {
+    replaceData(data =>
+      data.filter(
+        concatRequest => concatRequest.senderId !== senderId
+      )
+    );
   }
 };
 
 const sentEventListeners = {
-  cancelledContactRequest: (recipientId, { filterData }) => {
-    filterData(data => data.recipientId !== recipientId);
+  cancelledContactRequest: (recipientId, { replaceData }) => {
+    replaceData(data =>
+      data.filter(
+        contactRequest => contactRequest.recipientId !== recipientId
+      )
+    );
   },
-  sentFollowUp: (newData, { updateData }) => {
-    updateData(data => {
-      if (data.recipientId !== newData.recipientId) return data;
+  sentFollowUp: (updatedContactRequest, { replaceData }) => {
+    replaceData(data =>
+      data.map(contactRequest => {
+        if (
+          contactRequest.recipientId !==
+          updatedContactRequest.recipientId
+        )
+          return contactRequest;
 
-      return {
-        ...data,
-        ...newData
-      };
-    });
+        return {
+          ...contactRequest,
+          ...updatedContactRequest
+        };
+      })
+    );
   }
 };
 

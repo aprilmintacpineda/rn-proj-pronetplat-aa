@@ -1,79 +1,60 @@
 import { store } from 'fluxible-js';
+import { WEBSOCKET_URL } from 'env';
 
 let webSocket = null;
-let messageId = 0;
-const socketListeners = {};
-
-export function sendChatMessage ({ recipientId, messageBody }) {
-  return new Promise((resolve, reject) => {
-    messageId++;
-
-    webSocket.send(
-      JSON.stringify({
-        action: 'sendmessage',
-        data: {
-          action: 'sendChatMessage',
-          recipientId,
-          messageBody,
-          messageId
-        }
-      })
-    );
-
-    const timer = setTimeout(() => {
-      reject();
-    }, 30000);
-
-    socketListeners[messageId] = payload => {
-      clearTimeout(timer);
-      resolve(payload);
-    };
-  });
-}
 
 function createConnection () {
-  return new WebSocket(
-    'wss://9ij2l2b278.execute-api.ap-southeast-1.amazonaws.com/dev',
-    undefined,
-    {
-      headers: {
-        Authorization: `Bearer ${store.authToken}`
-      }
+  return new WebSocket(WEBSOCKET_URL, undefined, {
+    headers: {
+      Authorization: `Bearer ${store.authToken}`
     }
-  );
+  });
 }
 
 export function initConnection () {
   let unmounted = false;
   let reconnectTimeout = null;
 
-  webSocket = createConnection();
+  function connect () {
+    webSocket = createConnection();
 
-  webSocket.onerror = () => {
-    if (!unmounted) {
-      clearTimeout(reconnectTimeout);
+    webSocket.onopen = () => {
+      console.log('websocket connected');
+    };
 
-      reconnectTimeout = setTimeout(() => {
-        webSocket = createConnection();
-      }, 3000);
-    }
-  };
+    webSocket.onerror = err => {
+      console.log('websocket.onerror', err);
 
-  webSocket.onclose = () => {
-    if (!unmounted) {
-      clearTimeout(reconnectTimeout);
+      if (!unmounted) {
+        clearTimeout(reconnectTimeout);
 
-      reconnectTimeout = setTimeout(() => {
-        webSocket = createConnection();
-      }, 3000);
-    }
-  };
+        reconnectTimeout = setTimeout(() => {
+          connect();
+        }, 3000);
+      }
+    };
 
-  webSocket.onmessage = ({ data }) => {
-    const { payload, messageId } = JSON.parse(data);
-    const callback = socketListeners[messageId];
-    if (callback) callback(payload);
-  };
+    webSocket.onclose = () => {
+      console.log('websocket closed');
+
+      if (!unmounted) {
+        clearTimeout(reconnectTimeout);
+
+        reconnectTimeout = setTimeout(() => {
+          connect();
+        }, 3000);
+      }
+    };
+
+    webSocket.onmessage = async ({ data }) => {
+      console.log(
+        'onmessage:',
+        JSON.stringify(JSON.parse(data), null, 2)
+      );
+    };
+  }
+
+  connect();
 
   return () => {
     unmounted = true;

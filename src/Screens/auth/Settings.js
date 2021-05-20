@@ -1,8 +1,7 @@
 import color from 'color';
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, Linking } from 'react-native';
 import { Text } from 'react-native-paper';
-import { openSettings } from 'react-native-permissions';
 import ListItemSeparator from 'components/ListItemSeparator';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TouchableRipple from 'components/TouchableRipple';
@@ -55,7 +54,9 @@ const menuList = [
       provider: 'MaterialCommunityIcons',
       name: 'cellphone-cog'
     },
-    onPress: openSettings
+    onPress: () => {
+      Linking.openSettings();
+    }
   }
 ];
 

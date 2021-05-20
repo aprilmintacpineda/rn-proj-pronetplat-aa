@@ -1,8 +1,8 @@
 import { useIsFocused } from '@react-navigation/native';
 import React from 'react';
+import { Linking } from 'react-native';
 import { Camera } from 'react-native-camera-kit';
 import { Button, Text } from 'react-native-paper';
-import { openSettings } from 'react-native-permissions';
 import CenteredSurface from 'components/CenteredSurface';
 import useCameraPermission from 'hooks/useCameraPermissions';
 import { logEvent } from 'libs/logging';
@@ -20,6 +20,10 @@ function onReadCode (event) {
 
     console.log(error);
   }
+}
+
+function openSettings () {
+  Linking.openSettings();
 }
 
 function ScanCode () {

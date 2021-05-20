@@ -11,6 +11,7 @@ import About from 'Screens/auth/About';
 import BlockList from 'Screens/auth/BlockList';
 import ChangePassword from 'Screens/auth/ChangePassword';
 import ChangePersonalInfo from 'Screens/auth/ChangePersonalInfo';
+import ContactChat from 'Screens/auth/Contact/Chat';
 import ContactProfile from 'Screens/auth/Contact/Profile';
 import ContactDetailsForm from 'Screens/auth/ContactDetail/ContactDetailsForm';
 import ContactDetailsList from 'Screens/auth/ContactDetail/List';
@@ -149,6 +150,7 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
           title: 'Privacy settings'
         }}
       />
+      <Stack.Screen name="ContactChat" component={ContactChat} />
     </Stack.Navigator>
   );
 }

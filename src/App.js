@@ -7,17 +7,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { updateStore, store } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  StatusBar,
-  View,
-  AppState
-} from 'react-native';
+import { StatusBar, View, AppState } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import { Host } from 'react-native-portalize';
 import FullSafeAreaView from 'components/FullSafeAreaView';
+import KeyboardAvoidingView from 'components/KeyboardAvoidingView';
 import {
   decrementContactRequestsCount,
   incrementContactRequestsCount,
@@ -33,16 +28,6 @@ import { displayNotification } from 'PopupManager/NotificationPopup';
 import { navigationTheme, paperTheme } from 'theme';
 
 export const navigationRef = React.createRef();
-
-const avoidBehavior = Platform.select({
-  android: 'height',
-  ios: 'padding'
-});
-
-const avoidOffset = Platform.select({
-  android: 40,
-  ios: 0
-});
 
 function mapStates ({ initComplete }) {
   return { initComplete };
@@ -135,11 +120,7 @@ function App () {
           <PopupManager />
           <PaperProvider theme={paperTheme}>
             <FullSafeAreaView>
-              <KeyboardAvoidingView
-                style={{ flex: 1 }}
-                behavior={avoidBehavior}
-                keyboardVerticalOffset={avoidOffset}
-              >
+              <KeyboardAvoidingView>
                 {!hasInternet ? (
                   <View
                     style={{

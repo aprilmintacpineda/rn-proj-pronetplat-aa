@@ -4,8 +4,10 @@ import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
 
 const eventListeners = {
-  userUnblocked: (contactId, { filterData }) => {
-    filterData(data => data.id !== contactId);
+  userUnblocked: (contactId, { replaceData }) => {
+    replaceData(data =>
+      data.filter(contact => contact.id !== contactId)
+    );
   }
 };
 

@@ -2,18 +2,21 @@ import { addEvents } from 'fluxible-js';
 import React from 'react';
 import { FlatList } from 'react-native';
 import DataFetch, { DataFetchContext } from './DataFetch';
+import DefaultLoadingPlaceholder from './DefaultLoadingPlaceholder';
 import ListEmpty from './ListEmpty';
 import ListItemSeparator from './ListItemSeparator';
 
 function Body ({
-  LoadingPlaceHolder,
+  LoadingPlaceHolder = DefaultLoadingPlaceholder,
   keyField = 'id',
   RowComponent,
   renderItem,
   ListFooterComponent = null,
   eventListeners = null,
   listEmptyMessage,
-  ...dataFlatList
+  ItemSeparatorComponent = ListItemSeparator,
+  inverted = false,
+  ...flatListProps
 }) {
   const {
     data,
@@ -23,9 +26,7 @@ function Body ({
     isRefreshing,
     fetchData,
     isFetching,
-    updateData,
-    filterData,
-    concatData
+    replaceData
   } = React.useContext(DataFetchContext);
 
   const renderRow = React.useCallback(
@@ -35,17 +36,15 @@ function Body ({
         return <RowComponent {...item} index={index} />;
       }
 
-      return renderItem({
-        ...args,
-        updateData
-      });
+      return renderItem(args);
     },
-    [updateData, RowComponent, renderItem]
+    [RowComponent, renderItem]
   );
 
-  const keyExtractor = React.useCallback(item => item[keyField], [
-    keyField
-  ]);
+  const keyExtractor = React.useCallback(
+    item => item[keyField],
+    [keyField]
+  );
 
   React.useEffect(() => {
     if (!eventListeners) return;
@@ -55,20 +54,12 @@ function Body ({
       (payload, event) => {
         const callback = eventListeners[event];
         callback(payload, {
-          filterData,
-          updateData,
-          concatData,
+          replaceData,
           refreshData
         });
       }
     );
-  }, [
-    eventListeners,
-    filterData,
-    updateData,
-    concatData,
-    refreshData
-  ]);
+  }, [eventListeners, replaceData, refreshData]);
 
   return (
     <FlatList
@@ -78,6 +69,7 @@ function Body ({
       keyExtractor={keyExtractor}
       onEndReached={fetchData}
       onEndReachedThreshold={0.9}
+      inverted={data?.length && inverted}
       ListHeaderComponent={
         isFirstFetch && (
           <LoadingPlaceHolder
@@ -97,11 +89,12 @@ function Body ({
           </>
         )
       }
-      ItemSeparatorComponent={ListItemSeparator}
+      ItemSeparatorComponent={ItemSeparatorComponent}
       renderItem={renderRow}
       ListEmptyComponent={
         !isFirstFetch &&
-        !isInitial && (
+        !isInitial &&
+        !isFetching && (
           <ListEmpty
             message={listEmptyMessage}
             onRefresh={refreshData}
@@ -109,7 +102,7 @@ function Body ({
           />
         )
       }
-      {...dataFlatList}
+      {...flatListProps}
     />
   );
 }

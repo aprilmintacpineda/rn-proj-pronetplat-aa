@@ -33,41 +33,11 @@ function useDataFetch ({
   const isSuccess = status === 'fetchSuccess';
   const isFetchDone = isError || isSuccess;
 
-  const filterData = React.useCallback(
-    shouldKeep => {
-      updateState(({ data }) => {
-        if (data.constructor !== Array) return;
-
-        return {
-          data: data.filter(shouldKeep)
-        };
-      });
-    },
-    [updateState]
-  );
-
-  const updateData = React.useCallback(
-    updater => {
-      updateState(({ data }) => {
-        if (updater.constructor !== Function)
-          return { data: updater };
-
-        return {
-          data:
-            data && data.constructor === Array
-              ? data.map(updater)
-              : updater(data)
-        };
-      });
-    },
-    [updateState]
-  );
-
-  const concatData = React.useCallback(
-    newData => {
-      updateState(({ data }) => ({
-        data: data.concat(newData)
-      }));
+  const replaceData = React.useCallback(
+    handle => {
+      if (typeof handle === 'function')
+        updateState(({ data }) => ({ data: handle(data) }));
+      else updateState({ data: handle });
     },
     [updateState]
   );
@@ -172,9 +142,7 @@ function useDataFetch ({
     error,
     refreshData,
     fetchData,
-    updateData,
-    filterData,
-    concatData
+    replaceData
   };
 }
 

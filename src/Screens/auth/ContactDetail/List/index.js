@@ -5,21 +5,25 @@ import MyContactDetailLoadingPlaceholder from 'components/MyContactDetailLoading
 import RNVectorIcon from 'components/RNVectorIcon';
 
 const eventListeners = {
-  contactDetailsAdded (contactDetail, { concatData }) {
-    concatData(contactDetail);
+  contactDetailsAdded (contactDetail, { replaceData }) {
+    replaceData(data => data.concat(contactDetail));
   },
-  contactDetailsDeleted (deletedContactDetailid, { filterData }) {
-    filterData(
-      contactDetail => contactDetail.id !== deletedContactDetailid
+  contactDetailsDeleted (deletedContactDetailid, { replaceData }) {
+    replaceData(data =>
+      data.filter(
+        contactDetail => contactDetail.id !== deletedContactDetailid
+      )
     );
   },
-  contactDetailsUpdated (updatedContactDetail, { updateData }) {
-    updateData(contactDetail => {
-      if (contactDetail.id !== updatedContactDetail.id)
-        return contactDetail;
+  contactDetailsUpdated (updatedContactDetail, { replaceData }) {
+    replaceData(data =>
+      data.map(contactDetail => {
+        if (contactDetail.id !== updatedContactDetail.id)
+          return contactDetail;
 
-      return updatedContactDetail;
-    });
+        return updatedContactDetail;
+      })
+    );
   }
 };
 

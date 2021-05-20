@@ -88,6 +88,7 @@ function TextInput ({
   helperText,
   multiline,
   numberOfLines,
+  hideErrorMessage = false,
   ..._textInputProps
 }) {
   const hasError = Boolean(error);
@@ -148,9 +149,11 @@ function TextInput ({
           {maxLength - value.length} character(s) remaining
         </Caption>
       )}
-      <HelperText type="error" visible={hasError}>
-        {error}
-      </HelperText>
+      {!hideErrorMessage || (hideErrorMessage && hasError) ? (
+        <HelperText type="error" visible={hasError}>
+          {error}
+        </HelperText>
+      ) : null}
     </View>
   );
 }

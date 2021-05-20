@@ -2,12 +2,11 @@ import { useNavigation } from '@react-navigation/core';
 import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import { ScrollView, View, RefreshControl } from 'react-native';
-import { Headline, Text, Divider } from 'react-native-paper';
+import { Headline, Text, Divider, Title } from 'react-native-paper';
 import ContactDetailRow from './Row';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
 import ContactDetailLoadingPlaceholder from 'components/ContactDetailLoadingPlaceholder';
-import RefreshableView from 'components/RefreshableView';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
 import UnknownErrorView from 'components/UnknownErrorView';
@@ -45,7 +44,7 @@ function ContactProfile ({ contact }) {
     isFetching,
     refreshData,
     isFirstFetch,
-    updateData
+    replaceData
   } = useDataFetch({
     endpoint: `/contacts/${contact.id}`,
     onFetchDone
@@ -127,7 +126,7 @@ function ContactProfile ({ contact }) {
 
       const newData = await response.json();
 
-      updateData({
+      replaceData({
         ...data,
         sentContactRequest: {
           ...data.sentContactRequest,
@@ -144,7 +143,7 @@ function ContactProfile ({ contact }) {
         message: error.message
       });
     }
-  }, [updateData, data, contact.id, fullName]);
+  }, [replaceData, data, contact.id, fullName]);
 
   const sendRequest = React.useCallback(async () => {
     try {
@@ -267,7 +266,7 @@ function ContactProfile ({ contact }) {
         method: 'post'
       });
 
-      updateData({
+      replaceData({
         ...data,
         isCloseFriend: true
       });
@@ -283,7 +282,7 @@ function ContactProfile ({ contact }) {
     } finally {
       setIsDisabled(false);
     }
-  }, [contact.id, data, updateData]);
+  }, [contact.id, data, replaceData]);
 
   const unmarkAsCloseFriend = React.useCallback(async () => {
     try {
@@ -293,7 +292,7 @@ function ContactProfile ({ contact }) {
         method: 'post'
       });
 
-      updateData({
+      replaceData({
         ...data,
         isCloseFriend: false
       });
@@ -309,7 +308,7 @@ function ContactProfile ({ contact }) {
     } finally {
       setIsDisabled(false);
     }
-  }, [contact.id, updateData, data]);
+  }, [contact.id, replaceData, data]);
 
   React.useEffect(() => {
     const actions = [];
@@ -345,8 +344,8 @@ function ContactProfile ({ contact }) {
           title: 'Disconnect',
           icon: props => (
             <RNVectorIcon
-              provider="MaterialCommunityIcons"
-              name="qrcode-minus"
+              provider="Ionicons"
+              name="ios-person-remove-outline"
               {...props}
             />
           ),
@@ -364,7 +363,7 @@ function ContactProfile ({ contact }) {
           icon: props => (
             <RNVectorIcon
               provider="MaterialCommunityIcons"
-              name="qrcode-remove"
+              name="block-helper"
               {...props}
             />
           ),
@@ -375,6 +374,9 @@ function ContactProfile ({ contact }) {
     }
 
     setOptions({
+      appbarContentStyle: {
+        right: 40
+      },
       title: fullName,
       actions
     });
@@ -649,12 +651,11 @@ function ContactProfile ({ contact }) {
 
     if (!len) {
       return (
-        <RefreshableView
-          onRefresh={refreshData}
-          isRefreshing={isRefreshing}
-        >
-          {fullName} does not have any contact information.
-        </RefreshableView>
+        <View style={{ margin: 15, alignItems: 'center' }}>
+          <Title style={{ textAlign: 'center', marginBottom: 15 }}>
+            {fullName} does not have any contact information.
+          </Title>
+        </View>
       );
     }
 
@@ -662,19 +663,29 @@ function ContactProfile ({ contact }) {
 
     return (
       <View style={{ margin: 15 }}>
-        {groupedData.map(({ label, data }, index) => {
-          if (!data.length) return null;
+        <Button
+          style={{ marginBottom: 30 }}
+          mode="contained"
+          to="ContactChat"
+          params={contact}
+        >
+          Chat
+        </Button>
+        <View>
+          {groupedData.map(({ label, data }, index) => {
+            if (!data.length) return null;
 
-          return (
-            <View key={label} style={{ marginBottom: 15 }}>
-              <View style={{ marginBottom: 10 }}>
-                <Caption>{label}</Caption>
+            return (
+              <View key={label} style={{ marginBottom: 15 }}>
+                <View style={{ marginBottom: 10 }}>
+                  <Caption>{label}</Caption>
+                </View>
+                {data}
+                {index < groupLastIndex ? <Divider /> : null}
               </View>
-              {data}
-              {index < groupLastIndex ? <Divider /> : null}
-            </View>
-          );
-        })}
+            );
+          })}
+        </View>
       </View>
     );
   }, [
@@ -693,7 +704,8 @@ function ContactProfile ({ contact }) {
     unblockUser,
     isFetching,
     isFirstFetch,
-    refreshData
+    refreshData,
+    contact
   ]);
 
   return (

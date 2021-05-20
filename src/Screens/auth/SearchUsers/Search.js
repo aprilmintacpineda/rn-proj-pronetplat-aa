@@ -8,7 +8,7 @@ import useState from 'hooks/useState';
 import { paperTheme } from 'theme';
 
 function Search ({ params, setParams }) {
-  const { updateData } = React.useContext(DataFetchContext);
+  const { replaceData } = React.useContext(DataFetchContext);
 
   const {
     state: { searchStr, searchBy },
@@ -33,11 +33,11 @@ function Search ({ params, setParams }) {
       const searchStr = value || '';
 
       if (searchStr) search(searchStr);
-      else updateData([]);
+      else replaceData([]);
 
       updateState({ searchStr });
     },
-    [updateState, search, updateData]
+    [updateState, search, replaceData]
   );
 
   const searchByName = React.useCallback(() => {
