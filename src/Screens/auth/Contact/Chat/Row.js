@@ -3,7 +3,7 @@ import { format, isToday } from 'date-fns';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { ActivityIndicator, Text } from 'react-native-paper';
 import Caption from 'components/Caption';
 import UserAvatar from 'components/UserAvatar';
 import { paperTheme } from 'theme';
@@ -16,6 +16,7 @@ function ChatMessage ({
   recipientId,
   messageBody,
   createdAt,
+  isSending = false,
   seenAt
 }) {
   const { authUser } = useFluxibleStore(mapStates);
@@ -53,14 +54,31 @@ function ChatMessage ({
             borderRadius: paperTheme.roundness
           }}
         >
-          <Caption style={{ marginBottom: 10 }}>
-            {isToday(dateSent)
-              ? `Today, ${format(dateSent, 'p')}`
-              : format(dateSent, 'PPp')}
-          </Caption>
+          {isSending ? (
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginBottom: 10
+              }}
+            >
+              <ActivityIndicator
+                size={10}
+                color="#fff"
+                style={{ marginRight: 10 }}
+              />
+              <Caption>sending...</Caption>
+            </View>
+          ) : (
+            <Caption style={{ marginBottom: 10 }}>
+              {isToday(dateSent)
+                ? `Today, ${format(dateSent, 'p')}`
+                : format(dateSent, 'PPp')}
+            </Caption>
+          )}
           <Text
             style={{
-              color: isReceived ? undefined : '#fff'
+              color: isReceived ? paperTheme.colors.text : '#fff'
             }}
           >
             {messageBody}

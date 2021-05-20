@@ -4,8 +4,13 @@ import { paperTheme } from 'theme';
 
 function DefaultLoadingPlaceholder ({ isFetching }) {
   if (!isFetching) return null;
+
   return (
-    <ActivityIndicator size={25} color={paperTheme.colors.primary} />
+    <ActivityIndicator
+      style={{ marginTop: 15 }}
+      size={25}
+      color={paperTheme.colors.primary}
+    />
   );
 }
 

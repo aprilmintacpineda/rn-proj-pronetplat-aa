@@ -4,7 +4,7 @@ import 'setDefaults';
 import crashlytics from '@react-native-firebase/crashlytics';
 import messaging from '@react-native-firebase/messaging';
 import { NavigationContainer } from '@react-navigation/native';
-import { updateStore, store } from 'fluxible-js';
+import { updateStore, store, addEvent } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { StatusBar, View, AppState } from 'react-native';
@@ -54,8 +54,10 @@ function App () {
   }, [initComplete]);
 
   React.useEffect(() => {
-    const unsubscribe = messaging().onMessage(
-      async remoteMessage => {
+    const unsubscribeCallbacks = [];
+
+    unsubscribeCallbacks.push(
+      messaging().onMessage(async remoteMessage => {
         if (!store.authUser || !store.initComplete || store.reAuth)
           return;
 
@@ -96,10 +98,21 @@ function App () {
               navigationRef.current.navigate(targetScreen, data);
           }
         });
-      }
+      })
     );
 
-    return unsubscribe;
+    unsubscribeCallbacks.push(
+      addEvent('chatMessageReceived', ({ user, payload }) => {
+        // @todo show in app notification
+        console.log('chatMessageReceived', user, payload);
+      })
+    );
+
+    return () => {
+      unsubscribeCallbacks.forEach(unsubscribeCallback => {
+        unsubscribeCallback();
+      });
+    };
   }, []);
 
   if (!initComplete) return null;

@@ -1,4 +1,4 @@
-import { store } from 'fluxible-js';
+import { emitEvent, store } from 'fluxible-js';
 import { WEBSOCKET_URL } from 'env';
 
 let webSocket = null;
@@ -16,6 +16,7 @@ export function initConnection () {
   let reconnectTimeout = null;
 
   function connect () {
+    webSocket = null;
     webSocket = createConnection();
 
     webSocket.onopen = () => {
@@ -47,10 +48,8 @@ export function initConnection () {
     };
 
     webSocket.onmessage = async ({ data }) => {
-      console.log(
-        'onmessage:',
-        JSON.stringify(JSON.parse(data), null, 2)
-      );
+      const { event, ...payload } = JSON.parse(data);
+      emitEvent(event, payload);
     };
   }
 

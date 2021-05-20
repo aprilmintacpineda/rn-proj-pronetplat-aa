@@ -7,6 +7,26 @@ import Avatar from 'components/Avatar';
 import DataFlatList from 'components/DataFlatList';
 import { getFullName } from 'libs/user';
 
+const eventListeners = {
+  chatMessageReceived: ({ payload }, { replaceData }) => {
+    replaceData(data => [payload].concat(data));
+  },
+  chatMessageSending: (chatMessage, { replaceData }) => {
+    replaceData(data => [chatMessage].concat(data));
+  },
+  chatMessageSent: (
+    { tempId, sentChatMessage },
+    { replaceData }
+  ) => {
+    replaceData(data =>
+      data.map(chatMessage => {
+        if (chatMessage.id !== tempId) return chatMessage;
+        return sentChatMessage;
+      })
+    );
+  }
+};
+
 function ContactChat ({
   navigation: { setOptions },
   route: { params: contact }
@@ -53,6 +73,7 @@ function ContactChat ({
         endpoint={`/chat-messages/${contact.id}`}
         RowComponent={Row}
         listEmptyMessage="No chat messages yet."
+        eventListeners={eventListeners}
       />
       <MessageInput />
     </View>

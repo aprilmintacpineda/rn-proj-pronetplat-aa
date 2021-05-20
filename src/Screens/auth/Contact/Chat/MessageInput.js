@@ -1,4 +1,5 @@
 import { useRoute } from '@react-navigation/core';
+import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import { TextInput, View } from 'react-native';
 import IconButton from 'components/IconButton';
@@ -25,6 +26,15 @@ function ChatMessageInput () {
 
     setMessageBody('');
 
+    const temporaryId = `${Math.random()}-${Math.random()}`;
+
+    emitEvent('chatMessageSending', {
+      id: temporaryId,
+      recipientId: contact.id,
+      messageBody,
+      isSending: true
+    });
+
     let chatMessage = await xhr(`/send-chat-message/${contact.id}`, {
       method: 'post',
       body: { messageBody }
@@ -32,7 +42,10 @@ function ChatMessageInput () {
 
     chatMessage = await chatMessage.json();
 
-    console.log('chatMessage', JSON.stringify(chatMessage, null, 2));
+    emitEvent('chatMessageSent', {
+      tempId: temporaryId,
+      sentChatMessage: chatMessage
+    });
   }, [messageBody, contact]);
 
   return (
