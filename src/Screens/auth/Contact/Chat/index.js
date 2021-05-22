@@ -68,6 +68,7 @@ function ContactChat ({
   return (
     <View style={{ flex: 1 }}>
       <DataFlatList
+        disableRefresh
         inverted
         ItemSeparatorComponent={null}
         endpoint={`/chat-messages/${contact.id}`}

@@ -20,7 +20,7 @@ export function xhrWithParams (url, params = {}, options) {
 
   Object.keys(params).forEach(field => {
     const value = params[field];
-    if (value) searchParams.append(field, value);
+    if (value) searchParams.append(field, encodeURIComponent(value));
   });
 
   const search = searchParams.toString();

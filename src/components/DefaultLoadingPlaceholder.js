@@ -7,7 +7,7 @@ function DefaultLoadingPlaceholder ({ isFetching }) {
 
   return (
     <ActivityIndicator
-      style={{ marginTop: 15 }}
+      style={{ margin: 15 }}
       size={25}
       color={paperTheme.colors.primary}
     />

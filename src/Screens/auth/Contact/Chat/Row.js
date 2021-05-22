@@ -28,7 +28,8 @@ function ChatMessage ({
   return (
     <View
       style={{
-        marginBottom: 10,
+        marginTop: 5,
+        marginBottom: 5,
         marginHorizontal: 10,
         flexDirection: isReceived ? 'row' : 'row-reverse',
         justifyContent: 'flex-start',

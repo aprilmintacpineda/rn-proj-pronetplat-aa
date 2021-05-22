@@ -16,6 +16,7 @@ function Body ({
   listEmptyMessage,
   ItemSeparatorComponent = ListItemSeparator,
   inverted = false,
+  disableRefresh = false,
   ...flatListProps
 }) {
   const {
@@ -28,6 +29,7 @@ function Body ({
     isFetching,
     replaceData
   } = React.useContext(DataFetchContext);
+  const isScrolling = React.useRef(false);
 
   const renderRow = React.useCallback(
     args => {
@@ -46,6 +48,19 @@ function Body ({
     [keyField]
   );
 
+  const onEndReached = React.useCallback(() => {
+    if (!isScrolling.current) return;
+    fetchData();
+  }, [fetchData]);
+
+  const onMomentumScrollBegin = React.useCallback(() => {
+    isScrolling.current = true;
+  }, []);
+
+  const onMomentumScrollEnd = React.useCallback(() => {
+    isScrolling.current = false;
+  }, []);
+
   React.useEffect(() => {
     if (!eventListeners) return;
 
@@ -63,12 +78,14 @@ function Body ({
 
   return (
     <FlatList
-      onRefresh={refreshData}
-      refreshing={!isFirstFetch && isRefreshing}
+      onRefresh={!disableRefresh ? refreshData : null}
+      refreshing={!disableRefresh && !isFirstFetch && isRefreshing}
       data={data}
       keyExtractor={keyExtractor}
-      onEndReached={fetchData}
-      onEndReachedThreshold={0.9}
+      onEndReached={onEndReached}
+      onMomentumScrollBegin={onMomentumScrollBegin}
+      onMomentumScrollEnd={onMomentumScrollEnd}
+      onEndReachedThreshold={0.7}
       inverted={data?.length && inverted}
       ListHeaderComponent={
         isFirstFetch && (
