@@ -5,6 +5,7 @@ import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { View } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import Caption from 'components/Caption';
+import { DataFetchContext } from 'components/DataFetch';
 import UserAvatar from 'components/UserAvatar';
 import { paperTheme } from 'theme';
 
@@ -17,26 +18,40 @@ function ChatMessage ({
   messageBody,
   createdAt,
   isSending = false,
-  seenAt
+  seenAt,
+  index
 }) {
   const { authUser } = useFluxibleStore(mapStates);
   const { params: contact } = useRoute();
+  const { data } = React.useContext(DataFetchContext);
+  const prevItem = data && data[index - 1];
+  const nextItem = data && data[index + 1];
+
+  const isChainedPrev = prevItem?.recipientId === recipientId;
+  const isChainedNext = nextItem?.recipientId === recipientId;
   const dateSent = new Date(createdAt);
   const dateSeen = seenAt ? new Date(seenAt) : null;
   const isReceived = recipientId === authUser.id;
+  const roundness = paperTheme.roundness * 4;
 
   return (
     <View
       style={{
-        marginTop: 5,
-        marginBottom: 5,
+        marginTop: isChainedNext ? 0.5 : 10,
+        marginBottom: isChainedPrev ? 0.5 : 10,
         marginHorizontal: 10,
         flexDirection: isReceived ? 'row' : 'row-reverse',
         justifyContent: 'flex-start',
         alignItems: 'flex-end'
       }}
     >
-      <UserAvatar size={40} user={isReceived ? contact : authUser} />
+      {isReceived && (
+        <UserAvatar
+          size={40}
+          user={isReceived ? contact : authUser}
+          hidden={isChainedPrev}
+        />
+      )}
       <View
         style={{
           flex: 1,
@@ -45,14 +60,22 @@ function ChatMessage ({
       >
         <View
           style={{
-            marginLeft: isReceived ? 5 : 45,
-            marginRight: isReceived ? 45 : 5,
+            marginLeft: isReceived ? 5 : 100,
+            marginRight: isReceived ? 55 : 5,
             paddingVertical: 10,
             paddingHorizontal: 15,
             backgroundColor: isReceived
               ? '#e6e6e6'
               : paperTheme.colors.accent,
-            borderRadius: paperTheme.roundness
+            borderRadius: roundness,
+            borderTopLeftRadius:
+              isReceived && isChainedNext ? 0 : roundness,
+            borderBottomLeftRadius:
+              isReceived && isChainedPrev ? 0 : roundness,
+            borderTopRightRadius:
+              !isReceived && isChainedNext ? 0 : roundness,
+            borderBottomRightRadius:
+              !isReceived && isChainedPrev ? 0 : roundness
           }}
         >
           {isSending ? (

@@ -48,8 +48,9 @@ export function initConnection () {
     };
 
     webSocket.onmessage = async ({ data }) => {
-      const { event, ...payload } = JSON.parse(data);
-      emitEvent(event, payload);
+      const parsedData = JSON.parse(data);
+      emitEvent('websocketEvent', parsedData);
+      emitEvent(`websocketEvent-${parsedData.type}`, parsedData);
     };
   }
 

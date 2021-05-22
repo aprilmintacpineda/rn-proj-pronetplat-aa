@@ -1,13 +1,12 @@
 import 'customAnimations';
 import 'setDefaults';
 
-import crashlytics from '@react-native-firebase/crashlytics';
-import messaging from '@react-native-firebase/messaging';
+import iid from '@react-native-firebase/iid';
 import { NavigationContainer } from '@react-navigation/native';
-import { updateStore, store, addEvent } from 'fluxible-js';
+import { store, addEvent, updateStore } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
-import { StatusBar, View, AppState } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import { Host } from 'react-native-portalize';
@@ -19,15 +18,78 @@ import {
   incrementNotificationsCount
 } from 'fluxible/actions/user';
 import { initStore } from 'fluxible/store/init';
+import useAppStateEffect from 'hooks/useAppStateEffect';
 import useHasInternet from 'hooks/useHasInternet';
 import { appMounted, logScreenView } from 'libs/logging';
-import { getInitials } from 'libs/user';
+import { getFullName, getInitials } from 'libs/user';
 import IndexStackNavigator from 'navigations/IndexStackNavigator';
 import PopupManager from 'PopupManager';
 import { displayNotification } from 'PopupManager/NotificationPopup';
 import { navigationTheme, paperTheme } from 'theme';
 
 export const navigationRef = React.createRef();
+
+const webSocketEventHandlers = {
+  notification: ({ user, trigger, payload: { title, body } }) => {
+    if (trigger === 'contactRequestCancelled')
+      decrementContactRequestsCount();
+    else if (trigger === 'contactRequest')
+      incrementContactRequestsCount();
+
+    incrementNotificationsCount();
+
+    displayNotification({
+      title,
+      body,
+      avatarUri: user.profilePicture,
+      avatarLabel: getInitials(user),
+      onPress: () => {
+        const screensByTrigger = {
+          contactRequest: {
+            name: 'ContactRequests'
+          },
+          contactRequestAccepted: {
+            name: 'ContactProfile',
+            params: user
+          },
+          contactRequestCancelled: {
+            name: 'ContactProfile',
+            params: user
+          },
+          contactRequestDeclined: {
+            name: 'ContactProfile',
+            params: user
+          }
+        };
+
+        const targetScreen = screensByTrigger[trigger];
+        if (targetScreen) {
+          const { name, params } = targetScreen;
+          navigationRef.current.navigate(name, params);
+        }
+      }
+    });
+  },
+  chatMessageReceived: data => {
+    const { user } = data;
+    const currentRoute = navigationRef.current.getCurrentRoute();
+
+    if (
+      currentRoute.name !== 'ContactChat' ||
+      currentRoute.params.id !== user.id
+    ) {
+      displayNotification({
+        title: 'New message',
+        body: `${getFullName(user)} sent you a message.`,
+        avatarUri: user.profilePicture,
+        avatarLabel: getInitials(user),
+        onPress: () => {
+          navigationRef.current.navigate('ContactChat', user);
+        }
+      });
+    }
+  }
+};
 
 function mapStates ({ initComplete }) {
   return { initComplete };
@@ -37,82 +99,35 @@ function App () {
   const { initComplete } = useFluxibleStore(mapStates);
   const hasInternet = useHasInternet();
 
+  const updateDeviceToken = React.useCallback(async () => {
+    updateStore({ deviceToken: await iid().getToken() });
+  }, []);
+
+  useAppStateEffect({
+    onActive: updateDeviceToken
+  });
+
   React.useEffect(() => {
     appMounted();
     initStore();
   }, []);
 
   React.useEffect(() => {
-    if (initComplete) {
-      messaging().onTokenRefresh(async deviceToken => {
-        updateStore({ deviceToken });
-        await crashlytics().setUserId(deviceToken);
-      });
-
-      RNBootSplash.hide();
-    }
+    if (initComplete) RNBootSplash.hide();
   }, [initComplete]);
 
   React.useEffect(() => {
-    const unsubscribeCallbacks = [];
+    const unsubscribeCallback = addEvent('websocketEvent', data => {
+      if (!store.authUser || !store.initComplete || store.reAuth)
+        return;
 
-    unsubscribeCallbacks.push(
-      messaging().onMessage(async remoteMessage => {
-        if (!store.authUser || !store.initComplete || store.reAuth)
-          return;
+      console.log('websocketEvent', JSON.stringify(data, null, 2));
 
-        const {
-          data: { stringified },
-          notification
-        } = remoteMessage;
+      const handler = webSocketEventHandlers[data.type];
+      if (handler) handler(data);
+    });
 
-        const data = JSON.parse(stringified);
-        const { title, body } = notification;
-        const { type, category, profilePicture } = data;
-
-        if (type === 'contactRequestCancelled')
-          decrementContactRequestsCount();
-        else if (type === 'contactRequest')
-          incrementContactRequestsCount();
-
-        if (category === 'notification')
-          incrementNotificationsCount();
-
-        if (AppState.currentState !== 'active') return;
-
-        displayNotification({
-          title,
-          body,
-          avatarUri: profilePicture,
-          avatarLabel: getInitials(data),
-          onPress: () => {
-            const screensByType = {
-              contactRequest: 'ContactRequests',
-              contactRequestAccepted: 'ContactProfile',
-              contactRequestCancelled: 'ContactProfile',
-              contactRequestDeclined: 'ContactProfile'
-            };
-
-            const targetScreen = screensByType[type];
-            if (targetScreen)
-              navigationRef.current.navigate(targetScreen, data);
-          }
-        });
-      })
-    );
-
-    unsubscribeCallbacks.push(
-      addEvent('chatMessageReceived', ({ user, payload }) => {
-        // @todo show in app notification
-        console.log('chatMessageReceived', user, payload);
-      })
-    );
-
-    return () => {
-      unsubscribeCallbacks.forEach(unsubscribeCallback => {
-        unsubscribeCallback();
-      });
-    };
+    return unsubscribeCallback;
   }, []);
 
   if (!initComplete) return null;

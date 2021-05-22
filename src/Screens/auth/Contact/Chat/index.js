@@ -8,7 +8,10 @@ import DataFlatList from 'components/DataFlatList';
 import { getFullName } from 'libs/user';
 
 const eventListeners = {
-  chatMessageReceived: ({ payload }, { replaceData }) => {
+  'websocketEvent-chatMessageReceived': (
+    { payload },
+    { replaceData }
+  ) => {
     replaceData(data => [payload].concat(data));
   },
   chatMessageSending: (chatMessage, { replaceData }) => {

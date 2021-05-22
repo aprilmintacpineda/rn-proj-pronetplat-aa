@@ -3,7 +3,7 @@ import { Image, Text, View } from 'react-native';
 import { Placeholder, PlaceholderMedia, Fade } from 'rn-placeholder';
 import useState from 'hooks/useState';
 
-function Avatar ({ size = 60, uri, label }) {
+function Avatar ({ size = 60, uri, label, hidden = false }) {
   const { updateState, state } = useState({
     uri,
     status: 'initial'
@@ -36,7 +36,8 @@ function Avatar ({ size = 60, uri, label }) {
       <View
         style={{
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          opacity: hidden ? 0 : 1
         }}
       >
         {!isLoadSuccess ? (
@@ -85,7 +86,8 @@ function Avatar ({ size = 60, uri, label }) {
         width: size,
         height: size,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        opacity: hidden ? 0 : 1
       }}
     >
       <Text style={{ fontSize: Math.floor(size * 0.4) }}>
