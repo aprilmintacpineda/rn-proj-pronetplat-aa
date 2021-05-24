@@ -6,9 +6,18 @@ import { View } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import Caption from 'components/Caption';
 import { DataFetchContext } from 'components/DataFetch';
+import RNVectorIcon from 'components/RNVectorIcon';
 import TextLink from 'components/TextLink';
 import UserAvatar from 'components/UserAvatar';
 import { paperTheme } from 'theme';
+
+function formatDate (dateStr) {
+  const date = new Date(dateStr);
+
+  return isToday(date)
+    ? `Today, ${format(date, 'p')}`
+    : format(date, 'PPp');
+}
 
 function mapStates ({ authUser }) {
   return { authUser };
@@ -30,8 +39,6 @@ function ChatMessage ({
 
   const isChainedPrev = prevItem?.recipientId === recipientId;
   const isChainedNext = nextItem?.recipientId === recipientId;
-  const dateSent = new Date(createdAt);
-  const dateSeen = seenAt ? new Date(seenAt) : null;
   const isReceived = recipientId === authUser.id;
   const roundness = paperTheme.roundness * 4;
 
@@ -139,9 +146,7 @@ function ChatMessage ({
             </View>
           ) : (
             <Caption style={{ marginBottom: 10 }}>
-              {isToday(dateSent)
-                ? `Today, ${format(dateSent, 'p')}`
-                : format(dateSent, 'PPp')}
+              {formatDate(createdAt)}
             </Caption>
           )}
           <Text
@@ -152,12 +157,24 @@ function ChatMessage ({
           >
             {body}
           </Text>
-          {dateSeen && (
-            <Caption style={{ marginBottom: 10 }}>
-              {isToday(dateSeen)
-                ? `Seen today, ${format(dateSeen, 'p')}`
-                : `Seen ${format(dateSeen, 'PPp')}`}
-            </Caption>
+          {!isReceived && seenAt && (
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'flex-end'
+              }}
+            >
+              <RNVectorIcon
+                provider="AntDesign"
+                name="check"
+                color={paperTheme.colors.caption}
+                size={10}
+              />
+              <Caption style={{ marginLeft: 5 }}>
+                {formatDate(seenAt)}
+              </Caption>
+            </View>
           )}
         </View>
       </View>
