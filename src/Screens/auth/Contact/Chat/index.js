@@ -8,11 +8,13 @@ import DataFlatList from 'components/DataFlatList';
 import { getFullName } from 'libs/user';
 
 const eventListeners = {
+  // @todo handle messages seen event
   'websocketEvent-chatMessageReceived': (
     { payload },
     { replaceData }
   ) => {
     replaceData(data => [payload].concat(data));
+    // @todo mark this message as seen
   },
   chatMessageSending: (chatMessage, { replaceData }) => {
     replaceData(data => [chatMessage].concat(data));
