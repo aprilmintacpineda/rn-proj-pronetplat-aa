@@ -10,14 +10,15 @@ function TextLink ({
   children,
   textStyle = null,
   onPress = null,
+  isExternal = false,
   ...props
 }) {
   const handlePress = React.useCallback(() => {
-    if (/^https?:\/\//gim.test(to) || /mailto:/.test(to))
-      Linking.openURL(to);
+    if (isExternal) Linking.openURL(to);
     else navigationRef.current.navigate(to, params);
+
     if (onPress) onPress();
-  }, [to, params, onPress]);
+  }, [to, params, onPress, isExternal]);
 
   return (
     <TouchableWithoutFeedback onPress={handlePress} {...props}>

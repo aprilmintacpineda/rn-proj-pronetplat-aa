@@ -13,12 +13,8 @@ import SubHeadName from 'svgs/SubHeadName';
 import { paperTheme } from 'theme';
 
 function AuthenticateForm ({ onLogin }) {
-  const {
-    responseData,
-    isSubmitSuccess,
-    resetForm,
-    isTouched
-  } = React.useContext(FormContext);
+  const { responseData, isSubmitSuccess, resetForm, isTouched } =
+    React.useContext(FormContext);
   const { page } = React.useContext(LoginContext);
 
   React.useEffect(() => {
@@ -51,11 +47,17 @@ function AuthenticateForm ({ onLogin }) {
           <View style={{ marginBottom: 20 }}>
             <Text>
               Please take some time to read our{' '}
-              <TextLink to="https://entrepic.com/privacy-policy">
+              <TextLink
+                isExternal
+                to="https://entrepic.com/privacy-policy"
+              >
                 privacy policy
               </TextLink>{' '}
               and{' '}
-              <TextLink to="https://entrepic.com/terms-and-conditions">
+              <TextLink
+                isExternal
+                to="https://entrepic.com/terms-and-conditions"
+              >
                 terms and conditions
               </TextLink>
               .

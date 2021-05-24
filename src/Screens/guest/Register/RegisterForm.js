@@ -29,11 +29,17 @@ function RegisterForm () {
             <Text>
               Please tick the box on the left if you acknowledge that
               you have read, understood, and agreed with our{' '}
-              <TextLink to="https://entrepic.com/privacy-policy">
+              <TextLink
+                isExternal
+                to="https://entrepic.com/privacy-policy"
+              >
                 privacy policy
               </TextLink>{' '}
               and{' '}
-              <TextLink to="https://entrepic.com/terms-and-conditions">
+              <TextLink
+                isExternal
+                to="https://entrepic.com/terms-and-conditions"
+              >
                 terms and conditions
               </TextLink>
               .

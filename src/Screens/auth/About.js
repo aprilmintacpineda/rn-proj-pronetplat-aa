@@ -16,24 +16,33 @@ function About () {
       <View style={{ padding: 15 }}>
         <Text style={{ marginBottom: 15 }}>
           To learn more about us, you can visit our website at{' '}
-          <TextLink to="https://entrepic.com">
+          <TextLink isExternal to="https://entrepic.com">
             https://entrepic.com
           </TextLink>
           .
         </Text>
         <Text style={{ marginBottom: 15 }}>
           Please also take some time to read our{' '}
-          <TextLink to="https://entrepic.com/privacy-policy">
+          <TextLink
+            isExternal
+            to="https://entrepic.com/privacy-policy"
+          >
             Privacy policy
           </TextLink>{' '}
           and{' '}
-          <TextLink to="https://entrepic.com/terms-and-conditions">
+          <TextLink
+            isExternal
+            to="https://entrepic.com/terms-and-conditions"
+          >
             Terms and conditions
           </TextLink>
         </Text>
         <Text style={{ marginBottom: 15 }}>
           If you found any problems with the app,{' '}
-          <TextLink to="https://forms.gle/DF9A9Y37qNma5X7u9">
+          <TextLink
+            isExternal
+            to="https://forms.gle/DF9A9Y37qNma5X7u9"
+          >
             please send an error report
           </TextLink>
           .
@@ -41,7 +50,10 @@ function About () {
         <Text style={{ marginBottom: 15 }}>
           If you have suggestions or any useful thoughts for the
           platform,{' '}
-          <TextLink to="https://forms.gle/dAaq8YEMQox7gvYn9">
+          <TextLink
+            isExternal
+            to="https://forms.gle/dAaq8YEMQox7gvYn9"
+          >
             please send us your feedback
           </TextLink>
           .
@@ -49,7 +61,7 @@ function About () {
         <Text>
           For other professional concerns, you may send us an email
           at{' '}
-          <TextLink to="mailto:hello@entrepic.com">
+          <TextLink isExternal to="mailto:hello@entrepic.com">
             hello@entrepic.com
           </TextLink>
           .

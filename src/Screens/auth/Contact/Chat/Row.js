@@ -6,6 +6,7 @@ import { View } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import Caption from 'components/Caption';
 import { DataFetchContext } from 'components/DataFetch';
+import TextLink from 'components/TextLink';
 import UserAvatar from 'components/UserAvatar';
 import { paperTheme } from 'theme';
 
@@ -33,6 +34,49 @@ function ChatMessage ({
   const dateSeen = seenAt ? new Date(seenAt) : null;
   const isReceived = recipientId === authUser.id;
   const roundness = paperTheme.roundness * 4;
+
+  const body = React.useMemo(() => {
+    const pattern =
+      /(?:https?:\/\/)?(?:[a-zA-Z]+(?:[a-zA-Z0-9-]+)?\.)?[a-zA-Z]+(?:[a-zA-Z0-9-]+)?\.[a-zA-Z0-9.]+\S*/gim;
+    const body = [];
+    // setup starting index for first loop
+    let startingIndex = 0;
+    let match = pattern.exec(messageBody);
+
+    // grab all links
+    while (match) {
+      // grab the texts before the link
+      body.push(messageBody.slice(startingIndex, match.index));
+
+      // make sure the url always has a protocol to
+      let url = match[0];
+      if (!/^https?:\/\//gim.test(url)) url = `https://${url}`;
+
+      // push the link making it pressable
+      body.push(
+        <TextLink
+          isExternal
+          key={`${url}-${startingIndex}-${match.index}`}
+          textMode
+          to={url}
+        >
+          {url}
+        </TextLink>
+      );
+
+      // set starting index of next loop
+      startingIndex = pattern.lastIndex;
+      // grab all other links
+      match = pattern.exec(messageBody);
+    }
+
+    if (!body.length) return messageBody;
+
+    // add the rest of the text
+    body.push(messageBody.slice(startingIndex));
+
+    return body;
+  }, [messageBody]);
 
   return (
     <View
@@ -101,11 +145,12 @@ function ChatMessage ({
             </Caption>
           )}
           <Text
+            selectable
             style={{
               color: isReceived ? paperTheme.colors.text : '#fff'
             }}
           >
-            {messageBody}
+            {body}
           </Text>
           {dateSeen && (
             <Caption style={{ marginBottom: 10 }}>
