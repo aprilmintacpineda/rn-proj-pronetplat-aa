@@ -18,7 +18,7 @@ const validationRules = {
   },
   url (value) {
     if (/^http:\/\//.test(value)) return 'Always use HTTPS.';
-    if (value.length > 1000) return 'Use shorter url';
+    if (value.length > 255) return 'Use shorter url';
 
     if (
       // eslint-disable-next-line
@@ -37,7 +37,11 @@ const validationRules = {
     return '';
   },
   required (value) {
-    if (value === '' || value === undefined || value === null)
+    if (
+      value === undefined ||
+      value === null ||
+      String(value).trim() === ''
+    )
       return 'Required.';
 
     return '';
