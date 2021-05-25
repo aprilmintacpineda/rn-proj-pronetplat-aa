@@ -16,11 +16,24 @@ export function initConnection () {
   let reconnectTimeout = null;
 
   function connect () {
+    console.log('connecting');
     webSocket = null;
     webSocket = createConnection();
 
     webSocket.onopen = () => {
       console.log('websocket connected');
+    };
+
+    webSocket.onerror = () => {
+      console.log('websocket error');
+
+      if (!unmounted) {
+        clearTimeout(reconnectTimeout);
+
+        reconnectTimeout = setTimeout(() => {
+          connect();
+        }, 1000);
+      }
     };
 
     webSocket.onclose = () => {
@@ -48,5 +61,6 @@ export function initConnection () {
     unmounted = true;
     clearTimeout(reconnectTimeout);
     webSocket.close();
+    console.log('unmounted');
   };
 }
