@@ -39,6 +39,8 @@ function ChatMessageInput () {
     });
 
     try {
+      shouldCallTypingStatus.current = true;
+
       await xhr(`/chat-typing-status/${contact.id}`, {
         method: 'post',
         body: {
