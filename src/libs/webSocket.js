@@ -23,18 +23,6 @@ export function initConnection () {
       console.log('websocket connected');
     };
 
-    webSocket.onerror = err => {
-      console.log('websocket.onerror', err);
-
-      if (!unmounted) {
-        clearTimeout(reconnectTimeout);
-
-        reconnectTimeout = setTimeout(() => {
-          connect();
-        }, 3000);
-      }
-    };
-
     webSocket.onclose = () => {
       console.log('websocket closed');
 
@@ -43,7 +31,7 @@ export function initConnection () {
 
         reconnectTimeout = setTimeout(() => {
           connect();
-        }, 3000);
+        }, 1000);
       }
     };
 
