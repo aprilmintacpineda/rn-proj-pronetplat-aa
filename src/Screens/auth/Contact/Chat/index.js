@@ -3,23 +3,54 @@ import { Platform, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import MessageInput from './MessageInput';
 import Row from './Row';
+import { navigationRef } from 'App';
 import Avatar from 'components/Avatar';
 import DataFlatList from 'components/DataFlatList';
 import { getFullName } from 'libs/user';
+import { xhr } from 'libs/xhr';
 
 const eventListeners = {
-  // @todo handle messages seen event
-  'websocketEvent-chatMessageReceived': (
-    { payload },
+  'websocketEvent-chatMessageSeen': (
+    { user, payload: { seenAt, unseenChatMessageIds } },
     { replaceData }
   ) => {
+    const currentRoute = navigationRef.current.getCurrentRoute();
+    if (currentRoute.params.id !== user.id) return;
+
+    replaceData(data =>
+      data.map(chatMessage => {
+        if (unseenChatMessageIds.includes(chatMessage.id)) {
+          return {
+            ...chatMessage,
+            seenAt
+          };
+        }
+
+        return chatMessage;
+      })
+    );
+  },
+  'websocketEvent-chatMessageReceived': async (
+    { user, payload },
+    { replaceData }
+  ) => {
+    const currentRoute = navigationRef.current.getCurrentRoute();
+    if (currentRoute.params.id !== user.id) return;
+
     replaceData(data => [payload].concat(data));
-    // @todo mark this message as seen
+
+    try {
+      await xhr(`/chat-message-seen/${payload.id}`, {
+        method: 'post'
+      });
+    } catch (error) {
+      console.log(error);
+    }
   },
   chatMessageSending: (chatMessage, { replaceData }) => {
     replaceData(data => [chatMessage].concat(data));
   },
-  chatMessageSent: (
+  chatMessageSendSuccess: (
     { tempId, sentChatMessage },
     { replaceData }
   ) => {
