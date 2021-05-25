@@ -14,12 +14,6 @@ const eventListeners = {
     { user, payload: { seenAt, unseenChatMessageIds } },
     { replaceData }
   ) => {
-    console.log(
-      'websocketEvent-chatMessageSeen',
-      seenAt,
-      unseenChatMessageIds
-    );
-
     const currentRoute = navigationRef.current.getCurrentRoute();
     if (currentRoute.params.id !== user.id) return;
 
