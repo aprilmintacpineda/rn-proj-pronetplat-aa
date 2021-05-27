@@ -118,9 +118,13 @@ function ChatMessageInput () {
           <TextInput
             value={messageBody}
             onChangeText={onChangeText}
+            maxLength={3000}
             multiline
             placeholder="Send a message"
           />
+          <Caption style={{ marginTop: 5 }}>
+            {3000 - messageBody.length} character(s) remaining
+          </Caption>
         </View>
         <View style={{ alignSelf: 'flex-end' }}>
           <IconButton
