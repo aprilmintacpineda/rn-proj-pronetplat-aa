@@ -26,8 +26,10 @@ function ChatMessageInput () {
   const shouldCallTypingStatus = React.useRef(true);
   const isTypingTimeout = React.useRef(null);
 
-  const send = React.useCallback(async () => {
+  const send = React.useCallback(() => {
     if (!messageBody) return;
+
+    clearTimeout(isTypingTimeout.current);
 
     setMessageBody('');
 
@@ -38,18 +40,14 @@ function ChatMessageInput () {
       toSend: true
     });
 
-    try {
-      shouldCallTypingStatus.current = true;
+    shouldCallTypingStatus.current = true;
 
-      await xhr(`/chat-typing-status/${contact.id}`, {
-        method: 'post',
-        body: {
-          isTyping: false
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    xhr(`/chat-typing-status/${contact.id}`, {
+      method: 'post',
+      body: {
+        isTyping: false
+      }
+    });
   }, [messageBody, contact]);
 
   React.useEffect(() => {
@@ -64,7 +62,7 @@ function ChatMessageInput () {
   }, [contact]);
 
   const onChangeText = React.useCallback(
-    async value => {
+    value => {
       setMessageBody(value);
 
       clearTimeout(isTypingTimeout.current);
@@ -72,7 +70,7 @@ function ChatMessageInput () {
       if (shouldCallTypingStatus.current) {
         shouldCallTypingStatus.current = false;
 
-        await xhr(`/chat-typing-status/${contact.id}`, {
+        xhr(`/chat-typing-status/${contact.id}`, {
           method: 'post',
           body: {
             isTyping: true
@@ -80,10 +78,10 @@ function ChatMessageInput () {
         });
       }
 
-      isTypingTimeout.current = setTimeout(async () => {
+      isTypingTimeout.current = setTimeout(() => {
         shouldCallTypingStatus.current = true;
 
-        await xhr(`/chat-typing-status/${contact.id}`, {
+        xhr(`/chat-typing-status/${contact.id}`, {
           method: 'post',
           body: {
             isTyping: false
