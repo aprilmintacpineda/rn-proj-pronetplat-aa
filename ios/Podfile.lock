@@ -444,7 +444,7 @@ PODS:
     - React-Core (= 0.63.4)
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
-  - ReactNativeCameraKit (11.1.0):
+  - ReactNativeCameraKit (11.2.0):
     - React-Core
   - RNBootSplash (3.2.3):
     - React-Core
@@ -856,7 +856,7 @@ SPEC CHECKSUMS:
   React-RCTText: 5c51df3f08cb9dedc6e790161195d12bac06101c
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
-  ReactNativeCameraKit: 4a48dab8133c54a28e3c73df077c54ac8d8e33b0
+  ReactNativeCameraKit: c25ef4c32abd8918578a9ece01c90233f478c97c
   RNBootSplash: 8ef5ffa03dadd35f66510b42960ce40f397c98bf
   RNCAsyncStorage: f47a7e8f927f7c9da947491fc55752eb9ce17f2d
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
