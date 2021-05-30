@@ -12,18 +12,33 @@ function createConnection () {
   });
 }
 
+export function sendMessage (event, payload = {}) {
+  webSocket.send(
+    JSON.stringify({
+      action: 'sendmessage',
+      data: {
+        event,
+        payload
+      }
+    })
+  );
+}
+
 export function initConnection () {
   let reconnectTimeout = null;
 
   function schedulePing () {
-    BackgroundTimer.stopBackgroundTimer();
     console.log('schedulePing');
+    BackgroundTimer.stopBackgroundTimer();
 
-    // ping every 1 minute to keep connection alive
+    sendMessage('ping');
+    console.log('ping');
+
+    // ping every 5 minute to keep connection alive
     BackgroundTimer.runBackgroundTimer(() => {
-      webSocket.ping();
+      sendMessage('ping');
       console.log('ping');
-    }, 60000);
+    }, 300000);
   }
 
   function scheduleRconnect () {
@@ -35,7 +50,8 @@ export function initConnection () {
     }, 1000);
   }
 
-  function restartConnection () {
+  function restartConnection (err) {
+    console.log('restartConnection', err);
     clearTimeout(reconnectTimeout);
     BackgroundTimer.stopBackgroundTimer();
     scheduleRconnect();
