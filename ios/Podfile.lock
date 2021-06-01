@@ -448,7 +448,7 @@ PODS:
     - React-Core
   - RNBootSplash (3.2.3):
     - React-Core
-  - RNCAsyncStorage (1.15.4):
+  - RNCAsyncStorage (1.15.5):
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
@@ -858,7 +858,7 @@ SPEC CHECKSUMS:
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   ReactNativeCameraKit: c25ef4c32abd8918578a9ece01c90233f478c97c
   RNBootSplash: 8ef5ffa03dadd35f66510b42960ce40f397c98bf
-  RNCAsyncStorage: f47a7e8f927f7c9da947491fc55752eb9ce17f2d
+  RNCAsyncStorage: 56a3355a10b5d660c48c6e37325ac85ebfd09885
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNFBAnalytics: 3e250066a98d6ea0a7816c52de75f2633f726580
   RNFBApp: 9c90f9d576861947ba75fe0830567c570bcbcf6d
