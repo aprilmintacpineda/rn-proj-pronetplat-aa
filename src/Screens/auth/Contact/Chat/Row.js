@@ -11,7 +11,6 @@ import { DataFetchContext } from 'components/DataFetch';
 import Modalize from 'components/Modalize';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TextLink from 'components/TextLink';
-import UserAvatar from 'components/UserAvatar';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
@@ -134,19 +133,9 @@ function ChatMessage ({
         style={{
           marginTop: isChainedNext ? 0.5 : 10,
           marginBottom: isChainedPrev ? 0.5 : 10,
-          marginHorizontal: 10,
-          flexDirection: isReceived ? 'row' : 'row-reverse',
-          justifyContent: 'flex-start',
-          alignItems: 'flex-end'
+          flexDirection: isReceived ? 'row' : 'row-reverse'
         }}
       >
-        {isReceived && (
-          <UserAvatar
-            size={40}
-            user={isReceived ? contact : authUser}
-            hidden={isChainedPrev}
-          />
-        )}
         <View
           style={{
             flex: 1,
@@ -223,25 +212,43 @@ function ChatMessage ({
               >
                 {body}
               </Text>
-              {!isReceived && seenAt && (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'flex-end'
-                  }}
-                >
-                  <RNVectorIcon
-                    provider="AntDesign"
-                    name="check"
-                    color={paperTheme.colors.caption}
-                    size={10}
-                  />
-                  <Caption style={{ marginLeft: 5 }}>
-                    {formatDate(seenAt)}
-                  </Caption>
-                </View>
-              )}
+              {!isReceived ? (
+                seenAt ? (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'flex-end'
+                    }}
+                  >
+                    <RNVectorIcon
+                      provider="AntDesign"
+                      name="checkcircle"
+                      color={paperTheme.colors.caption}
+                      size={10}
+                    />
+                    <Caption style={{ marginLeft: 5 }}>
+                      {formatDate(seenAt)}
+                    </Caption>
+                  </View>
+                ) : (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'flex-end'
+                    }}
+                  >
+                    <RNVectorIcon
+                      provider="AntDesign"
+                      name="checkcircleo"
+                      color={paperTheme.colors.caption}
+                      size={10}
+                    />
+                    <Caption style={{ marginLeft: 5 }}>Sent</Caption>
+                  </View>
+                )
+              ) : null}
             </View>
           </TouchableWithoutFeedback>
         </View>
