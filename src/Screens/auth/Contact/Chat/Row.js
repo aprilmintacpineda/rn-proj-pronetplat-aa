@@ -171,7 +171,7 @@ function ChatMessage ({
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    marginBottom: 10
+                    marginBottom: 5
                   }}
                 >
                   <RNVectorIcon
@@ -189,7 +189,7 @@ function ChatMessage ({
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    marginBottom: 10
+                    marginBottom: 5
                   }}
                 >
                   <ActivityIndicator
@@ -200,7 +200,7 @@ function ChatMessage ({
                   <Caption>sending...</Caption>
                 </View>
               ) : (
-                <Caption style={{ marginBottom: 10 }}>
+                <Caption style={{ marginBottom: 5 }}>
                   {formatDate(createdAt)}
                 </Caption>
               )}
@@ -218,7 +218,8 @@ function ChatMessage ({
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                      justifyContent: 'flex-end'
+                      justifyContent: 'flex-end',
+                      marginTop: 5
                     }}
                   >
                     <RNVectorIcon
@@ -236,7 +237,8 @@ function ChatMessage ({
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                      justifyContent: 'flex-end'
+                      justifyContent: 'flex-end',
+                      marginTop: 5
                     }}
                   >
                     <RNVectorIcon
