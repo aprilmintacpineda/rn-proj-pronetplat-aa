@@ -2,6 +2,7 @@ import 'customAnimations';
 import 'setDefaults';
 
 import iid from '@react-native-firebase/iid';
+import messaging from '@react-native-firebase/messaging';
 import { NavigationContainer } from '@react-navigation/native';
 import { store, addEvent, updateStore } from 'fluxible-js';
 import React from 'react';
@@ -108,6 +109,10 @@ function App () {
   });
 
   React.useEffect(() => {
+    messaging().onTokenRefresh(deviceToken => {
+      updateStore({ deviceToken });
+    });
+
     appMounted();
     initStore();
   }, []);
