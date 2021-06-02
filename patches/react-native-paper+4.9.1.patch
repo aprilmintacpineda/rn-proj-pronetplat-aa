@@ -23,7 +23,7 @@ index aa97826..a0c6136 100644
  };
  
 diff --git a/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js b/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js
-index a5137b3..2394378 100644
+index fdbfa3f..7a41002 100644
 --- a/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js
 +++ b/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js
 @@ -7,6 +7,7 @@ import Text from '../Typography/Text';
@@ -34,18 +34,18 @@ index a5137b3..2394378 100644
  
  /**
   * A component used to show an action item with an icon and a label in a navigation drawer.
-@@ -41,6 +42,7 @@ const DrawerItem = ({
-   style,
+@@ -42,6 +43,7 @@ const DrawerItem = ({
    onPress,
    accessibilityLabel,
+   right,
 +  badge,
    ...rest
  }) => {
    const {
-@@ -73,11 +75,17 @@ const DrawerItem = ({
-     accessibilityLabel: accessibilityLabel
-   }, /*#__PURE__*/React.createElement(View, {
+@@ -76,11 +78,17 @@ const DrawerItem = ({
      style: styles.wrapper
+   }, /*#__PURE__*/React.createElement(View, {
+     style: styles.content
 -  }, icon ? /*#__PURE__*/React.createElement(Icon, {
 +  }, icon ? /*#__PURE__*/React.createElement(View, {
 +    style: styles.iconContainer
@@ -62,7 +62,7 @@ index a5137b3..2394378 100644
      selectable: false,
      numberOfLines: 1,
      style: [styles.label, {
-@@ -101,6 +109,14 @@ const styles = StyleSheet.create({
+@@ -110,6 +118,14 @@ const styles = StyleSheet.create({
    },
    label: {
      marginRight: 32
@@ -109,7 +109,7 @@ index 3b71389..e500f6b 100644
        )}
      </View>
 diff --git a/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx b/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
-index 503cfab..071d734 100644
+index 6fc757f..3200b7f 100644
 --- a/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
 +++ b/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
 @@ -5,6 +5,7 @@ import Text from '../Typography/Text';
@@ -120,39 +120,37 @@ index 503cfab..071d734 100644
  
  type Props = React.ComponentPropsWithRef<typeof View> & {
    /**
-@@ -32,6 +33,7 @@ type Props = React.ComponentPropsWithRef<typeof View> & {
+@@ -36,6 +37,7 @@ type Props = React.ComponentPropsWithRef<typeof View> & {
     * @optional
     */
    theme: ReactNativePaper.Theme;
-+  badge: number;
++  badge?: number;
  };
  
  /**
-@@ -67,6 +69,7 @@ const DrawerItem = ({
-   style,
+@@ -72,6 +74,7 @@ const DrawerItem = ({
    onPress,
    accessibilityLabel,
+   right,
 +  badge,
    ...rest
  }: Props) => {
    const { colors, roundness } = theme;
-@@ -101,7 +104,14 @@ const DrawerItem = ({
-         accessibilityLabel={accessibilityLabel}
-       >
+@@ -108,7 +111,12 @@ const DrawerItem = ({
          <View style={styles.wrapper}>
--          {icon ? <Icon source={icon} size={24} color={contentColor} /> : null}
-+          {icon ? (
-+            <View style={styles.iconContainer}>
-+              <Icon source={icon} size={24} color={contentColor} />
-+              <View style={styles.badgeContainer}>
-+                <Badge visible={Boolean(badge)}>{badge}</Badge>
+           <View style={styles.content}>
+             {icon ? (
+-              <Icon source={icon} size={24} color={contentColor} />
++              <View style={styles.iconContainer}>
++                <Icon source={icon} size={24} color={contentColor} />
++                <View style={styles.badgeContainer}>
++                  <Badge visible={Boolean(badge)}>{badge}</Badge>
++                </View>
 +              </View>
-+            </View>
-+          ) : null}
-           <Text
-             selectable={false}
-             numberOfLines={1}
-@@ -137,6 +147,14 @@ const styles = StyleSheet.create({
+             ) : null}
+             <Text
+               selectable={false}
+@@ -151,6 +159,14 @@ const styles = StyleSheet.create({
    label: {
      marginRight: 32,
    },
