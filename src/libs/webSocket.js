@@ -31,14 +31,11 @@ export function initConnection () {
     console.log('schedulePing');
     BackgroundTimer.stopBackgroundTimer();
 
-    sendMessage('ping');
-    console.log('ping');
-
-    // ping every 5 minute to keep connection alive
+    // ping every 3 minute to keep connection alive
     BackgroundTimer.runBackgroundTimer(() => {
       sendMessage('ping');
       console.log('ping');
-    }, 300000);
+    }, 180000);
   }
 
   function scheduleRconnect () {
