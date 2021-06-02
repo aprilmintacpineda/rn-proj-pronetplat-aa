@@ -30,7 +30,6 @@ function ChatMessageInput () {
     if (!messageBody) return;
 
     clearTimeout(isTypingTimeout.current);
-
     setMessageBody('');
 
     emitEvent('chatMessageSending', {
@@ -64,7 +63,6 @@ function ChatMessageInput () {
   const onChangeText = React.useCallback(
     value => {
       setMessageBody(value);
-
       clearTimeout(isTypingTimeout.current);
 
       if (shouldCallTypingStatus.current) {

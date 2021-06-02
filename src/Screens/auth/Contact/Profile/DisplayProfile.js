@@ -1,9 +1,16 @@
 import { useNavigation } from '@react-navigation/core';
-import { emitEvent } from 'fluxible-js';
+import { addEvent, emitEvent } from 'fluxible-js';
 import React from 'react';
 import { ScrollView, View, RefreshControl } from 'react-native';
-import { Headline, Text, Divider, Title } from 'react-native-paper';
+import {
+  Headline,
+  Text,
+  Divider,
+  Title,
+  Badge
+} from 'react-native-paper';
 import ContactDetailRow from './Row';
+import { navigationRef } from 'App';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
 import ContactDetailLoadingPlaceholder from 'components/ContactDetailLoadingPlaceholder';
@@ -28,6 +35,7 @@ import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
 function ContactProfile ({ contact }) {
+  const { setParams } = useNavigation();
   const fullName = getFullName(contact);
   const [isDisabled, setIsDisabled] = React.useState(false);
   const { setOptions } = useNavigation();
@@ -663,14 +671,22 @@ function ContactProfile ({ contact }) {
 
     return (
       <View style={{ margin: 15 }}>
-        <Button
-          style={{ marginBottom: 30 }}
-          mode="contained"
-          to="ContactChat"
-          params={contact}
-        >
-          Chat
-        </Button>
+        <View style={{ position: 'relative' }}>
+          <Button
+            style={{ marginBottom: 30 }}
+            mode="contained"
+            to="ContactChat"
+            params={contact}
+          >
+            Chat
+          </Button>
+          <Badge
+            style={{ position: 'absolute', top: -3, right: -5 }}
+            visible={Boolean(contact.unreadChatMessages)}
+          >
+            {contact.unreadChatMessages}
+          </Badge>
+        </View>
         <View>
           {groupedData.map(({ label, data }, index) => {
             if (!data.length) return null;
@@ -707,6 +723,41 @@ function ContactProfile ({ contact }) {
     refreshData,
     contact
   ]);
+
+  React.useEffect(() => {
+    const removeListeners = [
+      addEvent('websocketEvent-chatMessageReceived', ({ user }) => {
+        if (user.id !== contact.id) return;
+
+        const currentRoute = navigationRef.current.getCurrentRoute();
+
+        if (
+          currentRoute.name === 'ContactChat' &&
+          currentRoute.params.id === user.id
+        )
+          return;
+
+        setParams({
+          ...contact,
+          unreadChatMessages: contact.unreadChatMessages + 1
+        });
+      }),
+      addEvent('resetUnreadChatMessages', userId => {
+        if (userId !== contact.id) return;
+
+        setParams({
+          ...contact,
+          unreadChatMessages: 0
+        });
+      })
+    ];
+
+    return () => {
+      removeListeners.forEach(removeListener => {
+        removeListener();
+      });
+    };
+  }, [contact, setParams]);
 
   return (
     <ScrollView

@@ -1,9 +1,16 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
+import { Badge } from 'react-native-paper';
 import { Placeholder, PlaceholderMedia, Fade } from 'rn-placeholder';
 import useState from 'hooks/useState';
 
-function Avatar ({ size = 60, uri, label, hidden = false }) {
+function Avatar ({
+  size = 60,
+  uri,
+  label,
+  hidden = false,
+  badge = 0
+}) {
   const { updateState, state } = useState({
     uri,
     status: 'initial'
@@ -36,7 +43,7 @@ function Avatar ({ size = 60, uri, label, hidden = false }) {
       <View
         style={{
           position: 'relative',
-          overflow: 'hidden',
+          overflow: 'visible',
           opacity: hidden ? 0 : 1
         }}
       >
@@ -72,6 +79,13 @@ function Avatar ({ size = 60, uri, label, hidden = false }) {
             opacity: isLoadSuccess ? 1 : 0
           }}
         />
+        <Badge
+          size={25}
+          style={{ position: 'absolute', top: -3, right: -5 }}
+          visible={Boolean(badge)}
+        >
+          {badge}
+        </Badge>
       </View>
     );
   }
@@ -87,12 +101,21 @@ function Avatar ({ size = 60, uri, label, hidden = false }) {
         height: size,
         alignItems: 'center',
         justifyContent: 'center',
+        position: 'relative',
+        overflow: 'visible',
         opacity: hidden ? 0 : 1
       }}
     >
       <Text style={{ fontSize: Math.floor(size * 0.4) }}>
         {label}
       </Text>
+      <Badge
+        size={25}
+        style={{ position: 'absolute', top: -3, right: -5 }}
+        visible={Boolean(badge)}
+      >
+        {badge}
+      </Badge>
     </View>
   );
 }

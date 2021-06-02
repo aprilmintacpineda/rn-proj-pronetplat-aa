@@ -71,24 +71,24 @@ const webSocketEventHandlers = {
       }
     });
   },
-  chatMessageReceived: data => {
-    const { user } = data;
+  chatMessageReceived: ({ user }) => {
     const currentRoute = navigationRef.current.getCurrentRoute();
 
     if (
-      currentRoute.name !== 'ContactChat' ||
-      currentRoute.params.id !== user.id
-    ) {
-      displayNotification({
-        title: 'New message',
-        body: `${getFullName(user)} sent you a message.`,
-        avatarUri: user.profilePicture,
-        avatarLabel: getInitials(user),
-        onPress: () => {
-          navigationRef.current.navigate('ContactChat', user);
-        }
-      });
-    }
+      currentRoute.name === 'ContactChat' &&
+      currentRoute.params.id === user.id
+    )
+      return;
+
+    displayNotification({
+      title: 'New message',
+      body: `${getFullName(user)} sent you a message.`,
+      avatarUri: user.profilePicture,
+      avatarLabel: getInitials(user),
+      onPress: () => {
+        navigationRef.current.navigate('ContactChat', user);
+      }
+    });
   }
 };
 

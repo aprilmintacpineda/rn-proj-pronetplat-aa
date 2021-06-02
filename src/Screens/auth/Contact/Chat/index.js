@@ -1,3 +1,4 @@
+import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import { Platform, View } from 'react-native';
 import { Text } from 'react-native-paper';
@@ -99,6 +100,8 @@ function ContactChat ({
         </View>
       )
     });
+
+    emitEvent('resetUnreadChatMessages', contact.id);
   }, [setOptions, contact]);
 
   return (
