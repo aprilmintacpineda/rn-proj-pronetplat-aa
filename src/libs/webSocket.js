@@ -31,11 +31,11 @@ export function initConnection () {
     console.log('schedulePing');
     BackgroundTimer.stopBackgroundTimer();
 
-    // ping every 3 minute to keep connection alive
+    // ping every 9 minute to keep connection alive
     BackgroundTimer.runBackgroundTimer(() => {
       sendMessage('ping');
       console.log('ping');
-    }, 180000);
+    }, 540000);
   }
 
   function scheduleRconnect () {
