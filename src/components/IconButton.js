@@ -3,14 +3,15 @@ import { View } from 'react-native';
 import { IconButton as RNPIconButton } from 'react-native-paper';
 import { paperTheme } from 'theme';
 
-function IconButton ({ size, disabled, ...iconProps }) {
+function IconButton ({ size, disabled, viewStyle, ...iconProps }) {
   return (
     <View
       style={{
         borderRadius: 100,
         backgroundColor: disabled
           ? paperTheme.colors.disabled
-          : paperTheme.colors.primary
+          : paperTheme.colors.primary,
+        ...viewStyle
       }}
     >
       <RNPIconButton

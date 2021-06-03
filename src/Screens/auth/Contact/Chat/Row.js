@@ -3,12 +3,12 @@ import { format, isToday } from 'date-fns';
 import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { View } from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
 import { ActivityIndicator, Text } from 'react-native-paper';
-import Button from 'components/Button';
 import Caption from 'components/Caption';
 import { DataFetchContext } from 'components/DataFetch';
-import Modalize from 'components/Modalize';
+import IconButton from 'components/IconButton';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TextLink from 'components/TextLink';
 import { xhr } from 'libs/xhr';
@@ -26,21 +26,21 @@ function mapStates ({ authUser }) {
   return { authUser };
 }
 
-function ChatMessage ({
-  id,
-  recipientId,
-  messageBody,
-  createdAt,
-  toSend = false,
-  seenAt,
-  index
-}) {
+function ChatMessage ({ index, ...chatMessage }) {
+  const {
+    id,
+    recipientId,
+    messageBody,
+    createdAt,
+    toSend = false,
+    seenAt
+  } = chatMessage;
   const { authUser } = useFluxibleStore(mapStates);
   const { params: contact } = useRoute();
   const { data } = React.useContext(DataFetchContext);
   const prevItem = data && data[index - 1];
   const nextItem = data && data[index + 1];
-  const modalizeRef = React.useRef(null);
+  const swipeableRef = React.useRef(null);
   const [status, setStatus] = React.useState('initial');
 
   const isChainedPrev = prevItem?.recipientId === recipientId;
@@ -91,14 +91,8 @@ function ChatMessage ({
     return body;
   }, [messageBody]);
 
-  const showOptions = React.useCallback(() => {
-    modalizeRef.current.open();
-  }, []);
-
   const sendChatMessage = React.useCallback(async () => {
     try {
-      if (modalizeRef.current) modalizeRef.current.close();
-
       setStatus('sending');
 
       let chatMessage = await xhr(
@@ -121,40 +115,80 @@ function ChatMessage ({
     }
   }, [id, contact.id, messageBody]);
 
+  const cancelSend = React.useCallback(() => {
+    emitEvent('cancelSend', id);
+  }, [id]);
+
+  const renderActions = React.useCallback(() => {
+    return (
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginRight: 10,
+          marginLeft: 10
+        }}
+      >
+        <RNVectorIcon
+          provider="Ionicons"
+          name="ios-arrow-undo-outline"
+          color={paperTheme.colors.primary}
+          size={30}
+        />
+      </View>
+    );
+  }, []);
+
+  const onReply = React.useCallback(() => {
+    swipeableRef.current.close();
+    emitEvent('replyToChatMessage', chatMessage);
+  }, [chatMessage]);
+
   React.useEffect(() => {
     if (toSend && status === 'initial') sendChatMessage();
     else if (!toSend && status === 'sending')
       setStatus('sendSuccess');
   }, [toSend, status, sendChatMessage]);
 
+  const isError = status === 'sendFailed';
+
   return (
     <>
-      <View
-        style={{
-          marginTop: isChainedNext ? 0.5 : 10,
-          marginBottom: isChainedPrev ? 0.5 : 10,
-          flexDirection: isReceived ? 'row' : 'row-reverse'
-        }}
+      <Swipeable
+        ref={swipeableRef}
+        onSwipeableRightWillOpen={isReceived ? null : onReply}
+        renderRightActions={isReceived ? null : renderActions}
+        onSwipeableLeftWillOpen={isReceived ? onReply : null}
+        renderLeftActions={isReceived ? renderActions : null}
+        enabled={Boolean(createdAt)}
+        overshootLeft={false}
+        overshootRight={false}
+        overshootFriction={8}
       >
         <View
           style={{
             flex: 1,
+            marginTop: isChainedNext ? 0.5 : 10,
+            marginBottom: isChainedPrev ? 0.5 : 10,
             flexDirection: isReceived ? 'row' : 'row-reverse'
           }}
         >
-          <TouchableWithoutFeedback
-            onPress={status === 'sendFailed' ? showOptions : null}
+          <View
+            style={{
+              flex: 1,
+              flexDirection: isReceived ? 'row' : 'row-reverse',
+              alignItems: 'center',
+              paddingRight: 55,
+              paddingLeft: 5
+            }}
           >
             <View
               style={{
-                marginLeft: isReceived ? 5 : 100,
-                marginRight: isReceived ? 55 : 5,
                 paddingVertical: 10,
                 paddingHorizontal: 15,
                 backgroundColor: isReceived
                   ? '#e6e6e6'
                   : paperTheme.colors.accent,
-                opacity: status === 'sendFailed' ? 0.5 : 1,
                 borderRadius: roundness,
                 borderTopLeftRadius:
                   isReceived && isChainedNext ? 0 : roundness,
@@ -166,7 +200,7 @@ function ChatMessage ({
                   !isReceived && isChainedPrev ? 0 : roundness
               }}
             >
-              {status === 'sendFailed' ? (
+              {isError ? (
                 <View
                   style={{
                     flexDirection: 'row',
@@ -181,7 +215,7 @@ function ChatMessage ({
                     style={{ marginRight: 10 }}
                   />
                   <Caption color={paperTheme.colors.error}>
-                    Failed to send. Tap to resend.
+                    Failed to send.
                   </Caption>
                 </View>
               ) : toSend || status === 'sending' ? (
@@ -232,7 +266,7 @@ function ChatMessage ({
                       {formatDate(seenAt)}
                     </Caption>
                   </View>
-                ) : (
+                ) : createdAt ? (
                   <View
                     style={{
                       flexDirection: 'row',
@@ -249,28 +283,38 @@ function ChatMessage ({
                     />
                     <Caption style={{ marginLeft: 5 }}>Sent</Caption>
                   </View>
-                )
+                ) : null
               ) : null}
             </View>
-          </TouchableWithoutFeedback>
+            {isError && (
+              <>
+                <IconButton
+                  viewStyle={{ marginRight: 5 }}
+                  onPress={sendChatMessage}
+                  icon={props => (
+                    <RNVectorIcon
+                      provider="Ionicons"
+                      name="ios-reload-outline"
+                      {...props}
+                    />
+                  )}
+                />
+                <IconButton
+                  viewStyle={{ marginRight: 5 }}
+                  onPress={cancelSend}
+                  icon={props => (
+                    <RNVectorIcon
+                      provider="Ionicons"
+                      name="trash-outline"
+                      {...props}
+                    />
+                  )}
+                />
+              </>
+            )}
+          </View>
         </View>
-      </View>
-      <Modalize ref={modalizeRef}>
-        <Button
-          onPress={sendChatMessage}
-          mode="contained"
-          color={paperTheme.colors.primary}
-          icon={props => (
-            <RNVectorIcon
-              provider="Ionicons"
-              name="ios-arrow-undo-outline"
-              {...props}
-            />
-          )}
-        >
-          Resend message
-        </Button>
-      </Modalize>
+      </Swipeable>
     </>
   );
 }

@@ -50,14 +50,23 @@ function ChatMessageInput () {
   }, [messageBody, contact]);
 
   React.useEffect(() => {
-    const removeEventListener = addEvent(
-      'websocketEvent-typingStatus',
-      ({ user, payload: { isTyping } }) => {
-        if (user.id === contact.id) setIsTyping(isTyping);
-      }
-    );
+    const removeListeners = [
+      addEvent(
+        'websocketEvent-typingStatus',
+        ({ user, payload: { isTyping } }) => {
+          if (user.id === contact.id) setIsTyping(isTyping);
+        }
+      ),
+      addEvent('replyToChatMessage', chatMessage => {
+        console.log('replyToChatMessage', chatMessage);
+      })
+    ];
 
-    return removeEventListener;
+    return () => {
+      removeListeners.forEach(removeListener => {
+        removeListener();
+      });
+    };
   }, [contact]);
 
   const onChangeText = React.useCallback(

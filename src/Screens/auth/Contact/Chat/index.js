@@ -61,6 +61,11 @@ const eventListeners = {
         return sentChatMessage;
       })
     );
+  },
+  cancelSend: (tempId, { replaceData }) => {
+    replaceData(data =>
+      data.filter(chatMessage => chatMessage.id !== tempId)
+    );
   }
 };
 
