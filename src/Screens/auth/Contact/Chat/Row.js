@@ -11,6 +11,7 @@ import { DataFetchContext } from 'components/DataFetch';
 import IconButton from 'components/IconButton';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TextLink from 'components/TextLink';
+import { getPersonalPronoun, shortenName } from 'libs/user';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
@@ -33,7 +34,8 @@ function ChatMessage ({ index, ...chatMessage }) {
     messageBody,
     createdAt,
     toSend = false,
-    seenAt
+    seenAt,
+    replyTo
   } = chatMessage;
   const { authUser } = useFluxibleStore(mapStates);
   const { params: contact } = useRoute();
@@ -45,6 +47,7 @@ function ChatMessage ({ index, ...chatMessage }) {
 
   const isChainedPrev = prevItem?.recipientId === recipientId;
   const isChainedNext = nextItem?.recipientId === recipientId;
+  const isNextHasReplyTo = isChainedNext && nextItem.replyTo;
   const isReceived = recipientId === authUser.id;
   const roundness = paperTheme.roundness * 4;
 
@@ -99,7 +102,10 @@ function ChatMessage ({ index, ...chatMessage }) {
         `/send-chat-message/${contact.id}`,
         {
           method: 'post',
-          body: { messageBody }
+          body: {
+            messageBody,
+            replyToMessageId: replyTo?.id
+          }
         }
       );
 
@@ -113,7 +119,7 @@ function ChatMessage ({ index, ...chatMessage }) {
       console.log(error);
       setStatus('sendFailed');
     }
-  }, [id, contact.id, messageBody]);
+  }, [id, contact.id, replyTo, messageBody]);
 
   const cancelSend = React.useCallback(() => {
     emitEvent('cancelSend', id);
@@ -182,109 +188,161 @@ function ChatMessage ({ index, ...chatMessage }) {
               paddingLeft: 5
             }}
           >
-            <View
-              style={{
-                paddingVertical: 10,
-                paddingHorizontal: 15,
-                backgroundColor: isReceived
-                  ? '#e6e6e6'
-                  : paperTheme.colors.accent,
-                borderRadius: roundness,
-                borderTopLeftRadius:
-                  isReceived && isChainedNext ? 0 : roundness,
-                borderBottomLeftRadius:
-                  isReceived && isChainedPrev ? 0 : roundness,
-                borderTopRightRadius:
-                  !isReceived && isChainedNext ? 0 : roundness,
-                borderBottomRightRadius:
-                  !isReceived && isChainedPrev ? 0 : roundness
-              }}
-            >
-              {isError ? (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginBottom: 5
-                  }}
-                >
-                  <RNVectorIcon
-                    provider="AntDesign"
-                    name="warning"
-                    color={paperTheme.colors.error}
-                    style={{ marginRight: 10 }}
-                  />
-                  <Caption color={paperTheme.colors.error}>
-                    Failed to send.
+            <View>
+              {replyTo ? (
+                <View style={{ marginTop: isChainedPrev ? 5 : 0 }}>
+                  <Caption>
+                    {isReceived
+                      ? `${shortenName(
+                          contact.firstName
+                        )} replied to ${
+                          replyTo.senderId === authUser.id
+                            ? 'you'
+                            : `${
+                                getPersonalPronoun(contact).objective
+                                  .lowercase
+                              }self`
+                        }`
+                      : `You replied to ${
+                          replyTo.senderId === authUser.id
+                            ? 'yourself'
+                            : `${shortenName(contact.firstName)}`
+                        }`}
                   </Caption>
+                  <View
+                    style={{
+                      paddingVertical: 10,
+                      paddingHorizontal: 15,
+                      paddingBottom: 30,
+                      backgroundColor: '#d4d4d4',
+                      borderTopLeftRadius: roundness,
+                      borderTopRightRadius: roundness,
+                      marginBottom: -20
+                    }}
+                  >
+                    <Caption style={{ marginBottom: 5 }}>
+                      {formatDate(replyTo.createdAt)}
+                    </Caption>
+                    <Text>{replyTo.messageBody}</Text>
+                  </View>
                 </View>
-              ) : toSend || status === 'sending' ? (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginBottom: 5
-                  }}
-                >
-                  <ActivityIndicator
-                    size={10}
-                    color="#fff"
-                    style={{ marginRight: 10 }}
-                  />
-                  <Caption>sending...</Caption>
-                </View>
-              ) : (
-                <Caption style={{ marginBottom: 5 }}>
-                  {formatDate(createdAt)}
-                </Caption>
-              )}
-              <Text
-                selectable
+              ) : null}
+              <View
                 style={{
-                  color: isReceived ? paperTheme.colors.text : '#fff'
+                  paddingVertical: 10,
+                  paddingHorizontal: 15,
+                  backgroundColor: isReceived
+                    ? '#e6e6e6'
+                    : paperTheme.colors.accent,
+                  borderRadius: roundness,
+                  borderTopLeftRadius:
+                    isReceived && isChainedNext && !replyTo
+                      ? 0
+                      : roundness,
+                  borderBottomLeftRadius:
+                    isReceived && isChainedPrev && isNextHasReplyTo
+                      ? 0
+                      : roundness,
+                  borderTopRightRadius:
+                    !isReceived && isChainedNext && !replyTo
+                      ? 0
+                      : roundness,
+                  borderBottomRightRadius:
+                    !isReceived && isChainedPrev && isNextHasReplyTo
+                      ? 0
+                      : roundness
                 }}
               >
-                {body}
-              </Text>
-              {!isReceived ? (
-                seenAt ? (
+                {isError ? (
                   <View
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                      justifyContent: 'flex-end',
-                      marginTop: 5
+                      marginBottom: 5
                     }}
                   >
                     <RNVectorIcon
                       provider="AntDesign"
-                      name="checkcircle"
-                      color={paperTheme.colors.caption}
-                      size={10}
+                      name="warning"
+                      color={paperTheme.colors.error}
+                      style={{ marginRight: 10 }}
                     />
-                    <Caption style={{ marginLeft: 5 }}>
-                      {formatDate(seenAt)}
+                    <Caption color={paperTheme.colors.error}>
+                      Failed to send.
                     </Caption>
                   </View>
-                ) : createdAt ? (
+                ) : toSend || status === 'sending' ? (
                   <View
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                      justifyContent: 'flex-end',
-                      marginTop: 5
+                      marginBottom: 5
                     }}
                   >
-                    <RNVectorIcon
-                      provider="AntDesign"
-                      name="checkcircleo"
-                      color={paperTheme.colors.caption}
+                    <ActivityIndicator
                       size={10}
+                      color="#fff"
+                      style={{ marginRight: 10 }}
                     />
-                    <Caption style={{ marginLeft: 5 }}>Sent</Caption>
+                    <Caption>sending...</Caption>
                   </View>
-                ) : null
-              ) : null}
+                ) : (
+                  <Caption style={{ marginBottom: 5 }}>
+                    {formatDate(createdAt)}
+                  </Caption>
+                )}
+                <Text
+                  selectable
+                  style={{
+                    color: isReceived
+                      ? paperTheme.colors.text
+                      : '#fff'
+                  }}
+                >
+                  {body}
+                </Text>
+                {!isReceived ? (
+                  seenAt ? (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        marginTop: 5
+                      }}
+                    >
+                      <RNVectorIcon
+                        provider="AntDesign"
+                        name="checkcircle"
+                        color={paperTheme.colors.caption}
+                        size={10}
+                      />
+                      <Caption style={{ marginLeft: 5 }}>
+                        {formatDate(seenAt)}
+                      </Caption>
+                    </View>
+                  ) : createdAt ? (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        marginTop: 5
+                      }}
+                    >
+                      <RNVectorIcon
+                        provider="AntDesign"
+                        name="checkcircleo"
+                        color={paperTheme.colors.caption}
+                        size={10}
+                      />
+                      <Caption style={{ marginLeft: 5 }}>
+                        Sent
+                      </Caption>
+                    </View>
+                  ) : null
+                ) : null}
+              </View>
             </View>
             {isError && (
               <>

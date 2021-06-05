@@ -2,43 +2,60 @@ import { useRoute } from '@react-navigation/core';
 import { addEvent, emitEvent } from 'fluxible-js';
 import React from 'react';
 import { TextInput, View } from 'react-native';
+import { Text } from 'react-native-paper';
 import Caption from 'components/Caption';
 import IconButton from 'components/IconButton';
 import RNVectorIcon from 'components/RNVectorIcon';
-import { getFullName } from 'libs/user';
+import useState from 'hooks/useState';
+import { shortenName } from 'libs/user';
 import { xhr } from 'libs/xhr';
 
-function SendIcon () {
+function SendIcon (props) {
   return (
     <RNVectorIcon
       provider="Ionicons"
       name="ios-arrow-undo-outline"
-      color="#fff"
-      size={30}
+      {...props}
+    />
+  );
+}
+
+function ClearIcon (props) {
+  return (
+    <RNVectorIcon
+      provider="Ionicons"
+      name="ios-close-outline"
+      {...props}
     />
   );
 }
 
 function ChatMessageInput () {
   const { params: contact } = useRoute();
-  const [messageBody, setMessageBody] = React.useState('');
-  const [isTyping, setIsTyping] = React.useState(false);
+  const {
+    state: { replyTo, messageBody, isTyping },
+    updateState
+  } = useState({
+    replyTo: null,
+    messageBody: '',
+    isTyping: false
+  });
   const shouldCallTypingStatus = React.useRef(true);
   const isTypingTimeout = React.useRef(null);
 
   const send = React.useCallback(() => {
     if (!messageBody) return;
 
-    clearTimeout(isTypingTimeout.current);
-    setMessageBody('');
-
     emitEvent('chatMessageSending', {
       id: `${Math.random()}-${Math.random()}`,
       recipientId: contact.id,
       messageBody,
+      replyTo,
       toSend: true
     });
 
+    updateState({ messageBody: '', replyTo: null });
+    clearTimeout(isTypingTimeout.current);
     shouldCallTypingStatus.current = true;
 
     xhr(`/chat-typing-status/${contact.id}`, {
@@ -47,18 +64,22 @@ function ChatMessageInput () {
         isTyping: false
       }
     });
-  }, [messageBody, contact]);
+  }, [replyTo, messageBody, contact, updateState]);
+
+  const clearReplyTo = React.useCallback(() => {
+    updateState({ replyTo: null });
+  }, [updateState]);
 
   React.useEffect(() => {
     const removeListeners = [
       addEvent(
         'websocketEvent-typingStatus',
         ({ user, payload: { isTyping } }) => {
-          if (user.id === contact.id) setIsTyping(isTyping);
+          if (user.id === contact.id) updateState({ isTyping });
         }
       ),
-      addEvent('replyToChatMessage', chatMessage => {
-        console.log('replyToChatMessage', chatMessage);
+      addEvent('replyToChatMessage', replyTo => {
+        updateState({ replyTo });
       })
     ];
 
@@ -67,11 +88,11 @@ function ChatMessageInput () {
         removeListener();
       });
     };
-  }, [contact]);
+  }, [contact, updateState]);
 
   const onChangeText = React.useCallback(
     value => {
-      setMessageBody(value);
+      updateState({ messageBody: value });
       clearTimeout(isTypingTimeout.current);
 
       if (shouldCallTypingStatus.current) {
@@ -96,7 +117,7 @@ function ChatMessageInput () {
         });
       }, 5000);
     },
-    [contact]
+    [contact, updateState]
   );
 
   return (
@@ -109,36 +130,73 @@ function ChatMessageInput () {
             fontStyle: 'italic'
           }}
         >
-          {getFullName(contact)} is typing...
+          {shortenName(contact.firstName)} is typing...
         </Caption>
       ) : null}
       <View
         style={{
           borderTopWidth: 1,
-          borderTopColor: '#d0d1d5',
-          flexDirection: 'row',
-          padding: 15,
-          alignItems: 'center'
+          borderTopColor: '#ededed'
         }}
       >
-        <View style={{ flex: 1, marginRight: 15 }}>
-          <TextInput
-            value={messageBody}
-            onChangeText={onChangeText}
-            maxLength={3000}
-            multiline
-            placeholder="Send a message"
-          />
-          <Caption style={{ marginTop: 5 }}>
-            {3000 - messageBody.length} character(s) remaining
-          </Caption>
-        </View>
-        <View style={{ alignSelf: 'flex-end' }}>
-          <IconButton
-            onPress={send}
-            icon={SendIcon}
-            disabled={!messageBody}
-          />
+        {replyTo ? (
+          <View
+            style={{
+              marginTop: 15,
+              paddingHorizontal: 15,
+              flexDirection: 'row',
+              alignItems: 'flex-start'
+            }}
+          >
+            <IconButton
+              size={15}
+              onPress={clearReplyTo}
+              icon={ClearIcon}
+            />
+            <View style={{ marginLeft: 10, marginRight: 25 }}>
+              <Caption>
+                Replying to{' '}
+                {replyTo.senderId === contact.id
+                  ? shortenName(contact.firstName)
+                  : 'yourself'}
+              </Caption>
+              <Text numberOfLines={1}>{replyTo.messageBody}</Text>
+            </View>
+          </View>
+        ) : null}
+        <View
+          style={{
+            flexDirection: 'row',
+            paddingHorizontal: 15,
+            paddingBottom: 15,
+            paddingTop: 5,
+            alignItems: 'center'
+          }}
+        >
+          <View style={{ flex: 1, marginRight: 10 }}>
+            <TextInput
+              style={{
+                borderWidth: 0,
+                padding: 0,
+                margin: 0
+              }}
+              value={messageBody}
+              onChangeText={onChangeText}
+              maxLength={3000}
+              multiline
+              placeholder="Send a message"
+            />
+            <Caption style={{ marginTop: 5 }}>
+              {3000 - messageBody.length} character(s) remaining
+            </Caption>
+          </View>
+          <View style={{ alignSelf: 'flex-end' }}>
+            <IconButton
+              onPress={send}
+              icon={SendIcon}
+              disabled={!messageBody}
+            />
+          </View>
         </View>
       </View>
     </View>

@@ -44,7 +44,7 @@ export function initConnection () {
 
     reconnectTimeout = setTimeout(() => {
       connect();
-    }, 1000);
+    }, 3000);
   }
 
   function restartConnection (err) {
@@ -65,6 +65,7 @@ export function initConnection () {
 
     webSocket.onopen = schedulePing;
     webSocket.onclose = restartConnection;
+    webSocket.onerror = restartConnection;
 
     webSocket.onmessage = async ({ data }) => {
       const parsedData = JSON.parse(data);

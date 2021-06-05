@@ -6,6 +6,11 @@ import UserAvatar from 'components/UserAvatar';
 import { toast, updateOrCreateToast } from 'fluxible/actions/popup';
 import { xhr } from 'libs/xhr';
 
+export function shortenName (name) {
+  if (name.length < 10) return name;
+  return name.substr(0, 10) + '..';
+}
+
 export function getFullName ({ firstName, middleName, surname }) {
   let fullName = '';
 

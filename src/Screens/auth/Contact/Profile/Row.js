@@ -24,7 +24,7 @@ function ContactDetailRow ({
         actions.push(
           <View
             style={{
-              backgroundColor: '#d0d1d5',
+              backgroundColor: '#ededed',
               borderRadius: 100,
               overflow: 'hidden',
               flexDirection: 'row',
@@ -52,7 +52,7 @@ function ContactDetailRow ({
         actions.push(
           <View
             style={{
-              backgroundColor: '#d0d1d5',
+              backgroundColor: '#ededed',
               borderRadius: 100,
               overflow: 'hidden',
               flexDirection: 'row',
@@ -80,7 +80,7 @@ function ContactDetailRow ({
         actions.push(
           <View
             style={{
-              backgroundColor: '#d0d1d5',
+              backgroundColor: '#ededed',
               borderRadius: 100,
               overflow: 'hidden',
               flexDirection: 'row',
@@ -114,7 +114,7 @@ function ContactDetailRow ({
       actions.push(
         <View
           style={{
-            backgroundColor: '#d0d1d5',
+            backgroundColor: '#ededed',
             borderRadius: 100,
             overflow: 'hidden',
             flexDirection: 'row',

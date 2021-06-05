@@ -73,7 +73,7 @@ function Avatar ({
             width: size,
             height: size,
             borderRadius: 100,
-            backgroundColor: '#d0d1d5',
+            backgroundColor: '#ededed',
             borderColor: '#bbbdbf',
             borderWidth: 1,
             opacity: isLoadSuccess ? 1 : 0
@@ -93,7 +93,7 @@ function Avatar ({
   return (
     <View
       style={{
-        backgroundColor: '#d0d1d5',
+        backgroundColor: '#ededed',
         borderColor: '#bbbdbf',
         borderWidth: 1,
         borderRadius: 100,
