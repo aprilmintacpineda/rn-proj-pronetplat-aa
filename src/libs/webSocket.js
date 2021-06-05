@@ -81,6 +81,6 @@ export function initConnection () {
     BackgroundTimer.stopBackgroundTimer();
 
     webSocket.close();
-    console.log('unmounted');
+    console.log('closed webSocket');
   };
 }
