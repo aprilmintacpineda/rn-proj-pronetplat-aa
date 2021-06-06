@@ -2,13 +2,13 @@ import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { Paragraph, Text } from 'react-native-paper';
 import { logEvent } from './logging';
+import { shortenStr } from './strings';
 import UserAvatar from 'components/UserAvatar';
 import { toast, updateOrCreateToast } from 'fluxible/actions/popup';
 import { xhr } from 'libs/xhr';
 
 export function shortenName (name) {
-  if (name.length < 10) return name;
-  return name.substr(0, 10) + '..';
+  return shortenStr(name, 10);
 }
 
 export function getFullName ({ firstName, middleName, surname }) {

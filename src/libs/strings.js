@@ -12,3 +12,8 @@ export function camelToTitleCase (value) {
       return accumulator;
     }, '');
 }
+
+export function shortenStr (str, maxLen) {
+  if (str.length < maxLen) return str;
+  return str.substr(0, maxLen) + '...';
+}
