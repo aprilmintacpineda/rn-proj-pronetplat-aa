@@ -4,22 +4,11 @@ import { WEBSOCKET_URL } from 'env';
 
 let webSocket = null;
 
-function createConnection () {
-  return new WebSocket(WEBSOCKET_URL, undefined, {
-    headers: {
-      Authorization: `Bearer ${store.authToken}`
-    }
-  });
-}
-
-export function sendMessage (event, payload = {}) {
+export function sendMessage (action, data = {}) {
   webSocket.send(
     JSON.stringify({
-      action: 'sendmessage',
-      data: {
-        event,
-        payload
-      }
+      action,
+      data
     })
   );
 }
@@ -31,11 +20,10 @@ export function initConnection () {
     console.log('schedulePing');
     BackgroundTimer.stopBackgroundTimer();
 
-    // ping every 9 minute to keep connection alive
+    // ping every 5 minute to keep connection alive
     BackgroundTimer.runBackgroundTimer(() => {
       sendMessage('ping');
-      console.log('ping');
-    }, 540000);
+    }, 300000);
   }
 
   function scheduleRconnect () {
@@ -60,14 +48,18 @@ export function initConnection () {
     clearTimeout(reconnectTimeout);
     BackgroundTimer.stopBackgroundTimer();
 
-    webSocket = null;
-    webSocket = createConnection();
+    webSocket = new WebSocket(WEBSOCKET_URL, undefined, {
+      headers: {
+        Authorization: `Bearer ${store.authToken}`
+      }
+    });
 
     webSocket.onopen = schedulePing;
     webSocket.onclose = restartConnection;
     webSocket.onerror = restartConnection;
 
     webSocket.onmessage = async ({ data }) => {
+      if (data === 'pong') return;
       const parsedData = JSON.parse(data);
       emitEvent('websocketEvent', parsedData);
       emitEvent(`websocketEvent-${parsedData.type}`, parsedData);
