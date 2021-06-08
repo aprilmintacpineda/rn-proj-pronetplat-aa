@@ -59,6 +59,7 @@ export function initConnection () {
     webSocket.onerror = restartConnection;
 
     webSocket.onmessage = async ({ data }) => {
+      schedulePing();
       if (data === 'pong') return;
       const parsedData = JSON.parse(data);
       emitEvent('websocketEvent', parsedData);
