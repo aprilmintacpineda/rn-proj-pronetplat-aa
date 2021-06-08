@@ -20,10 +20,10 @@ export function initConnection () {
     console.log('schedulePing');
     BackgroundTimer.stopBackgroundTimer();
 
-    // ping every 5 minute to keep connection alive
+    // ping every 1 minute to keep connection alive
     BackgroundTimer.runBackgroundTimer(() => {
       sendMessage('ping');
-    }, 300000);
+    }, 60000);
   }
 
   function scheduleRconnect () {
