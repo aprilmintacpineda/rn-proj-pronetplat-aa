@@ -5,6 +5,8 @@ import { WEBSOCKET_URL } from 'env';
 let webSocket = null;
 
 export function sendMessage (action, data = {}) {
+  console.log('sendMessage', action);
+
   webSocket.send(
     JSON.stringify({
       action,
@@ -23,6 +25,7 @@ export function initConnection () {
     // ping every 1 minute to keep connection alive
     BackgroundTimer.runBackgroundTimer(() => {
       sendMessage('ping');
+      BackgroundTimer.stopBackgroundTimer();
     }, 60000);
   }
 

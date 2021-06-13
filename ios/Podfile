@@ -18,7 +18,11 @@ target 'proj_pronetplat_aa' do
   use_unimodules!(exclude: ['expo-permissions'])
   config = use_native_modules!
 
-  use_react_native!(:path => config["reactNativePath"])
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # to enable hermes on iOS, change `false` to `true` and then install pods
+    :hermes_enabled => true
+  )
 
   target 'proj_pronetplat_aaTests' do
     inherit! :complete
@@ -30,7 +34,10 @@ target 'proj_pronetplat_aa' do
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable these next few lines.
-    use_flipper!({ 'Flipper' => '0.90.2' })
+    use_flipper!({
+      'Flipper' => '0.93.0',
+      'Flipper-Folly' => '~> 2.6'
+    })
     post_install do |installer|
       flipper_post_install(installer)
     end
