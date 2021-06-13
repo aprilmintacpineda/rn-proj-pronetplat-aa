@@ -15,7 +15,8 @@ jobs:
     continue-on-error: false
     env:
       STAGE: prod
-      API_BASE_URL: "https://apiv1.entrepic.com"
+      WEBSOCKET_URL: wss://wtok1xlpjh.execute-api.ap-southeast-1.amazonaws.com/prod
+      API_BASE_URL: https://apiv1.entrepic.com
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
       APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}

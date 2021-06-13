@@ -15,7 +15,8 @@ jobs:
     continue-on-error: false
     env:
       STAGE: prod
-      API_BASE_URL: "https://apiv1.entrepic.com"
+      WEBSOCKET_URL: wss://wtok1xlpjh.execute-api.ap-southeast-1.amazonaws.com/prod
+      API_BASE_URL: https://apiv1.entrepic.com
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
