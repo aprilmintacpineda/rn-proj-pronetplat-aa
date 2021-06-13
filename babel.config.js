@@ -28,6 +28,10 @@ if (process.env.NODE_ENV === 'production') {
           {
             search: /__API_BASE_URL__/gm,
             replace: process.env.API_BASE_URL
+          },
+          {
+            search: /__WEBSOCKET_URL__/gm,
+            replace: process.env.API_BASE_URL
           }
         ]
       }
