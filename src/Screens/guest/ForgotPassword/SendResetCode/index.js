@@ -11,7 +11,8 @@ const formOptions = {
     email: ({ email }) => validate(email, ['required', 'email'])
   },
   endPoint: 'forgot-password-send',
-  ignoreResponse: true
+  ignoreResponse: true,
+  stayDisabledOnSuccess: true
 };
 
 function SendResetCode (props) {

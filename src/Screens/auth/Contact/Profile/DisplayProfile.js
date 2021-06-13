@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
-import { emitEvent } from 'fluxible-js';
+import { addEvent, addEvents, emitEvent } from 'fluxible-js';
 import React from 'react';
 import { ScrollView, View, RefreshControl } from 'react-native';
 import { Headline, Text, Divider, Title } from 'react-native-paper';
@@ -49,6 +49,40 @@ function ContactProfile ({ contact }) {
     endpoint: `/contacts/${contact.id}`,
     onFetchDone
   });
+
+  React.useEffect(() => {
+    const removeListeners = [
+      addEvent(
+        'websocketEvent-notification',
+        ({ trigger, user }) => {
+          if (
+            user.id === contact.id &&
+            (trigger === 'contactRequest' ||
+              trigger === 'contactRequestAccepted' ||
+              trigger === 'contactRequestCancelled' ||
+              trigger === 'contactRequestDeclined')
+          )
+            refreshData();
+        }
+      ),
+      addEvents(
+        [
+          'websocketEvent-blockedByUser',
+          'websocketEvent-unblockedByUser',
+          'websocketEvent-userDisconected'
+        ],
+        ({ user }) => {
+          if (user.id === contact.id) refreshData();
+        }
+      )
+    ];
+
+    return () => {
+      removeListeners.forEach(removeListener => {
+        removeListener();
+      });
+    };
+  }, [refreshData, contact]);
 
   const confirmUnblockUser = React.useCallback(async () => {
     try {

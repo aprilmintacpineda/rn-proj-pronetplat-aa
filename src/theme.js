@@ -7,7 +7,8 @@ export const paperTheme = {
     ...paperDefaultTheme.colors,
     primary: '#E46948',
     accent: '#28003A',
-    caption: '#8a8a8a'
+    caption: '#8a8a8a',
+    success: '#00b003'
   }
 };
 

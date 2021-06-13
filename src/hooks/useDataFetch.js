@@ -80,10 +80,11 @@ function useDataFetch ({
       } catch (error) {
         console.log('useDataFetchError', error);
 
-        updateState({
+        updateState(({ data }) => ({
           status: 'fetchError',
-          error
-        });
+          error,
+          data: isRefresh && error.status === 404 ? null : data
+        }));
       }
     },
     [
