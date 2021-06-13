@@ -76,7 +76,12 @@ export function initConnection () {
     clearTimeout(reconnectTimeout);
     BackgroundTimer.stopBackgroundTimer();
 
+    webSocket.onopen = null;
+    webSocket.onclose = null;
+    webSocket.onerror = null;
+    webSocket.onmessage = null;
     webSocket.close();
+
     console.log('closed webSocket');
   };
 }
