@@ -28,7 +28,7 @@ function ReceivedContactRequestRow ({ sender, createdAt, index }) {
     modalizeRef.current.open();
   }, []);
 
-  const confirmAccept = React.useCallback(async () => {
+  const accept = React.useCallback(async () => {
     try {
       setAction('accept');
 
@@ -45,13 +45,6 @@ function ReceivedContactRequestRow ({ sender, createdAt, index }) {
       setAction('');
     }
   }, [sender.id]);
-
-  const accept = React.useCallback(() => {
-    showConfirmDialog({
-      message: `Are you sure you want to add ${fullName} to your contacts? You will be able to see each other's contact details.`,
-      onConfirm: confirmAccept
-    });
-  }, [fullName, confirmAccept]);
 
   const confirmDecline = React.useCallback(async () => {
     try {
