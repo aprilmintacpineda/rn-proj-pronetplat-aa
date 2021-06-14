@@ -23,7 +23,7 @@ export function initConnection () {
     BackgroundTimer.runBackgroundTimer(() => {
       BackgroundTimer.stopBackgroundTimer();
       sendMessage('ping');
-    }, 30000);
+    }, 60000);
   }
 
   function clearConnection () {
