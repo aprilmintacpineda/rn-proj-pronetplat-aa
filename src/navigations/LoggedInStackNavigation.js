@@ -3,10 +3,13 @@ import {
   createStackNavigator
 } from '@react-navigation/stack';
 import React from 'react';
-import { Appbar } from 'react-native-paper';
+import { Platform, View } from 'react-native';
+import { Appbar, Text } from 'react-native-paper';
 import header from './header';
 import LoggedInTabNavigation from './LoggedInTabNavigation';
+import Avatar from 'components/Avatar';
 import RNVectorIcon from 'components/RNVectorIcon';
+import { getFullName } from 'libs/user';
 import About from 'Screens/auth/About';
 import BlockList from 'Screens/auth/BlockList';
 import ChangePassword from 'Screens/auth/ChangePassword';
@@ -22,6 +25,42 @@ import SearchUsers from 'Screens/auth/SearchUsers';
 import Settings from 'Screens/auth/Settings';
 
 const Stack = createStackNavigator();
+
+function resolveContactChatTitleBar (contact) {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center'
+      }}
+    >
+      <Avatar size={40} uri={contact.profilePicture} />
+      <Text
+        style={{
+          marginLeft: 10,
+          color: '#fff',
+          fontSize: Platform.select({
+            ios: 17,
+            android: 20
+          }),
+          flex: 1
+        }}
+        numberOfLines={1}
+      >
+        {getFullName(contact)}
+      </Text>
+    </View>
+  );
+}
+
+function resolveContactProfileTitleBar (contact) {
+  return getFullName(contact);
+}
+
+function resolveContactDetailsFormTitleBar (contactDetail) {
+  if (!contactDetail) return 'Add contact detail';
+  return 'Edit contact detail';
+}
 
 const screenOptions = {
   header,
@@ -65,7 +104,12 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         name="ContactProfile"
         component={ContactProfile}
         options={{
-          title: ''
+          appbarContentStyle: {
+            right: 40,
+            marginLeft: 40,
+            alignItems: 'flex-start'
+          },
+          resolveAppBarContent: resolveContactProfileTitleBar
         }}
       />
       <Stack.Screen
@@ -100,7 +144,7 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         name="ContactDetailsForm"
         component={ContactDetailsForm}
         options={{
-          title: ''
+          resolveAppBarContent: resolveContactDetailsFormTitleBar
         }}
       />
       <Stack.Screen
@@ -150,7 +194,18 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
           title: 'Privacy settings'
         }}
       />
-      <Stack.Screen name="ContactChat" component={ContactChat} />
+      <Stack.Screen
+        name="ContactChat"
+        component={ContactChat}
+        options={{
+          resolveAppBarContent: resolveContactChatTitleBar,
+          appbarContentStyle: {
+            marginLeft: 55,
+            alignItems: 'flex-start',
+            right: 20
+          }
+        }}
+      />
     </Stack.Navigator>
   );
 }

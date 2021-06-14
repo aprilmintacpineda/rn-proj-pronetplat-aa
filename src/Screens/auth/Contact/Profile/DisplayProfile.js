@@ -407,13 +407,7 @@ function ContactProfile ({ contact }) {
       );
     }
 
-    setOptions({
-      appbarContentStyle: {
-        right: 40
-      },
-      title: fullName,
-      actions
-    });
+    setOptions({ actions });
   }, [
     isDisabled,
     fullName,

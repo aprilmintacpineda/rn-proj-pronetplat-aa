@@ -15,19 +15,14 @@ const contactDetailTypeOptions = [
   'email'
 ];
 
-function ContactDetailsAddForm () {
+function ContactDetailsFormBody () {
   const { setOptions } = useNavigation();
   const { params: contactDetail } = useRoute();
-  const { formValues, setUpdateMode } = React.useContext(
-    FormContext
-  );
+  const { formValues, setUpdateMode } =
+    React.useContext(FormContext);
 
   React.useEffect(() => {
-    if (!contactDetail) {
-      setOptions({ title: 'Add contact detail' });
-    } else {
-      setOptions({ title: 'Edit contact detail' });
-
+    if (contactDetail) {
       setUpdateMode({
         targetId: contactDetail.id,
         formValues: {
@@ -79,4 +74,4 @@ function ContactDetailsAddForm () {
   );
 }
 
-export default React.memo(ContactDetailsAddForm);
+export default React.memo(ContactDetailsFormBody);

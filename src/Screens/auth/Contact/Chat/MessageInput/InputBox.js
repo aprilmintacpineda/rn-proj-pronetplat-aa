@@ -30,7 +30,7 @@ function ClearIcon (props) {
   );
 }
 
-function ChatMessageInput () {
+function ChatMessageInputBox () {
   const { params: contact } = useRoute();
   const {
     state: { replyTo, messageBody, isTyping },
@@ -203,4 +203,4 @@ function ChatMessageInput () {
   );
 }
 
-export default React.memo(ChatMessageInput);
+export default React.memo(ChatMessageInputBox);

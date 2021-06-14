@@ -56,7 +56,7 @@ const formOptions = {
   resetOnSuccess: true
 };
 
-function ContactDetailsAdd () {
+function ContactDetailsForm () {
   return (
     <FormWithContext formOptions={formOptions}>
       <Form />
@@ -64,4 +64,4 @@ function ContactDetailsAdd () {
   );
 }
 
-export default React.memo(ContactDetailsAdd);
+export default React.memo(ContactDetailsForm);

@@ -12,17 +12,20 @@ function menuIcon (toggle) {
 
 function AppBar (props) {
   const { scene, navigation } = props;
-  const { name } = scene.route;
+  const { name, params } = scene.route;
   const { goBack, canGoBack, openDrawer } = navigation;
   const {
     isMainScreen = false,
     title = null,
     actions,
     button = null,
-    appbarContent,
+    resolveAppBarContent,
     appbarContentStyle
   } = scene.descriptor.options;
   const hasDrawerNavigation = Boolean(openDrawer);
+  const appbarContent = resolveAppBarContent
+    ? resolveAppBarContent(params)
+    : null;
 
   return (
     <Appbar.Header
@@ -56,9 +59,15 @@ function AppBar (props) {
           appbarContentStyle
         ]}
       >
-        {appbarContent || (
+        {(appbarContent &&
+          typeof appbarContent !== 'string' &&
+          appbarContent) || (
           <Appbar.Content
-            title={title !== null ? title : camelToTitleCase(name)}
+            title={
+              title !== null
+                ? title
+                : appbarContent || camelToTitleCase(name)
+            }
           />
         )}
       </View>

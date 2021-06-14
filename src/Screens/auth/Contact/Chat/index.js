@@ -1,13 +1,10 @@
 import { emitEvent } from 'fluxible-js';
 import React from 'react';
-import { Platform, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { View } from 'react-native';
 import MessageInput from './MessageInput';
 import Row from './Row';
 import { navigationRef } from 'App';
-import Avatar from 'components/Avatar';
 import DataFlatList from 'components/DataFlatList';
-import { getFullName } from 'libs/user';
 import { xhr } from 'libs/xhr';
 
 const eventListeners = {
@@ -69,45 +66,10 @@ const eventListeners = {
   }
 };
 
-function ContactChat ({
-  navigation: { setOptions },
-  route: { params: contact }
-}) {
+function ContactChat ({ route: { params: contact } }) {
   React.useEffect(() => {
-    setOptions({
-      appbarContentStyle: {
-        alignItems: 'flex-start',
-        right: 20
-      },
-      appbarContent: (
-        <View
-          style={{
-            marginLeft: 15,
-            flexDirection: 'row',
-            alignItems: 'center'
-          }}
-        >
-          <Avatar size={40} uri={contact.profilePicture} />
-          <Text
-            style={{
-              marginLeft: 10,
-              color: '#fff',
-              fontSize: Platform.select({
-                ios: 17,
-                android: 20
-              }),
-              flex: 1
-            }}
-            numberOfLines={1}
-          >
-            {getFullName(contact)}
-          </Text>
-        </View>
-      )
-    });
-
     emitEvent('resetUnreadChatMessages', contact.id);
-  }, [setOptions, contact]);
+  }, [contact]);
 
   return (
     <View style={{ flex: 1 }}>
