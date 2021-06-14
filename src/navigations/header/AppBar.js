@@ -47,7 +47,7 @@ function AppBar (props) {
         style={[
           {
             position: 'absolute',
-            left: 40,
+            left: 0,
             right: 0,
             alignItems: 'center',
             zIndex: -1,
