@@ -8,7 +8,9 @@ import { getPersonalPronoun } from 'libs/user';
 
 function ChatMessageInput () {
   const { params: contact } = useRoute();
-  const [hasBeenBlocked, setHasBeenBlocked] = React.useState(false);
+  const [isConnected, setIsConnected] = React.useState(
+    contact.isConnected
+  );
 
   React.useEffect(() => {
     const removeListener = addEvent(
@@ -17,14 +19,14 @@ function ChatMessageInput () {
         'websocketEvent-userDisconected'
       ],
       ({ user }) => {
-        if (user.id === contact.id) setHasBeenBlocked(true);
+        if (user.id === contact.id) setIsConnected(true);
       }
     );
 
     return removeListener;
   }, [contact]);
 
-  if (!hasBeenBlocked) return <InputBox />;
+  if (isConnected) return <InputBox />;
 
   return (
     <View
