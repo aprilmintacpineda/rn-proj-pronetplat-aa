@@ -685,7 +685,15 @@ function ContactProfile ({ contact }) {
 
     if (!len) {
       return (
-        <View style={{ margin: 15, alignItems: 'center' }}>
+        <View style={{ margin: 15 }}>
+          <Button
+            style={{ marginBottom: 30 }}
+            mode="contained"
+            to="ContactChat"
+            params={contact}
+          >
+            Chat
+          </Button>
           <Title style={{ textAlign: 'center', marginBottom: 15 }}>
             {fullName} does not have any contact information.
           </Title>
