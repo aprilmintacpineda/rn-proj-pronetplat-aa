@@ -16,40 +16,40 @@ export function sendMessage (action, data = {}) {
 }
 
 export function initConnection () {
-  let reconnectTimeout = null;
-
   function schedulePing () {
     console.log('schedulePing');
-    BackgroundTimer.stopBackgroundTimer();
 
     // ping every 1 minute to keep connection alive
     BackgroundTimer.runBackgroundTimer(() => {
-      sendMessage('ping');
       BackgroundTimer.stopBackgroundTimer();
-    }, 60000);
+      sendMessage('ping');
+    }, 30000);
   }
 
-  function scheduleRconnect () {
-    console.log('scheduleRconnect');
-    clearTimeout(reconnectTimeout);
+  function clearConnection () {
+    BackgroundTimer.stopBackgroundTimer();
 
-    reconnectTimeout = setTimeout(() => {
-      connect();
-    }, 3000);
+    webSocket.onopen = null;
+    webSocket.onclose = null;
+    webSocket.onerror = null;
+    webSocket.onmessage = null;
+    webSocket.close();
+
+    console.log('closed webSocket');
   }
 
   function restartConnection (err) {
     console.log('restartConnection', err);
-    clearTimeout(reconnectTimeout);
-    BackgroundTimer.stopBackgroundTimer();
-    scheduleRconnect();
+    clearConnection();
+
+    BackgroundTimer.runBackgroundTimer(() => {
+      BackgroundTimer.stopBackgroundTimer();
+      connect();
+    }, 30000);
   }
 
   function connect () {
     console.log('connecting');
-
-    clearTimeout(reconnectTimeout);
-    BackgroundTimer.stopBackgroundTimer();
 
     webSocket = new WebSocket(WEBSOCKET_URL, undefined, {
       headers: {
@@ -65,23 +65,16 @@ export function initConnection () {
       schedulePing();
       if (data === 'pong') return;
       const parsedData = JSON.parse(data);
-      emitEvent('websocketEvent', parsedData);
-      emitEvent(`websocketEvent-${parsedData.type}`, parsedData);
+
+      if (parsedData.message === 'Internal server error') {
+        restartConnection(data);
+      } else {
+        emitEvent('websocketEvent', parsedData);
+        emitEvent(`websocketEvent-${parsedData.type}`, parsedData);
+      }
     };
   }
 
   connect();
-
-  return () => {
-    clearTimeout(reconnectTimeout);
-    BackgroundTimer.stopBackgroundTimer();
-
-    webSocket.onopen = null;
-    webSocket.onclose = null;
-    webSocket.onerror = null;
-    webSocket.onmessage = null;
-    webSocket.close();
-
-    console.log('closed webSocket');
-  };
+  return clearConnection;
 }
