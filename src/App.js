@@ -126,8 +126,6 @@ function App () {
       if (!store.authUser || !store.initComplete || store.reAuth)
         return;
 
-      console.log('websocketEvent', JSON.stringify(data, null, 2));
-
       const handler = webSocketEventHandlers[data.type];
       if (handler) handler(data);
     });

@@ -64,6 +64,7 @@ export function initConnection () {
     webSocket.onmessage = async ({ data }) => {
       schedulePing();
       if (data === 'pong') return;
+      console.log('websocketEvent', data);
       const parsedData = JSON.parse(data);
 
       if (parsedData.message === 'Internal server error') {
