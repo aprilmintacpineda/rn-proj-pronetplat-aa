@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'production') {
           },
           {
             search: /__WEBSOCKET_URL__/gm,
-            replace: process.env.API_BASE_URL
+            replace: process.env.WEBSOCKET_URL
           }
         ]
       }
