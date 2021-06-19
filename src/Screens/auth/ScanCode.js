@@ -1,8 +1,9 @@
 import { useIsFocused } from '@react-navigation/native';
 import React from 'react';
-import { Linking } from 'react-native';
+import { Linking, View } from 'react-native';
 import { Camera } from 'react-native-camera-kit';
-import { Button, Text } from 'react-native-paper';
+import { ActivityIndicator, Text } from 'react-native-paper';
+import Button from 'components/Button';
 import CenteredSurface from 'components/CenteredSurface';
 import useCameraPermission from 'hooks/useCameraPermissions';
 import { logEvent } from 'libs/logging';
@@ -27,10 +28,28 @@ function openSettings () {
 }
 
 function ScanCode () {
-  const { isAllowed, isDoneChecking } = useCameraPermission();
   const isFocused = useIsFocused();
+  const { isAllowed, isDoneChecking } = useCameraPermission({
+    shouldAsk: isFocused
+  });
 
-  if (!isAllowed || !isDoneChecking) {
+  if (!isFocused) return null;
+
+  if (!isAllowed) {
+    if (!isDoneChecking) {
+      return (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <ActivityIndicator color={paperTheme.colors.primary} />
+        </View>
+      );
+    }
+
     return (
       <CenteredSurface>
         <Text style={{ marginBottom: 15 }}>
@@ -43,8 +62,6 @@ function ScanCode () {
       </CenteredSurface>
     );
   }
-
-  if (!isFocused) return null;
 
   return (
     <Camera

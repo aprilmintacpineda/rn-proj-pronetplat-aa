@@ -1,17 +1,14 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import {
-  PERMISSIONS,
-  requestMultiple
-} from 'react-native-permissions';
+import { PERMISSIONS, request } from 'react-native-permissions';
 import useAppStateEffect from './useAppStateEffect';
 
 const permissions = Platform.select({
-  ios: [PERMISSIONS.IOS.CAMERA],
-  android: [PERMISSIONS.ANDROID.CAMERA]
+  ios: PERMISSIONS.IOS.CAMERA,
+  android: PERMISSIONS.ANDROID.CAMERA
 });
 
-function useCameraPermission () {
+function useCameraPermission ({ shouldAsk }) {
   const [{ isAllowed, status }, setState] = React.useState({
     isAllowed: false,
     status: 'initial'
@@ -22,19 +19,16 @@ function useCameraPermission () {
   const isDoneChecking = status === 'checked';
 
   const askPermission = React.useCallback(async () => {
-    if (isAllowed) return;
+    console.log(isAllowed, shouldAsk);
 
-    const results = await requestMultiple(permissions);
-
-    const wasAllowed = !Object.keys(results).find(
-      permission => results[permission].toLowerCase() !== 'granted'
-    );
+    if (isAllowed || !shouldAsk) return;
+    const results = await request(permissions);
 
     setState({
-      isAllowed: wasAllowed,
+      isAllowed: results === 'granted',
       status: 'checked'
     });
-  }, [isAllowed]);
+  }, [isAllowed, shouldAsk]);
 
   React.useEffect(() => {
     if (isInitial) askPermission();

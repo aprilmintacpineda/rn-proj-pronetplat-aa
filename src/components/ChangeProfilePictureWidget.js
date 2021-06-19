@@ -9,7 +9,7 @@ import { Text, TouchableRipple } from 'react-native-paper';
 import {
   openSettings,
   PERMISSIONS,
-  requestMultiple
+  request
 } from 'react-native-permissions';
 import Modalize from './Modalize';
 import File from 'classes/File';
@@ -24,34 +24,33 @@ import validate from 'libs/validate';
 import { uploadFileToSignedUrl, xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
-const cameraPermissions = Platform.select({
-  ios: [PERMISSIONS.IOS.CAMERA],
-  android: [PERMISSIONS.ANDROID.CAMERA]
+const cameraPermission = Platform.select({
+  ios: PERMISSIONS.IOS.CAMERA,
+  android: PERMISSIONS.ANDROID.CAMERA
 });
 
-const galeryPermissions = Platform.select({
-  ios: [PERMISSIONS.IOS.PHOTO_LIBRARY],
-  android: [PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE]
+const galeryPermission = Platform.select({
+  ios: PERMISSIONS.IOS.PHOTO_LIBRARY,
+  android: PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE
 });
 
 async function waitForPicture (url) {
-  // this wait time was derived from the time for
-  // profilePictureUploaded function to complete
-  // processing the new profile picture
-  await sleep(2);
-
   let isSuccess = false;
 
   do {
+    // this wait time was derived from the time for
+    // profilePictureUploaded function to complete
+    // processing the new profile picture
+    await sleep(2);
+
     try {
-      await fetch(url, { method: 'head' });
-      isSuccess = true;
+      const response = await fetch(url, { method: 'head' });
+      isSuccess = response.status === 200;
     } catch (error) {
-      await sleep(1);
+      console.log('waitForPicture', error);
     }
   } while (!isSuccess);
 
-  await sleep(1);
   return true;
 }
 
@@ -137,13 +136,9 @@ function ChangeProfilePicture ({
   );
 
   const selectPicture = React.useCallback(async () => {
-    const results = await requestMultiple(galeryPermissions);
+    const results = await request(galeryPermission);
 
-    const wasAllowed = !Object.keys(results).find(
-      permission => results[permission].toLowerCase() !== 'granted'
-    );
-
-    if (!wasAllowed) {
+    if (results !== 'granted') {
       modalRef.current.close();
 
       showErrorPopup({
@@ -182,13 +177,9 @@ function ChangeProfilePicture ({
   }, [uploadPicture]);
 
   const takePicture = React.useCallback(async () => {
-    const results = await requestMultiple(cameraPermissions);
+    const results = await request(cameraPermission);
 
-    const wasAllowed = !Object.keys(results).find(
-      permission => results[permission].toLowerCase() !== 'granted'
-    );
-
-    if (!wasAllowed) {
+    if (results !== 'granted') {
       showErrorPopup({
         message: 'Please allow the app to use the camera.',
         buttons: [
