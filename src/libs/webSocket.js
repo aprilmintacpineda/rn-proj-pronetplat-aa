@@ -57,7 +57,11 @@ export function initConnection () {
       }
     });
 
-    webSocket.onopen = schedulePing;
+    webSocket.onopen = () => {
+      console.log('websocket opened');
+      sendMessage('ping');
+    };
+
     webSocket.onclose = restartConnection;
     webSocket.onerror = restartConnection;
 
