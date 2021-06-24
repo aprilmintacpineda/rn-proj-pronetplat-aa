@@ -35,7 +35,7 @@ export function initConnection () {
     webSocket.onmessage = null;
     webSocket.close();
 
-    console.log('closed webSocket');
+    console.log('webSocket closed');
   }
 
   function restartConnection (err) {
@@ -58,7 +58,7 @@ export function initConnection () {
     });
 
     webSocket.onopen = () => {
-      console.log('websocket opened');
+      console.log('webSocket opened');
       sendMessage('ping');
     };
 
