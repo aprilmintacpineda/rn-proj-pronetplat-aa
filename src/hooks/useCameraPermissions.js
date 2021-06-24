@@ -19,8 +19,6 @@ function useCameraPermission ({ shouldAsk }) {
   const isDoneChecking = status === 'checked';
 
   const askPermission = React.useCallback(async () => {
-    console.log(isAllowed, shouldAsk);
-
     if (isAllowed || !shouldAsk) return;
     const results = await request(permissions);
 
