@@ -35,13 +35,16 @@ const galeryPermission = Platform.select({
 });
 
 async function waitForPicture (url) {
+  // this wait time was derived from the time for
+  // profilePictureUploaded function to complete
+  // processing the new profile picture
+  await sleep(2);
   let isSuccess = false;
 
   do {
-    // this wait time was derived from the time for
-    // profilePictureUploaded function to complete
-    // processing the new profile picture
-    await sleep(2);
+    // this will wait for total of 3 seconds for
+    // the first time
+    await sleep(1);
 
     try {
       const response = await fetch(url, { method: 'head' });
