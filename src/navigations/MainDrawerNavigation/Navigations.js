@@ -7,8 +7,9 @@ import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimen
 import UserWidget from './UserWidget';
 import RNVectorIcon from 'components/RNVectorIcon';
 import { logout } from 'fluxible/actions/user';
+import useAppStateEffect from 'hooks/useAppStateEffect';
 import { hasCompletedSetup } from 'libs/user';
-import { initConnection } from 'libs/webSocket';
+import { clearWebSocket, connectWebSocket } from 'libs/webSocket';
 import LoggedInStackNavigation from 'navigations/LoggedInStackNavigation';
 import FirstSetup from 'Screens/auth/FirstSetup';
 
@@ -89,13 +90,20 @@ function Navigations () {
   const { authUser } = useFluxibleStore(mapStates);
   const { width } = useWindowDimensions();
 
+  useAppStateEffect({
+    onBackground: clearWebSocket,
+    onInactive: clearWebSocket,
+    onActive: connectWebSocket
+  });
+
   const initialRouteName = hasCompletedSetup(authUser)
     ? 'LoggedInStackNavigation'
     : 'FirstSetup';
 
   React.useEffect(() => {
     messaging().requestPermission();
-    return initConnection();
+    connectWebSocket();
+    return clearWebSocket;
   }, []);
 
   return (
