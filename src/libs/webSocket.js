@@ -1,9 +1,8 @@
 import { emitEvent, store } from 'fluxible-js';
+import BackgroundTimer from 'react-native-background-timer';
 import { WEBSOCKET_URL } from 'env';
 
 let webSocket = null;
-let pingTimeout = null;
-let restartConnectionTimeout = null;
 
 export function sendMessage (action, data = {}) {
   console.log('sendMessage', action);
@@ -18,16 +17,17 @@ export function sendMessage (action, data = {}) {
 
 function schedulePing () {
   console.log('schedulePing');
+  BackgroundTimer.stopBackgroundTimer();
 
   // ping every 1 minute to keep connection alive
-  pingTimeout = setTimeout(() => {
+  BackgroundTimer.runBackgroundTimer(() => {
+    BackgroundTimer.stopBackgroundTimer();
     sendMessage('ping');
   }, 60000);
 }
 
 export function clearWebSocket () {
-  clearTimeout(pingTimeout);
-  clearTimeout(restartConnectionTimeout);
+  BackgroundTimer.stopBackgroundTimer();
 
   webSocket.onopen = null;
   webSocket.onclose = null;
@@ -42,7 +42,9 @@ function restartConnection (err) {
   console.log('restartConnection', err);
   clearWebSocket();
 
-  restartConnectionTimeout = setTimeout(() => {
+  // reconnect after 30 seconds
+  BackgroundTimer.runBackgroundTimer(() => {
+    BackgroundTimer.stopBackgroundTimer();
     connectWebSocket();
   }, 30000);
 }
@@ -61,14 +63,19 @@ export function connectWebSocket () {
   webSocket.onerror = restartConnection;
 
   webSocket.onmessage = async ({ data }) => {
-    schedulePing();
-    if (data === 'pong') return;
     console.log('websocketEvent', data);
+
+    if (data === 'pong') {
+      schedulePing();
+      return;
+    }
+
     const parsedData = JSON.parse(data);
 
     if (parsedData.message === 'Internal server error') {
       restartConnection(data);
     } else {
+      schedulePing();
       emitEvent('websocketEvent', parsedData);
       emitEvent(`websocketEvent-${parsedData.type}`, parsedData);
     }
