@@ -23,7 +23,7 @@ index aa97826..a0c6136 100644
  };
  
 diff --git a/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js b/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js
-index fdbfa3f..7a41002 100644
+index 03c7f7f..9f2cb1e 100644
 --- a/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js
 +++ b/node_modules/react-native-paper/lib/module/components/Drawer/DrawerItem.js
 @@ -7,6 +7,7 @@ import Text from '../Typography/Text';
@@ -62,7 +62,7 @@ index fdbfa3f..7a41002 100644
      selectable: false,
      numberOfLines: 1,
      style: [styles.label, {
-@@ -110,6 +118,14 @@ const styles = StyleSheet.create({
+@@ -111,6 +119,14 @@ const styles = StyleSheet.create({
    },
    label: {
      marginRight: 32
@@ -109,7 +109,7 @@ index 3b71389..e500f6b 100644
        )}
      </View>
 diff --git a/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx b/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
-index 6fc757f..3200b7f 100644
+index c37b65c..a539e62 100644
 --- a/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
 +++ b/node_modules/react-native-paper/src/components/Drawer/DrawerItem.tsx
 @@ -5,6 +5,7 @@ import Text from '../Typography/Text';
@@ -150,7 +150,7 @@ index 6fc757f..3200b7f 100644
              ) : null}
              <Text
                selectable={false}
-@@ -151,6 +159,14 @@ const styles = StyleSheet.create({
+@@ -152,6 +160,14 @@ const styles = StyleSheet.create({
    label: {
      marginRight: 32,
    },
