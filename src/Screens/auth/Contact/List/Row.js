@@ -21,7 +21,7 @@ function ContactListRow ({ index, ...contact }) {
         >
           <UserAvatar
             user={contact}
-            badge={contact.unreadChatMessages}
+            badge={contact.numUnreadChatMessages}
           />
           <View
             style={{

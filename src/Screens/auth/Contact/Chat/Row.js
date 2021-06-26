@@ -1,5 +1,4 @@
 import { useRoute } from '@react-navigation/core';
-import { format, isToday } from 'date-fns';
 import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
@@ -11,17 +10,10 @@ import { DataFetchContext } from 'components/DataFetch';
 import IconButton from 'components/IconButton';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TextLink from 'components/TextLink';
+import { formatDate } from 'libs/time';
 import { getPersonalPronoun, shortenName } from 'libs/user';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
-
-function formatDate (dateStr) {
-  const date = new Date(dateStr);
-
-  return isToday(date)
-    ? `Today, ${format(date, 'p')}`
-    : format(date, 'PPp');
-}
 
 function mapStates ({ authUser }) {
   return { authUser };
@@ -113,13 +105,14 @@ function ChatMessage ({ index, ...chatMessage }) {
 
       emitEvent('chatMessageSendSuccess', {
         tempId: id,
-        sentChatMessage: chatMessage
+        sentChatMessage: chatMessage,
+        contact
       });
     } catch (error) {
       console.log(error);
       setStatus('sendFailed');
     }
-  }, [id, contact.id, replyTo, messageBody]);
+  }, [id, contact, replyTo, messageBody]);
 
   const cancelSend = React.useCallback(() => {
     emitEvent('cancelSend', id);
@@ -314,9 +307,28 @@ function ChatMessage ({ index, ...chatMessage }) {
                       <Caption>sending...</Caption>
                     </View>
                   ) : (
-                    <Caption style={{ marginBottom: 5 }}>
-                      {formatDate(createdAt)}
-                    </Caption>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        marginBottom: 5
+                      }}
+                    >
+                      <RNVectorIcon
+                        provider="Feather"
+                        name={
+                          isReceived
+                            ? 'arrow-down-left'
+                            : 'arrow-up-right'
+                        }
+                        color={paperTheme.colors.caption}
+                        size={15}
+                      />
+                      <Caption style={{ marginLeft: 5 }}>
+                        {formatDate(createdAt)}
+                      </Caption>
+                    </View>
                   )}
                   <Text
                     selectable
@@ -339,10 +351,10 @@ function ChatMessage ({ index, ...chatMessage }) {
                         }}
                       >
                         <RNVectorIcon
-                          provider="AntDesign"
-                          name="checkcircle"
+                          provider="Ionicons"
+                          name="ios-checkmark-done-outline"
                           color={paperTheme.colors.caption}
-                          size={10}
+                          size={15}
                         />
                         <Caption style={{ marginLeft: 5 }}>
                           {formatDate(seenAt)}
@@ -358,10 +370,10 @@ function ChatMessage ({ index, ...chatMessage }) {
                         }}
                       >
                         <RNVectorIcon
-                          provider="AntDesign"
-                          name="checkcircleo"
+                          provider="Ionicons"
+                          name="ios-checkmark"
                           color={paperTheme.colors.caption}
-                          size={10}
+                          size={15}
                         />
                         <Caption style={{ marginLeft: 5 }}>
                           Sent

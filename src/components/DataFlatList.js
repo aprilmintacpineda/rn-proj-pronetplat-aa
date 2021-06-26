@@ -69,12 +69,13 @@ function Body ({
       (payload, event) => {
         const callback = eventListeners[event];
         callback(payload, {
+          data,
           replaceData,
           refreshData
         });
       }
     );
-  }, [eventListeners, replaceData, refreshData]);
+  }, [data, eventListeners, replaceData, refreshData]);
 
   return (
     <FlatList
