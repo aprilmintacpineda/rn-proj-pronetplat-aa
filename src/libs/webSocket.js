@@ -29,7 +29,6 @@ export function initConnection () {
   function clearConnection () {
     BackgroundTimer.stopBackgroundTimer();
 
-    webSocket.onopen = null;
     webSocket.onclose = null;
     webSocket.onerror = null;
     webSocket.onmessage = null;
@@ -56,11 +55,6 @@ export function initConnection () {
         Authorization: `Bearer ${store.authToken}`
       }
     });
-
-    webSocket.onopen = () => {
-      console.log('webSocket opened');
-      sendMessage('ping');
-    };
 
     webSocket.onclose = restartConnection;
     webSocket.onerror = restartConnection;
