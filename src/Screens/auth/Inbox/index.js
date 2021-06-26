@@ -90,7 +90,7 @@ const eventListeners = {
             contact,
             lastMessageId: sentChatMessage.id,
             lastMessage: sentChatMessage,
-            numUnreadChatMessages: 1
+            numUnreadChatMessages: 0
           }
         ].concat(data);
       }
