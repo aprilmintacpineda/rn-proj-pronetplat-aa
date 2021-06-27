@@ -42,11 +42,11 @@ function restartConnection (err) {
   console.log('restartConnection', err);
   clearWebSocket();
 
-  // reconnect after 30 seconds
+  // reconnect after 3 seconds
   BackgroundTimer.runBackgroundTimer(() => {
     BackgroundTimer.stopBackgroundTimer();
     connectWebSocket();
-  }, 30000);
+  }, 3000);
 }
 
 export function connectWebSocket () {
