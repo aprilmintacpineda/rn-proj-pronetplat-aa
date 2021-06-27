@@ -19,11 +19,11 @@ function schedulePing () {
   console.log('schedulePing');
   BackgroundTimer.stopBackgroundTimer();
 
-  // ping every 1 minute to keep connection alive
+  // ping every 9 minute to keep connection alive
   BackgroundTimer.runBackgroundTimer(() => {
     BackgroundTimer.stopBackgroundTimer();
     sendMessage('ping');
-  }, 60000);
+  }, 540000);
 }
 
 export function clearWebSocket () {
