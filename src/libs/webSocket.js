@@ -3,6 +3,7 @@ import BackgroundTimer from 'react-native-background-timer';
 import { WEBSOCKET_URL } from 'env';
 
 let webSocket = null;
+let willReconnect = false;
 
 export function sendMessage (action, data = {}) {
   console.log('sendMessage', action);
@@ -39,12 +40,19 @@ export function clearWebSocket () {
 }
 
 function restartConnection (err) {
+  if (willReconnect) {
+    console.log('restartConnection skipped', err);
+    return;
+  }
+
   console.log('restartConnection', err);
+  willReconnect = true;
   clearWebSocket();
 
   // reconnect after 3 seconds
   BackgroundTimer.runBackgroundTimer(() => {
     BackgroundTimer.stopBackgroundTimer();
+    willReconnect = false;
     connectWebSocket();
   }, 3000);
 }
