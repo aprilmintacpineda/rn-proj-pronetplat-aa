@@ -41,16 +41,16 @@ function FormWithContext ({
     },
     updateState
   } = useState(() => {
-    const formValues =
-      initialFormValues.constructor === Function
-        ? initialFormValues()
-        : { ...initialFormValues };
-
     const formContext =
       initialFormContext &&
       initialFormContext.constructor === Function
         ? initialFormContext()
         : {};
+
+    const formValues =
+      initialFormValues.constructor === Function
+        ? initialFormValues(formContext)
+        : { ...initialFormValues };
 
     return {
       originalFormValues: null,
@@ -88,9 +88,9 @@ function FormWithContext ({
   const validateField = React.useCallback(
     (field, values) => {
       const validator = validators[field];
-      return validator ? validator(values) : '';
+      return validator ? validator(values, formContext) : '';
     },
-    [validators]
+    [validators, formContext]
   );
 
   const formDidChange = React.useCallback(() => {

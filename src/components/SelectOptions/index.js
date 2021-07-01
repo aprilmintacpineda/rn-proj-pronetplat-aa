@@ -13,6 +13,7 @@ function SelectOptions ({
   error,
   label,
   labelUpperCase = false,
+  capitalize = true,
   ...textInputProps
 }) {
   const modalizeRef = React.useRef();
@@ -24,8 +25,6 @@ function SelectOptions ({
   const closeModal = React.useCallback(() => {
     modalizeRef.current.close();
   }, []);
-
-  const displayValue = camelToTitleCase(value);
 
   const handleChange = React.useCallback(
     newValue => {
@@ -40,7 +39,15 @@ function SelectOptions ({
   return (
     <>
       <TextInput
-        value={displayValue}
+        value={
+          value
+            ? labelUpperCase
+              ? value.toUpperCase()
+              : capitalize
+              ? camelToTitleCase(value)
+              : value
+            : null
+        }
         error={error}
         label={label}
         disabled={disabled}
@@ -49,6 +56,7 @@ function SelectOptions ({
       />
       <Modalize ref={modalizeRef}>
         <Options
+          capitalize={capitalize}
           labelUpperCase={labelUpperCase}
           options={options}
           onChange={handleChange}

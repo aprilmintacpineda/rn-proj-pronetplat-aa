@@ -16,6 +16,11 @@ target 'proj_pronetplat_aa' do
   pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
 
   use_unimodules!(exclude: ['expo-permissions'])
+
+  # React Native Maps dependencies
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
+
   config = use_native_modules!
 
   use_react_native!(

@@ -3,7 +3,7 @@ export function capitalize (value) {
 }
 
 export function camelToTitleCase (value) {
-  return value
+  return String(value)
     .replace(/([A-Z])/g, '_$1')
     .split('_')
     .reduce((accumulator, current) => {

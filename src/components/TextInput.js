@@ -89,6 +89,7 @@ function TextInput ({
   multiline,
   numberOfLines,
   hideErrorMessage = false,
+  viewProps,
   ..._textInputProps
 }) {
   const hasError = Boolean(error);
@@ -106,7 +107,7 @@ function TextInput ({
   }, [type, onChangeText]);
 
   return (
-    <View>
+    <View {...viewProps}>
       <View style={{ position: 'relative' }}>
         <RNPTextInput
           error={hasError}

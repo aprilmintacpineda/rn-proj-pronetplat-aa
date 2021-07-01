@@ -19,6 +19,8 @@ import ContactProfile from 'Screens/auth/Contact/Profile';
 import ContactDetailsForm from 'Screens/auth/ContactDetail/ContactDetailsForm';
 import ContactDetailsList from 'Screens/auth/ContactDetail/List';
 import ContactRequests from 'Screens/auth/ContactRequests';
+import Events from 'Screens/auth/Events';
+import CreateEvent from 'Screens/auth/Events/CreateEvent';
 import Notifications from 'Screens/auth/Notifications';
 import PrivacySettings from 'Screens/auth/PrivacySettings';
 import SearchUsers from 'Screens/auth/SearchUsers';
@@ -204,6 +206,22 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
             alignItems: 'flex-start',
             right: 20
           }
+        }}
+      />
+      <Stack.Screen
+        name="Events"
+        component={Events}
+        options={{
+          title: 'Events',
+          ...TransitionPresets.ModalSlideFromBottomIOS
+        }}
+      />
+      <Stack.Screen
+        name="CreateEvent"
+        component={CreateEvent}
+        options={{
+          title: 'Create Event',
+          ...TransitionPresets.ModalSlideFromBottomIOS
         }}
       />
     </Stack.Navigator>
