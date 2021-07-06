@@ -9,6 +9,7 @@ import RNVectorIcon from 'components/RNVectorIcon';
 import useState from 'hooks/useState';
 import { shortenName } from 'libs/user';
 import { xhr } from 'libs/xhr';
+import { paperTheme } from 'theme';
 
 function SendIcon (props) {
   return (
@@ -164,39 +165,47 @@ function ChatMessageInputBox () {
             </View>
           </View>
         ) : null}
-        <View
-          style={{
-            flexDirection: 'row',
-            paddingHorizontal: 15,
-            paddingBottom: 15,
-            paddingTop: 5,
-            alignItems: 'center'
-          }}
-        >
-          <View style={{ flex: 1, marginRight: 10 }}>
-            <TextInput
+        <View style={{ padding: 10 }}>
+          <View
+            style={{
+              flexDirection: 'row'
+            }}
+          >
+            <View
               style={{
-                borderWidth: 0,
-                padding: 0,
-                margin: 0
+                flex: 1,
+                padding: 10,
+                backgroundColor: '#ededed',
+                borderRadius: paperTheme.roundness,
+                marginRight: 10
               }}
-              value={messageBody}
-              onChangeText={onChangeText}
-              maxLength={3000}
-              multiline
-              placeholder="Send a message"
-            />
-            <Caption style={{ marginTop: 5 }}>
-              {3000 - messageBody.length} character(s) remaining
-            </Caption>
+            >
+              <TextInput
+                style={{
+                  borderWidth: 0,
+                  padding: 0,
+                  margin: 0,
+                  paddingBottom: 3
+                }}
+                textAlignVertical="top"
+                value={messageBody}
+                onChangeText={onChangeText}
+                maxLength={3000}
+                multiline
+                placeholder="Send a message"
+              />
+            </View>
+            <View style={{ justifyContent: 'center' }}>
+              <IconButton
+                onPress={send}
+                icon={SendIcon}
+                disabled={!messageBody}
+              />
+            </View>
           </View>
-          <View style={{ alignSelf: 'flex-end' }}>
-            <IconButton
-              onPress={send}
-              icon={SendIcon}
-              disabled={!messageBody}
-            />
-          </View>
+          <Caption style={{ marginTop: 5 }}>
+            {3000 - messageBody.length} character(s) remaining
+          </Caption>
         </View>
       </View>
     </View>
