@@ -109,8 +109,13 @@ function FormWithContext ({
   }, [originalFormValues, formValues]);
 
   const setField = React.useCallback(
-    (field, value) => {
-      updateState(({ formValues, formErrors }) => {
+    (field, _value) => {
+      updateState(({ formValues, formErrors, formContext }) => {
+        const value =
+          typeof _value === 'function'
+            ? _value({ formValues, formContext })
+            : _value;
+
         const newFormValues = {
           ...formValues,
           [field]: value

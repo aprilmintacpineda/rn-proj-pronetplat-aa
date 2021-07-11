@@ -8,9 +8,11 @@ function useDataFetch ({
   prefetch = true,
   onSuccess = null,
   onError = null,
-  onFetchDone = null
+  onFetchDone = null,
+  onParamsChange
 }) {
   const prevParams = React.useRef(params);
+  const prevEndpoint = React.useRef(endpoint);
 
   const {
     state: { data, status, nextToken, error, canFetchMore },
@@ -43,15 +45,16 @@ function useDataFetch ({
   );
 
   const fetchData = React.useCallback(
-    async refresh => {
+    async (refresh, clearData) => {
       const isRefresh = refresh === true;
       if ((!isRefresh && !canFetchMore) || isFetching) return;
 
       try {
-        updateState({
+        updateState(({ data }) => ({
           status: isRefresh ? 'refreshing' : 'fetching',
-          error: null
-        });
+          error: null,
+          data: isRefresh && clearData ? null : data
+        }));
 
         const response = await xhrWithParams(endpoint, {
           ...params,
@@ -65,10 +68,10 @@ function useDataFetch ({
 
         updateState(({ data }) => {
           const newData = isRefresh
-            ? responseData
+            ? responseData || []
             : responseData.constructor === Array
             ? (data || []).concat(responseData || [])
-            : responseData;
+            : responseData || [];
 
           return {
             status: 'fetchSuccess',
@@ -97,10 +100,13 @@ function useDataFetch ({
     ]
   );
 
-  const refreshData = React.useCallback(() => {
-    if (isFetching || (isInitial && prefetch)) return;
-    fetchData(true);
-  }, [isFetching, isInitial, prefetch, fetchData]);
+  const refreshData = React.useCallback(
+    (clearData = false) => {
+      if (isFetching || (isInitial && prefetch)) return;
+      fetchData(true, clearData);
+    },
+    [isFetching, isInitial, prefetch, fetchData]
+  );
 
   React.useEffect(() => {
     if (isInitial && prefetch) fetchData();
@@ -108,13 +114,31 @@ function useDataFetch ({
 
   React.useEffect(() => {
     if (
-      prevParams.current !== params &&
+      (prevParams.current !== params ||
+        prevEndpoint.current !== endpoint) &&
       (isFetchDone || isInitial)
     ) {
       prevParams.current = params;
-      refreshData();
+      prevEndpoint.current = endpoint;
+      if (onParamsChange) {
+        onParamsChange(
+          { params, endpoint },
+          { refreshData, replaceData }
+        );
+      } else {
+        refreshData(true);
+      }
     }
-  }, [params, isFetchDone, refreshData, isInitial]);
+  }, [
+    params,
+    isFetchDone,
+    refreshData,
+    isInitial,
+    prefetch,
+    endpoint,
+    replaceData,
+    onParamsChange
+  ]);
 
   React.useEffect(() => {
     if (isSuccess && onSuccess) onSuccess();

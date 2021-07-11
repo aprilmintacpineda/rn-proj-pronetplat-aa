@@ -3,11 +3,12 @@ import { Keyboard, View } from 'react-native';
 import { Modalize as RNModalize } from 'react-native-modalize';
 import { Portal } from 'react-native-paper';
 
-function Modalize ({ children }, modalizeRef) {
+function Modalize ({ children, ...modalizeProps }, modalizeRef) {
   return (
     <Portal>
       <RNModalize
         adjustToContentHeight
+        {...modalizeProps}
         ref={modalizeRef}
         handlePosition="inside"
         onOpen={Keyboard.dismiss}

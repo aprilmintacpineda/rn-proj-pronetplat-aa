@@ -13,7 +13,7 @@ const formOptions = {
     visibility: '',
     maxAttendees: '',
     organizers: [],
-    webhookEndpoint: '',
+    organization: '',
     category: '',
     topic: '',
     subtopic: ''

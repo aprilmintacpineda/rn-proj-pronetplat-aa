@@ -2,28 +2,25 @@ import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { View } from 'react-native';
 import { Appbar, Chip, Searchbar } from 'react-native-paper';
-import { DataFetchContext } from 'components/DataFetch';
 import useDebouncedCallback from 'hooks/useDebouncedCallback';
 import useState from 'hooks/useState';
 import { paperTheme } from 'theme';
 
-function Search ({ params, setParams }) {
-  const { replaceData } = React.useContext(DataFetchContext);
-
+function Search ({ searchParams, setSearchParams }) {
   const {
     state: { searchStr, searchBy },
     updateState
   } = useState({
-    searchStr: params.search,
-    searchBy: params.searchBy
+    searchStr: searchParams.search,
+    searchBy: searchParams.searchBy
   });
   const { goBack } = useNavigation();
 
   const startSearch = React.useCallback(
     searchStr => {
-      setParams({ searchBy, search: searchStr });
+      setSearchParams({ searchBy, search: searchStr });
     },
-    [setParams, searchBy]
+    [setSearchParams, searchBy]
   );
 
   const search = useDebouncedCallback(startSearch, 500);
@@ -33,37 +30,33 @@ function Search ({ params, setParams }) {
       const searchStr = value || '';
 
       if (searchStr) search(searchStr);
-      else replaceData([]);
+      else startSearch(searchStr);
 
       updateState({ searchStr });
     },
-    [updateState, search, replaceData]
+    [updateState, search, startSearch]
   );
 
   const searchByName = React.useCallback(() => {
     if (searchStr)
-      setParams({ search: searchStr, searchBy: 'name' });
+      setSearchParams({ search: searchStr, searchBy: 'name' });
 
     updateState({ searchBy: 'name' });
-  }, [searchStr, updateState, setParams]);
+  }, [searchStr, updateState, setSearchParams]);
 
   const searchByUsername = React.useCallback(() => {
     if (searchStr)
-      setParams({ search: searchStr, searchBy: 'username' });
+      setSearchParams({ search: searchStr, searchBy: 'username' });
 
     updateState({ searchBy: 'username' });
-  }, [searchStr, updateState, setParams]);
+  }, [searchStr, updateState, setSearchParams]);
 
   return (
     <>
       <Searchbar
         icon={Appbar.BackAction}
         onIconPress={goBack}
-        placeholder={
-          searchBy === 'name'
-            ? 'Search by name'
-            : 'Search by username'
-        }
+        placeholder={`Search users by ${searchBy}`}
         onChangeText={onChangeText}
         value={searchStr}
         style={{

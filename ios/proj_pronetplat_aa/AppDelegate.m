@@ -1,5 +1,8 @@
 #import "AppDelegate.h"
 
+@import GooglePlaces;
+@import GoogleMaps;
+
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -42,6 +45,7 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [GMSPlacesClient provideAPIKey:@"AIzaSyAuHLfStH7B6MEdPu0jOsxnwxlPDFp4a_A"];
   [GMSServices provideAPIKey:@"AIzaSyAuHLfStH7B6MEdPu0jOsxnwxlPDFp4a_A"];
   [FIRApp configure];
   

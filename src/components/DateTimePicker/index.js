@@ -66,7 +66,11 @@ function DateTimePicker ({
   return (
     <>
       <TextInput
-        value={value ? format(new Date(value), "PP 'at' p") : ''}
+        value={
+          value
+            ? format(new Date(value), "cccc, MMMM d, Y 'at' p")
+            : ''
+        }
         error={error}
         label={label}
         disabled={disabled}

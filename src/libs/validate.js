@@ -92,15 +92,6 @@ const validationRules = {
   bool (value) {
     if (value !== true && value !== false) return 'Invalid.';
     return '';
-  },
-  number (value) {
-    return isNaN(value);
-  },
-  max (value, max) {
-    return value > max;
-  },
-  min (value, min) {
-    return value < min;
   }
 };
 

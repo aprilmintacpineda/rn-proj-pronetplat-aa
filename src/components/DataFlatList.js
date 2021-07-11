@@ -5,6 +5,7 @@ import DataFetch, { DataFetchContext } from './DataFetch';
 import DefaultLoadingPlaceholder from './DefaultLoadingPlaceholder';
 import ListEmpty from './ListEmpty';
 import ListItemSeparator from './ListItemSeparator';
+import UnknownErrorView from './UnknownErrorView';
 
 function Body ({
   LoadingPlaceHolder = DefaultLoadingPlaceholder,
@@ -17,6 +18,7 @@ function Body ({
   ItemSeparatorComponent = ListItemSeparator,
   inverted = false,
   disableRefresh = false,
+  otherRowProps,
   ...flatListProps
 }) {
   const {
@@ -27,7 +29,8 @@ function Body ({
     isRefreshing,
     fetchData,
     isFetching,
-    replaceData
+    replaceData,
+    isError
   } = React.useContext(DataFetchContext);
   const isScrolling = React.useRef(false);
 
@@ -35,12 +38,14 @@ function Body ({
     args => {
       if (RowComponent) {
         const { item, index } = args;
-        return <RowComponent {...item} index={index} />;
+        return (
+          <RowComponent {...item} {...otherRowProps} index={index} />
+        );
       }
 
       return renderItem(args);
     },
-    [RowComponent, renderItem]
+    [RowComponent, renderItem, otherRowProps]
   );
 
   const keyExtractor = React.useCallback(
@@ -76,6 +81,8 @@ function Body ({
       }
     );
   }, [data, eventListeners, replaceData, refreshData]);
+
+  if (isError) return <UnknownErrorView onRefresh={refreshData} />;
 
   return (
     <FlatList
@@ -131,6 +138,7 @@ function DataFlatList ({
   prefetch = true,
   children,
   params = null,
+  onParamsChange,
   ...props
 }) {
   return (
@@ -139,6 +147,7 @@ function DataFlatList ({
       onSuccess={onSuccess}
       prefetch={prefetch}
       params={params}
+      onParamsChange={onParamsChange}
     >
       {children}
       <Body {...props} />

@@ -65,5 +65,9 @@
 	<false />
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false />
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>RNGPDemos needs your location to show you places</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>RNGPDemos needs your location to show you places</string>
 </dict>
 </plist>

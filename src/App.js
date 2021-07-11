@@ -147,10 +147,10 @@ function App () {
         onReady={logScreenView}
         onStateChange={logScreenView}
       >
-        <Host>
-          <PopupManager />
-          <PaperProvider theme={paperTheme}>
-            <FullSafeAreaView>
+        <FullSafeAreaView>
+          <Host>
+            <PopupManager />
+            <PaperProvider theme={paperTheme}>
               <KeyboardAvoidingView>
                 {!hasInternet ? (
                   <View
@@ -166,9 +166,9 @@ function App () {
                 ) : null}
                 <IndexStackNavigator />
               </KeyboardAvoidingView>
-            </FullSafeAreaView>
-          </PaperProvider>
-        </Host>
+            </PaperProvider>
+          </Host>
+        </FullSafeAreaView>
       </NavigationContainer>
     </>
   );

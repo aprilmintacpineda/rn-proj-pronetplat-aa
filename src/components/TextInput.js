@@ -72,6 +72,13 @@ const propsBasedOnTypes = {
     autoCompleteType: 'name',
     keyboardType: 'default',
     textContentType: 'familyName'
+  },
+  number: {
+    autoCapitalize: 'none',
+    autoCorrect: false,
+    autoCompleteType: 'off',
+    keyboardType: 'number-pad',
+    textContentType: 'none'
   }
 };
 
@@ -87,7 +94,6 @@ function TextInput ({
   value,
   helperText,
   multiline,
-  numberOfLines,
   hideErrorMessage = false,
   viewProps,
   ..._textInputProps
@@ -113,11 +119,9 @@ function TextInput ({
           error={hasError}
           mode="outlined"
           multiline={multiline}
-          numberOfLines={numberOfLines}
           style={[
             {
-              backgroundColor: '#fff',
-              maxHeight: multiline ? 20 * numberOfLines : undefined
+              backgroundColor: '#fff'
             },
             style
           ]}
