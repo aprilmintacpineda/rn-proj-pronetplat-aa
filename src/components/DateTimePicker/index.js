@@ -27,11 +27,17 @@ const formOptions = {
     askTime: false
   },
   onSubmit: ({
-    formValues: { month, date, year, hour, minute },
+    formValues: { month, date, year, hour, minute, anteMeridiem },
     formContext: { askTime, onSave }
   }) => {
     const selectedDateTime = askTime
-      ? new Date(year, monthsIndexes[month], date, hour, minute)
+      ? new Date(
+          year,
+          monthsIndexes[month],
+          date,
+          anteMeridiem === 'pm' ? 12 + parseInt(hour) : hour,
+          minute
+        )
       : new Date(year, monthsIndexes[month], date);
 
     onSave(selectedDateTime);

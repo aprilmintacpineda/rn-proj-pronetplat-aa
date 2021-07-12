@@ -47,7 +47,22 @@ export async function xhr (
   if (store.authToken)
     config.headers.Authorization = `Bearer ${store.authToken}`;
 
-  if (options.body) config.body = JSON.stringify(options.body);
+  if (options.body) {
+    const body = Object.keys(options.body).reduce(
+      (accumulator, current) => {
+        const value = options.body[current];
+
+        if (value.constructor === Date)
+          accumulator[current] = value.toISOString();
+        else accumulator[current] = value;
+
+        return accumulator;
+      },
+      {}
+    );
+
+    config.body = JSON.stringify(body);
+  }
 
   logEvent('apiCall', {
     path,

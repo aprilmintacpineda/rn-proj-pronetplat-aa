@@ -18,17 +18,12 @@ const yearOptions = [
 ];
 
 function DateTimePickerForm ({ askTime = false, onSave }) {
-  const { isSubmitSuccess, formValues, setContext, resetForm } =
-    React.useContext(FormContext);
+  const { formValues, setContext } = React.useContext(FormContext);
   const [mode, setMode] = React.useState('date');
 
   React.useEffect(() => {
     setContext({ onSave, askTime });
   }, [setContext, onSave, askTime]);
-
-  React.useEffect(() => {
-    if (isSubmitSuccess) resetForm();
-  }, [isSubmitSuccess, resetForm]);
 
   const next = React.useCallback(() => {
     setMode('time');

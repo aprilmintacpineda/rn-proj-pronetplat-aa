@@ -8,14 +8,19 @@ import SelectOptions from 'components/FormWithContext/SelectOptions';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
 
-const visibilityOptions = ['Private', 'Public'];
+const visibilityOptions = ['private', 'public'];
 
 function CreateEventForm () {
   return (
     <>
       <ScrollView>
         <View style={{ padding: 10 }}>
-          <TextInput field="name" label="Name or title of event" />
+          <TextInput
+            field="name"
+            label="Name or title of event"
+            displayCharsRemaining
+            maxLength={100}
+          />
           <TextInput
             multiline
             numberOfLines={10}
@@ -34,7 +39,6 @@ function CreateEventForm () {
             type="number"
             field="maxAttendees"
             label="Max number of atttendees"
-            helperText="If you don't want to limit the number of attendees, leave this blank."
           />
           <View>
             <Subheading style={{ fontWeight: 'bold' }}>

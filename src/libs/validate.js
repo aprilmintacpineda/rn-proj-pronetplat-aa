@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 const validationRules = {
   alphanumeric (value) {
     if (/[^a-zA-Z0-9_]/.test(value))
@@ -91,6 +93,29 @@ const validationRules = {
   },
   bool (value) {
     if (value !== true && value !== false) return 'Invalid.';
+    return '';
+  },
+  integer (value) {
+    if (/[^0-9]/gim.test(value)) return 'Must be an integer.';
+    return '';
+  },
+  futureDate (value, [relativeTo, label] = []) {
+    const date = new Date(value);
+
+    if (date.toString() === 'Invalid Date') return 'Invalid date.';
+
+    const relativeDate = relativeTo
+      ? new Date(unescape(relativeTo))
+      : new Date();
+
+    if (date <= relativeDate) {
+      return `Must be after ${
+        label
+          ? `the ${label}`
+          : format(new Date(relativeDate), "MMMM d, Y 'at' p")
+      }`;
+    }
+
     return '';
   }
 };

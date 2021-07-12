@@ -15,9 +15,8 @@ const maxZoomLevel = Platform.select({ ios: 16, android: 18 });
 function Location () {
   const mapViewRef = React.useRef();
   const { width } = useWindowDimensions();
-  const { formValues, setField, disabled } =
+  const { formValues, setField, disabled, formErrors } =
     React.useContext(FormContext);
-  const { location } = formValues;
 
   const openModal = React.useCallback(async () => {
     try {
@@ -39,7 +38,8 @@ function Location () {
       <TextInput
         label="Location"
         editable={false}
-        value={location?.address || ''}
+        value={formValues.location?.address || ''}
+        error={formErrors.location}
         onPress={openModal}
         disabled={disabled}
         multiline
@@ -54,8 +54,11 @@ function Location () {
         ref={mapViewRef}
         maxZoomLevel={maxZoomLevel}
       >
-        {location ? (
-          <Marker identifier="main" coordinate={location.location} />
+        {formValues.location ? (
+          <Marker
+            identifier="main"
+            coordinate={formValues.location.location}
+          />
         ) : null}
       </MapView>
     </View>
