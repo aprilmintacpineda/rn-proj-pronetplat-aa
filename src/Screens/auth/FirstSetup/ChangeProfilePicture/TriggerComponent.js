@@ -1,15 +1,17 @@
 import React from 'react';
 import Button from 'components/Button';
 
-function TriggerComponent ({ status, disabled, onPress }) {
+function TriggerComponent ({ status, onPress }) {
+  const isUploading = status === 'uploading';
+
   return (
     <>
       <Button
         mode="contained"
         style={{ marginTop: 20 }}
-        loading={status === 'uploading'}
-        disabled={disabled}
+        loading={isUploading}
         onPress={onPress}
+        disabled={isUploading}
       >
         Upload picture
       </Button>

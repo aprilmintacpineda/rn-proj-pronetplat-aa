@@ -1,5 +1,6 @@
 import { store } from 'fluxible-js';
 import { logEvent } from './logging';
+import { sleep } from './time';
 import Timer from 'classes/Timer';
 import { API_BASE_URL } from 'env';
 
@@ -108,4 +109,27 @@ export async function uploadFileToSignedUrl ({ signedUrl, file }) {
 
   if (response.status !== 200) throw response;
   return response;
+}
+
+export async function waitForPicture (url) {
+  // this wait time was derived from the time for
+  // profilePictureUploaded function to complete
+  // processing the new profile picture
+  await sleep(2);
+  let isSuccess = false;
+
+  do {
+    // this will wait for total of 3 seconds for
+    // the first time
+    await sleep(1);
+
+    try {
+      const response = await fetch(url, { method: 'head' });
+      isSuccess = response.status === 200;
+    } catch (error) {
+      console.log('waitForPicture', error);
+    }
+  } while (!isSuccess);
+
+  return true;
 }
