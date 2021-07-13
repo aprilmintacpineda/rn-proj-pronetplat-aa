@@ -2,6 +2,7 @@ import messaging from '@react-native-firebase/messaging';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
+import { ScrollView } from 'react-native';
 import { Divider, Drawer as RNPDrawer } from 'react-native-paper';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 import UserWidget from './UserWidget';
@@ -42,33 +43,35 @@ function drawerContent (props) {
   return (
     <>
       <UserWidget />
-      {drawerItems}
-      <Divider style={{ margin: 10, marginVertical: 20 }} />
-      <RNPDrawer.Item
-        onPress={() => {
-          navigate('About');
-        }}
-        label="About Entrepic"
-        icon={props => (
-          <RNVectorIcon
-            provider="AntDesign"
-            name="infocirlceo"
-            {...props}
-          />
-        )}
-      />
-      <Divider style={{ margin: 10, marginVertical: 20 }} />
-      <RNPDrawer.Item
-        onPress={logout}
-        label="Logout"
-        icon={props => (
-          <RNVectorIcon
-            provider="AntDesign"
-            name="logout"
-            {...props}
-          />
-        )}
-      />
+      <ScrollView style={{ paddingVertical: 10 }}>
+        {drawerItems}
+        <Divider style={{ margin: 10, marginVertical: 20 }} />
+        <RNPDrawer.Item
+          onPress={() => {
+            navigate('About');
+          }}
+          label="About Entrepic"
+          icon={props => (
+            <RNVectorIcon
+              provider="AntDesign"
+              name="infocirlceo"
+              {...props}
+            />
+          )}
+        />
+        <Divider style={{ margin: 10, marginVertical: 20 }} />
+        <RNPDrawer.Item
+          onPress={logout}
+          label="Logout"
+          icon={props => (
+            <RNVectorIcon
+              provider="AntDesign"
+              name="logout"
+              {...props}
+            />
+          )}
+        />
+      </ScrollView>
     </>
   );
 }

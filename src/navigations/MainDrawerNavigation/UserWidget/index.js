@@ -20,8 +20,7 @@ function UserWidget () {
       style={{
         alignItems: 'center',
         backgroundColor: paperTheme.colors.accent,
-        paddingVertical: 20,
-        marginBottom: 20
+        paddingVertical: 20
       }}
     >
       <View style={{ position: 'relative' }}>
