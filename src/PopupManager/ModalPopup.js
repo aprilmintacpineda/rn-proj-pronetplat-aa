@@ -15,7 +15,8 @@ function PopupManager () {
 
   React.useEffect(() => {
     if (shown) modalRef.current.open();
-  }, [shown]);
+    else if (!shown && body) modalRef.current.close();
+  }, [shown, body]);
 
   return (
     <Portal>
