@@ -4,16 +4,25 @@ import {
 } from 'expo-image-picker';
 import React from 'react';
 import { Platform, View } from 'react-native';
-import { Text, TouchableRipple } from 'react-native-paper';
+import {
+  HelperText,
+  Text,
+  TouchableRipple
+} from 'react-native-paper';
 import {
   openSettings,
   PERMISSIONS,
   request
 } from 'react-native-permissions';
 import Modalize from './Modalize';
+import File from 'classes/File';
 import RNVectorIcon from 'components/RNVectorIcon';
-import { showErrorPopup } from 'fluxible/actions/popup';
+import {
+  showErrorPopup,
+  unknownErrorPopup
+} from 'fluxible/actions/popup';
 import { logEvent } from 'libs/logging';
+import validate from 'libs/validate';
 import { paperTheme } from 'theme';
 
 const cameraPermission = Platform.select({
@@ -26,16 +35,52 @@ const galeryPermission = Platform.select({
   android: PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE
 });
 
+const defaultAspectRatio = [1, 1];
+
 function ImagePicker ({
   TriggerComponent,
   triggerComponentProps,
-  onSelect
+  onSelect,
+  error,
+  aspectRatio = defaultAspectRatio
 }) {
   const modalRef = React.useRef();
 
   const openUploadOptions = React.useCallback(() => {
     modalRef.current.open();
   }, []);
+
+  const selected = React.useCallback(
+    async picture => {
+      try {
+        const file = new File(picture);
+
+        if (validate(file.type, ['options:image/jpeg,image/png'])) {
+          showErrorPopup({
+            message: 'Please select only JPG or PNG images.'
+          });
+
+          return;
+        }
+
+        await file.getSize();
+
+        if (file.size >= 5) {
+          showErrorPopup({
+            message: 'File must be less than 5mb.'
+          });
+
+          return;
+        }
+
+        onSelect(file);
+      } catch (error) {
+        console.log(error);
+        unknownErrorPopup();
+      }
+    },
+    [onSelect]
+  );
 
   const selectPicture = React.useCallback(async () => {
     const results = await request(galeryPermission);
@@ -61,14 +106,14 @@ function ImagePicker ({
     try {
       let uploadResult = launchImageLibraryAsync({
         allowsEditing: true,
-        aspect: [1, 1],
+        aspect: aspectRatio,
         quality: 0.7
       });
 
       modalRef.current.close();
       uploadResult = await uploadResult;
       if (uploadResult.cancelled) return;
-      onSelect(uploadResult);
+      await selected(uploadResult);
     } catch (error) {
       console.log('error', error);
 
@@ -76,7 +121,7 @@ function ImagePicker ({
         message: error.message
       });
     }
-  }, [onSelect]);
+  }, [selected, aspectRatio]);
 
   const takePicture = React.useCallback(async () => {
     const results = await request(cameraPermission);
@@ -100,14 +145,14 @@ function ImagePicker ({
     try {
       let uploadResult = launchCameraAsync({
         allowsEditing: true,
-        aspect: [1, 1],
+        aspect: aspectRatio,
         quality: 0.7
       });
 
       modalRef.current.close();
       uploadResult = await uploadResult;
       if (uploadResult.cancelled) return;
-      onSelect(uploadResult);
+      await selected(uploadResult);
     } catch (error) {
       console.log('error', error);
 
@@ -115,7 +160,7 @@ function ImagePicker ({
         message: error.message
       });
     }
-  }, [onSelect]);
+  }, [selected, aspectRatio]);
 
   return (
     <>
@@ -123,6 +168,7 @@ function ImagePicker ({
         {...triggerComponentProps}
         onPress={openUploadOptions}
       />
+      <HelperText type="error">{error}</HelperText>
       <Modalize ref={modalRef}>
         <View
           style={{

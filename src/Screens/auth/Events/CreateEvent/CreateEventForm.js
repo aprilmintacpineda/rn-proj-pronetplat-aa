@@ -4,17 +4,24 @@ import { Subheading, Text } from 'react-native-paper';
 import Location from './Location';
 import Organizers from './Organizers';
 import DateTimePicker from 'components/FormWithContext/DateTimePicker';
+import ImagePicker from 'components/FormWithContext/ImagePicker';
 import SelectOptions from 'components/FormWithContext/SelectOptions';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
 
 const visibilityOptions = ['private', 'public'];
 
+const aspectRatio = [2, 1];
+
 function CreateEventForm () {
   return (
     <>
       <ScrollView>
         <View style={{ padding: 10 }}>
+          <ImagePicker
+            field="coverPicture"
+            aspectRatio={aspectRatio}
+          />
           <TextInput
             field="name"
             label="Name or title of event"

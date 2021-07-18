@@ -1,13 +1,8 @@
 import { updateStore } from 'fluxible-js';
 import React from 'react';
 import ImagePicker from './ImagePicker';
-import File from 'classes/File';
-import {
-  showErrorPopup,
-  showRequestFailedPopup
-} from 'fluxible/actions/popup';
+import { showRequestFailedPopup } from 'fluxible/actions/popup';
 import { logEvent } from 'libs/logging';
-import validate from 'libs/validate';
 import {
   uploadFileToSignedUrl,
   waitForPicture,
@@ -27,28 +22,9 @@ function ChangeProfilePictureWidget ({
   }, []);
 
   const uploadPicture = React.useCallback(
-    async picture => {
+    async file => {
       try {
         setStatus('uploading');
-
-        const file = new File(picture);
-        await file.getSize();
-
-        if (file.size >= 5) {
-          showErrorPopup({
-            message: 'File must be less than 5mb.'
-          });
-
-          return;
-        }
-
-        if (validate(file.type, ['options:image/jpeg,image/png'])) {
-          showErrorPopup({
-            message: 'Please select only JPG or PNG images.'
-          });
-
-          return;
-        }
 
         let response = await xhr('/change-profile-picture', {
           method: 'post',

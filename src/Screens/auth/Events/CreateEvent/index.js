@@ -4,9 +4,11 @@ import { navigationRef } from 'App';
 import FormWithContext from 'components/FormWithContext';
 import { showSuccessPopup } from 'fluxible/actions/popup';
 import validate from 'libs/validate';
+import { uploadFileToSignedUrl, waitForPicture } from 'libs/xhr';
 
 const formOptions = {
   initialFormValues: {
+    coverPicture: null,
     name: '',
     description: '',
     startDateTime: '',
@@ -21,19 +23,24 @@ const formOptions = {
     subtopic: ''
   },
   validators: {
+    coverPicture: ({ coverPicture }) =>
+      validate(coverPicture, ['required']),
     name: ({ name }) =>
       validate(name, ['required', 'maxLength:100']),
     description: ({ description }) =>
       validate(description, ['required', 'maxLength:5000']),
     startDateTime: ({ startDateTime }) =>
       validate(startDateTime, ['required', 'futureDate']),
-    endDateTime: ({ endDateTime, startDateTime }) =>
-      validate(endDateTime, [
+    endDateTime: ({ endDateTime, startDateTime }) => {
+      if (!startDateTime) return 'Select start date and time.';
+
+      return validate(endDateTime, [
         'required',
         `futureDate:${escape(
           startDateTime.toISOString()
         )},start date time`
-      ]),
+      ]);
+    },
     location: ({ location }) => validate(location, ['required']),
     visibility: ({ visibility }) =>
       validate(visibility, ['required', 'options:private,public']),
@@ -43,7 +50,17 @@ const formOptions = {
   validatorChains: {
     startDateTime: ['endDateTime']
   },
-  onSubmitSuccess: () => {
+  transformInput: ({ formValues }) => ({
+    ...formValues,
+    coverPicture: formValues.coverPicture.type
+  }),
+  onSubmitSuccess: async ({
+    responseData: { signedUrl, coverPicture },
+    formValues: { coverPicture: file }
+  }) => {
+    await uploadFileToSignedUrl({ signedUrl, file });
+    await waitForPicture(coverPicture);
+
     showSuccessPopup({
       message: 'You have successfully changed your password.'
     });
@@ -51,7 +68,6 @@ const formOptions = {
     navigationRef.current.goBack();
   },
   endPoint: '/create-event',
-  ignoreResponse: true,
   stayDisabledOnSuccess: true
 };
 

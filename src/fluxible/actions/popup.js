@@ -1,11 +1,12 @@
 import NetInfo from '@react-native-community/netinfo';
 import { store, updateStore } from 'fluxible-js';
 import React from 'react';
-import { Alert, View } from 'react-native';
+import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import AnimatedErrorIcon from 'components/AnimatedErrorIcon';
 import AnimatedSuccessIcon from 'components/AnimatedSuccessIcon';
 import Button from 'components/Button';
+import { paperTheme } from 'theme';
 
 export function showPopup (body) {
   updateStore({
@@ -126,20 +127,45 @@ export function updateOrCreateToast ({ id, ...params }) {
 }
 
 export function showConfirmDialog ({
-  title = null,
   message,
   onConfirm,
+  onCancel,
   isDestructive
 }) {
-  Alert.alert(title, message, [
-    {
-      onPress: onConfirm,
-      style: isDestructive ? 'destructive' : 'default',
-      text: 'Yes'
-    },
-    {
-      style: 'cancel',
-      text: 'No'
-    }
-  ]);
+  showPopup(
+    <View style={{ margin: 20 }}>
+      <Text style={{ marginTop: 20, textAlign: 'center' }}>
+        {message}
+      </Text>
+      <View style={{ marginTop: 20 }}>
+        <Button
+          mode="contained"
+          color={
+            isDestructive
+              ? paperTheme.colors.error
+              : paperTheme.colors.primary
+          }
+          onPress={onConfirm}
+        >
+          Yes
+        </Button>
+        <Button
+          mode="outlined"
+          color={paperTheme.colors.primary}
+          onPress={() => {
+            clearPopup();
+            if (onCancel) onCancel();
+          }}
+        >
+          No
+        </Button>
+      </View>
+    </View>
+  );
+}
+
+export function unknownErrorPopup () {
+  showErrorPopup({
+    message: 'An unknown error occured. Please try again.'
+  });
 }
