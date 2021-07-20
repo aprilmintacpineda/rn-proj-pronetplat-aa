@@ -12,7 +12,7 @@ function retryIcon (props) {
   );
 }
 
-function ResponsiveImage ({ uri }) {
+function ResponsiveImage ({ uri, viewStyle, imageStyle }) {
   const [{ hasLoaded, error }, setState] = React.useState({
     hasLoaded: false,
     error: null
@@ -79,8 +79,11 @@ function ResponsiveImage ({ uri }) {
   const imageProps = getImageProps();
 
   return (
-    <View {...viewProps}>
-      <Image {...imageProps} />
+    <View {...viewProps} style={[viewProps.style, viewStyle]}>
+      <Image
+        {...imageProps}
+        style={[imageProps.style, imageStyle]}
+      />
     </View>
   );
 }

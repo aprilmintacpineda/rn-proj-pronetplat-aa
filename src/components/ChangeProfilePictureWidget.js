@@ -75,6 +75,7 @@ function ChangeProfilePictureWidget ({
         ...triggerComponentProps
       }}
       onSelect={uploadPicture}
+      hideErrorMessage
     />
   );
 }

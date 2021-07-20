@@ -42,7 +42,8 @@ function ImagePicker ({
   triggerComponentProps,
   onSelect,
   error,
-  aspectRatio = defaultAspectRatio
+  aspectRatio = defaultAspectRatio,
+  hideErrorMessage = false
 }) {
   const modalRef = React.useRef();
 
@@ -168,7 +169,9 @@ function ImagePicker ({
         {...triggerComponentProps}
         onPress={openUploadOptions}
       />
-      <HelperText type="error">{error}</HelperText>
+      {!hideErrorMessage && (
+        <HelperText type="error">{error}</HelperText>
+      )}
       <Modalize ref={modalRef}>
         <View
           style={{

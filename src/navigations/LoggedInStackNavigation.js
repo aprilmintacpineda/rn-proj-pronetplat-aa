@@ -209,10 +209,10 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         }}
       />
       <Stack.Screen
-        name="Events"
+        name="MyEvents"
         component={Events}
         options={{
-          title: 'Events',
+          title: 'Your events',
           ...TransitionPresets.ModalSlideFromBottomIOS
         }}
       />

@@ -127,7 +127,7 @@ function Navigations () {
         name="EventsPlaceholder"
         component={PlaceholderScreen}
         options={{
-          drawerLabel: 'Events',
+          drawerLabel: 'My Events',
           drawerIcon: props => (
             <RNVectorIcon
               provider="MaterialCommunityIcons"
@@ -135,7 +135,7 @@ function Navigations () {
               {...props}
             />
           ),
-          to: 'Events'
+          to: 'MyEvents'
         }}
       />
       <Drawer.Screen
