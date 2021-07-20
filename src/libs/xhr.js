@@ -40,7 +40,7 @@ export async function xhr (
     method,
     headers: {
       ...options.headers,
-      'device-token': store.deviceToken,
+      'device-token': store.deviceToken || options.deviceToken,
       'content-type': 'application/json'
     }
   };

@@ -1,7 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fetch as checkInternet } from '@react-native-community/netinfo';
 import iid from '@react-native-firebase/iid';
 import { initializeStore, store, updateStore } from 'fluxible-js';
+import { getFirstInstallTime } from 'react-native-device-info';
 import RNSInfo from 'react-native-sensitive-info';
 import { STAGE } from 'env';
 import { logEvent, logLogin } from 'libs/logging';
@@ -37,55 +37,62 @@ const options = {
 
 const asyncStorage = {
   setItem: (key, value) => RNSInfo.setItem(key, value, options),
-  getItem: async key => {
-    const hasRunBefore = await AsyncStorage.getItem('hasRunBefore');
-
-    if (!hasRunBefore) {
-      await Promise.all([
-        AsyncStorage.setItem('hasRunBefore', 'true'),
-        RNSInfo.deleteItem(key, options)
-      ]);
-
-      return null;
-    }
-
-    return RNSInfo.getItem(key, options);
-  }
+  getItem: async key => RNSInfo.getItem(key, options)
 };
 
 export function restore ({
   authUser,
   authToken,
-  sendingContactRequests
+  sendingContactRequests,
+  lastStoreInit
 }) {
-  return { authUser, authToken, sendingContactRequests };
+  return {
+    authUser,
+    authToken,
+    sendingContactRequests,
+    lastStoreInit
+  };
 }
 
 async function onInitComplete () {
-  updateStore({ deviceToken: await iid().getToken() });
-
-  if (!(await hasInternet())) {
-    updateStore({ initComplete: true });
-    return;
-  }
+  const [deviceToken, firstInstallTime] = await Promise.all([
+    iid().getToken(),
+    getFirstInstallTime()
+  ]);
 
   if (
+    !store.lastStoreInit ||
+    firstInstallTime > store.lastStoreInit ||
     !store.authToken ||
     !hasCompletedSetup(store.authUser) ||
     !store.authUser.emailVerifiedAt
   ) {
     updateStore({
+      ...getInitialStore(),
       initComplete: true,
-      authUser: null,
-      authToken: null,
-      sendingContactRequests: []
+      deviceToken,
+      lastStoreInit: Date.now()
+    });
+
+    return;
+  }
+
+  if (!(await hasInternet())) {
+    updateStore({
+      deviceToken,
+      initComplete: true,
+      lastStoreInit: Date.now()
     });
 
     return;
   }
 
   try {
-    const response = await xhr('/validate-auth', { method: 'post' });
+    const response = await xhr('/validate-auth', {
+      method: 'post',
+      deviceToken
+    });
+
     const { userData, authToken } = await response.json();
 
     logLogin('verifyAuth');
@@ -93,14 +100,16 @@ async function onInitComplete () {
     updateStore({
       initComplete: true,
       authUser: userData,
-      authToken
+      authToken,
+      lastStoreInit: Date.now()
     });
   } catch (error) {
     console.log(error);
 
     updateStore({
       initComplete: true,
-      reAuth: true
+      reAuth: true,
+      lastStoreInit: Date.now()
     });
 
     logEvent('validateAuthError', {
