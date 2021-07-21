@@ -47,27 +47,53 @@ function MyEventRow (event) {
           />
           <Text style={{ marginLeft: 5 }}>{address}</Text>
         </View>
-        {isSameDay(startDateTime, endDateTime) ? (
-          <View style={{ flexDirection: 'row' }}>
-            <RNVectorIcon
-              provider="Ionicons"
-              name="ios-time-outline"
-              color={paperTheme.colors.primary}
-              size={20}
-            />
-            <Text style={{ marginLeft: 5 }}>
-              On{' '}
-              <Text style={{ fontWeight: 'bold' }}>
-                {format(startDateTime, 'cccc, MMMM d, Y')}
-              </Text>{' '}
-              from{' '}
-              <Text style={{ fontWeight: 'bold' }}>
-                {format(startDateTime, 'p')} to{' '}
-                {format(endDateTime, 'p')}
+        <View style={{ flexDirection: 'row' }}>
+          <RNVectorIcon
+            provider="Ionicons"
+            name="ios-time-outline"
+            color={paperTheme.colors.primary}
+            size={20}
+          />
+          {isSameDay(startDateTime, endDateTime) ? (
+            <>
+              <Text style={{ marginLeft: 5 }}>
+                On{' '}
+                <Text style={{ fontWeight: 'bold' }}>
+                  {format(startDateTime, 'cccc, MMMM d, Y')}
+                </Text>{' '}
+                from{' '}
+                <Text style={{ fontWeight: 'bold' }}>
+                  {format(startDateTime, 'p')}
+                </Text>{' '}
+                to{' '}
+                <Text style={{ fontWeight: 'bold' }}>
+                  {format(endDateTime, 'p')}
+                </Text>
               </Text>
-            </Text>
-          </View>
-        ) : null}
+            </>
+          ) : (
+            <>
+              <Text style={{ marginLeft: 5 }}>
+                From{' '}
+                <Text style={{ fontWeight: 'bold' }}>
+                  {format(startDateTime, 'cccc, MMMM d, Y')}
+                </Text>{' '}
+                at{' '}
+                <Text style={{ fontWeight: 'bold' }}>
+                  {format(startDateTime, 'p')}
+                </Text>{' '}
+                to{' '}
+                <Text style={{ fontWeight: 'bold' }}>
+                  {format(endDateTime, 'cccc, MMMM d, Y')}
+                </Text>{' '}
+                at{' '}
+                <Text style={{ fontWeight: 'bold' }}>
+                  {format(endDateTime, 'p')}
+                </Text>{' '}
+              </Text>
+            </>
+          )}
+        </View>
         <Button
           to="EditEvent"
           params={event}
