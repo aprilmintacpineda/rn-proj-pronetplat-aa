@@ -6,7 +6,8 @@ function TouchableRipple ({
   to = null,
   params = null,
   onPress = null,
-  children
+  children,
+  ...touchableRippleProps
 }) {
   const { navigate } = useNavigation();
 
@@ -16,7 +17,10 @@ function TouchableRipple ({
   }, [onPress, to, params, navigate]);
 
   return (
-    <RNPTouchableRipple onPress={handleOnPress}>
+    <RNPTouchableRipple
+      onPress={handleOnPress}
+      {...touchableRippleProps}
+    >
       {children}
     </RNPTouchableRipple>
   );

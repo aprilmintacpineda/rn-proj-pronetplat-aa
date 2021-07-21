@@ -19,8 +19,9 @@ import ContactProfile from 'Screens/auth/Contact/Profile';
 import ContactDetailsForm from 'Screens/auth/ContactDetail/ContactDetailsForm';
 import ContactDetailsList from 'Screens/auth/ContactDetail/List';
 import ContactRequests from 'Screens/auth/ContactRequests';
-import Events from 'Screens/auth/Events';
-import CreateEvent from 'Screens/auth/Events/CreateEvent';
+import CreateEvent from 'Screens/auth/Events/Create';
+import EventsList from 'Screens/auth/Events/List';
+import ViewEvent from 'Screens/auth/Events/View';
 import Notifications from 'Screens/auth/Notifications';
 import PrivacySettings from 'Screens/auth/PrivacySettings';
 import SearchUsers from 'Screens/auth/SearchUsers';
@@ -53,6 +54,10 @@ function resolveContactChatTitleBar (contact) {
       </Text>
     </View>
   );
+}
+
+function resolveViewEventTitleBar (event) {
+  return event.name;
 }
 
 function resolveContactProfileTitleBar (contact) {
@@ -106,11 +111,6 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         name="ContactProfile"
         component={ContactProfile}
         options={{
-          appbarContentStyle: {
-            right: 40,
-            marginLeft: 40,
-            alignItems: 'flex-start'
-          },
           resolveAppBarContent: resolveContactProfileTitleBar
         }}
       />
@@ -200,17 +200,12 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         name="ContactChat"
         component={ContactChat}
         options={{
-          resolveAppBarContent: resolveContactChatTitleBar,
-          appbarContentStyle: {
-            marginLeft: 55,
-            alignItems: 'flex-start',
-            right: 20
-          }
+          resolveAppBarContent: resolveContactChatTitleBar
         }}
       />
       <Stack.Screen
         name="MyEvents"
-        component={Events}
+        component={EventsList}
         options={{
           title: 'Your events',
           ...TransitionPresets.ModalSlideFromBottomIOS
@@ -222,6 +217,13 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         options={{
           title: 'Create Event',
           ...TransitionPresets.ModalSlideFromBottomIOS
+        }}
+      />
+      <Stack.Screen
+        name="ViewEvent"
+        component={ViewEvent}
+        options={{
+          resolveAppBarContent: resolveViewEventTitleBar
         }}
       />
     </Stack.Navigator>

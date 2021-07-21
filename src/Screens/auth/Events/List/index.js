@@ -21,7 +21,7 @@ const eventListeners = {
   }
 };
 
-function Events ({ navigation: { setOptions, navigate } }) {
+function EventsList ({ navigation: { setOptions, navigate } }) {
   React.useEffect(() => {
     setOptions({
       actions: [
@@ -52,4 +52,4 @@ function Events ({ navigation: { setOptions, navigate } }) {
   );
 }
 
-export default React.memo(Events);
+export default React.memo(EventsList);

@@ -1,6 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { Platform, View } from 'react-native';
+import { Appbar, Text } from 'react-native-paper';
 import ActionsButton from './ActionsButton';
 import ToggleDrawerIcon from './ToggleDrawerIcon';
 import { camelToTitleCase } from 'libs/strings';
@@ -19,8 +19,7 @@ function AppBar (props) {
     title = null,
     actions,
     button = null,
-    resolveAppBarContent,
-    appbarContentStyle
+    resolveAppBarContent
   } = scene.descriptor.options;
   const hasDrawerNavigation = Boolean(openDrawer);
   const appbarContent = resolveAppBarContent
@@ -47,28 +46,30 @@ function AppBar (props) {
         />
       ) : null}
       <View
-        style={[
-          {
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            alignItems: 'center',
-            zIndex: -1,
-            marginLeft: 0
-          },
-          appbarContentStyle
-        ]}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          alignItems: 'flex-start',
+          marginLeft: 55,
+          marginRight: 10
+        }}
       >
         {(appbarContent &&
           typeof appbarContent !== 'string' &&
           appbarContent) || (
-          <Appbar.Content
-            title={
-              title !== null
-                ? title
-                : appbarContent || camelToTitleCase(name)
-            }
-          />
+          <Text
+            style={{
+              color: '#fff',
+              fontSize: Platform.select({
+                ios: 17,
+                android: 20
+              })
+            }}
+            numberOfLines={1}
+          >
+            {title || appbarContent || camelToTitleCase(name)}
+          </Text>
         )}
       </View>
       {button}
