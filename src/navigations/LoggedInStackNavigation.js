@@ -69,6 +69,11 @@ function resolveContactDetailsFormTitleBar (contactDetail) {
   return 'Edit contact detail';
 }
 
+const modalConfiguration = {
+  ...TransitionPresets.ModalSlideFromBottomIOS,
+  isModal: true
+};
+
 const screenOptions = {
   header,
   ...TransitionPresets.SlideFromRightIOS,
@@ -146,7 +151,8 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         name="ContactDetailsForm"
         component={ContactDetailsForm}
         options={{
-          resolveAppBarContent: resolveContactDetailsFormTitleBar
+          resolveAppBarContent: resolveContactDetailsFormTitleBar,
+          ...modalConfiguration
         }}
       />
       <Stack.Screen
@@ -154,7 +160,7 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         component={ContactRequests}
         options={{
           title: 'Contact Requests',
-          ...TransitionPresets.ModalSlideFromBottomIOS
+          ...modalConfiguration
         }}
       />
       <Stack.Screen
@@ -162,7 +168,7 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         component={Notifications}
         options={{
           title: 'Notifications',
-          ...TransitionPresets.ModalSlideFromBottomIOS
+          ...modalConfiguration
         }}
       />
       <Stack.Screen
@@ -170,7 +176,7 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         component={Settings}
         options={{
           title: 'Settings',
-          ...TransitionPresets.ModalSlideFromBottomIOS
+          ...modalConfiguration
         }}
       />
       <Stack.Screen
@@ -178,7 +184,7 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         component={About}
         options={{
           title: 'About',
-          ...TransitionPresets.ModalSlideFromBottomIOS
+          ...modalConfiguration
         }}
       />
       <Stack.Screen
@@ -208,7 +214,7 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         component={EventsList}
         options={{
           title: 'Your events',
-          ...TransitionPresets.ModalSlideFromBottomIOS
+          ...modalConfiguration
         }}
       />
       <Stack.Screen
@@ -216,7 +222,7 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         component={CreateEvent}
         options={{
           title: 'Create Event',
-          ...TransitionPresets.ModalSlideFromBottomIOS
+          ...modalConfiguration
         }}
       />
       <Stack.Screen

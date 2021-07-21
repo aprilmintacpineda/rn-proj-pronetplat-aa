@@ -3,11 +3,24 @@ import { Platform, View } from 'react-native';
 import { Appbar, Text } from 'react-native-paper';
 import ActionsButton from './ActionsButton';
 import ToggleDrawerIcon from './ToggleDrawerIcon';
+import RNVectorIcon from 'components/RNVectorIcon';
 import { camelToTitleCase } from 'libs/strings';
 import { paperTheme } from 'theme';
 
 function menuIcon (toggle) {
   return <ToggleDrawerIcon {...toggle} />;
+}
+
+function closeIcon (props) {
+  return (
+    <RNVectorIcon provider="Ionicons" name="close" {...props} />
+  );
+}
+
+function backIcon (props) {
+  return (
+    <RNVectorIcon provider="Ionicons" name="arrow-back" {...props} />
+  );
 }
 
 function AppBar (props) {
@@ -19,7 +32,8 @@ function AppBar (props) {
     title = null,
     actions,
     button = null,
-    resolveAppBarContent
+    resolveAppBarContent,
+    isModal
   } = scene.descriptor.options;
   const hasDrawerNavigation = Boolean(openDrawer);
   const appbarContent = resolveAppBarContent
@@ -37,7 +51,10 @@ function AppBar (props) {
       }}
     >
       {!isMainScreen && canGoBack() ? (
-        <Appbar.BackAction onPress={goBack} />
+        <Appbar.Action
+          onPress={goBack}
+          icon={isModal ? closeIcon : backIcon}
+        />
       ) : hasDrawerNavigation ? (
         <Appbar.Action
           icon={menuIcon}
