@@ -19,10 +19,7 @@ function ContactListRow ({ index, ...contact }) {
             margin: 15
           }}
         >
-          <UserAvatar
-            user={contact}
-            badge={contact.numUnreadChatMessages}
-          />
+          <UserAvatar user={contact} />
           <View
             style={{
               marginLeft: 15,
