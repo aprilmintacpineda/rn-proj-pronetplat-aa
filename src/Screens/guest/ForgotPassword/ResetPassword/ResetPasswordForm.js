@@ -90,7 +90,6 @@ function ResetPasswordForm ({ email }) {
         </Text>
         <Button
           onPress={resendCode}
-          disabled={isResending}
           loading={isResending}
           countDown={{
             start: lastSent,

@@ -67,7 +67,7 @@ const formOptions = {
 
     navigationRef.current.goBack();
   },
-  endPoint: '/create-event',
+  endPoint: '/event',
   stayDisabledOnSuccess: true
 };
 

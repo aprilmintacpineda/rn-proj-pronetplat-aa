@@ -20,6 +20,7 @@ import ContactDetailsForm from 'Screens/auth/ContactDetail/ContactDetailsForm';
 import ContactDetailsList from 'Screens/auth/ContactDetail/List';
 import ContactRequests from 'Screens/auth/ContactRequests';
 import CreateEvent from 'Screens/auth/Events/Create';
+import EditEvent from 'Screens/auth/Events/Edit';
 import EventsList from 'Screens/auth/Events/List';
 import ViewEvent from 'Screens/auth/Events/View';
 import Notifications from 'Screens/auth/Notifications';
@@ -230,6 +231,14 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         component={ViewEvent}
         options={{
           resolveAppBarContent: resolveViewEventTitleBar
+        }}
+      />
+      <Stack.Screen
+        name="EditEvent"
+        component={EditEvent}
+        options={{
+          title: 'Edit Event',
+          ...modalConfiguration
         }}
       />
     </Stack.Navigator>

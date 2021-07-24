@@ -10,7 +10,7 @@ import {
 } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
-function CoverPicture ({ id, coverPicture }) {
+function CoverPicture ({ id, coverPicture, status: eventStatus }) {
   const [status, setStatus] = React.useState('initial');
 
   const resetStatus = React.useCallback(() => {
@@ -35,7 +35,7 @@ function CoverPicture ({ id, coverPicture }) {
         const { signedUrl, coverPicture } = await response.json();
         await uploadFileToSignedUrl({ signedUrl, file });
         await waitForPicture(coverPicture);
-        emitEvent('ChangedEventCoverPicture', { id, coverPicture });
+        emitEvent('changedEventCoverPicture', { id, coverPicture });
         setStatus('uploadSuccess');
       } catch (error) {
         console.log(error);
@@ -54,15 +54,17 @@ function CoverPicture ({ id, coverPicture }) {
           borderTopRightRadius: paperTheme.roundness
         }}
       />
-      <ImagePicker
-        hideErrorMessage={true}
-        TriggerComponent={TriggerComponent}
-        triggerComponentProps={{
-          resetStatus,
-          status
-        }}
-        onSelect={uploadPicture}
-      />
+      {eventStatus !== 'published' && (
+        <ImagePicker
+          hideErrorMessage={true}
+          TriggerComponent={TriggerComponent}
+          triggerComponentProps={{
+            resetStatus,
+            status
+          }}
+          onSelect={uploadPicture}
+        />
+      )}
     </>
   );
 }

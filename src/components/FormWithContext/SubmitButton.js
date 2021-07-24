@@ -12,9 +12,9 @@ function SubmitButton ({
   return (
     <Button
       onPress={submitHandler}
-      disabled={disabled || disabedFromProps}
       mode="contained"
       loading={disabled}
+      disabled={disabedFromProps}
       {...btnProps}
     >
       {children}

@@ -4,7 +4,7 @@ import DataFlatList from 'components/DataFlatList';
 import RNVectorIcon from 'components/RNVectorIcon';
 
 const eventListeners = {
-  ChangedEventCoverPicture: (
+  changedEventCoverPicture: (
     { id, coverPicture },
     { replaceData }
   ) => {
@@ -15,6 +15,18 @@ const eventListeners = {
         return {
           ...event,
           coverPicture
+        };
+      })
+    );
+  },
+  publishedEvent: (id, { replaceData }) => {
+    replaceData(data =>
+      data.map(event => {
+        if (event.id !== id) return event;
+
+        return {
+          ...event,
+          status: 'published'
         };
       })
     );

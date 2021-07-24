@@ -14,6 +14,7 @@ function Button ({
   color = paperTheme.colors.primary,
   disabled,
   countDown = null,
+  loading = false,
   ...rnpButtonProps
 }) {
   const { isDone, timeLeftStr } = useCountDown({
@@ -46,7 +47,8 @@ function Button ({
       ]}
       dark
       color={color}
-      disabled={disabled || !isDone}
+      disabled={disabled || !isDone || loading}
+      loading={loading}
       {...rnpButtonProps}
     >
       {countDown ? children({ timeLeftStr }) : children}

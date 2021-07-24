@@ -15,9 +15,8 @@ function VerifyEmailForm ({ onVerified, onResendCode }) {
     isTouched
   } = React.useContext(FormContext);
   const [isResending, setIsResending] = React.useState(false);
-  const { page, emailCodeCanSendAt, authToken } = React.useContext(
-    LoginContext
-  );
+  const { page, emailCodeCanSendAt, authToken } =
+    React.useContext(LoginContext);
 
   React.useEffect(() => {
     if (isSubmitSuccess) onVerified(responseData);
@@ -52,7 +51,6 @@ function VerifyEmailForm ({ onVerified, onResendCode }) {
           <Button
             onPress={resendCode}
             loading={isResending}
-            disabled={isResending}
             countDown={{
               toTime: emailCodeCanSendAt
             }}

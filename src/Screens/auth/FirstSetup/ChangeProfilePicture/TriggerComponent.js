@@ -11,7 +11,6 @@ function TriggerComponent ({ status, onPress }) {
         style={{ marginTop: 20 }}
         loading={isUploading}
         onPress={onPress}
-        disabled={isUploading}
       >
         Upload picture
       </Button>
