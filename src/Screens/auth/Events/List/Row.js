@@ -9,6 +9,7 @@ import Caption from 'components/Caption';
 import RNVectorIcon from 'components/RNVectorIcon';
 import Surface from 'components/Surface';
 import TouchableRipple from 'components/TouchableRipple';
+import { unknownErrorPopup } from 'fluxible/actions/popup';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
@@ -37,6 +38,7 @@ function MyEventRow (event) {
       setIsPublishing(false);
     } catch (error) {
       console.log(error);
+      unknownErrorPopup();
       setIsPublishing(false);
     }
   }, [id]);
