@@ -1,3 +1,4 @@
+import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import CreateEventForm from './CreateEventForm';
 import { navigationRef } from 'App';
@@ -62,9 +63,11 @@ const formOptions = {
     await waitForPicture(coverPicture);
 
     showSuccessPopup({
-      message: 'You have successfully changed your password.'
+      message:
+        'Event has been created. Please publish the event when you have finalized it.'
     });
 
+    emitEvent('refreshEventsList');
     navigationRef.current.goBack();
   },
   endPoint: '/event',

@@ -51,7 +51,7 @@ export async function xhr (
   if (options.body) {
     const body = Object.keys(options.body).reduce(
       (accumulator, current) => {
-        const value = options.body[current];
+        const value = options.body[current] || '';
 
         if (value.constructor === Date)
           accumulator[current] = value.toISOString();

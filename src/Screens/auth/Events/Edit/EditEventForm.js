@@ -1,26 +1,49 @@
+import { useRoute } from '@react-navigation/native';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { Subheading, Text } from 'react-native-paper';
-import Location from './Location';
-import Organizers from './Organizers';
+import { FormContext } from 'components/FormWithContext';
 import DateTimePicker from 'components/FormWithContext/DateTimePicker';
-import ImagePicker from 'components/FormWithContext/ImagePicker';
 import SelectOptions from 'components/FormWithContext/SelectOptions';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
+import Location from 'root/Screens/auth/Events/Create/Location';
 
 const visibilityOptions = ['private', 'public'];
 
-const aspectRatio = [2, 1];
+function EditEvent () {
+  const { setUpdateMode } = React.useContext(FormContext);
+  const { params: event } = useRoute();
 
-function CreateEventForm () {
+  React.useEffect(() => {
+    setUpdateMode({
+      targetId: event.id,
+      formValues: {
+        name: event.name,
+        description: event.description,
+        startDateTime: new Date(event.startDateTime),
+        endDateTime: new Date(event.endDateTime),
+        location: {
+          address: event.address,
+          location: {
+            latitude: event.latitude,
+            longitude: event.longitude
+          },
+          placeID: event.googlePlaceId,
+          name: event.placeName
+        },
+        visibility: event.visibility,
+        maxAttendees: event.maxAttendees,
+        organization: event.organization,
+        category: event.category,
+        topic: event.topic,
+        subtopic: event.subtopic
+      }
+    });
+  }, [event, setUpdateMode]);
+
   return (
     <ScrollView>
       <View style={{ padding: 10 }}>
-        <ImagePicker
-          field="coverPicture"
-          aspectRatio={aspectRatio}
-        />
         <TextInput
           field="name"
           label="Name or title of event"
@@ -46,21 +69,11 @@ function CreateEventForm () {
           field="maxAttendees"
           label="Max number of atttendees"
         />
-        <View>
-          <Subheading style={{ fontWeight: 'bold' }}>
-            Organizers
-          </Subheading>
-          <Text>
-            Who are the organizers of this event? You are required to
-            be on this list.
-          </Text>
-          <Organizers />
-        </View>
         <Location />
-        <SubmitButton>Create event</SubmitButton>
+        <SubmitButton>Save changes</SubmitButton>
       </View>
     </ScrollView>
   );
 }
 
-export default React.memo(CreateEventForm);
+export default React.memo(EditEvent);

@@ -15,16 +15,17 @@ const maxZoomLevel = Platform.select({ ios: 16, android: 18 });
 function Location () {
   const mapViewRef = React.useRef();
   const { width } = useWindowDimensions();
-  const { formValues, setField, disabled, formErrors } =
-    React.useContext(FormContext);
+  const {
+    formValues: { location },
+    setField,
+    disabled,
+    formErrors
+  } = React.useContext(FormContext);
 
   const openModal = React.useCallback(async () => {
     try {
       StatusBar.setHidden(true);
       const selected = await RNGooglePlaces.openAutocompleteModal();
-
-      mapViewRef.current.fitToCoordinates([selected.location], true);
-
       setField('location', selected);
     } catch (error) {
       console.log(error);
@@ -33,12 +34,17 @@ function Location () {
     }
   }, [setField]);
 
+  React.useEffect(() => {
+    if (location)
+      mapViewRef.current.fitToCoordinates([location.location], true);
+  }, [location]);
+
   return (
     <View style={{ marginTop: 15, marginBottom: 15 }}>
       <TextInput
         label="Location"
         editable={false}
-        value={formValues.location?.address || ''}
+        value={location?.address || ''}
         error={formErrors.location}
         onPress={openModal}
         disabled={disabled}
@@ -54,11 +60,8 @@ function Location () {
         ref={mapViewRef}
         maxZoomLevel={maxZoomLevel}
       >
-        {formValues.location ? (
-          <Marker
-            identifier="main"
-            coordinate={formValues.location.location}
-          />
+        {location ? (
+          <Marker identifier="main" coordinate={location.location} />
         ) : null}
       </MapView>
     </View>

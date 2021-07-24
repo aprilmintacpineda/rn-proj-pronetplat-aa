@@ -30,6 +30,21 @@ const eventListeners = {
         };
       })
     );
+  },
+  refreshEventsList: (_, { refreshData }) => {
+    refreshData();
+  },
+  editedEventData: (updatedEventData, { replaceData }) => {
+    replaceData(data =>
+      data.map(event => {
+        if (event.id !== updatedEventData.id) return event;
+
+        return {
+          ...event,
+          ...updatedEventData
+        };
+      })
+    );
   }
 };
 
