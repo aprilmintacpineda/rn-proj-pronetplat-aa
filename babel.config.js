@@ -15,27 +15,8 @@ const plugins = [
 
 if (process.env.NODE_ENV === 'production') {
   plugins.push(
-    'react-native-paper/babel', // react-native-paper
-    'transform-remove-console',
-    [
-      'search-and-replace',
-      {
-        rules: [
-          {
-            search: /__STAGE__/gm,
-            replace: process.env.STAGE
-          },
-          {
-            search: /__API_BASE_URL__/gm,
-            replace: process.env.API_BASE_URL
-          },
-          {
-            search: /__WEBSOCKET_URL__/gm,
-            replace: process.env.WEBSOCKET_URL
-          }
-        ]
-      }
-    ]
+    'react-native-paper/babel',
+    'transform-remove-console'
   );
 }
 

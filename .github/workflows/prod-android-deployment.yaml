@@ -13,11 +13,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     continue-on-error: false
-    env:
-      STAGE: prod
-      WEBSOCKET_URL: wss://wtok1xlpjh.execute-api.ap-southeast-1.amazonaws.com/prod
-      API_BASE_URL: https://apiv1.entrepic.com
-
+    
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -59,10 +55,16 @@ jobs:
           base64 -d my-upload-key.keystore.b64 > android/app/my-upload-key.keystore
           cp android/template.gradle.properties android/gradle.properties
           yarn keystore-password
-          cp src/env.example.js src/env.js
 
       - name: Patch packages
         run: yarn patch-package
+
+      - name: Setup env
+        run: |
+          cp .env.example .env
+          echo 'STAGE=prod' > .env
+          echo 'WEBSOCKET_URL=wss://wtok1xlpjh.execute-api.ap-southeast-1.amazonaws.com/prod' > .env
+          echo 'API_BASE_URL=https://apiv1.entrepic.com' > .env
 
       - name: Build and deploy
         run: |

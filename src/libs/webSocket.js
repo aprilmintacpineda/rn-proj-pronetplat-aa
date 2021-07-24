@@ -1,6 +1,6 @@
 import { emitEvent, store } from 'fluxible-js';
 import BackgroundTimer from 'react-native-background-timer';
-import { WEBSOCKET_URL } from 'env';
+import config from 'react-native-config';
 
 let webSocket = null;
 let willReconnect = false;
@@ -60,7 +60,7 @@ function restartConnection (err) {
 export function connectWebSocket () {
   console.log('connecting');
 
-  webSocket = new WebSocket(WEBSOCKET_URL, undefined, {
+  webSocket = new WebSocket(config.WEBSOCKET_URL, undefined, {
     headers: {
       Authorization: `Bearer ${store.authToken}`
     }

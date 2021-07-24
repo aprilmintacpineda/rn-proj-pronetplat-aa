@@ -1,9 +1,9 @@
 import { fetch as checkInternet } from '@react-native-community/netinfo';
 import iid from '@react-native-firebase/iid';
 import { initializeStore, store, updateStore } from 'fluxible-js';
+import config from 'react-native-config';
 import { getFirstInstallTime } from 'react-native-device-info';
 import RNSInfo from 'react-native-sensitive-info';
-import { STAGE } from 'env';
 import { logEvent, logLogin } from 'libs/logging';
 import { hasCompletedSetup } from 'libs/user';
 import { xhr } from 'libs/xhr';
@@ -31,8 +31,8 @@ export function getInitialStore () {
 }
 
 const options = {
-  sharedPreferencesName: `com.entrepic.${STAGE}.secured-data`,
-  keychainService: `com.entrepic.${STAGE}.secured-data`
+  sharedPreferencesName: `com.entrepic.${config.STAGE}.secured-data`,
+  keychainService: `com.entrepic.${config.STAGE}.secured-data`
 };
 
 const asyncStorage = {

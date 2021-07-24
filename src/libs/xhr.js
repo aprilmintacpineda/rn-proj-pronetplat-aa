@@ -1,14 +1,14 @@
 import { store } from 'fluxible-js';
+import config from 'react-native-config';
 import { logEvent } from './logging';
 import { sleep } from './time';
 import Timer from 'classes/Timer';
-import { API_BASE_URL } from 'env';
 
 function clean (path) {
   return path.replace(/^\/+/, '').replace(/\/+$/, '');
 }
 
-const cleanAPiBaseUrl = clean(API_BASE_URL);
+const cleanAPiBaseUrl = clean(config.API_BASE_URL);
 
 function resolveUrl (path = '') {
   if (/https?:\/\/w?w?w?\.?/gim.test(path)) return path;

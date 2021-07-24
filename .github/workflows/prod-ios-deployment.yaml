@@ -14,9 +14,6 @@ jobs:
     runs-on: macos-latest
     continue-on-error: false
     env:
-      STAGE: prod
-      WEBSOCKET_URL: wss://wtok1xlpjh.execute-api.ap-southeast-1.amazonaws.com/prod
-      API_BASE_URL: https://apiv1.entrepic.com
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
       APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
@@ -77,6 +74,13 @@ jobs:
 
       - name: Patch packages
         run: yarn patch-package
+
+      - name: Setup env
+        run: |
+          cp .env.example .env
+          echo 'STAGE=prod' > .env
+          echo 'WEBSOCKET_URL=wss://wtok1xlpjh.execute-api.ap-southeast-1.amazonaws.com/prod' > .env
+          echo 'API_BASE_URL=https://apiv1.entrepic.com' > .env
 
       - name: Build and deploy
         run: |
