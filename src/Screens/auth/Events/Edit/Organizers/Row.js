@@ -1,13 +1,18 @@
+import { useRoute } from '@react-navigation/native';
+import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { ActivityIndicator, Text } from 'react-native-paper';
 import Animatable from 'components/Animatable';
 import IconButton from 'components/IconButton';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TouchableRipple from 'components/TouchableRipple';
 import UserAvatar from 'components/UserAvatar';
+import { unknownErrorPopup } from 'fluxible/actions/popup';
 import { getFullName, renderUserTitle } from 'libs/user';
+import { xhr } from 'libs/xhr';
+import { paperTheme } from 'theme';
 
 function addIcon (props) {
   return (
@@ -27,10 +32,24 @@ function OrganizerRow ({ index, ...user }) {
   const fullName = getFullName(user);
   const delay = (index % 10) * 100;
   const { authUser } = useFluxibleStore(mapStates);
+  const [isRemoving, setIsRemoving] = React.useState(false);
+  const { params: event } = useRoute();
 
-  const handleRemove = React.useCallback(() => {
-    console.log('remove');
-  }, []);
+  const handleRemove = React.useCallback(async () => {
+    try {
+      setIsRemoving(true);
+
+      await xhr(`/events/organizers/${event.id}/${user.id}`, {
+        method: 'delete'
+      });
+
+      emitEvent('organizerRemoved', user.id);
+    } catch (error) {
+      console.log(error);
+      unknownErrorPopup();
+      setIsRemoving(false);
+    }
+  }, [user, event]);
 
   return (
     <>
@@ -51,11 +70,23 @@ function OrganizerRow ({ index, ...user }) {
                 {renderUserTitle(user)}
               </View>
               <View style={{ justifyContent: 'center' }}>
-                <IconButton
-                  icon={addIcon}
-                  onPress={handleRemove}
-                  size={20}
-                />
+                {isRemoving ? (
+                  <View
+                    style={{
+                      backgroundColor: paperTheme.colors.primary,
+                      borderRadius: 100,
+                      padding: 5
+                    }}
+                  >
+                    <ActivityIndicator size={20} color="#fff" />
+                  </View>
+                ) : (
+                  <IconButton
+                    icon={addIcon}
+                    onPress={handleRemove}
+                    size={20}
+                  />
+                )}
               </View>
             </View>
           </TouchableRipple>
