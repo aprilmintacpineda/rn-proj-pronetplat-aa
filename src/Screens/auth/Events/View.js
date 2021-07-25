@@ -1,6 +1,6 @@
 import { format, isSameDay } from 'date-fns';
 import React from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import {
   Divider,
   Subheading,
@@ -9,6 +9,7 @@ import {
 } from 'react-native-paper';
 import ResponsiveImageView from 'components/ResponsiveImageView';
 import RNVectorIcon from 'components/RNVectorIcon';
+import TextLink from 'components/TextLink';
 import { paperTheme } from 'theme';
 
 function ViewEvent ({ route: { params: event } }) {
@@ -25,6 +26,15 @@ function ViewEvent ({ route: { params: event } }) {
 
   const startDateTime = new Date(_startDateTime);
   const endDateTime = new Date(_endDateTime);
+
+  const directionsUrl =
+    Platform.OS === 'android'
+      ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+          address
+        )}&origin=My+Location`
+      : `http://maps.apple.com/?daddr=${encodeURIComponent(
+          address
+        )}&saddr=My+Location`;
 
   return (
     <View>
@@ -100,7 +110,12 @@ function ViewEvent ({ route: { params: event } }) {
             color={paperTheme.colors.primary}
             size={20}
           />
-          <Text style={{ marginLeft: 5, flex: 1 }}>{address}</Text>
+          <Text style={{ marginLeft: 5, flex: 1 }}>
+            <Text>{address}. </Text>
+            <TextLink isExternal to={directionsUrl}>
+              Get directions.
+            </TextLink>
+          </Text>
         </View>
         <View style={{ flexDirection: 'row' }}>
           <RNVectorIcon
