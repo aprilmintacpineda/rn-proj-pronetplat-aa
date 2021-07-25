@@ -14,8 +14,10 @@ function TextLink ({
   ...props
 }) {
   const handlePress = React.useCallback(() => {
-    if (isExternal) Linking.openURL(to);
-    else navigationRef.current.navigate(to, params);
+    if (to) {
+      if (isExternal) Linking.openURL(to);
+      else navigationRef.current.navigate(to, params);
+    }
 
     if (onPress) onPress();
   }, [to, params, onPress, isExternal]);
