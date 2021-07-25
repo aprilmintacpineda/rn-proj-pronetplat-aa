@@ -4,6 +4,8 @@ import { Text } from 'react-native-paper';
 import SlideView from 'components/SlideView';
 import { paperTheme } from 'theme';
 
+export const TabContext = React.createContext();
+
 function Tabs ({ children }) {
   const [activeTab, setActiveTab] = React.useState(0);
 
@@ -53,7 +55,9 @@ function Tabs ({ children }) {
   return (
     <>
       {tabMenu}
-      <SlideView page={activeTab + 1}>{children}</SlideView>
+      <TabContext.Provider value={{ activeTab }}>
+        <SlideView page={activeTab + 1}>{children}</SlideView>
+      </TabContext.Provider>
     </>
   );
 }

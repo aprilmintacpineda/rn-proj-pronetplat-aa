@@ -4,7 +4,7 @@ import Search from './Search';
 import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
 
-function SelectOrganizers ({ onClose, ...otherRowProps }) {
+function SelectContacts ({ onClose, ...otherRowProps }) {
   const [searchParams, setSearchParams] = React.useState({
     search: ''
   });
@@ -41,4 +41,4 @@ function SelectOrganizers ({ onClose, ...otherRowProps }) {
   );
 }
 
-export default React.memo(SelectOrganizers);
+export default React.memo(SelectContacts);

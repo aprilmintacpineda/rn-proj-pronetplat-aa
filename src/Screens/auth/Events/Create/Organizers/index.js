@@ -2,12 +2,12 @@ import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
-import SelectOrganizers from './SelectOrganizers';
 import { FormContext } from 'components/FormWithContext';
 import Button from 'components/FormWithContext/Button';
 import IconButton from 'components/FormWithContext/IconButton';
 import FullScreenModal from 'components/FullScreenModal';
 import RNVectorIcon from 'components/RNVectorIcon';
+import SelectContacts from 'components/SelectContacts';
 import UserAvatar from 'components/UserAvatar';
 import { getFullName, renderUserTitle } from 'libs/user';
 
@@ -58,6 +58,15 @@ function Organizers () {
     [setField]
   );
 
+  const resolveIsSelected = React.useCallback(
+    user => {
+      return Boolean(
+        formValues.organizers.find(({ id }) => id === user.id)
+      );
+    },
+    [formValues.organizers]
+  );
+
   return (
     <>
       <View
@@ -79,13 +88,6 @@ function Organizers () {
           </Text>
         </View>
       </View>
-      <Button
-        mode="outlined"
-        style={{ marginTop: 10 }}
-        onPress={openModal}
-      >
-        Add organizers
-      </Button>
       {formValues.organizers.map(user => {
         const fullName = getFullName(user);
 
@@ -121,11 +123,18 @@ function Organizers () {
           </View>
         );
       })}
+      <Button
+        mode="outlined"
+        style={{ marginTop: 10 }}
+        onPress={openModal}
+      >
+        Add organizers
+      </Button>
       <FullScreenModal isVisible={isVisible}>
-        <SelectOrganizers
+        <SelectContacts
           onClose={closeModal}
           onSelect={addOrganizer}
-          selectedUsers={formValues.organizers}
+          resolveIsSelected={resolveIsSelected}
         />
       </FullScreenModal>
     </>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Keyboard, useWindowDimensions, View } from 'react-native';
-import { Portal } from 'react-native-portalize';
+import { Portal } from 'react-native-paper';
 import Animatable from './Animatable';
 
 function FullScreenModal ({ isVisible, children }) {
