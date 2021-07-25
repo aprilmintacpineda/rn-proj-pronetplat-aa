@@ -52,7 +52,7 @@ function CreateEventForm () {
           </Subheading>
           <Text>
             Who are the organizers of this event? You are required to
-            be on this list.
+            be initially on this list.
           </Text>
           <Organizers />
         </View>

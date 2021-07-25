@@ -10,7 +10,7 @@ import Location from 'root/Screens/auth/Events/Create/Location';
 
 const visibilityOptions = ['private', 'public'];
 
-function EditEvent () {
+function EditEventDetailsForm () {
   const { setUpdateMode } = React.useContext(FormContext);
   const { params: event } = useRoute();
 
@@ -76,4 +76,4 @@ function EditEvent () {
   );
 }
 
-export default React.memo(EditEvent);
+export default React.memo(EditEventDetailsForm);
