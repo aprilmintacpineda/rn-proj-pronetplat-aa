@@ -1,4 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import { DataFetchContext } from 'components/DataFetch';
 import FullScreenModal from 'components/FullScreenModal';
@@ -8,13 +9,41 @@ import { TabContext } from 'components/Tabs';
 import { unknownErrorPopup } from 'fluxible/actions/popup';
 import { xhr } from 'libs/xhr';
 
+const eventListeners = {
+  addedToOrganizer: (userId, { replaceData }) => {
+    replaceData(data =>
+      data.map(contact => {
+        if (contact.id !== userId) return contact;
+
+        return {
+          ...contact,
+          isOrganizer: true
+        };
+      })
+    );
+  },
+  organizerRemoved: (userId, { replaceData }) => {
+    replaceData(data =>
+      data.map(contact => {
+        if (contact.id !== userId) return contact;
+
+        return {
+          ...contact,
+          isOrganizer: false
+        };
+      })
+    );
+  }
+};
+
 function AddOrganizer () {
   const { params: event } = useRoute();
-  const { data, replaceData } = React.useContext(DataFetchContext);
   const [isVisible, setIsVisible] = React.useState(false);
   const { setOptions } = useNavigation();
   const { activeTab } = React.useContext(TabContext);
   const [addingUsersList, setAddingUsersList] = React.useState([]);
+  const [shouldRefresh, setShouldRefresh] = React.useState(false);
+  const { refreshData } = React.useContext(DataFetchContext);
 
   React.useEffect(() => {
     if (activeTab !== 1) {
@@ -58,7 +87,8 @@ function AddOrganizer () {
           }
         });
 
-        replaceData(data => [user].concat(data));
+        emitEvent('addedToOrganizer', user.id);
+        setShouldRefresh(true);
       } catch (error) {
         console.log(error);
         unknownErrorPopup();
@@ -68,14 +98,12 @@ function AddOrganizer () {
         );
       }
     },
-    [replaceData, event]
+    [event]
   );
 
   const resolveIsSelected = React.useCallback(
-    user => {
-      return Boolean(data.find(({ id }) => id === user.id));
-    },
-    [data]
+    user => user.isOrganizer,
+    []
   );
 
   const resolveIsLoading = React.useCallback(
@@ -87,13 +115,22 @@ function AddOrganizer () {
     [addingUsersList]
   );
 
+  const onModalClose = React.useCallback(() => {
+    if (shouldRefresh) {
+      setShouldRefresh(false);
+      refreshData();
+    }
+  }, [shouldRefresh, refreshData]);
+
   return (
-    <FullScreenModal isVisible={isVisible}>
+    <FullScreenModal isVisible={isVisible} onClose={onModalClose}>
       <SelectContacts
         onClose={closeModal}
         onSelect={addOrganizer}
         resolveIsSelected={resolveIsSelected}
         resolveIsLoading={resolveIsLoading}
+        url={`/events/add-organizer/${event.id}`}
+        eventListeners={eventListeners}
       />
     </FullScreenModal>
   );

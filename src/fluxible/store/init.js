@@ -26,7 +26,7 @@ export function getInitialStore () {
     deviceToken: null,
     toasts: [],
     sendingContactRequests: [],
-    refreshMyContactList: false
+    screensToRefresh: []
   };
 }
 

@@ -4,7 +4,12 @@ import Search from './Search';
 import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
 
-function SelectContacts ({ onClose, ...otherRowProps }) {
+function SelectContacts ({
+  onClose,
+  url = '/search-contacts',
+  eventListeners,
+  ...otherRowProps
+}) {
   const [searchParams, setSearchParams] = React.useState({
     search: ''
   });
@@ -18,9 +23,7 @@ function SelectContacts ({ onClose, ...otherRowProps }) {
 
   return (
     <DataFlatList
-      endpoint={
-        searchParams.search ? '/search-contacts' : '/my-contacts'
-      }
+      endpoint={url}
       params={searchParams}
       LoadingPlaceHolder={ContactsLoadingPlaceholder}
       RowComponent={Row}
@@ -31,6 +34,7 @@ function SelectContacts ({ onClose, ...otherRowProps }) {
       }
       otherRowProps={otherRowProps}
       onParamsChange={onParamsChange}
+      eventListeners={eventListeners}
     >
       <Search
         searchParams={searchParams}

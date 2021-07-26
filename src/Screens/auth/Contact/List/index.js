@@ -6,9 +6,12 @@ import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
 
 const eventListeners = {
-  refreshMyContactList: () => {
-    if (!store.refreshMyContactList)
-      updateStore({ refreshMyContactList: true });
+  refreshContactList: () => {
+    if (!store.screensToRefresh.includes('ContactList')) {
+      updateStore({
+        screensToRefresh: store.screensToRefresh.push('ContactList')
+      });
+    }
   }
 };
 
@@ -16,7 +19,7 @@ function ContactList () {
   return (
     <DataFlatList
       LoadingPlaceHolder={ContactsLoadingPlaceholder}
-      endpoint="/my-contacts"
+      endpoint="/search-contacts"
       eventListeners={eventListeners}
       RowComponent={Row}
       listEmptyMessage="You have no contacts yet."

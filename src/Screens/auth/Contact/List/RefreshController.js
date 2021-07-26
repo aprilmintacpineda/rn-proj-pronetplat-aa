@@ -4,21 +4,26 @@ import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { DataFetchContext } from 'components/DataFetch';
 
-function mapStates ({ refreshMyContactList }) {
-  return { refreshMyContactList };
+function mapStates ({ screensToRefresh }) {
+  return { screensToRefresh };
 }
 
 function RefreshController () {
-  const { refreshMyContactList } = useFluxibleStore(mapStates);
+  const { screensToRefresh } = useFluxibleStore(mapStates);
   const isFocused = useIsFocused();
   const { refreshData } = React.useContext(DataFetchContext);
 
   React.useEffect(() => {
-    if (isFocused && refreshMyContactList) {
+    const index = screensToRefresh.indexOf('ContactList');
+
+    if (isFocused && index !== -1) {
+      updateStore({
+        screensToRefresh: screensToRefresh.slice(index, index + 1)
+      });
+
       refreshData();
-      updateStore({ refreshMyContactList: false });
     }
-  }, [isFocused, refreshMyContactList, refreshData]);
+  }, [isFocused, screensToRefresh, refreshData]);
 
   return null;
 }

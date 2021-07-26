@@ -13,6 +13,7 @@ import {
   PERMISSIONS,
   request
 } from 'react-native-permissions';
+import InviteContacts from './InviteContacts';
 import ResponsiveImageView from 'components/ResponsiveImageView';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TextLink from 'components/TextLink';
@@ -28,7 +29,8 @@ function ViewEvent ({ route: { params: event } }) {
     address,
     startDateTime: _startDateTime,
     endDateTime: _endDateTime,
-    description
+    description,
+    isOrganizer
   } = event;
 
   const addToCalendar = React.useCallback(async () => {
@@ -83,6 +85,7 @@ function ViewEvent ({ route: { params: event } }) {
       <ResponsiveImageView uri={coverPicture} />
       <View style={{ padding: 10 }}>
         <Title>{name}</Title>
+        {isOrganizer && <InviteContacts event={event} />}
         {visibility === 'public' ? (
           <View
             style={{

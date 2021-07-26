@@ -123,7 +123,7 @@ function ContactProfile ({ contact }) {
         method: 'post'
       });
 
-      emitEvent('refreshMyContactList');
+      emitEvent('refreshContactList');
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -235,7 +235,7 @@ function ContactProfile ({ contact }) {
 
       decrementContactRequestsCount();
       emitEvent('respondedToContactRequest', contact.id);
-      emitEvent('refreshMyContactList');
+      emitEvent('refreshContactList');
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -258,7 +258,7 @@ function ContactProfile ({ contact }) {
 
       decrementContactRequestsCount();
       emitEvent('respondedToContactRequest', contact.id);
-      emitEvent('refreshMyContactList');
+      emitEvent('refreshContactList');
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -279,7 +279,7 @@ function ContactProfile ({ contact }) {
         method: 'post'
       });
 
-      emitEvent('refreshMyContactList');
+      emitEvent('refreshContactList');
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -305,7 +305,7 @@ function ContactProfile ({ contact }) {
         isCloseFriend: true
       });
 
-      emitEvent('refreshMyContactList');
+      emitEvent('refreshContactList');
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -331,7 +331,7 @@ function ContactProfile ({ contact }) {
         isCloseFriend: false
       });
 
-      emitEvent('refreshMyContactList');
+      emitEvent('refreshContactList');
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();

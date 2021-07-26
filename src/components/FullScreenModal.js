@@ -3,7 +3,7 @@ import { Keyboard, useWindowDimensions, View } from 'react-native';
 import { Portal } from 'react-native-paper';
 import Animatable from './Animatable';
 
-function FullScreenModal ({ isVisible, children }) {
+function FullScreenModal ({ onClose, onOpen, isVisible, children }) {
   const windowDimensions = useWindowDimensions();
   const prevIsVisible = React.useRef(isVisible);
   const animatableRef = React.useRef();
@@ -23,6 +23,8 @@ function FullScreenModal ({ isVisible, children }) {
             transform: [{ translateY: 0 }]
           }
         });
+
+        if (onOpen) onOpen();
       } else {
         animatableRef.current.animate({
           0: {
@@ -32,9 +34,11 @@ function FullScreenModal ({ isVisible, children }) {
             transform: [{ translateY: height }]
           }
         });
+
+        if (onClose) onClose();
       }
     }
-  }, [isVisible, height]);
+  }, [isVisible, height, onOpen, onClose]);
 
   return (
     <Portal>
