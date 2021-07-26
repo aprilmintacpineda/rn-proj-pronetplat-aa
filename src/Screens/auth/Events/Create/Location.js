@@ -9,6 +9,7 @@ import RNGooglePlaces from 'react-native-google-places';
 import MapView, { Marker } from 'react-native-maps';
 import { FormContext } from 'components/FormWithContext';
 import TextInput from 'components/TextInput';
+import { paperTheme } from 'theme';
 
 const maxZoomLevel = Platform.select({ ios: 16, android: 18 });
 
@@ -54,7 +55,9 @@ function Location () {
         style={{
           width: width - 20,
           height: 300,
-          marginTop: 10
+          marginTop: 10,
+          borderWidth: 1,
+          borderColor: paperTheme.colors.backdrop
         }}
         rotateEnabled={false}
         ref={mapViewRef}
