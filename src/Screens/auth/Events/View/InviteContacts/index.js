@@ -59,7 +59,7 @@ function InviteContacts ({ event }) {
     <>
       <Button
         mode="contained"
-        style={{ marginTop: 10 }}
+        style={{ marginVertical: 10 }}
         onPress={openModal}
       >
         Invite your contacts

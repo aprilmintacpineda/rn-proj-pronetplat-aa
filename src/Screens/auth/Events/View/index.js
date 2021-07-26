@@ -1,4 +1,4 @@
-import { format, isSameDay } from 'date-fns';
+import { format, isPast, isSameDay } from 'date-fns';
 import React from 'react';
 import { Platform, View } from 'react-native';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
@@ -85,7 +85,19 @@ function ViewEvent ({ route: { params: event } }) {
       <ResponsiveImageView uri={coverPicture} />
       <View style={{ padding: 10 }}>
         <Title>{name}</Title>
-        {isOrganizer && <InviteContacts event={event} />}
+        {isPast(endDateTime) ? (
+          <Text
+            style={{
+              marginVertical: 10,
+              color: paperTheme.colors.error,
+              fontWeight: 'bold'
+            }}
+          >
+            This event has past.
+          </Text>
+        ) : (
+          isOrganizer && <InviteContacts event={event} />
+        )}
         {visibility === 'public' ? (
           <View
             style={{
