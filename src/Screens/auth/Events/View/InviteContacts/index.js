@@ -25,8 +25,6 @@ function InviteContacts ({ event }) {
     []
   );
 
-  console.log(event);
-
   const openModal = React.useCallback(() => {
     setIsVisible(true);
   }, []);

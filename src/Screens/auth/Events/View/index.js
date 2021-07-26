@@ -41,8 +41,6 @@ function ViewEvent ({ route: { params: event } }) {
       })
     );
 
-    console.log(results);
-
     if (results !== 'granted') {
       showErrorPopup({
         message: 'Please allow the app to use your calendar.',
