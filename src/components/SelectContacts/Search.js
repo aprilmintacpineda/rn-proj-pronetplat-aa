@@ -1,8 +1,15 @@
 import React from 'react';
-import { Appbar, Searchbar } from 'react-native-paper';
+import { Searchbar } from 'react-native-paper';
+import RNVectorIcon from 'components/RNVectorIcon';
 import useDebouncedCallback from 'hooks/useDebouncedCallback';
 import useState from 'hooks/useState';
 import { paperTheme } from 'theme';
+
+function closeIcon (props) {
+  return (
+    <RNVectorIcon provider="Ionicons" name="close" {...props} />
+  );
+}
 
 function Search ({ searchParams, setSearchParams, onClose }) {
   const {
@@ -32,7 +39,7 @@ function Search ({ searchParams, setSearchParams, onClose }) {
 
   return (
     <Searchbar
-      icon={Appbar.BackAction}
+      icon={closeIcon}
       onIconPress={onClose}
       placeholder="Search your contacts"
       onChangeText={onChangeText}
