@@ -70,6 +70,7 @@ function ViewEvent ({ route: { params: event } }) {
 
   const startDateTime = new Date(_startDateTime);
   const endDateTime = new Date(_endDateTime);
+  const hasEventPast = isPast(endDateTime);
 
   const directionsUrl =
     Platform.OS === 'android'
@@ -85,7 +86,7 @@ function ViewEvent ({ route: { params: event } }) {
       <ResponsiveImageView uri={coverPicture} />
       <View style={{ padding: 10 }}>
         <Title>{name}</Title>
-        {isPast(endDateTime) ? (
+        {hasEventPast ? (
           <Text
             style={{
               marginVertical: 10,
@@ -219,9 +220,11 @@ function ViewEvent ({ route: { params: event } }) {
                 </>
               )}{' '}
             </Text>
-            <TextLink onPress={addToCalendar}>
-              Add to calendar
-            </TextLink>
+            {!hasEventPast && (
+              <TextLink onPress={addToCalendar}>
+                Add to calendar
+              </TextLink>
+            )}
           </View>
         </View>
         <Divider style={{ marginTop: 10, marginBottom: 5 }} />
