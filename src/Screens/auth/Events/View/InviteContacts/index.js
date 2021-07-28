@@ -3,6 +3,8 @@ import React from 'react';
 import Button from 'components/Button';
 import FullScreenModal from 'components/FullScreenModal';
 import SelectContacts from 'components/SelectContacts';
+import { unknownErrorPopup } from 'fluxible/actions/popup';
+import { xhr } from 'libs/xhr';
 
 const eventListeners = {
   invitedUserToEvent: (userId, { replaceData }) => {
@@ -47,11 +49,30 @@ function InviteContacts ({ event }) {
     [invitingUsersList]
   );
 
-  const inviteUser = React.useCallback(async user => {
-    console.log('inviteUser', user);
-    setInvitingUsersList(oldList => oldList.concat(user));
-    emitEvent('invitedUserToEvent', user.id);
-  }, []);
+  const inviteUser = React.useCallback(
+    async user => {
+      try {
+        setInvitingUsersList(oldList => oldList.concat(user));
+
+        await xhr(`/events/invite-user/${event.id}`, {
+          method: 'post',
+          body: {
+            contactId: user.id
+          }
+        });
+
+        emitEvent('invitedUserToEvent', user.id);
+      } catch (error) {
+        console.log(error);
+        unknownErrorPopup();
+      } finally {
+        setInvitingUsersList(oldList =>
+          oldList.filter(({ id }) => id !== user.id)
+        );
+      }
+    },
+    [event]
+  );
 
   return (
     <>

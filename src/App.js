@@ -16,6 +16,7 @@ import KeyboardAvoidingView from 'components/KeyboardAvoidingView';
 import {
   decrementContactRequestsCount,
   incrementContactRequestsCount,
+  incrementEventInvitationsCount,
   incrementNotificationsCount
 } from 'fluxible/actions/user';
 import { initStore } from 'fluxible/store/init';
@@ -32,10 +33,17 @@ export const navigationRef = React.createRef();
 
 const webSocketEventHandlers = {
   notification: ({ user, trigger, payload: { title, body } }) => {
-    if (trigger === 'contactRequestCancelled')
-      decrementContactRequestsCount();
-    else if (trigger === 'contactRequest')
-      incrementContactRequestsCount();
+    switch (trigger) {
+      case 'contactRequestCancelled':
+        decrementContactRequestsCount();
+        break;
+      case 'contactRequest':
+        incrementContactRequestsCount();
+        break;
+      case 'eventInvitation':
+        incrementEventInvitationsCount();
+        break;
+    }
 
     incrementNotificationsCount();
 

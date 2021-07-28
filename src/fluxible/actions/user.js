@@ -49,6 +49,15 @@ export function decrementContactRequestsCount () {
   });
 }
 
+export function incrementEventInvitationsCount () {
+  updateStore({
+    authUser: {
+      ...store.authUser,
+      eventInvitationsCount: store.authUser.eventInvitationsCount + 1
+    }
+  });
+}
+
 export function incrementContactRequestsCount () {
   updateStore({
     authUser: {
