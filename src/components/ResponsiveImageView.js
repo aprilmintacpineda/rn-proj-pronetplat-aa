@@ -64,7 +64,9 @@ function ResponsiveImage ({ uri, viewStyle, imageStyle }) {
         style={{
           flex: 1,
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          paddingTop: 10,
+          paddingBottom: 10
         }}
       >
         <ActivityIndicator
