@@ -52,10 +52,11 @@ function InboxRow ({ index, ...inbox }) {
             >
               {isTyping
                 ? `${contact.firstName} is typing...`
-                : lastMessage.seenAt &&
-                  lastMessage.senderId === authUser.id
-                ? `Seen ${formatDate(lastMessage.seenAt)}`
-                : `Sent ${formatDate(lastMessage.createdAt)}`}
+                : lastMessage.senderId === authUser.id
+                ? lastMessage.seenAt
+                  ? `Seen ${formatDate(lastMessage.seenAt)}`
+                  : `Sent ${formatDate(lastMessage.createdAt)}`
+                : `Received ${formatDate(lastMessage.createdAt)}`}
             </Caption>
           </View>
         </View>
