@@ -23,16 +23,18 @@ const eventListeners = {
     );
   },
   organizerRemoved: (userId, { replaceData }) => {
-    replaceData(data =>
-      data.map(contact => {
+    replaceData(data => {
+      if (!data) return data;
+
+      return data.map(contact => {
         if (contact.id !== userId) return contact;
 
         return {
           ...contact,
           isOrganizer: false
         };
-      })
-    );
+      });
+    });
   }
 };
 

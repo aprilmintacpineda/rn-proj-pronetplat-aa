@@ -32,7 +32,11 @@ import { navigationTheme, paperTheme } from 'theme';
 export const navigationRef = React.createRef();
 
 const webSocketEventHandlers = {
-  notification: ({ user, trigger, payload: { title, body } }) => {
+  notification: ({
+    user,
+    trigger,
+    payload: { event, title, body }
+  }) => {
     switch (trigger) {
       case 'contactRequestCancelled':
         decrementContactRequestsCount();
@@ -68,6 +72,10 @@ const webSocketEventHandlers = {
           contactRequestDeclined: {
             name: 'ContactProfile',
             params: user
+          },
+          addedAsOrganizerToEvent: {
+            name: 'ViewEvent',
+            params: event
           }
         };
 

@@ -54,6 +54,17 @@ function NotificationBody ({ user, body, createdAt, type, seenAt }) {
         />
       );
       break;
+    case 'addedAsOrganizerToEvent':
+    case 'removedAsOrganizerFromEvent':
+      icon = (
+        <RNVectorIcon
+          provider="MaterialCommunityIcons"
+          name="calendar-account-outline"
+          size={25}
+          color={primary}
+        />
+      );
+      break;
   }
 
   const notificationBody = React.useMemo(() => {
@@ -138,22 +149,28 @@ function NotificationBody ({ user, body, createdAt, type, seenAt }) {
 }
 
 function NotificationRow (notification) {
-  const { type, user } = notification;
+  const { type, user, event } = notification;
 
-  if (
-    type === 'contactRequestAccepted' ||
-    type === 'contactRequestDeclined' ||
-    type === 'contactRequestFollowUp' ||
-    type === 'contactRequestCancelled'
-  ) {
-    return (
-      <TouchableRipple to="ContactProfile" params={user}>
-        <NotificationBody {...notification} />
-      </TouchableRipple>
-    );
+  switch (type) {
+    case 'contactRequestAccepted':
+    case 'contactRequestDeclined':
+    case 'contactRequestFollowUp':
+    case 'contactRequestCancelled':
+      return (
+        <TouchableRipple to="ContactProfile" params={user}>
+          <NotificationBody {...notification} />
+        </TouchableRipple>
+      );
+    case 'addedAsOrganizerToEvent':
+    case 'removedAsOrganizerFromEvent':
+      return (
+        <TouchableRipple to="ViewEvent" params={event}>
+          <NotificationBody {...notification} />
+        </TouchableRipple>
+      );
+    default:
+      return <NotificationBody {...notification} />;
   }
-
-  return <NotificationBody {...notification} />;
 }
 
 export default React.memo(NotificationRow);
