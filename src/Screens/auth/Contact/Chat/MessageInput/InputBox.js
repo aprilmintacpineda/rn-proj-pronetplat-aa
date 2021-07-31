@@ -55,9 +55,9 @@ function ChatMessageInputBox () {
       toSend: true
     });
 
-    updateState({ messageBody: '', replyTo: null });
     clearTimeout(isTypingTimeout.current);
     shouldCallTypingStatus.current = true;
+    updateState({ messageBody: '', replyTo: null });
 
     xhr(`/chat-typing-status/${contact.id}`, {
       method: 'post',
