@@ -43,9 +43,14 @@ function InboxRow ({ index, ...inbox }) {
               {fullName}
             </Text>
             <Text numberOfLines={1}>
-              {lastMessage.senderId === authUser.id
-                ? `You: ${lastMessage.messageBody}`
-                : lastMessage.messageBody}
+              {lastMessage.senderId === authUser.id ? (
+                <>
+                  <Text style={{ fontWeight: 'bold' }}>You: </Text>
+                  <Text>{lastMessage.messageBody}</Text>
+                </>
+              ) : (
+                lastMessage.messageBody
+              )}
             </Text>
             <Caption
               style={{ fontStyle: isTyping ? 'italic' : 'normal' }}
