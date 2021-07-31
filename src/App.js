@@ -88,6 +88,14 @@ const webSocketEventHandlers = {
     )
       return;
 
+    updateStore({
+      authUser: {
+        ...store.authUser,
+        unreadChatMessagesCount:
+          store.authUser.unreadChatMessagesCount + 1
+      }
+    });
+
     displayNotification({
       title: 'New message',
       body: `${getFullName(user)} sent you a message.`,

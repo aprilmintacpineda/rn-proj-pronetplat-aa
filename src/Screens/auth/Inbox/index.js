@@ -35,14 +35,6 @@ const eventListeners = {
     { user, payload },
     { replaceData }
   ) => {
-    updateStore({
-      authUser: {
-        ...store.authUser,
-        unreadChatMessagesCount:
-          store.authUser.unreadChatMessagesCount + 1
-      }
-    });
-
     replaceData(data => {
       const newData = [].concat(data);
       const index = newData.findIndex(
