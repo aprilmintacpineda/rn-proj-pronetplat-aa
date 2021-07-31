@@ -145,7 +145,10 @@ export function showConfirmDialog ({
               ? paperTheme.colors.error
               : paperTheme.colors.primary
           }
-          onPress={onConfirm}
+          onPress={() => {
+            hidePopup();
+            if (onConfirm) onConfirm();
+          }}
           style={{ marginBottom: 10 }}
         >
           Yes
