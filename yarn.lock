@@ -8838,10 +8838,10 @@ react-native-config@^1.4.3:
   resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-1.4.3.tgz#22de798ffea621c2683abfa3fc054e17dd2cf1cc"
   integrity sha512-KcrlImtkrANeYMT5VM3NaXO5+nyxZkY42CVW8FCHThVqLa5xkNwQJSn8RXu+pNn5WpUatxYgUTP5ZqUpA4/ZKQ==
 
-react-native-device-info@^8.1.4:
-  version "8.1.4"
-  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.1.4.tgz#709a424b64cd01b26e91000e9b7e2c36e8b832f0"
-  integrity sha512-PiYRJf3GBaVnGAUUB9YKzaGc5h6Rmn7NniD328JUXLeepKvLaDhK6EvFWU98YiZ2jePOF9/jg2cxfyN4jhZ2LA==
+react-native-device-info@^8.1.5:
+  version "8.1.5"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.1.5.tgz#6ee3fe919b66675a1938b4d13c740de7868be308"
+  integrity sha512-w92x+FGIZdzEmU4SN+Zr+0zESubKb+zWRmHFECr0l+AtQlOZZ6AvO9WNwe2RBGpPkOUf54d7k8D0YgGvnRGIdQ==
 
 react-native-dynamic-vector-icons@^1.1.6:
   version "1.1.6"
