@@ -537,7 +537,7 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
-  - RNDeviceInfo (8.1.4):
+  - RNDeviceInfo (8.1.5):
     - React-Core
   - RNFBAnalytics (11.5.0):
     - Firebase/Analytics (= 7.11.0)
@@ -952,7 +952,7 @@ SPEC CHECKSUMS:
   ReactNativeCameraKit: 00837d477b2a21db904f1e4ce728d6eed6218c5e
   RNBootSplash: 4844706cbb56a3270556c9b94e59dedadccd47e4
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNDeviceInfo: 0b3e0154c1c659ea9779cb3e883e66ece92326a9
+  RNDeviceInfo: b7b76016bf0d89c0446365dde551273195e0f525
   RNFBAnalytics: 3e250066a98d6ea0a7816c52de75f2633f726580
   RNFBApp: 9c90f9d576861947ba75fe0830567c570bcbcf6d
   RNFBCrashlytics: 8eafacfe3dc4aeb7733c3c3d65228f4e75861e72
