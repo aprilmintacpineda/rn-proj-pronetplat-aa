@@ -45,8 +45,10 @@ export async function xhr (
     }
   };
 
-  if (store.authToken)
-    config.headers.Authorization = `Bearer ${store.authToken}`;
+  const authToken = store.authToken || options.deviceToken;
+
+  if (authToken)
+    config.headers.Authorization = `Bearer ${authToken}`;
 
   if (options.body) {
     const body = Object.keys(options.body).reduce(

@@ -1,5 +1,4 @@
 import { store, updateStore } from 'fluxible-js';
-import { getInitialStore, restore } from 'fluxible/store/init';
 import { logLogin, logLogout } from 'libs/logging';
 import { xhr } from 'libs/xhr';
 
@@ -15,25 +14,28 @@ export function reAuth ({ userData, authToken }) {
     updateStore({
       authUser: userData,
       authToken,
-      sendingContactRequests: [],
-      relogin: false
+      sendingContactRequests: []
     });
   } else {
     updateStore({
       authUser: userData,
-      authToken,
-      relogin: false
+      authToken
     });
   }
 }
 
 export function logout () {
   logLogout();
-  xhr('/logout', { method: 'post' });
+
+  xhr('/logout', {
+    method: 'post',
+    authToken: store.authToken
+  });
 
   updateStore({
-    ...restore(getInitialStore()),
-    relogin: false
+    authUser: null,
+    authToken: null,
+    sendingContactRequests: []
   });
 }
 

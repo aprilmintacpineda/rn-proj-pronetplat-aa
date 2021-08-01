@@ -19,7 +19,6 @@ export function getInitialStore () {
       shown: false,
       body: null
     },
-    relogin: false,
     authUser: null,
     authToken: null,
     initComplete: false,
