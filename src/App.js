@@ -49,7 +49,11 @@ const webSocketEventHandlers = {
         break;
     }
 
-    incrementNotificationsCount();
+    if (
+      trigger !== 'contactRequest' &&
+      trigger !== 'eventInvitation'
+    )
+      incrementNotificationsCount();
 
     displayNotification({
       title,
