@@ -16,7 +16,8 @@ const Stack = createStackNavigator();
 const screenOptions = {
   ...TransitionPresets.ModalSlideFromBottomIOS,
   gestureEnabled: true,
-  header
+  header,
+  headerMode: 'screen'
 };
 
 const loginChangeStackOptions = {
@@ -40,7 +41,6 @@ function IndexStackNavigator () {
     <Stack.Navigator
       initialRouteName={initialRouteName}
       screenOptions={screenOptions}
-      headerMode="screen"
     >
       <Stack.Screen
         name="Login"

@@ -1,5 +1,5 @@
 import { fetch as checkInternet } from '@react-native-community/netinfo';
-import iid from '@react-native-firebase/iid';
+import messaging from '@react-native-firebase/messaging';
 import { initializeStore, store, updateStore } from 'fluxible-js';
 import config from 'react-native-config';
 import { getFirstInstallTime } from 'react-native-device-info';
@@ -55,7 +55,7 @@ export function restore ({
 
 async function onInitComplete () {
   const [deviceToken, firstInstallTime] = await Promise.all([
-    iid().getToken(),
+    messaging().getToken(),
     getFirstInstallTime()
   ]);
 

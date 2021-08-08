@@ -1,7 +1,6 @@
 import 'customAnimations';
 import 'setDefaults';
 
-import iid from '@react-native-firebase/iid';
 import messaging from '@react-native-firebase/messaging';
 import { NavigationContainer } from '@react-navigation/native';
 import { store, addEvent, updateStore } from 'fluxible-js';
@@ -80,6 +79,9 @@ const webSocketEventHandlers = {
           addedAsOrganizerToEvent: {
             name: 'ViewEvent',
             params: event
+          },
+          eventInvitation: {
+            name: 'EventInvitations'
           }
         };
 
@@ -129,7 +131,7 @@ function App () {
   const hasInternet = useHasInternet();
 
   const updateDeviceToken = React.useCallback(async () => {
-    updateStore({ deviceToken: await iid().getToken() });
+    updateStore({ deviceToken: await messaging().getToken() });
   }, []);
 
   useAppStateEffect({

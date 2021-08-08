@@ -21,6 +21,7 @@ import ContactDetailsList from 'Screens/auth/ContactDetail/List';
 import ContactRequests from 'Screens/auth/ContactRequests';
 import CreateEvent from 'Screens/auth/Events/Create';
 import EditEvent from 'Screens/auth/Events/Edit';
+import EventInvitations from 'Screens/auth/Events/Invitations';
 import EventsList from 'Screens/auth/Events/List';
 import ViewEvent from 'Screens/auth/Events/View';
 import Notifications from 'Screens/auth/Notifications';
@@ -78,7 +79,8 @@ const modalConfiguration = {
 const screenOptions = {
   header,
   ...TransitionPresets.SlideFromRightIOS,
-  gestureEnabled: true
+  gestureEnabled: true,
+  headerMode: 'screen'
 };
 
 function searchIcon (props) {
@@ -99,7 +101,6 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
   return (
     <Stack.Navigator
       initialRouteName="LoggedInTabNavigation"
-      headerMode="screen"
       screenOptions={screenOptions}
     >
       <Stack.Screen
@@ -238,6 +239,14 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
         component={EditEvent}
         options={{
           title: 'Edit Event',
+          ...modalConfiguration
+        }}
+      />
+      <Stack.Screen
+        name="EventInvitations"
+        component={EventInvitations}
+        options={{
+          title: 'Event Invitations',
           ...modalConfiguration
         }}
       />

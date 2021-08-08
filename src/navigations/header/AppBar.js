@@ -24,8 +24,8 @@ function backIcon (props) {
 }
 
 function AppBar (props) {
-  const { scene, navigation } = props;
-  const { name, params } = scene.route;
+  const { navigation, route, options } = props;
+  const { name, params } = route;
   const { goBack, canGoBack, openDrawer } = navigation;
   const {
     isMainScreen = false,
@@ -34,7 +34,7 @@ function AppBar (props) {
     button = null,
     resolveAppBarContent,
     isModal
-  } = scene.descriptor.options;
+  } = options;
   const hasDrawerNavigation = Boolean(openDrawer);
   const appbarContent = resolveAppBarContent
     ? resolveAppBarContent(params)

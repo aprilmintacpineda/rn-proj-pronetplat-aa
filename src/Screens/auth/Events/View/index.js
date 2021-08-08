@@ -1,6 +1,6 @@
 import { format, isPast, isSameDay } from 'date-fns';
 import React from 'react';
-import { Platform, View } from 'react-native';
+import { Platform, ScrollView, View } from 'react-native';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import {
   Divider,
@@ -13,7 +13,9 @@ import {
   PERMISSIONS,
   request
 } from 'react-native-permissions';
+import CancelGoing from './CancelGoing';
 import InviteContacts from './InviteContacts';
+import RespondToInvitation from './RespondToInvitation';
 import ResponsiveImageView from 'components/ResponsiveImageView';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TextLink from 'components/TextLink';
@@ -80,7 +82,7 @@ function ViewEvent ({ route: { params: event } }) {
         )}&saddr=My+Location`;
 
   return (
-    <View>
+    <ScrollView>
       <ResponsiveImageView uri={coverPicture} />
       <View style={{ padding: 10 }}>
         <Title>{name}</Title>
@@ -94,9 +96,13 @@ function ViewEvent ({ route: { params: event } }) {
           >
             This event has past.
           </Text>
-        ) : (
-          isOrganizer && <InviteContacts event={event} />
-        )}
+        ) : isOrganizer ? (
+          <InviteContacts event={event} />
+        ) : event.invitationId ? (
+          <RespondToInvitation event={event} />
+        ) : event.isGoing ? (
+          <CancelGoing />
+        ) : null}
         {visibility === 'public' ? (
           <View
             style={{
@@ -231,7 +237,7 @@ function ViewEvent ({ route: { params: event } }) {
         </Subheading>
         <Text>{description}</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

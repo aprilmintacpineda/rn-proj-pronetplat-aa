@@ -22,7 +22,8 @@ function MyEventRow (event) {
     endDateTime: _endDateTime,
     visibility,
     maxAttendees,
-    status
+    status,
+    isOrganizer
   } = event;
 
   const startDateTime = new Date(_startDateTime);
@@ -62,7 +63,7 @@ function MyEventRow (event) {
           <CoverPicture {...event} />
           <View style={{ padding: 10 }}>
             <Title>{name}</Title>
-            {status === 'published' ? (
+            {!isOrganizer ? null : status === 'published' ? (
               <View
                 style={{
                   marginTop: 10,
@@ -225,7 +226,7 @@ function MyEventRow (event) {
                 </>
               )}
             </View>
-            {status === 'unpublished' && (
+            {isOrganizer && status === 'unpublished' && (
               <View
                 style={{
                   flexDirection: 'row',

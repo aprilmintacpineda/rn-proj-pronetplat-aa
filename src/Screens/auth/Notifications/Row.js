@@ -14,12 +14,14 @@ const { error, primary } = paperTheme.colors;
 const { background: backgroundColor } = navigationTheme.colors;
 
 const replacers = {
-  '{fullname}': user => getFullName(user),
-  '{genderPossessiveLowercase}': user =>
-    getPersonalPronoun(user.gender).possessive.lowercase
+  '{fullname}': ({ user }) => getFullName(user),
+  '{genderPossessiveLowercase}': ({ user }) =>
+    getPersonalPronoun(user.gender).possessive.lowercase,
+  '{eventName}': ({ event }) => event.name
 };
 
-function NotificationBody ({ user, body, createdAt, type, seenAt }) {
+function NotificationBody (notification) {
+  const { user, body, createdAt, type, seenAt } = notification;
   let icon = null;
 
   switch (type) {
@@ -88,7 +90,7 @@ function NotificationBody ({ user, body, createdAt, type, seenAt }) {
           currentText = '';
         }
 
-        const value = replacer(user);
+        const value = replacer(notification);
 
         texts.push(
           <Text
@@ -109,10 +111,10 @@ function NotificationBody ({ user, body, createdAt, type, seenAt }) {
       } else {
         currentText += ` ${word}`;
       }
-    }, []);
+    });
 
     return texts;
-  }, [body, user]);
+  }, [body, notification]);
 
   return (
     <View

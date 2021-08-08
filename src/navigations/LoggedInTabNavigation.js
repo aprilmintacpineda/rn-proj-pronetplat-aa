@@ -11,6 +11,14 @@ import { paperTheme } from 'theme';
 
 const Tab = createBottomTabNavigator();
 
+const screenOptions = {
+  lazy: false,
+  labelPosition: 'below-icon',
+  keyboardHidesTabBar: true,
+  inactiveTintColor: paperTheme.colors.accent,
+  headerShown: false
+};
+
 function mapStates ({ sendingContactRequests, authUser }) {
   return { sendingContactRequests, authUser };
 }
@@ -20,14 +28,7 @@ function LoggedInTabNavigation () {
     useFluxibleStore(mapStates);
 
   return (
-    <Tab.Navigator
-      lazy={false}
-      tabBarOptions={{
-        labelPosition: 'below-icon',
-        keyboardHidesTabBar: true,
-        inactiveTintColor: paperTheme.colors.accent
-      }}
-    >
+    <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
         options={{
           tabBarIcon: props => (
