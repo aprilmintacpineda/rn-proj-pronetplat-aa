@@ -47,16 +47,7 @@ const eventListeners = {
     );
   },
   cancelledGoing: (id, { replaceData }) => {
-    replaceData(data =>
-      data.map(event => {
-        if (event.id !== id) return event;
-
-        return {
-          ...event,
-          isGoing: false
-        };
-      })
-    );
+    replaceData(data => data.filter(event => event.id !== id));
   },
   joinedEvent: (id, { replaceData }) => {
     replaceData(data =>
