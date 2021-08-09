@@ -15,6 +15,7 @@ import {
 } from 'react-native-permissions';
 import CancelGoing from './CancelGoing';
 import InviteContacts from './InviteContacts';
+import JoinEvent from './JoinEvent';
 import RespondToInvitation from './RespondToInvitation';
 import ResponsiveImageView from 'components/ResponsiveImageView';
 import RNVectorIcon from 'components/RNVectorIcon';
@@ -102,6 +103,8 @@ function ViewEvent ({ route: { params: event } }) {
           <RespondToInvitation event={event} />
         ) : event.isGoing ? (
           <CancelGoing event={event} />
+        ) : visibility === 'public' ? (
+          <JoinEvent event={event} />
         ) : null}
         {visibility === 'public' ? (
           <View

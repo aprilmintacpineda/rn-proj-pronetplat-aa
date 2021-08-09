@@ -57,6 +57,18 @@ const eventListeners = {
         };
       })
     );
+  },
+  joinedEvent: (id, { replaceData }) => {
+    replaceData(data =>
+      data.map(event => {
+        if (event.id !== id) return event;
+
+        return {
+          ...event,
+          isGoing: true
+        };
+      })
+    );
   }
 };
 

@@ -1,10 +1,13 @@
 import { emitEvent } from 'fluxible-js';
 import React from 'react';
+import { View } from 'react-native';
+import { Text } from 'react-native-paper';
 import Button from 'components/Button';
 import FullScreenModal from 'components/FullScreenModal';
 import SelectContacts from 'components/SelectContacts';
 import { unknownErrorPopup } from 'fluxible/actions/popup';
 import { xhr } from 'libs/xhr';
+import { paperTheme } from 'theme';
 
 const eventListeners = {
   invitedUserToEvent: (userId, { replaceData }) => {
@@ -26,6 +29,7 @@ function InviteContacts ({ event }) {
   const [invitingUsersList, setInvitingUsersList] = React.useState(
     []
   );
+  const { maxAttendees, numGoing } = event;
 
   const openModal = React.useCallback(() => {
     setIsVisible(true);
@@ -73,6 +77,16 @@ function InviteContacts ({ event }) {
     },
     [event]
   );
+
+  if (numGoing >= maxAttendees) {
+    return (
+      <View style={{ marginTop: 10 }}>
+        <Text style={{ color: paperTheme.colors.error }}>
+          Event is full.
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <>
