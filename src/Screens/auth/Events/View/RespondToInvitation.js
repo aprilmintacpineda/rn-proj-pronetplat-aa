@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { emitEvent } from 'fluxible-js';
+import { emitEvent, store, updateStore } from 'fluxible-js';
 import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
@@ -29,6 +29,14 @@ function RespondToInvitation ({ event }) {
         inviter: null
       });
 
+      updateStore({
+        authUser: {
+          ...store.authUser,
+          eventInvitationsCount:
+            store.authUser.eventInvitationsCount - 1
+        }
+      });
+
       emitEvent('respondedToEventInvitation', invitationId);
     } catch (error) {
       console.log(error);
@@ -49,6 +57,14 @@ function RespondToInvitation ({ event }) {
         ...event,
         invitationId: null,
         inviter: null
+      });
+
+      updateStore({
+        authUser: {
+          ...store.authUser,
+          eventInvitationsCount:
+            store.authUser.eventInvitationsCount - 1
+        }
       });
 
       emitEvent('respondedToEventInvitation', invitationId);
