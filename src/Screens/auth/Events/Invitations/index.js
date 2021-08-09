@@ -14,7 +14,13 @@ const receivedEventListeners = {
   }
 };
 
-const sentEventListeners = {};
+const sentEventListeners = {
+  cancelledInvitation: (invitationId, { replaceData }) => {
+    replaceData(data =>
+      data.filter(invitation => invitation.id !== invitationId)
+    );
+  }
+};
 
 function EventInvitations () {
   return (

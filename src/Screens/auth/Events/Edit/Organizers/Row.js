@@ -14,7 +14,7 @@ import { getFullName, renderUserTitle } from 'libs/user';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
-function addIcon (props) {
+function removeIcon (props) {
   return (
     <RNVectorIcon
       {...props}
@@ -82,7 +82,7 @@ function OrganizerRow ({ index, ...user }) {
                   </View>
                 ) : (
                   <IconButton
-                    icon={addIcon}
+                    icon={removeIcon}
                     onPress={handleRemove}
                     size={20}
                   />

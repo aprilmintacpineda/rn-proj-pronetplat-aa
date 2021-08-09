@@ -60,6 +60,15 @@ export function incrementEventInvitationsCount () {
   });
 }
 
+export function decrementEventInvitationsCount () {
+  updateStore({
+    authUser: {
+      ...store.authUser,
+      eventInvitationsCount: store.authUser.eventInvitationsCount - 1
+    }
+  });
+}
+
 export function incrementContactRequestsCount () {
   updateStore({
     authUser: {

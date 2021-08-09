@@ -14,6 +14,7 @@ import FullSafeAreaView from 'components/FullSafeAreaView';
 import KeyboardAvoidingView from 'components/KeyboardAvoidingView';
 import {
   decrementContactRequestsCount,
+  decrementEventInvitationsCount,
   incrementContactRequestsCount,
   incrementEventInvitationsCount,
   incrementNotificationsCount
@@ -45,6 +46,9 @@ const webSocketEventHandlers = {
         break;
       case 'eventInvitation':
         incrementEventInvitationsCount();
+        break;
+      case 'eventInvitationCancelled':
+        decrementEventInvitationsCount();
         break;
     }
 
