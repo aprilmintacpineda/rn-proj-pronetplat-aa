@@ -101,7 +101,7 @@ function ViewEvent ({ route: { params: event } }) {
         ) : event.invitationId ? (
           <RespondToInvitation event={event} />
         ) : event.isGoing ? (
-          <CancelGoing />
+          <CancelGoing event={event} />
         ) : null}
         {visibility === 'public' ? (
           <View

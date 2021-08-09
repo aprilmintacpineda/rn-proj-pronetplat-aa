@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Button from 'components/Button';
 import UserAvatar from 'components/UserAvatar';
+import { unknownErrorPopup } from 'fluxible/actions/popup';
 import { getFullName } from 'libs/user';
 import { xhr } from 'libs/xhr';
 
@@ -14,36 +15,48 @@ function RespondToInvitation ({ event }) {
   const { setParams } = useNavigation();
 
   const accept = React.useCallback(async () => {
-    setAction('accept');
+    try {
+      setAction('accept');
 
-    await xhr(`/events/accept-invitation/${id}`, {
-      method: 'post'
-    });
+      await xhr(`/events/accept-invitation/${id}`, {
+        method: 'post'
+      });
 
-    setParams({
-      ...event,
-      isGoing: true,
-      invitationId: null,
-      inviter: null
-    });
+      setParams({
+        ...event,
+        isGoing: true,
+        invitationId: null,
+        inviter: null
+      });
 
-    emitEvent('respondedToEventInvitation', invitationId);
+      emitEvent('respondedToEventInvitation', invitationId);
+    } catch (error) {
+      console.log(error);
+      setAction(null);
+      unknownErrorPopup();
+    }
   }, [id, invitationId, event, setParams]);
 
   const reject = React.useCallback(async () => {
-    setAction('reject');
+    try {
+      setAction('reject');
 
-    await xhr(`/events/reject-invitation/${id}`, {
-      method: 'post'
-    });
+      await xhr(`/events/reject-invitation/${id}`, {
+        method: 'post'
+      });
 
-    setParams({
-      ...event,
-      invitationId: null,
-      inviter: null
-    });
+      setParams({
+        ...event,
+        invitationId: null,
+        inviter: null
+      });
 
-    emitEvent('respondedToEventInvitation', invitationId);
+      emitEvent('respondedToEventInvitation', invitationId);
+    } catch (error) {
+      console.log(error);
+      setAction(null);
+      unknownErrorPopup();
+    }
   }, [invitationId, event, setParams, id]);
 
   if (!invitationId) return null;

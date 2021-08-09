@@ -151,7 +151,8 @@ function Navigations () {
               {...props}
             />
           ),
-          to: 'EventInvitations'
+          to: 'EventInvitations',
+          badge: authUser.eventInvitationsCount
         }}
       />
       <Drawer.Screen
