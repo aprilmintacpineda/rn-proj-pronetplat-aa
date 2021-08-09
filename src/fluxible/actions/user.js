@@ -64,7 +64,10 @@ export function decrementEventInvitationsCount () {
   updateStore({
     authUser: {
       ...store.authUser,
-      eventInvitationsCount: store.authUser.eventInvitationsCount - 1
+      eventInvitationsCount: Math.max(
+        store.authUser.eventInvitationsCount - 1,
+        0
+      )
     }
   });
 }
