@@ -1,3 +1,4 @@
+import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import ReceivedRow from './ReceivedRow';
 import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
@@ -8,6 +9,13 @@ const receivedEventListeners = {
     replaceData(data =>
       data.filter(invitation => invitation.id !== invitationId)
     );
+
+    updateStore({
+      authUser: {
+        ...store.authUser,
+        eventInvitationsCount: store.eventInvitationsCount - 1
+      }
+    });
   }
 };
 
