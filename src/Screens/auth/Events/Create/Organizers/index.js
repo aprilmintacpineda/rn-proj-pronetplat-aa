@@ -9,6 +9,7 @@ import FullScreenModal from 'components/FullScreenModal';
 import RNVectorIcon from 'components/RNVectorIcon';
 import SelectContacts from 'components/SelectContacts';
 import UserAvatar from 'components/UserAvatar';
+import { showErrorPopup } from 'fluxible/actions/popup';
 import { getFullName, renderUserTitle } from 'libs/user';
 
 function removeIcon (props) {
@@ -40,11 +41,17 @@ function Organizers () {
 
   const addOrganizer = React.useCallback(
     contact => {
-      setField('organizers', ({ formValues }) =>
-        formValues.organizers.concat(contact)
-      );
+      if (formValues.organizers.length + 1 === 20) {
+        showErrorPopup({
+          message: 'Number of organizers is limited to 20'
+        });
+      } else {
+        setField('organizers', ({ formValues }) =>
+          formValues.organizers.concat(contact)
+        );
+      }
     },
-    [setField]
+    [setField, formValues.organizers]
   );
 
   const removeOrganizer = React.useCallback(

@@ -6,7 +6,10 @@ import FullScreenModal from 'components/FullScreenModal';
 import RNVectorIcon from 'components/RNVectorIcon';
 import SelectContacts from 'components/SelectContacts';
 import { TabContext } from 'components/Tabs';
-import { unknownErrorPopup } from 'fluxible/actions/popup';
+import {
+  showErrorPopup,
+  unknownErrorPopup
+} from 'fluxible/actions/popup';
 import { xhr } from 'libs/xhr';
 
 const eventListeners = {
@@ -41,7 +44,7 @@ const eventListeners = {
 function AddOrganizer () {
   const { params: event } = useRoute();
   const [isVisible, setIsVisible] = React.useState(false);
-  const { setOptions } = useNavigation();
+  const { setOptions, setParams } = useNavigation();
   const { activeTab } = React.useContext(TabContext);
   const [addingUsersList, setAddingUsersList] = React.useState([]);
   const [shouldRefresh, setShouldRefresh] = React.useState(false);
@@ -80,6 +83,14 @@ function AddOrganizer () {
   const addOrganizer = React.useCallback(
     async user => {
       try {
+        if (event.numOrganizers === 20) {
+          showErrorPopup({
+            message: 'Number of organizers is limited to 20'
+          });
+
+          return;
+        }
+
         setAddingUsersList(oldList => [user].concat(oldList));
 
         await xhr(`/events/organizers/add/${event.id}`, {
@@ -91,6 +102,11 @@ function AddOrganizer () {
 
         emitEvent('addedToOrganizer', user.id);
         setShouldRefresh(true);
+
+        setParams({
+          ...event,
+          numOrganizers: event.numOrganizers + 1
+        });
       } catch (error) {
         console.log(error);
         unknownErrorPopup();
@@ -100,7 +116,7 @@ function AddOrganizer () {
         );
       }
     },
-    [event]
+    [event, setParams]
   );
 
   const resolveIsSelected = React.useCallback(

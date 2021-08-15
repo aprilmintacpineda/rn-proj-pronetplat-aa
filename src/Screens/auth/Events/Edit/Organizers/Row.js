@@ -1,4 +1,4 @@
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
@@ -34,6 +34,7 @@ function OrganizerRow ({ index, ...user }) {
   const { authUser } = useFluxibleStore(mapStates);
   const [isRemoving, setIsRemoving] = React.useState(false);
   const { params: event } = useRoute();
+  const { setParams } = useNavigation();
 
   const handleRemove = React.useCallback(async () => {
     try {
@@ -44,12 +45,17 @@ function OrganizerRow ({ index, ...user }) {
       });
 
       emitEvent('organizerRemoved', user.id);
+
+      setParams({
+        ...event,
+        numOrganizers: event.numOrganizers - 1
+      });
     } catch (error) {
       console.log(error);
       unknownErrorPopup();
       setIsRemoving(false);
     }
-  }, [user, event]);
+  }, [user, event, setParams]);
 
   return (
     <>

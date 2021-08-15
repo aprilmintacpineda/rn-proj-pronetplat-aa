@@ -51,9 +51,12 @@ const formOptions = {
   validatorChains: {
     startDateTime: ['endDateTime']
   },
-  transformInput: ({ formValues }) => ({
+  transformInput: ({
+    formValues: { organizers, coverPicture, ...formValues }
+  }) => ({
     ...formValues,
-    coverPicture: formValues.coverPicture.type
+    coverPicture: coverPicture.type,
+    organizers: organizers.map(user => user.id)
   }),
   onSubmitSuccess: async ({
     responseData: { signedUrl, coverPicture },
