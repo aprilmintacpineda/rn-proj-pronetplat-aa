@@ -16,7 +16,7 @@ const { background: backgroundColor } = navigationTheme.colors;
 const replacers = {
   '{fullname}': ({ user }) => getFullName(user),
   '{genderPossessiveLowercase}': ({ user }) =>
-    getPersonalPronoun(user.gender).possessive.lowercase,
+    getPersonalPronoun(user).possessive.lowercase,
   '{eventName}': ({ event }) => event.name
 };
 
