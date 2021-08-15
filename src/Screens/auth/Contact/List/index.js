@@ -9,7 +9,8 @@ const eventListeners = {
   refreshContactList: () => {
     if (!store.screensToRefresh.includes('ContactList')) {
       updateStore({
-        screensToRefresh: store.screensToRefresh.push('ContactList')
+        screensToRefresh:
+          store.screensToRefresh.concat('ContactList')
       });
     }
   }

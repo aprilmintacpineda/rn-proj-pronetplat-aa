@@ -18,7 +18,9 @@ function RefreshController () {
 
     if (isFocused && index !== -1) {
       updateStore({
-        screensToRefresh: screensToRefresh.slice(index, index + 1)
+        screensToRefresh: screensToRefresh.filter(
+          screen => screen !== 'ContactList'
+        )
       });
 
       refreshData();
