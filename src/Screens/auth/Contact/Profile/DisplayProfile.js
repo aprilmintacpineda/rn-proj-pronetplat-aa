@@ -685,6 +685,7 @@ function ContactProfile ({ contact }) {
             mode="contained"
             to="ContactChat"
             params={contact}
+            disabled={isDisabled}
           >
             Chat
           </Button>
@@ -704,6 +705,7 @@ function ContactProfile ({ contact }) {
           mode="contained"
           to="ContactChat"
           params={contact}
+          disabled={isDisabled}
         >
           Chat
         </Button>
