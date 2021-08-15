@@ -24,6 +24,16 @@ const sentEventListeners = {
       )
     );
   },
+  'websocketEvent-contactRequestAccepted': (
+    { user },
+    { replaceData }
+  ) => {
+    replaceData(data =>
+      data.filter(
+        contactRequest => contactRequest.recipientId !== user.id
+      )
+    );
+  },
   sentFollowUp: (updatedContactRequest, { replaceData }) => {
     replaceData(data =>
       data.map(contactRequest => {
