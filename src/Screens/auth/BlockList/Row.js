@@ -92,6 +92,7 @@ function BlockListRow ({ index, ...user }) {
           content={
             <Text>Also send contact request to {fullName}</Text>
           }
+          containerStyles={{ alignItems: 'center' }}
           disabled={isDisabled}
         />
         <Button

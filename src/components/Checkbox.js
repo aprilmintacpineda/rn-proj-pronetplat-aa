@@ -8,6 +8,7 @@ function Checkbox ({
   value,
   onChange,
   disabled,
+  containerStyles,
   ...checkboxProps
 }) {
   const onPress = React.useCallback(() => {
@@ -20,12 +21,15 @@ function Checkbox ({
 
   return (
     <View
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        marginBottom: 30
-      }}
+      style={[
+        {
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          marginBottom: 30
+        },
+        containerStyles
+      ]}
     >
       <RNCheckBox
         {...checkboxProps}
