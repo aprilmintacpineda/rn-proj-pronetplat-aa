@@ -96,7 +96,9 @@ function NotificationBody (notification) {
           <Text
             key={`${index}-${word}-${value}`}
             style={
-              word === '{fullname}' ? { fontWeight: 'bold' } : null
+              word !== '{genderPossessiveLowercase}'
+                ? { fontWeight: 'bold' }
+                : null
             }
           >
             {value}
