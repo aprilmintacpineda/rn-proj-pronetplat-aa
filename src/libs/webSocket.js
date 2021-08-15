@@ -85,7 +85,16 @@ export function connectWebSocket () {
     } else {
       schedulePing();
       emitEvent('websocketEvent', parsedData);
-      emitEvent(`websocketEvent-${parsedData.type}`, parsedData);
+
+      if (parsedData.type)
+        emitEvent(`websocketEvent-${parsedData.type}`, parsedData);
+
+      if (parsedData.trigger) {
+        emitEvent(
+          `websocketEvent-${parsedData.trigger}`,
+          parsedData
+        );
+      }
     }
   };
 }
