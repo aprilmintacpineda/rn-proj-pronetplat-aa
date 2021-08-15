@@ -5,6 +5,7 @@ import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
 import Tabs from 'components/Tabs';
 import Tab from 'components/Tabs/Tab';
+import { refreshScreen } from 'fluxible/actions/screensToRefresh';
 
 const receivedEventListeners = {
   respondedToContactRequest: (senderId, { replaceData }) => {
@@ -33,6 +34,8 @@ const sentEventListeners = {
         contactRequest => contactRequest.recipientId !== user.id
       )
     );
+
+    refreshScreen('ContactList');
   },
   sentFollowUp: (updatedContactRequest, { replaceData }) => {
     replaceData(data =>

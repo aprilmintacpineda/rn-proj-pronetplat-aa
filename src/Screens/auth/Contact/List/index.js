@@ -1,18 +1,13 @@
-import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import RefreshController from './RefreshController';
 import Row from './Row';
 import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
+import { refreshScreen } from 'fluxible/actions/screensToRefresh';
 
 const eventListeners = {
   refreshContactList: () => {
-    if (!store.screensToRefresh.includes('ContactList')) {
-      updateStore({
-        screensToRefresh:
-          store.screensToRefresh.concat('ContactList')
-      });
-    }
+    refreshScreen('ContactList');
   }
 };
 
