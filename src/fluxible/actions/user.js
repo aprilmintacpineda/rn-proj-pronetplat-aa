@@ -55,7 +55,8 @@ export function incrementEventInvitationsCount () {
   updateStore({
     authUser: {
       ...store.authUser,
-      eventInvitationsCount: store.authUser.eventInvitationsCount + 1
+      eventInvitationsCount:
+        (store.authUser.eventInvitationsCount || 0) + 1
     }
   });
 }
@@ -77,7 +78,7 @@ export function incrementContactRequestsCount () {
     authUser: {
       ...store.authUser,
       receivedContactRequestsCount:
-        store.authUser.receivedContactRequestsCount + 1
+        (store.authUser.receivedContactRequestsCount || 0) + 1
     }
   });
 }
@@ -86,7 +87,8 @@ export function incrementNotificationsCount () {
   updateStore({
     authUser: {
       ...store.authUser,
-      notificationsCount: store.authUser.notificationsCount + 1
+      notificationsCount:
+        (store.authUser.notificationsCount || 0) + 1
     }
   });
 }

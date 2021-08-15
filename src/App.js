@@ -110,7 +110,7 @@ const webSocketEventHandlers = {
       authUser: {
         ...store.authUser,
         unreadChatMessagesCount:
-          store.authUser.unreadChatMessagesCount + 1
+          (store.authUser.unreadChatMessagesCount || 0) + 1
       }
     });
 
