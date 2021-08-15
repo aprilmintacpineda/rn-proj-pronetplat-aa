@@ -6,7 +6,7 @@ import { Headline, Text, Divider, Title } from 'react-native-paper';
 import ContactDetailRow from './Row';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
-import ContactDetailLoadingPlaceholder from 'components/ContactDetailLoadingPlaceholder';
+import DefaultLoadingPlaceholder from 'components/DefaultLoadingPlaceholder';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
 import UnknownErrorView from 'components/UnknownErrorView';
@@ -470,9 +470,8 @@ function ContactProfile ({ contact }) {
         isRefreshing)
     ) {
       return (
-        <ContactDetailLoadingPlaceholder
-          isFirstFetch={isFirstFetch || isRefreshing}
-          isFetching={isFetching || isRefreshing}
+        <DefaultLoadingPlaceholder
+          isFetching={isFetching || isFirstFetch}
         />
       );
     }
