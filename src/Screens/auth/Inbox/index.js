@@ -5,6 +5,8 @@ import Row from './Row';
 import ContactsLoadingPlaceholder from 'components/ContactsLoadingPlaceholder';
 import DataFlatList from 'components/DataFlatList';
 
+let typingStatusResetTimeout = null;
+
 const eventListeners = {
   'websocketEvent-chatMessageSeen': (
     { user, payload: { seenAt, unseenChatMessageIds } },
@@ -127,17 +129,34 @@ const eventListeners = {
     { user, payload: { isTyping } },
     { data, replaceData }
   ) => {
-    if (data.find(inbox => inbox.contactId === user.id)) {
-      replaceData(data =>
-        data.map(inbox => {
-          if (inbox.contactId !== user.id) return inbox;
+    if (!data.find(inbox => inbox.contactId === user.id)) return;
 
-          return {
-            ...inbox,
-            isTyping
-          };
-        })
-      );
+    clearTimeout(typingStatusResetTimeout);
+
+    replaceData(data =>
+      data.map(inbox => {
+        if (inbox.contactId !== user.id) return inbox;
+
+        return {
+          ...inbox,
+          isTyping
+        };
+      })
+    );
+
+    if (isTyping) {
+      typingStatusResetTimeout = setTimeout(() => {
+        replaceData(data =>
+          data.map(inbox => {
+            if (inbox.contactId !== user.id) return inbox;
+
+            return {
+              ...inbox,
+              isTyping: false
+            };
+          })
+        );
+      }, 10000);
     }
   }
 };
