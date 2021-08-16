@@ -188,7 +188,7 @@ function MyEventRow (event) {
               />
               {isSameDay(startDateTime, endDateTime) ? (
                 <>
-                  <Text style={{ marginLeft: 5 }}>
+                  <Text style={{ marginLeft: 5, flex: 1 }}>
                     On{' '}
                     <Text style={{ fontWeight: 'bold' }}>
                       {format(startDateTime, 'cccc, MMMM d, Y')}
@@ -205,7 +205,7 @@ function MyEventRow (event) {
                 </>
               ) : (
                 <>
-                  <Text style={{ marginLeft: 5 }}>
+                  <Text style={{ marginLeft: 5, flex: 1 }}>
                     From{' '}
                     <Text style={{ fontWeight: 'bold' }}>
                       {format(startDateTime, 'cccc, MMMM d, Y')}
