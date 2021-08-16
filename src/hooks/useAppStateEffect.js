@@ -3,28 +3,25 @@ import { AppState } from 'react-native';
 
 function useAppStateEffect ({
   onBackground = null,
-  onActive = null,
-  onInactive = null
+  onActive = null
 }) {
   const prevAppState = React.useRef(AppState.currentState);
 
   const onChangeListener = React.useCallback(
     newAppState => {
       switch (newAppState) {
+        case 'inactive':
         case 'background':
           if (onBackground) onBackground(prevAppState.current);
           break;
         case 'active':
           if (onActive) onActive(prevAppState.current);
           break;
-        case 'inactive':
-          if (onInactive) onInactive(prevAppState.current);
-          break;
       }
 
       prevAppState.current = newAppState;
     },
-    [onBackground, onActive, onInactive]
+    [onBackground, onActive]
   );
 
   React.useEffect(() => {
