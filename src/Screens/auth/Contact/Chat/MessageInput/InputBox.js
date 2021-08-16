@@ -1,11 +1,13 @@
 import { useRoute } from '@react-navigation/core';
+import { differenceInSeconds } from 'date-fns';
 import { addEvent, emitEvent } from 'fluxible-js';
 import React from 'react';
-import { TextInput, View } from 'react-native';
+import { Platform, TextInput, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Caption from 'components/Caption';
 import IconButton from 'components/IconButton';
 import RNVectorIcon from 'components/RNVectorIcon';
+import useAppStateEffect from 'hooks/useAppStateEffect';
 import useState from 'hooks/useState';
 import { shortenName } from 'libs/user';
 import { xhr } from 'libs/xhr';
@@ -41,11 +43,14 @@ function ChatMessageInputBox () {
     messageBody: '',
     isTyping: false
   });
-  const shouldCallTypingStatus = React.useRef(true);
-  const isTypingTimeout = React.useRef(null);
+  const isTypingSendTimeout = React.useRef(null);
+  const isTypingResetTimeout = React.useRef(null);
+  const lastSentTime = React.useRef(null);
 
   const send = React.useCallback(() => {
     if (!messageBody) return;
+
+    clearTimeout(isTypingSendTimeout.current);
 
     emitEvent('chatMessageSending', {
       id: `${Math.random()}-${Math.random()}`,
@@ -55,8 +60,6 @@ function ChatMessageInputBox () {
       toSend: true
     });
 
-    clearTimeout(isTypingTimeout.current);
-    shouldCallTypingStatus.current = true;
     updateState({ messageBody: '', replyTo: null });
 
     xhr(`/chat-typing-status/${contact.id}`, {
@@ -76,7 +79,16 @@ function ChatMessageInputBox () {
       addEvent(
         'websocketEvent-typingStatus',
         ({ user, payload: { isTyping } }) => {
-          if (user.id === contact.id) updateState({ isTyping });
+          if (user.id !== contact.id) return;
+
+          clearTimeout(isTypingResetTimeout.current);
+          updateState({ isTyping });
+
+          if (isTyping) {
+            isTypingResetTimeout.current = setTimeout(() => {
+              updateState({ isTyping: false });
+            }, 10000);
+          }
         }
       ),
       addEvent('replyToChatMessage', replyTo => {
@@ -91,34 +103,42 @@ function ChatMessageInputBox () {
     };
   }, [contact, updateState]);
 
+  const resetIsTyping = React.useCallback(() => {
+    clearTimeout(isTypingSendTimeout.current);
+
+    xhr(`/chat-typing-status/${contact.id}`, {
+      method: 'post',
+      body: {
+        isTyping: false
+      }
+    });
+  }, [contact]);
+
+  useAppStateEffect({
+    onBackground: resetIsTyping
+  });
+
   const onChangeText = React.useCallback(
     value => {
+      clearTimeout(isTypingSendTimeout.current);
+      isTypingSendTimeout.current = setTimeout(resetIsTyping, 5000);
       updateState({ messageBody: value });
-      clearTimeout(isTypingTimeout.current);
 
-      if (shouldCallTypingStatus.current) {
-        shouldCallTypingStatus.current = false;
-
+      if (
+        !lastSentTime.current ||
+        differenceInSeconds(new Date(), lastSentTime.current) >= 3
+      ) {
         xhr(`/chat-typing-status/${contact.id}`, {
           method: 'post',
           body: {
             isTyping: true
           }
         });
+
+        lastSentTime.current = new Date();
       }
-
-      isTypingTimeout.current = setTimeout(() => {
-        shouldCallTypingStatus.current = true;
-
-        xhr(`/chat-typing-status/${contact.id}`, {
-          method: 'post',
-          body: {
-            isTyping: false
-          }
-        });
-      }, 5000);
     },
-    [contact, updateState]
+    [contact, updateState, resetIsTyping]
   );
 
   return (
@@ -177,7 +197,8 @@ function ChatMessageInputBox () {
                 padding: 10,
                 backgroundColor: '#ededed',
                 borderRadius: paperTheme.roundness,
-                marginRight: 10
+                marginRight: 10,
+                justifyContent: 'center'
               }}
             >
               <TextInput
@@ -185,7 +206,7 @@ function ChatMessageInputBox () {
                   borderWidth: 0,
                   padding: 0,
                   margin: 0,
-                  paddingBottom: 3
+                  paddingBottom: Platform.OS === 'ios' ? 3 : 0
                 }}
                 textAlignVertical="top"
                 value={messageBody}
