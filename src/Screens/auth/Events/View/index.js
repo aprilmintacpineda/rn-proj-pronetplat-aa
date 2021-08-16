@@ -33,7 +33,8 @@ function ViewEvent ({ route: { params: event } }) {
     startDateTime: _startDateTime,
     endDateTime: _endDateTime,
     description,
-    isOrganizer
+    isOrganizer,
+    status
   } = event;
 
   const addToCalendar = React.useCallback(async () => {
@@ -71,7 +72,7 @@ function ViewEvent ({ route: { params: event } }) {
 
   const startDateTime = new Date(_startDateTime);
   const endDateTime = new Date(_endDateTime);
-  const hasEventPast = isPast(endDateTime);
+  const hasEventPast = isPast(startDateTime);
 
   const directionsUrl =
     Platform.OS === 'android'
@@ -97,13 +98,13 @@ function ViewEvent ({ route: { params: event } }) {
           >
             This event has past.
           </Text>
-        ) : isOrganizer ? (
+        ) : isOrganizer && status === 'published' ? (
           <InviteContacts event={event} />
         ) : event.invitationId ? (
           <RespondToInvitation event={event} />
         ) : event.isGoing ? (
           <CancelGoing event={event} />
-        ) : visibility === 'public' ? (
+        ) : visibility === 'public' && status === 'published' ? (
           <JoinEvent event={event} />
         ) : null}
         {visibility === 'public' ? (
