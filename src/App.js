@@ -23,7 +23,11 @@ import { initStore } from 'fluxible/store/init';
 import useAppStateEffect from 'hooks/useAppStateEffect';
 import useHasInternet from 'hooks/useHasInternet';
 import { appMounted, logScreenView } from 'libs/logging';
-import { getFullName, getInitials } from 'libs/user';
+import {
+  getFullName,
+  getInitials,
+  getPersonalPronoun
+} from 'libs/user';
 import IndexStackNavigator from 'navigations/IndexStackNavigator';
 import PopupManager from 'PopupManager';
 import { displayNotification } from 'PopupManager/NotificationPopup';
@@ -35,7 +39,7 @@ const webSocketEventHandlers = {
   notification: ({
     user,
     trigger,
-    payload: { event, title, body }
+    payload: { event, title: _title, body: _body }
   }) => {
     switch (trigger) {
       case 'contactRequestCancelled':
@@ -58,9 +62,17 @@ const webSocketEventHandlers = {
     )
       incrementNotificationsCount();
 
+    const fullname = getFullName(user);
+
     displayNotification({
-      title,
-      body,
+      title: _title.replace(/{fullname}/gim, fullname),
+      body: _body
+        .replace(/{fullname}/gim, fullname)
+        .replace(
+          /{genderPossessiveLowercase}/gim,
+          getPersonalPronoun(user).possessive.lowercase
+        )
+        .replace(/{eventName}/gim, event?.name || ''),
       avatarUri: user.profilePicture,
       avatarLabel: getInitials(user),
       onPress: () => {
