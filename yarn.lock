@@ -2272,7 +2272,7 @@
     xcode "^3.0.1"
     xml2js "^0.4.23"
 
-"@expo/config-plugins@^3.0.6":
+"@expo/config-plugins@^3.0.7":
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-3.0.7.tgz#50870e26d34b11740a5841076c921729381d4319"
   integrity sha512-7YOoFtxB6XqDil+OlGXi7iredKHxXVFCAOIVfFyEDzO3oo0gBmWGmUnHgrPDvpMj0q+adCCh5BL8OcvGfc9ITQ==
@@ -3047,32 +3047,32 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-6.0.0.tgz#2a4d7190b508dd0c2293656c9c1aa068f6f60a71"
   integrity sha512-Z9M8VGcF2IZVOo2x+oUStvpCW/8HjIRi4+iQCu5n+PhC7OqCQX58KYAzdBr///alIfRXiu6oMb+lK+rXQH1FvQ==
 
-"@react-native-firebase/analytics@^12.5.0":
-  version "12.5.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-12.5.0.tgz#805e6ddcae8f653cc249b0b77cee76aed80e2205"
-  integrity sha512-GIhFrn7Gr9jZUGEQj0BPdOjYPOtqyRvj8Dn6OfqEvTyHNecYRaWhAtGtroMcrGGEGYbMKl4Xn9b2miRYkL8esg==
+"@react-native-firebase/analytics@^12.6.0":
+  version "12.6.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-12.6.0.tgz#8e8d72f1be14250214ced8a59bd7d47df2aa001b"
+  integrity sha512-8n44rhRWWzVPiFmTAzL+9O5lPSIS3CrXqZATCLE/tJZOeQIyNIjZ3HsavDWQxy/5n8twfa7h4XPFc8TCsGzgwA==
 
-"@react-native-firebase/app@^12.5.0":
-  version "12.5.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-12.5.0.tgz#6b394301a18917aa9fdf4c2a2b8191fea7478d93"
-  integrity sha512-QRbJaNZjS2Noj7Adcqom9ewrD78wNeC3yZTjsbDAeRUjb2wBk4J7mg6flPK+TW3bZaiCoj2NgqAbNqEmHLzIhw==
+"@react-native-firebase/app@^12.6.0":
+  version "12.6.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-12.6.0.tgz#84bbd186f8979ee83f4a9ebae51bf93b943c4888"
+  integrity sha512-2DJG4LEto1lpcDxWo1Gen93+iDpCVd1KCaGuegqNOHozI7FRUEKN/rjqjgd3z+NnJWIhZaEmoQRVqx9Av4zYRw==
   dependencies:
-    "@expo/config-plugins" "^3.0.6"
+    "@expo/config-plugins" "^3.0.7"
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/crashlytics@^12.5.0":
-  version "12.5.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-12.5.0.tgz#b7f7fb0bbf093a22fdcbf9ba68eb82f464366e4a"
-  integrity sha512-XNF5BaaObuCRGJvR2wz76TT+A+2Ywxq8NoOmBo/x0gSXS1nP7yRYRTqFo1uFASfjq0bmdIf6VPcvNMnM46vfUg==
+"@react-native-firebase/crashlytics@^12.6.0":
+  version "12.6.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-12.6.0.tgz#676f31f7774ce656eacdc9266d17839b49732029"
+  integrity sha512-0Aq9QujL7Gf9DuYOQtUhYyoig9V5MI9/7cvzibyMtHWytRbi49dyWO3Mqjtspelay0tzhR1dST1LCkOBug3xew==
   dependencies:
-    "@expo/config-plugins" "^3.0.6"
+    "@expo/config-plugins" "^3.0.7"
     stacktrace-js "^2.0.0"
 
-"@react-native-firebase/messaging@^12.5.0":
-  version "12.5.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-12.5.0.tgz#4d8748484bbcc747dede5fa062dc9d85babad290"
-  integrity sha512-fDaUZbVanQdDQxQxviw1SBlFC1Zmi5OtjHiOL3xmkHajvw/pKvQcbGVFnRhDOrqyDR2c877Tw47g2Pr02/CYFQ==
+"@react-native-firebase/messaging@^12.6.0":
+  version "12.6.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-12.6.0.tgz#31f4337844ccdb40823c9b214d4d62fd26c5b4dd"
+  integrity sha512-gGwcUkzlg3jW0qLQGGlVy4wav64eFGTz9Cr5ObjenXDsivIvrPkQnMA9IxiaC71KKvo3A4dS2saH+kUcCFThTw==
 
 "@react-native/assets@1.0.0":
   version "1.0.0"
@@ -8955,10 +8955,10 @@ react-native-config@^1.4.3:
   resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-1.4.3.tgz#22de798ffea621c2683abfa3fc054e17dd2cf1cc"
   integrity sha512-KcrlImtkrANeYMT5VM3NaXO5+nyxZkY42CVW8FCHThVqLa5xkNwQJSn8RXu+pNn5WpUatxYgUTP5ZqUpA4/ZKQ==
 
-react-native-device-info@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.2.0.tgz#39b4e62f0160178332fcb5482a1e57a61e761d97"
-  integrity sha512-XDW08mugGxYad88h+qBEDdOcS4MMGRMA6Mq10qvhwX1NBO/6kfUdpvSo3SP83mOUyo8Ib3wsfKOlGTM0Gf395A==
+react-native-device-info@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.3.0.tgz#705d68b8d6112a6e46e74717606c77ed93a674e5"
+  integrity sha512-UkqK47w5r9rgjFpNMgXoMXj5D9GVQO8QxaTAbtJ/66XXt23WSHDroIzn+MVtTLl6SPKBw5/qakPKivLG44IPtw==
 
 react-native-dynamic-vector-icons@^1.1.6:
   version "1.1.6"
