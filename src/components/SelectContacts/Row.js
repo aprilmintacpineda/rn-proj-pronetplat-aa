@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Text, ActivityIndicator } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import Animatable from 'components/Animatable';
 import IconButton from 'components/IconButton';
 import RNVectorIcon from 'components/RNVectorIcon';
@@ -53,17 +53,7 @@ function SearchUserRow ({
           </View>
           {resolveIsSelected && (
             <View style={{ justifyContent: 'center' }}>
-              {isLoading ? (
-                <View
-                  style={{
-                    backgroundColor: paperTheme.colors.primary,
-                    borderRadius: 100,
-                    padding: 5
-                  }}
-                >
-                  <ActivityIndicator size={20} color="#fff" />
-                </View>
-              ) : isSelected ? (
+              {isSelected ? (
                 <RNVectorIcon
                   provider="Ionicons"
                   name="ios-checkmark-outline"
@@ -76,6 +66,7 @@ function SearchUserRow ({
                   icon={addIcon}
                   onPress={handleSelect}
                   size={20}
+                  isLoading={isLoading}
                 />
               )}
             </View>

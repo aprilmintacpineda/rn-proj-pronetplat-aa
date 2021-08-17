@@ -1,9 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
 import IconButton from 'components/IconButton';
 import RNVectorIcon from 'components/RNVectorIcon';
-import { paperTheme } from 'theme';
 
 function editIcon (props) {
   return (
@@ -30,34 +28,13 @@ function TriggerComponent ({ onPress, status, resetStatus }) {
         alignItems: 'flex-end'
       }}
     >
-      {status === 'uploading' ? (
-        <View
-          style={{
-            backgroundColor: paperTheme.colors.primary,
-            borderRadius: 100,
-            padding: 5
-          }}
-        >
-          <ActivityIndicator size={20} color="#fff" />
-        </View>
-      ) : status === 'uploadSuccess' ? (
-        <View
-          style={{
-            backgroundColor: paperTheme.colors.primary,
-            borderRadius: 100,
-            padding: 5
-          }}
-        >
-          <RNVectorIcon
-            provider="Ionicons"
-            name="checkmark"
-            size={20}
-            color="#fff"
-          />
-        </View>
-      ) : (
-        <IconButton onPress={onPress} icon={editIcon} size={20} />
-      )}
+      <IconButton
+        onPress={onPress}
+        icon={editIcon}
+        size={20}
+        isLoading={status === 'uploading'}
+        isSuccess={status === 'uploadSuccess'}
+      />
     </View>
   );
 }
