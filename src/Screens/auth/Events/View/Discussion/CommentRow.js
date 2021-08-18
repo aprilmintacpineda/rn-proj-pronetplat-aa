@@ -47,7 +47,9 @@ function CommentRow ({ comment, numReplies, createdAt, user }) {
           {numReplies && (
             <>
               <DotSeparator />
-              <Text style={{ color: 'gray' }}>3 replies</Text>
+              <Text style={{ color: 'gray' }}>
+                {Number(numReplies).toLocaleString()} replies
+              </Text>
             </>
           )}
         </View>
