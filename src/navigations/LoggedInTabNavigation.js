@@ -13,9 +13,9 @@ const Tab = createBottomTabNavigator();
 
 const screenOptions = {
   lazy: false,
-  labelPosition: 'below-icon',
-  keyboardHidesTabBar: true,
-  inactiveTintColor: paperTheme.colors.accent,
+  tabBarLabelPosition: 'below-icon',
+  tabBarHideOnKeyboard: true,
+  tabBarInactiveTintColor: paperTheme.colors.accent,
   headerShown: false
 };
 
