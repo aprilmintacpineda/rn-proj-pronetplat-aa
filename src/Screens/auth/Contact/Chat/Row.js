@@ -9,7 +9,7 @@ import Caption from 'components/Caption';
 import { DataFetchContext } from 'components/DataFetch';
 import IconButton from 'components/IconButton';
 import RNVectorIcon from 'components/RNVectorIcon';
-import TextLink from 'components/TextLink';
+import { renderLinks } from 'libs/strings';
 import { formatDate } from 'libs/time';
 import { getPersonalPronoun, shortenName } from 'libs/user';
 import { xhr } from 'libs/xhr';
@@ -43,48 +43,10 @@ function ChatMessage ({ index, ...chatMessage }) {
   const isReceived = recipientId === authUser.id;
   const roundness = paperTheme.roundness * 4;
 
-  const body = React.useMemo(() => {
-    const pattern =
-      /(?:https?:\/\/)?(?:[a-zA-Z]+(?:[a-zA-Z0-9-]+)?\.)?[a-zA-Z]+(?:[a-zA-Z0-9-]+)?\.[a-zA-Z0-9.]+\S*/gim;
-    const body = [];
-    // setup starting index for first loop
-    let startingIndex = 0;
-    let match = pattern.exec(messageBody);
-
-    // grab all links
-    while (match) {
-      // grab the texts before the link
-      body.push(messageBody.slice(startingIndex, match.index));
-
-      // make sure the url always has a protocol to
-      let url = match[0];
-      if (!/^https?:\/\//gim.test(url)) url = `https://${url}`;
-
-      // push the link making it pressable
-      body.push(
-        <TextLink
-          isExternal
-          key={`${url}-${startingIndex}-${match.index}`}
-          textMode
-          to={url}
-        >
-          {url}
-        </TextLink>
-      );
-
-      // set starting index of next loop
-      startingIndex = pattern.lastIndex;
-      // grab all other links
-      match = pattern.exec(messageBody);
-    }
-
-    if (!body.length) return messageBody;
-
-    // add the rest of the text
-    body.push(messageBody.slice(startingIndex));
-
-    return body;
-  }, [messageBody]);
+  const body = React.useMemo(
+    () => renderLinks(messageBody),
+    [messageBody]
+  );
 
   const sendChatMessage = React.useCallback(async () => {
     try {

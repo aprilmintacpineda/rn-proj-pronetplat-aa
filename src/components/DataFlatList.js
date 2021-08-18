@@ -13,6 +13,7 @@ function Body ({
   RowComponent,
   renderItem,
   ListFooterComponent = null,
+  ListHeaderComponent = null,
   eventListeners = null,
   listEmptyMessage,
   ItemSeparatorComponent = ListItemSeparator,
@@ -96,12 +97,15 @@ function Body ({
       onEndReachedThreshold={0.7}
       inverted={data?.length && inverted}
       ListHeaderComponent={
-        isFirstFetch && (
-          <LoadingPlaceHolder
-            isFetching={isFetching}
-            isFirstFetch={isFirstFetch}
-          />
-        )
+        <>
+          {ListHeaderComponent}
+          {isFirstFetch && (
+            <LoadingPlaceHolder
+              isFetching={isFetching}
+              isFirstFetch={isFirstFetch}
+            />
+          )}
+        </>
       }
       ListFooterComponent={
         !isFirstFetch && (

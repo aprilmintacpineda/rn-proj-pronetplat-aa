@@ -86,7 +86,6 @@ function EventCommentInput () {
                 flex: 1,
                 padding: 10,
                 backgroundColor: '#ededed',
-                // backgroundColor: paperTheme.colors.disabled,
                 borderRadius: paperTheme.roundness,
                 marginRight: 10,
                 justifyContent: 'center'

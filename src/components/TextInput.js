@@ -94,7 +94,8 @@ function TextInput ({
   value,
   helperText,
   multiline,
-  hideErrorMessage = false,
+  hideErrorMessageWhenEmpty = false,
+  noErrorMessage = false,
   viewProps,
   ..._textInputProps
 }) {
@@ -116,7 +117,7 @@ function TextInput ({
     <View {...viewProps}>
       <View style={{ position: 'relative' }}>
         <RNPTextInput
-          error={hasError}
+          error={!noErrorMessage && hasError}
           mode="outlined"
           multiline={multiline}
           style={[
@@ -154,7 +155,9 @@ function TextInput ({
           {maxLength - value.length} character(s) remaining
         </Caption>
       )}
-      {!hideErrorMessage || (hideErrorMessage && hasError) ? (
+      {!noErrorMessage &&
+      (!hideErrorMessageWhenEmpty ||
+        (hideErrorMessageWhenEmpty && hasError)) ? (
         <HelperText type="error" visible={hasError}>
           {error}
         </HelperText>

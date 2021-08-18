@@ -56,7 +56,7 @@ function CoverPicture ({ id, coverPicture, status: eventStatus }) {
       />
       {eventStatus !== 'published' && (
         <ImagePicker
-          hideErrorMessage={true}
+          noErrorMessage
           TriggerComponent={TriggerComponent}
           triggerComponentProps={{
             resetStatus,
