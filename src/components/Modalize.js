@@ -1,9 +1,31 @@
 import React from 'react';
-import { Keyboard, View } from 'react-native';
+import { Keyboard, View, Animated } from 'react-native';
 import { Modalize as RNModalize } from 'react-native-modalize';
 import { Portal } from 'react-native-paper';
 
-function Modalize ({ children, ...modalizeProps }, modalizeRef) {
+function Modalize (
+  { children, unmountOnClose, customRenderer, ...modalizeProps },
+  modalizeRef
+) {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const onOpen = React.useCallback(() => {
+    Keyboard.dismiss();
+    setIsOpen(true);
+  }, []);
+
+  const onClose = React.useCallback(() => {
+    Keyboard.dismiss();
+    setIsOpen(false);
+  }, []);
+
+  const contents =
+    unmountOnClose && !isOpen ? null : (
+      <View style={{ margin: 15, marginTop: 40, marginBottom: 30 }}>
+        {children}
+      </View>
+    );
+
   return (
     <Portal>
       <RNModalize
@@ -11,13 +33,17 @@ function Modalize ({ children, ...modalizeProps }, modalizeRef) {
         {...modalizeProps}
         ref={modalizeRef}
         handlePosition="inside"
-        onOpen={Keyboard.dismiss}
+        onOpen={onOpen}
+        onClose={onClose}
+        customRenderer={
+          customRenderer === true ? (
+            <Animated.View>{contents}</Animated.View>
+          ) : (
+            customRenderer
+          )
+        }
       >
-        <View
-          style={{ margin: 15, marginTop: 40, marginBottom: 30 }}
-        >
-          {children}
-        </View>
+        {contents}
       </RNModalize>
     </Portal>
   );
