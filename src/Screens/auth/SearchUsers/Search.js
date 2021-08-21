@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { View } from 'react-native';
 import { Appbar, Chip, Searchbar } from 'react-native-paper';
-import useDebouncedCallback from 'hooks/useDebouncedCallback';
 import useState from 'hooks/useState';
 import { paperTheme } from 'theme';
 
@@ -16,25 +15,15 @@ function Search ({ searchParams, setSearchParams }) {
   });
   const { goBack } = useNavigation();
 
-  const startSearch = React.useCallback(
-    searchStr => {
-      setSearchParams({ searchBy, search: searchStr });
-    },
-    [setSearchParams, searchBy]
-  );
-
-  const search = useDebouncedCallback(startSearch, 500);
+  const startSearch = React.useCallback(() => {
+    setSearchParams({ searchBy, search: searchStr });
+  }, [setSearchParams, searchBy, searchStr]);
 
   const onChangeText = React.useCallback(
     value => {
-      const searchStr = value || '';
-
-      if (searchStr) search(searchStr);
-      else startSearch(searchStr);
-
-      updateState({ searchStr });
+      updateState({ searchStr: value || '' });
     },
-    [updateState, search, startSearch]
+    [updateState]
   );
 
   const searchByName = React.useCallback(() => {
@@ -57,6 +46,7 @@ function Search ({ searchParams, setSearchParams }) {
         icon={Appbar.BackAction}
         onIconPress={goBack}
         placeholder={`Search users by ${searchBy}`}
+        onSubmitEditing={startSearch}
         onChangeText={onChangeText}
         value={searchStr}
         style={{

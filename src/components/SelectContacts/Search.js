@@ -1,7 +1,6 @@
 import React from 'react';
 import { Searchbar } from 'react-native-paper';
 import RNVectorIcon from 'components/RNVectorIcon';
-import useDebouncedCallback from 'hooks/useDebouncedCallback';
 import useState from 'hooks/useState';
 import { paperTheme } from 'theme';
 
@@ -19,22 +18,15 @@ function Search ({ searchParams, setSearchParams, onClose }) {
     searchStr: searchParams.search
   });
 
-  const startSearch = React.useCallback(
-    searchStr => {
-      setSearchParams({ search: searchStr });
-    },
-    [setSearchParams]
-  );
-
-  const search = useDebouncedCallback(startSearch, 500);
+  const startSearch = React.useCallback(() => {
+    setSearchParams({ search: searchStr });
+  }, [setSearchParams, searchStr]);
 
   const onChangeText = React.useCallback(
     value => {
-      const searchStr = value || '';
-      search(searchStr);
-      updateState({ searchStr });
+      updateState({ searchStr: value || '' });
     },
-    [updateState, search]
+    [updateState]
   );
 
   return (
@@ -43,6 +35,7 @@ function Search ({ searchParams, setSearchParams, onClose }) {
       onIconPress={onClose}
       placeholder="Search your contacts"
       onChangeText={onChangeText}
+      onSubmitEditing={startSearch}
       value={searchStr}
       style={{
         backgroundColor: paperTheme.colors.accent,
