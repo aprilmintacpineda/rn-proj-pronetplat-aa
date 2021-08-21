@@ -31,8 +31,8 @@ const eventListeners = {
       })
     );
   },
-  postedComment: (comment, { replaceData }) => {
-    replaceData(data => [comment].concat(data));
+  postedComment: (newComment, { replaceData }) => {
+    replaceData(data => [newComment].concat(data));
   },
   deletedComment: (commentId, { replaceData }) => {
     replaceData(data =>

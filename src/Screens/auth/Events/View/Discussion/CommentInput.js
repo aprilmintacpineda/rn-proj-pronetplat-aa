@@ -92,7 +92,7 @@ function EventCommentInput () {
       } else {
         let newComment = await xhr(`/event/comment/${event.id}`, {
           method: 'post',
-          body: { comment }
+          body: { comment: commentBody }
         });
 
         newComment = await newComment.json();
