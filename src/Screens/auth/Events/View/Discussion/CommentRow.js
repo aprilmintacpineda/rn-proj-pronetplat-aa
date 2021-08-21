@@ -26,7 +26,13 @@ function mapStates ({ authUser }) {
 
 function CommentRow (comment) {
   const { authUser } = useFluxibleStore(mapStates);
-  const { comment: _comment, numReplies, createdAt, user } = comment;
+  const {
+    comment: _comment,
+    numReplies,
+    createdAt,
+    user,
+    wasEdited
+  } = comment;
   const roundness = paperTheme.roundness * 4;
   const modalizeRef = React.useRef();
   const [isDeleting, setIsDeleting] = React.useState(false);
@@ -62,6 +68,11 @@ function CommentRow (comment) {
       unknownErrorPopup();
       setIsDeleting(false);
     }
+  }, [comment]);
+
+  const editComment = React.useCallback(() => {
+    emitEvent('editComment', comment);
+    modalizeRef.current.close();
   }, [comment]);
 
   return (
@@ -113,6 +124,12 @@ function CommentRow (comment) {
               alignItems: 'center'
             }}
           >
+            {wasEdited && (
+              <>
+                <TextLink>Edited</TextLink>
+                <DotSeparator />
+              </>
+            )}
             <TextLink onPress={reply}>Reply</TextLink>
             {numReplies && (
               <>
@@ -148,6 +165,7 @@ function CommentRow (comment) {
           mode="contained"
           style={{ marginBottom: 10 }}
           disabled={isDeleting}
+          onPress={editComment}
         >
           Edit
         </Button>

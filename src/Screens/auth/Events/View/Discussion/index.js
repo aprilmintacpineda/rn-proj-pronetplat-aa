@@ -18,6 +18,19 @@ const eventListeners = {
       })
     );
   },
+  editedComment: ({ commentId, commentBody }, { replaceData }) => {
+    replaceData(data =>
+      data.map(comment => {
+        if (comment.id !== commentId) return comment;
+
+        return {
+          ...comment,
+          comment: commentBody,
+          wasEdited: true
+        };
+      })
+    );
+  },
   postedComment: (comment, { replaceData }) => {
     replaceData(data => [comment].concat(data));
   },

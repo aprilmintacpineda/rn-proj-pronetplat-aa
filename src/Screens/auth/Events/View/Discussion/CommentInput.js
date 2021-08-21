@@ -38,16 +38,17 @@ function ClearIcon (props) {
 function EventCommentInput () {
   const { params: event } = useRoute();
   const {
-    state: { status, comment, replyTo },
+    state: { status, commentBody, replyTo, comment },
     updateState
   } = useState({
     status: 'initial',
-    comment: '',
-    replyTo: null
+    commentBody: '',
+    replyTo: null,
+    comment: null
   });
 
   const post = React.useCallback(async () => {
-    if (!comment) return;
+    if (!commentBody) return;
 
     try {
       updateState({ status: 'posting' });
@@ -58,7 +59,7 @@ function EventCommentInput () {
           {
             method: 'post',
             body: {
-              comment,
+              comment: commentBody,
               commentId: replyTo.id
             }
           }
@@ -74,23 +75,38 @@ function EventCommentInput () {
           commentId: replyTo.id,
           reply
         });
+      } else if (comment) {
+        await xhr(`/event/comment/${comment.id}`, {
+          method: 'patch',
+          body: { comment: commentBody }
+        });
+
+        showSuccessPopup({
+          message: 'You comment has been updated'
+        });
+
+        emitEvent('editedComment', {
+          commentId: comment.id,
+          commentBody
+        });
       } else {
-        let comment = await xhr(`/event/comment/${event.id}`, {
+        let newComment = await xhr(`/event/comment/${event.id}`, {
           method: 'post',
           body: { comment }
         });
 
-        comment = await comment.json();
+        newComment = await newComment.json();
 
         showSuccessPopup({
           message: 'Your comment was posted successfully.'
         });
 
-        emitEvent('postedComment', comment);
+        emitEvent('postedComment', newComment);
       }
 
       updateState({
-        comment: '',
+        commentBody: '',
+        comment: null,
         status: 'initial',
         replyTo: null
       });
@@ -99,28 +115,47 @@ function EventCommentInput () {
       unknownErrorPopup();
       updateState({ status: 'initial' });
     }
-  }, [updateState, comment, event, replyTo]);
+  }, [updateState, commentBody, event, replyTo, comment]);
 
   const onChangeText = React.useCallback(
-    comment => {
-      updateState({ comment });
+    commentBody => {
+      updateState({ commentBody });
     },
     [updateState]
   );
 
   const clearReplyTo = React.useCallback(() => {
-    updateState({ replyTo: null });
+    updateState({
+      replyTo: null,
+      commentBody: ''
+    });
+  }, [updateState]);
+
+  const clearEdit = React.useCallback(() => {
+    updateState({
+      comment: null,
+      commentBody: ''
+    });
   }, [updateState]);
 
   React.useEffect(() => {
-    const unsubscribeCallback = addEvent(
-      'replyToComment',
-      replyTo => {
+    const unsubscribeCallbacks = [
+      addEvent('replyToComment', replyTo => {
         updateState({ replyTo });
-      }
-    );
+      }),
+      addEvent('editComment', comment => {
+        updateState({
+          comment,
+          commentBody: comment.comment
+        });
+      })
+    ];
 
-    return unsubscribeCallback;
+    return () => {
+      unsubscribeCallbacks.forEach(unsubscribeCallback => {
+        unsubscribeCallback();
+      });
+    };
   }, [updateState]);
 
   const isPosting = status === 'posting';
@@ -163,6 +198,30 @@ function EventCommentInput () {
               </View>
             </View>
           )}
+          {comment && (
+            <View
+              style={{
+                marginBottom: 10,
+                flexDirection: 'row',
+                alignItems: 'flex-start'
+              }}
+            >
+              <IconButton
+                size={15}
+                onPress={clearEdit}
+                icon={ClearIcon}
+                disabled={isPosting}
+              />
+              <View
+                style={{ marginLeft: 10, marginRight: 25, flex: 1 }}
+              >
+                <Text>Editing comment</Text>
+                <Caption numberOfLines={2}>
+                  {comment.comment}
+                </Caption>
+              </View>
+            </View>
+          )}
           <View
             style={{
               flexDirection: 'row'
@@ -187,7 +246,7 @@ function EventCommentInput () {
                   opacity: isPosting ? 0.3 : 1
                 }}
                 textAlignVertical="top"
-                value={comment}
+                value={commentBody}
                 onChangeText={onChangeText}
                 maxLength={3000}
                 multiline
@@ -202,13 +261,13 @@ function EventCommentInput () {
               <IconButton
                 onPress={post}
                 icon={SendIcon}
-                disabled={!comment}
+                disabled={!commentBody}
                 isLoading={isPosting}
               />
             </View>
           </View>
           <Caption style={{ marginTop: 5 }}>
-            {3000 - comment.length} character(s) remaining
+            {3000 - commentBody.length} character(s) remaining
           </Caption>
         </View>
       </View>
