@@ -3,8 +3,10 @@ import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
+import EditHistoryRow from './EditHistoryRow';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
+import DataFlatList from 'components/DataFlatList';
 import DotSeparator from 'components/DotSeparator';
 import Modalize from 'components/Modalize';
 import TextLink from 'components/TextLink';
@@ -34,7 +36,8 @@ function CommentRow (comment) {
     wasEdited
   } = comment;
   const roundness = paperTheme.roundness * 4;
-  const modalizeRef = React.useRef();
+  const actionsModalizeRef = React.useRef();
+  const historyModalizeRef = React.useRef();
   const [isDeleting, setIsDeleting] = React.useState(false);
 
   const body = React.useMemo(
@@ -47,7 +50,7 @@ function CommentRow (comment) {
   }, [comment]);
 
   const onPress = React.useCallback(() => {
-    modalizeRef.current.open();
+    actionsModalizeRef.current.open();
   }, []);
 
   const deleteComment = React.useCallback(async () => {
@@ -72,8 +75,12 @@ function CommentRow (comment) {
 
   const editComment = React.useCallback(() => {
     emitEvent('editComment', comment);
-    modalizeRef.current.close();
+    actionsModalizeRef.current.close();
   }, [comment]);
+
+  const showEditHistory = React.useCallback(() => {
+    historyModalizeRef.current.open();
+  }, []);
 
   return (
     <>
@@ -126,7 +133,7 @@ function CommentRow (comment) {
           >
             {wasEdited && (
               <>
-                <TextLink>Edited</TextLink>
+                <TextLink onPress={showEditHistory}>Edited</TextLink>
                 <DotSeparator />
               </>
             )}
@@ -160,7 +167,7 @@ function CommentRow (comment) {
           )}
         </View>
       </View>
-      <Modalize ref={modalizeRef}>
+      <Modalize ref={actionsModalizeRef}>
         <Button
           mode="contained"
           style={{ marginBottom: 10 }}
@@ -177,6 +184,17 @@ function CommentRow (comment) {
         >
           Delete
         </Button>
+      </Modalize>
+      <Modalize
+        ref={historyModalizeRef}
+        unmountOnClose
+        customRenderer
+      >
+        <DataFlatList
+          endpoint={`/event/comment/edit-history/${comment.id}`}
+          RowComponent={EditHistoryRow}
+          listEmptyMessage="There are no edits yet"
+        />
       </Modalize>
     </>
   );
