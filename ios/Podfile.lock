@@ -12,7 +12,7 @@ PODS:
     - ExpoModulesCore
     - React-Core
     - UMCore
-  - EXImagePicker (10.2.2):
+  - EXImagePicker (10.2.3):
     - ExpoModulesCore
     - UMCore
   - ExpoModulesCore (0.2.0):
@@ -532,20 +532,20 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
-  - RNDeviceInfo (8.3.0):
+  - RNDeviceInfo (8.3.1):
     - React-Core
-  - RNFBAnalytics (12.7.0):
+  - RNFBAnalytics (12.7.1):
     - Firebase/Analytics (= 8.6.0)
     - React-Core
     - RNFBApp
-  - RNFBApp (12.7.0):
+  - RNFBApp (12.7.1):
     - Firebase/CoreOnly (= 8.6.0)
     - React-Core
-  - RNFBCrashlytics (12.7.0):
+  - RNFBCrashlytics (12.7.1):
     - Firebase/Crashlytics (= 8.6.0)
     - React-Core
     - RNFBApp
-  - RNFBMessaging (12.7.0):
+  - RNFBMessaging (12.7.1):
     - Firebase/Messaging (= 8.6.0)
     - React-Core
     - RNFBApp
@@ -866,7 +866,7 @@ SPEC CHECKSUMS:
   EXConstants: 3babb61f8f4bb7dffe85b8b7d6eaa31d903e4d7e
   EXFileSystem: 0a04aba8da751b9ac954065911bcf166503f8267
   EXImageLoader: d3531a3fe530b22925c19977cb53bb43e3821fe6
-  EXImagePicker: ce9648d2505fff28bde0d7a0a3b0aee5fd038989
+  EXImagePicker: 414a3663910fd6604248e84c9c77a0501ae0d18b
   ExpoModulesCore: 2734852616127a6c1fc23012197890a6f3763dc7
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
   FBReactNativeSpec: 2c1e51c7ab64972763046d2ae9f7fe9b93b485bf
@@ -937,11 +937,11 @@ SPEC CHECKSUMS:
   ReactNativeCameraKit: 00837d477b2a21db904f1e4ce728d6eed6218c5e
   RNBootSplash: 4844706cbb56a3270556c9b94e59dedadccd47e4
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNDeviceInfo: 1c15bd65d0555a4246107dd9b5b9d9095aa6ad76
-  RNFBAnalytics: 66b04c5a140c38233988b8e00256f9a785e17873
-  RNFBApp: 89e2c070a5433a312e00e18d9d31f42fc2634f78
-  RNFBCrashlytics: 975aceb73460baabd8c399e47610204d2f3d6a64
-  RNFBMessaging: 68663046575dd13f7b4aa0e278fbe2e552613e8d
+  RNDeviceInfo: 7b82d1467b87f7e74d1c7ba9439a9a57d0c68ee9
+  RNFBAnalytics: c2468814a480168ca67517ddb42a48a6c25514ec
+  RNFBApp: a4ce8d24c5c6864fa543a34b030a014bd015e628
+  RNFBCrashlytics: 3c9bd32e59be40edbab7693f480d4973cca5553b
+  RNFBMessaging: 510bef8284ab30807e3815dde6d91a02c282abe0
   RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNPermissions: 7043bacbf928eae25808275cfe73799b8f618911
