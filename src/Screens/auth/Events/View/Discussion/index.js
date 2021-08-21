@@ -20,6 +20,11 @@ const eventListeners = {
   },
   postedComment: (comment, { replaceData }) => {
     replaceData(data => [comment].concat(data));
+  },
+  deletedComment: (commentId, { replaceData }) => {
+    replaceData(data =>
+      data.filter(comment => comment.id !== commentId)
+    );
   }
 };
 
