@@ -48,10 +48,8 @@ function MyEventRow (event) {
     <Surface
       style={{
         margin: 10,
-        borderColor: '#ededed',
-        borderWidth: 1,
-        borderRadius: paperTheme.roundness,
-        padding: 0
+        padding: 0,
+        overflow: 'hidden'
       }}
     >
       <TouchableRipple
