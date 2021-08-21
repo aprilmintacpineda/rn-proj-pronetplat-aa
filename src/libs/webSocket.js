@@ -48,13 +48,8 @@ function restartConnection (err) {
   console.log('restartConnection', err);
   willReconnect = true;
   clearWebSocket();
-
-  // reconnect after 3 seconds
-  BackgroundTimer.runBackgroundTimer(() => {
-    BackgroundTimer.stopBackgroundTimer();
-    willReconnect = false;
-    connectWebSocket();
-  }, 3000);
+  connectWebSocket();
+  willReconnect = false;
 }
 
 export function connectWebSocket () {

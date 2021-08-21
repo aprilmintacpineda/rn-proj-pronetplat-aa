@@ -1,3 +1,4 @@
+import { emitEvent } from 'fluxible-js';
 import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
@@ -10,9 +11,17 @@ import { renderLinks } from 'libs/strings';
 import { getFullName } from 'libs/user';
 import { paperTheme } from 'theme';
 
-function CommentRow ({ comment, numReplies, createdAt, user }) {
-  const body = React.useMemo(() => renderLinks(comment), [comment]);
+function CommentRow (comment) {
+  const { comment: _comment, numReplies, createdAt, user } = comment;
+  const body = React.useMemo(
+    () => renderLinks(_comment),
+    [_comment]
+  );
   const roundness = paperTheme.roundness * 4;
+
+  const reply = React.useCallback(() => {
+    emitEvent('replyToComment', comment);
+  }, [comment]);
 
   return (
     <View
@@ -40,19 +49,38 @@ function CommentRow ({ comment, numReplies, createdAt, user }) {
           style={{
             flexDirection: 'row',
             marginLeft: roundness,
-            marginTop: 10
+            marginTop: 10,
+            alignItems: 'center'
           }}
         >
-          <TextLink>Reply</TextLink>
+          <TextLink onPress={reply}>Reply</TextLink>
           {numReplies && (
             <>
               <DotSeparator />
               <Text style={{ color: 'gray' }}>
-                {Number(numReplies).toLocaleString()} replies
+                {Number(numReplies).toLocaleString()}{' '}
+                {numReplies > 1 ? 'replies' : 'reply'}
               </Text>
             </>
           )}
         </View>
+        {numReplies && (
+          <View
+            style={{
+              marginLeft: roundness,
+              marginTop: 10
+            }}
+          >
+            <TextLink
+              textStyle={{
+                color: paperTheme.colors.text,
+                fontWeight: 'bold'
+              }}
+            >
+              View replies
+            </TextLink>
+          </View>
+        )}
       </View>
     </View>
   );

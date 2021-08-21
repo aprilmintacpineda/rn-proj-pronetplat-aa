@@ -9,13 +9,13 @@ let typingStatusResetTimeout = null;
 
 const eventListeners = {
   'websocketEvent-chatMessageSeen': (
-    { user, payload: { seenAt, unseenChatMessageIds } },
+    { sender, payload: { seenAt, unseenChatMessageIds } },
     { replaceData }
   ) => {
     replaceData(data =>
       data.map(inbox => {
         if (
-          inbox.contactId !== user.id ||
+          inbox.contactId !== sender.id ||
           !unseenChatMessageIds.includes(inbox.lastMessageId)
         )
           return inbox;
@@ -34,20 +34,20 @@ const eventListeners = {
     );
   },
   'websocketEvent-chatMessageReceived': (
-    { user, payload },
+    { sender, payload },
     { replaceData }
   ) => {
     replaceData(data => {
       const newData = [].concat(data);
       const index = newData.findIndex(
-        inbox => inbox.contactId === user.id
+        inbox => inbox.contactId === sender.id
       );
 
       if (index === -1) {
         return [
           {
-            contactId: user.id,
-            contact: user,
+            contactId: sender.id,
+            contact: sender,
             lastMessageId: payload.id,
             lastMessage: payload,
             numUnreadChatMessages: 1
@@ -126,16 +126,16 @@ const eventListeners = {
     );
   },
   'websocketEvent-typingStatus': (
-    { user, payload: { isTyping } },
+    { sender, payload: { isTyping } },
     { data, replaceData }
   ) => {
-    if (!data.find(inbox => inbox.contactId === user.id)) return;
+    if (!data.find(inbox => inbox.contactId === sender.id)) return;
 
     clearTimeout(typingStatusResetTimeout);
 
     replaceData(data =>
       data.map(inbox => {
-        if (inbox.contactId !== user.id) return inbox;
+        if (inbox.contactId !== sender.id) return inbox;
 
         return {
           ...inbox,
@@ -148,7 +148,7 @@ const eventListeners = {
       typingStatusResetTimeout = setTimeout(() => {
         replaceData(data =>
           data.map(inbox => {
-            if (inbox.contactId !== user.id) return inbox;
+            if (inbox.contactId !== sender.id) return inbox;
 
             return {
               ...inbox,

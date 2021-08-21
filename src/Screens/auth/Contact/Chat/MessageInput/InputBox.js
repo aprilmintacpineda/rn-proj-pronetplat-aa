@@ -9,7 +9,7 @@ import IconButton from 'components/IconButton';
 import RNVectorIcon from 'components/RNVectorIcon';
 import useAppStateEffect from 'hooks/useAppStateEffect';
 import useState from 'hooks/useState';
-import { shortenName } from 'libs/user';
+import { getFullName, shortenName } from 'libs/user';
 import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
@@ -78,8 +78,8 @@ function ChatMessageInputBox () {
     const removeListeners = [
       addEvent(
         'websocketEvent-typingStatus',
-        ({ user, payload: { isTyping } }) => {
-          if (user.id !== contact.id) return;
+        ({ sender, payload: { isTyping } }) => {
+          if (sender.id !== contact.id) return;
 
           clearTimeout(isTypingResetTimeout.current);
           updateState({ isTyping });
@@ -175,13 +175,17 @@ function ChatMessageInputBox () {
               icon={ClearIcon}
             />
             <View style={{ marginLeft: 10, marginRight: 25 }}>
-              <Caption>
+              <Text>
                 Replying to{' '}
-                {replyTo.senderId === contact.id
-                  ? shortenName(contact.firstName)
-                  : 'yourself'}
+                <Text style={{ fontWeight: 'bold' }}>
+                  {replyTo.senderId === contact.id
+                    ? getFullName(contact)
+                    : 'yourself'}
+                </Text>
+              </Text>
+              <Caption numberOfLines={2}>
+                {replyTo.messageBody}
               </Caption>
-              <Text numberOfLines={1}>{replyTo.messageBody}</Text>
             </View>
           </View>
         ) : null}

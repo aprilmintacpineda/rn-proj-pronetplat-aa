@@ -54,9 +54,9 @@ function ContactProfile ({ contact }) {
     const removeListeners = [
       addEvent(
         'websocketEvent-notification',
-        ({ trigger, user }) => {
+        ({ trigger, sender }) => {
           if (
-            user.id === contact.id &&
+            sender.id === contact.id &&
             (trigger === 'contactRequest' ||
               trigger === 'contactRequestAccepted' ||
               trigger === 'contactRequestCancelled' ||
@@ -71,8 +71,8 @@ function ContactProfile ({ contact }) {
           'websocketEvent-unblockedByUser',
           'websocketEvent-userDisconected'
         ],
-        ({ user }) => {
-          if (user.id === contact.id) refreshData();
+        ({ sender }) => {
+          if (sender.id === contact.id) refreshData();
         }
       )
     ];

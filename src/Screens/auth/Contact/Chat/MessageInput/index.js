@@ -18,8 +18,8 @@ function ChatMessageInput () {
         'websocketEvent-blockedByUser',
         'websocketEvent-userDisconected'
       ],
-      ({ user }) => {
-        if (user.id === contact.id) setIsConnected(true);
+      ({ sender }) => {
+        if (sender.id === contact.id) setIsConnected(true);
       }
     );
 

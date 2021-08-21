@@ -5,10 +5,13 @@ import { paperTheme } from 'theme';
 function Caption ({
   children,
   style,
-  color = paperTheme.colors.caption
+  color = paperTheme.colors.caption,
+  ...textProps
 }) {
   return (
-    <Text style={[{ fontSize: 11, color }, style]}>{children}</Text>
+    <Text style={[{ fontSize: 11, color }, style]} {...textProps}>
+      {children}
+    </Text>
   );
 }
 

@@ -26,12 +26,12 @@ const sentEventListeners = {
     );
   },
   'websocketEvent-contactRequestAccepted': (
-    { user },
+    { sender },
     { replaceData }
   ) => {
     replaceData(data =>
       data.filter(
-        contactRequest => contactRequest.recipientId !== user.id
+        contactRequest => contactRequest.recipientId !== sender.id
       )
     );
 

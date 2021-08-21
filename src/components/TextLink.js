@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableWithoutFeedback, Linking } from 'react-native';
+import { TouchableOpacity, Linking } from 'react-native';
 import { Text } from 'react-native-paper';
 import { navigationRef } from 'App';
 import { paperTheme } from 'theme';
@@ -23,13 +23,13 @@ function TextLink ({
   }, [to, params, onPress, isExternal]);
 
   return (
-    <TouchableWithoutFeedback onPress={handlePress} {...props}>
+    <TouchableOpacity onPress={handlePress} {...props}>
       <Text
         style={[{ color: paperTheme.colors.primary }, textStyle]}
       >
         {children}
       </Text>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 }
 

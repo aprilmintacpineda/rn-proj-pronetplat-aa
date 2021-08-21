@@ -6,7 +6,21 @@ import CommentRow from './CommentRow';
 import DataFlatList from 'components/DataFlatList';
 
 const eventListeners = {
-  commentPosted: () => {}
+  repliedToComment: ({ commentId }, { replaceData }) => {
+    replaceData(data =>
+      data.map(comment => {
+        if (comment.id !== commentId) return comment;
+
+        return {
+          ...comment,
+          numReplies: (comment.numReplies || 0) + 1
+        };
+      })
+    );
+  },
+  postedComment: (comment, { replaceData }) => {
+    replaceData(data => [comment].concat(data));
+  }
 };
 
 function ViewEventDiscussion () {

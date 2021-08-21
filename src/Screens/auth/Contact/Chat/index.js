@@ -9,11 +9,11 @@ import { xhr } from 'libs/xhr';
 
 const eventListeners = {
   'websocketEvent-chatMessageSeen': (
-    { user, payload: { seenAt, unseenChatMessageIds } },
+    { sender, payload: { seenAt, unseenChatMessageIds } },
     { replaceData }
   ) => {
     const currentRoute = navigationRef.current.getCurrentRoute();
-    if (currentRoute.params.id !== user.id) return;
+    if (currentRoute.params.id !== sender.id) return;
 
     replaceData(data =>
       data.map(chatMessage => {
@@ -29,11 +29,11 @@ const eventListeners = {
     );
   },
   'websocketEvent-chatMessageReceived': async (
-    { user, payload },
+    { sender, payload },
     { replaceData }
   ) => {
     const currentRoute = navigationRef.current.getCurrentRoute();
-    if (currentRoute.params.id !== user.id) return;
+    if (currentRoute.params.id !== sender.id) return;
 
     replaceData(data => [payload].concat(data));
 

@@ -37,9 +37,9 @@ export const navigationRef = React.createRef();
 
 const webSocketEventHandlers = {
   notification: ({
-    user,
+    sender,
     trigger,
-    payload: { event, title: _title, body: _body }
+    payload: { event, title: _title, body: _body, user }
   }) => {
     switch (trigger) {
       case 'contactRequestCancelled':
@@ -62,7 +62,7 @@ const webSocketEventHandlers = {
     )
       incrementNotificationsCount();
 
-    const fullname = getFullName(user);
+    const fullname = getFullName(sender);
 
     displayNotification({
       title: _title.replace(/{fullname}/gim, fullname),
@@ -70,11 +70,17 @@ const webSocketEventHandlers = {
         .replace(/{fullname}/gim, fullname)
         .replace(
           /{genderPossessiveLowercase}/gim,
-          getPersonalPronoun(user).possessive.lowercase
+          getPersonalPronoun(sender).possessive.lowercase
         )
-        .replace(/{eventName}/gim, event?.name || ''),
-      avatarUri: user.profilePicture,
-      avatarLabel: getInitials(user),
+        .replace(/{eventName}/gim, event.name || '')
+        .replace(
+          /{userFullNamePossessive}/gim,
+          user.id === sender.id
+            ? getPersonalPronoun(user).possessive.lowercase
+            : `${getFullName(user)}'s`
+        ),
+      avatarUri: sender.profilePicture,
+      avatarLabel: getInitials(sender),
       onPress: () => {
         const screensByTrigger = {
           contactRequest: {
@@ -82,15 +88,15 @@ const webSocketEventHandlers = {
           },
           contactRequestAccepted: {
             name: 'ContactProfile',
-            params: user
+            params: sender
           },
           contactRequestCancelled: {
             name: 'ContactProfile',
-            params: user
+            params: sender
           },
           contactRequestDeclined: {
             name: 'ContactProfile',
-            params: user
+            params: sender
           },
           addedAsOrganizerToEvent: {
             name: 'ViewEvent',
@@ -109,12 +115,12 @@ const webSocketEventHandlers = {
       }
     });
   },
-  chatMessageReceived: ({ user }) => {
+  chatMessageReceived: ({ sender }) => {
     const currentRoute = navigationRef.current.getCurrentRoute();
 
     if (
       currentRoute.name === 'ContactChat' &&
-      currentRoute.params.id === user.id
+      currentRoute.params.id === sender.id
     )
       return;
 
@@ -128,11 +134,11 @@ const webSocketEventHandlers = {
 
     displayNotification({
       title: 'New message',
-      body: `${getFullName(user)} sent you a message.`,
-      avatarUri: user.profilePicture,
-      avatarLabel: getInitials(user),
+      body: `${getFullName(sender)} sent you a message.`,
+      avatarUri: sender.profilePicture,
+      avatarLabel: getInitials(sender),
       onPress: () => {
-        navigationRef.current.navigate('ContactChat', user);
+        navigationRef.current.navigate('ContactChat', sender);
       }
     });
   }
