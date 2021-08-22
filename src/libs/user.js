@@ -7,6 +7,19 @@ import UserAvatar from 'components/UserAvatar';
 import { toast, updateOrCreateToast } from 'fluxible/actions/popup';
 import { xhr } from 'libs/xhr';
 
+export const personalPronouns = [
+  'He',
+  'he',
+  'Him',
+  'him',
+  'His',
+  'his',
+  'She',
+  'she',
+  'Her',
+  'her'
+];
+
 export function shortenName (name) {
   return shortenStr(name, 10);
 }

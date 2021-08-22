@@ -7,7 +7,11 @@ import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
 import TouchableRipple from 'components/TouchableRipple';
 import UserAvatar from 'components/UserAvatar';
-import { getFullName, getPersonalPronoun } from 'libs/user';
+import {
+  getFullName,
+  getPersonalPronoun,
+  personalPronouns
+} from 'libs/user';
 import { paperTheme, navigationTheme } from 'theme';
 
 const { error, primary } = paperTheme.colors;
@@ -18,9 +22,10 @@ const replacers = {
   '{genderPossessiveLowercase}': ({ user }) =>
     getPersonalPronoun(user).possessive.lowercase,
   '{eventName}': ({ event }) => event.name,
-  '{userFullNamePossessive}': args => {
-    console.log(args);
-    return '';
+  '{userFullNamePossessive}': ({ user, payload: { userId } }) => {
+    return userId === user.id
+      ? getPersonalPronoun(user).possessive.lowercase
+      : `${getFullName(user)}'s`;
   }
 };
 
@@ -100,7 +105,7 @@ function NotificationBody (notification) {
           <Text
             key={`${index}-${word}-${value}`}
             style={
-              word !== '{genderPossessiveLowercase}'
+              !personalPronouns.includes(value)
                 ? { fontWeight: 'bold' }
                 : null
             }
