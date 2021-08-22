@@ -63,6 +63,7 @@ function Body ({
       Object.keys(eventListeners),
       (payload, event) => {
         const callback = eventListeners[event];
+
         callback(payload, {
           data,
           replaceData,

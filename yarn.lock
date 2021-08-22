@@ -5620,10 +5620,10 @@ flow-parser@^0.121.0:
   resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.121.0.tgz#9f9898eaec91a9f7c323e9e992d81ab5c58e618f"
   integrity sha512-1gIBiWJNR0tKUNv8gZuk7l9rVX06OuLzY9AoGio7y/JT4V1IZErEMEq2TJS+PFcw/y0RshZ1J/27VfK1UQzYVg==
 
-fluxible-js@^5.0.11:
-  version "5.0.11"
-  resolved "https://registry.yarnpkg.com/fluxible-js/-/fluxible-js-5.0.11.tgz#f44d56b60de2e43d3d8f12ed83dc9c4f5f6f0afc"
-  integrity sha512-NWCC/08ZO1FLe6Mw+owr31035NW/elkbOT3EKG+y+ez3MqwQ9SCC7myxBge9ZWyU72WqyIDTsXJ9NJ+7kBtygw==
+fluxible-js@^5.0.14:
+  version "5.0.14"
+  resolved "https://registry.yarnpkg.com/fluxible-js/-/fluxible-js-5.0.14.tgz#52ff946b028a9f5c7bc519af33c19c200f1f1d41"
+  integrity sha512-Gr3/VAWi2Aab+geBivw8C2jFYZdVU/e/WmQbXINECLBGZ358x4/b+mLOlFqzyod+ZhVHRScqfv5NeLgAZq5fTg==
 
 for-in@^0.1.3:
   version "0.1.8"
