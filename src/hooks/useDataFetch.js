@@ -167,7 +167,8 @@ function useDataFetch ({
     error,
     refreshData,
     fetchData,
-    replaceData
+    replaceData,
+    canFetchMore
   };
 }
 

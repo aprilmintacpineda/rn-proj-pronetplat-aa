@@ -11,7 +11,6 @@ function Switch ({ value, onChange, content, disabled }) {
   return (
     <View
       style={{
-        display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-start',
         marginBottom: 30

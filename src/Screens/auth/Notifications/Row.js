@@ -17,7 +17,11 @@ const replacers = {
   '{fullname}': ({ user }) => getFullName(user),
   '{genderPossessiveLowercase}': ({ user }) =>
     getPersonalPronoun(user).possessive.lowercase,
-  '{eventName}': ({ event }) => event.name
+  '{eventName}': ({ event }) => event.name,
+  '{userFullNamePossessive}': args => {
+    console.log(args);
+    return '';
+  }
 };
 
 function NotificationBody (notification) {

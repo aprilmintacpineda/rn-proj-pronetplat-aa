@@ -1,6 +1,7 @@
 import { useRoute } from '@react-navigation/core';
 import { addEvent, emitEvent } from 'fluxible-js';
 import React from 'react';
+import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { Platform, TextInput, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Caption from 'components/Caption';
@@ -35,8 +36,13 @@ function ClearIcon (props) {
   );
 }
 
+function mapStates ({ authUser }) {
+  return { authUser };
+}
+
 function EventCommentInput () {
   const { params: event } = useRoute();
+  const { authUser } = useFluxibleStore(mapStates);
   const {
     state: { status, commentBody, replyTo, comment },
     updateState
@@ -85,10 +91,17 @@ function EventCommentInput () {
           message: 'You comment has been updated'
         });
 
-        emitEvent('editedComment', {
-          commentId: comment.id,
-          commentBody
-        });
+        if (comment.commentId) {
+          emitEvent('editedReply', {
+            commentId: comment.id,
+            commentBody
+          });
+        } else {
+          emitEvent('editedComment', {
+            commentId: comment.id,
+            commentBody
+          });
+        }
       } else {
         let newComment = await xhr(`/event/comment/${event.id}`, {
           method: 'post',
@@ -189,7 +202,9 @@ function EventCommentInput () {
                 <Text>
                   Replying to{' '}
                   <Text style={{ fontWeight: 'bold' }}>
-                    {getFullName(replyTo.user)}
+                    {replyTo.user.id === authUser.id
+                      ? 'yourself'
+                      : getFullName(replyTo.user)}
                   </Text>
                 </Text>
                 <Caption numberOfLines={2}>

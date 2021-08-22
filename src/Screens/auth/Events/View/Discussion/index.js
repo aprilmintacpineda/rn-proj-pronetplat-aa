@@ -38,6 +38,20 @@ const eventListeners = {
     replaceData(data =>
       data.filter(comment => comment.id !== commentId)
     );
+  },
+  deletedReply: (reply, { replaceData }) => {
+    replaceData(data =>
+      data.map(comment => {
+        if (comment.id !== reply.commentId) return comment;
+
+        console.log('ViewEventDiscussion', comment.numReplies);
+
+        return {
+          ...comment,
+          numReplies: comment.numReplies - 1
+        };
+      })
+    );
   }
 };
 

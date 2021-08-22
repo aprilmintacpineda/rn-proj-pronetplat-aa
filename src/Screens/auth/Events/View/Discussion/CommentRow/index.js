@@ -3,10 +3,10 @@ import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
-import EditHistoryRow from './EditHistoryRow';
+import Edited from './Edited';
+import Replies from './Replies';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
-import DataFlatList from 'components/DataFlatList';
 import DotSeparator from 'components/DotSeparator';
 import Modalize from 'components/Modalize';
 import TextLink from 'components/TextLink';
@@ -33,11 +33,12 @@ function CommentRow (comment) {
     numReplies,
     createdAt,
     user,
-    wasEdited
+    wasEdited,
+    commentId
   } = comment;
+  const isReply = Boolean(comment.commentId);
   const roundness = paperTheme.roundness * 4;
   const actionsModalizeRef = React.useRef();
-  const historyModalizeRef = React.useRef();
   const [isDeleting, setIsDeleting] = React.useState(false);
 
   const body = React.useMemo(
@@ -65,63 +66,62 @@ function CommentRow (comment) {
         message: 'Your comment has been deleted.'
       });
 
-      emitEvent('deletedComment', comment.id);
+      if (isReply) emitEvent('deletedReply', comment);
+      else emitEvent('deletedComment', comment.id);
     } catch (error) {
       console.log(error);
       unknownErrorPopup();
       setIsDeleting(false);
     }
-  }, [comment]);
+  }, [comment, isReply]);
 
   const editComment = React.useCallback(() => {
     emitEvent('editComment', comment);
     actionsModalizeRef.current.close();
   }, [comment]);
 
-  const showEditHistory = React.useCallback(() => {
-    historyModalizeRef.current.open();
-  }, []);
-
   return (
     <>
       <View
         style={{
-          display: 'flex',
           flexDirection: 'row',
-          padding: 10
+          marginVertical: 10,
+          marginHorizontal: commentId ? 0 : 10
         }}
       >
         <UserAvatar user={user} size={40} />
-        <View style={{ marginLeft: 10 }}>
-          <View
-            style={{
-              backgroundColor: '#e6e6e6',
-              borderRadius: roundness,
-              overflow: 'hidden'
-            }}
-          >
-            <TouchableRipple
-              onPress={onPress}
-              disabled={user.id !== authUser.id}
+        <View style={{ marginLeft: 10, flex: 1 }}>
+          <View style={{ flexDirection: 'row' }}>
+            <View
+              style={{
+                backgroundColor: '#e6e6e6',
+                borderRadius: roundness,
+                overflow: 'hidden'
+              }}
             >
-              <View
-                style={{
-                  paddingVertical: 10,
-                  paddingHorizontal: 15
-                }}
+              <TouchableRipple
+                onPress={onPress}
+                disabled={user.id !== authUser.id}
               >
-                <Text
-                  style={{ fontWeight: 'bold' }}
-                  numberOfLines={1}
+                <View
+                  style={{
+                    paddingVertical: 10,
+                    paddingHorizontal: 15
+                  }}
                 >
-                  {getFullName(user)}
-                </Text>
-                <Text>{body}</Text>
-                <Caption style={{ marginTop: 5 }}>
-                  <TimeAgo dateFrom={createdAt} />
-                </Caption>
-              </View>
-            </TouchableRipple>
+                  <Text
+                    style={{ fontWeight: 'bold' }}
+                    numberOfLines={1}
+                  >
+                    {getFullName(user)}
+                  </Text>
+                  <Text>{body}</Text>
+                  <Caption style={{ marginTop: 5 }}>
+                    <TimeAgo dateFrom={createdAt} />
+                  </Caption>
+                </View>
+              </TouchableRipple>
+            </View>
           </View>
           <View
             style={{
@@ -131,14 +131,9 @@ function CommentRow (comment) {
               alignItems: 'center'
             }}
           >
-            {wasEdited && (
-              <>
-                <TextLink onPress={showEditHistory}>Edited</TextLink>
-                <DotSeparator />
-              </>
-            )}
-            <TextLink onPress={reply}>Reply</TextLink>
-            {numReplies && (
+            {wasEdited && <Edited comment={comment} />}
+            {!isReply && <TextLink onPress={reply}>Reply</TextLink>}
+            {(!isReply && numReplies && (
               <>
                 <DotSeparator />
                 <Text style={{ color: 'gray' }}>
@@ -146,25 +141,13 @@ function CommentRow (comment) {
                   {numReplies > 1 ? 'replies' : 'reply'}
                 </Text>
               </>
-            )}
+            )) ||
+              null}
           </View>
-          {numReplies && (
-            <View
-              style={{
-                marginLeft: roundness,
-                marginTop: 10
-              }}
-            >
-              <TextLink
-                textStyle={{
-                  color: paperTheme.colors.text,
-                  fontWeight: 'bold'
-                }}
-              >
-                View replies
-              </TextLink>
-            </View>
-          )}
+          {(!isReply && numReplies && (
+            <Replies comment={comment} />
+          )) ||
+            null}
         </View>
       </View>
       <Modalize ref={actionsModalizeRef}>
@@ -184,17 +167,6 @@ function CommentRow (comment) {
         >
           Delete
         </Button>
-      </Modalize>
-      <Modalize
-        ref={historyModalizeRef}
-        unmountOnClose
-        customRenderer
-      >
-        <DataFlatList
-          endpoint={`/event/comment/edit-history/${comment.id}`}
-          RowComponent={EditHistoryRow}
-          listEmptyMessage="There are no edits yet"
-        />
       </Modalize>
     </>
   );

@@ -1,10 +1,12 @@
 import { addEvents } from 'fluxible-js';
 import React from 'react';
-import { FlatList } from 'react-native';
+import { View } from 'react-native';
+import { Text } from 'react-native-paper';
 import DataFetch, { DataFetchContext } from './DataFetch';
 import DefaultLoadingPlaceholder from './DefaultLoadingPlaceholder';
 import ListEmpty from './ListEmpty';
 import ListItemSeparator from './ListItemSeparator';
+import TextLink from './TextLink';
 import UnknownErrorView from './UnknownErrorView';
 
 function Body ({
@@ -16,24 +18,23 @@ function Body ({
   ListHeaderComponent = null,
   eventListeners = null,
   listEmptyMessage,
+  ListEmptyComponent = ListEmpty,
   ItemSeparatorComponent = ListItemSeparator,
-  inverted = false,
-  disableRefresh = false,
   otherRowProps,
-  ...flatListProps
+  fetchMoreLabel = 'See more'
 }) {
   const {
-    data,
     isInitial,
+    data,
     isFirstFetch,
     refreshData,
-    isRefreshing,
     fetchData,
+    isRefreshing,
     isFetching,
     replaceData,
-    isError
+    isError,
+    canFetchMore
   } = React.useContext(DataFetchContext);
-  const isScrolling = React.useRef(false);
 
   const renderRow = React.useCallback(
     args => {
@@ -55,19 +56,6 @@ function Body ({
     [keyField]
   );
 
-  const onEndReached = React.useCallback(() => {
-    if (!isScrolling.current) return;
-    fetchData();
-  }, [fetchData]);
-
-  const onMomentumScrollBegin = React.useCallback(() => {
-    isScrolling.current = true;
-  }, []);
-
-  const onMomentumScrollEnd = React.useCallback(() => {
-    isScrolling.current = false;
-  }, []);
-
   React.useEffect(() => {
     if (!eventListeners) return;
 
@@ -75,7 +63,6 @@ function Body ({
       Object.keys(eventListeners),
       (payload, event) => {
         const callback = eventListeners[event];
-
         callback(payload, {
           data,
           replaceData,
@@ -87,58 +74,59 @@ function Body ({
 
   if (isError) return <UnknownErrorView onRefresh={refreshData} />;
 
+  const dataLen = data?.length || 0;
+
   return (
-    <FlatList
-      onRefresh={!disableRefresh ? refreshData : null}
-      refreshing={!disableRefresh && !isFirstFetch && isRefreshing}
-      data={data}
-      keyExtractor={keyExtractor}
-      onEndReached={onEndReached}
-      onMomentumScrollBegin={onMomentumScrollBegin}
-      onMomentumScrollEnd={onMomentumScrollEnd}
-      onEndReachedThreshold={0.7}
-      inverted={data?.length && inverted}
-      ListHeaderComponent={
-        <>
-          {ListHeaderComponent}
-          {isFirstFetch && (
-            <LoadingPlaceHolder
-              isFetching={isFetching}
-              isFirstFetch={isFirstFetch}
-            />
-          )}
-        </>
-      }
-      ListFooterComponent={
-        !isFirstFetch && (
-          <>
-            <LoadingPlaceHolder
-              isFetching={isFetching}
-              isFirstFetch={isFirstFetch}
-            />
-            {ListFooterComponent}
-          </>
-        )
-      }
-      ItemSeparatorComponent={ItemSeparatorComponent}
-      renderItem={renderRow}
-      ListEmptyComponent={
-        !isFirstFetch &&
-        !isInitial &&
-        !isFetching && (
-          <ListEmpty
+    <View>
+      {ListHeaderComponent}
+      {isFirstFetch && (
+        <LoadingPlaceHolder
+          isFetching={isFetching}
+          isFirstFetch={isFirstFetch}
+        />
+      )}
+      {data &&
+        (data.length ? (
+          data.map((item, index) => {
+            const row = renderRow({ item, index });
+            const key = keyExtractor(item);
+
+            return (
+              <View key={key}>
+                {row}
+                {index !== dataLen - 1 && <ItemSeparatorComponent />}
+              </View>
+            );
+          })
+        ) : ListEmptyComponent ? (
+          <ListEmptyComponent
             message={listEmptyMessage}
             onRefresh={refreshData}
             isRefreshing={isRefreshing}
           />
-        )
-      }
-      {...flatListProps}
-    />
+        ) : (
+          <Text style={{ fontWeight: 'bold' }}>
+            {listEmptyMessage}
+          </Text>
+        ))}
+      {!isFirstFetch && (
+        <LoadingPlaceHolder
+          isFetching={isFetching}
+          isFirstFetch={isFirstFetch}
+        />
+      )}
+      {ListFooterComponent}
+      {canFetchMore &&
+        !isFetching &&
+        !isRefreshing &&
+        !isInitial && (
+          <TextLink onPress={fetchData}>{fetchMoreLabel}</TextLink>
+        )}
+    </View>
   );
 }
 
-function DataFlatList ({
+function DataList ({
   endpoint,
   onSuccess,
   prefetch = true,
@@ -161,4 +149,4 @@ function DataFlatList ({
   );
 }
 
-export default React.memo(DataFlatList);
+export default React.memo(DataList);

@@ -23,7 +23,6 @@ function Checkbox ({
     <View
       style={[
         {
-          display: 'flex',
           flexDirection: 'row',
           alignItems: 'flex-start',
           marginBottom: 30
