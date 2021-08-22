@@ -3047,32 +3047,32 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-6.0.0.tgz#2a4d7190b508dd0c2293656c9c1aa068f6f60a71"
   integrity sha512-Z9M8VGcF2IZVOo2x+oUStvpCW/8HjIRi4+iQCu5n+PhC7OqCQX58KYAzdBr///alIfRXiu6oMb+lK+rXQH1FvQ==
 
-"@react-native-firebase/analytics@^12.7.1":
-  version "12.7.1"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-12.7.1.tgz#2e1b2bc4055e57503d96e6a5ffc4800474d2ac16"
-  integrity sha512-OaYirXOAMUIcdIktRrHQytGKKFv0J1VbwoT1uX4XfGuO36VARb3U+E2bxBqWCwGjrU0j5uZiTmTxZFAT7G7Xiw==
+"@react-native-firebase/analytics@^12.7.2":
+  version "12.7.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-12.7.2.tgz#b79925030bf79f23f5d585bab2a56950d814b960"
+  integrity sha512-RYZkWWvCQVwArcUshvIzJKNNqbfNWq6d1AO5SPxc+nw3Y0SUe3Bo1ZHAkZmo7S4Wzg8M0vcDrqV73+peMPRSyQ==
 
-"@react-native-firebase/app@^12.7.1":
-  version "12.7.1"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-12.7.1.tgz#8b6da14a1fc9344f788bd88efa1eef7de8e02f08"
-  integrity sha512-jkVoNZbvCz1QtS8ip12Sat/MNWTj2DiPg4dBKm+bLiJHdnw3p66ksl8eNM5PVLV8HlQGbx1w/j6qQsZKS8YoNQ==
+"@react-native-firebase/app@^12.7.2":
+  version "12.7.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-12.7.2.tgz#74a12ba21004e2c7a29a9f58e463a8080d4bd99a"
+  integrity sha512-pU9k5yyljpcdUIVk2Gu/YU6gZmif3Dnb/2ZmCdYH9mzXpKM057TDoASgGEpB1mQDsBw5zGZr5Jpw5H55W3XW7g==
   dependencies:
     "@expo/config-plugins" "^3.0.7"
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/crashlytics@^12.7.1":
-  version "12.7.1"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-12.7.1.tgz#c7cbdfcc5f54ce65e5cf548197fbc8d43f9a54fc"
-  integrity sha512-G5cRNJfe89U+7o07VoM9k+LDhpwgsYAeZhjgspezuvkZmhuDzo3jMx+4fpoqUgbKc9Qixlqiv/zyUKDw/YPuUQ==
+"@react-native-firebase/crashlytics@^12.7.2":
+  version "12.7.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-12.7.2.tgz#07e65cedd846ca7eaa127a66903b8e48a097d4dd"
+  integrity sha512-DrcawtGt7eJ4Ypypl8fzTA+4yeG+1eqEHOXRKASTZZP0O7UjOrooXWsSbj4Emq7xBiytStflU+omjKeA07JXyw==
   dependencies:
     "@expo/config-plugins" "^3.0.7"
     stacktrace-js "^2.0.0"
 
-"@react-native-firebase/messaging@^12.7.1":
-  version "12.7.1"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-12.7.1.tgz#42e84b96e60ec11ceb6bd6b0c9d695ddd69b7966"
-  integrity sha512-K1iYNkdubL5JOt8fYs4xwlWs+bMA0XDJq7nbLUz3DgGhJH2VSZh0whBdeFV0yz2f+0TlOxb7TQpR6lVRftKkSw==
+"@react-native-firebase/messaging@^12.7.2":
+  version "12.7.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-12.7.2.tgz#57af3a85b312557057f59e3641491746852449e0"
+  integrity sha512-8ZS7K3JdLU64zIPQt4rsGlPqJg4lxT5nK1OoLVvjZnt1cClIIA/KJmWx3h3nlCTS43X0kw+clk0o2MQ12GbkLA==
 
 "@react-native/assets@1.0.0":
   version "1.0.0"
