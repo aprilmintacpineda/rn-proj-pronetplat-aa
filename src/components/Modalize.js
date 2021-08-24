@@ -1,5 +1,5 @@
 import React from 'react';
-import { Keyboard, View, Animated } from 'react-native';
+import { Keyboard, Animated, SafeAreaView } from 'react-native';
 import { Modalize as RNModalize } from 'react-native-modalize';
 import { Portal } from 'react-native-paper';
 
@@ -21,9 +21,11 @@ function Modalize (
 
   const contents =
     unmountOnClose && !isOpen ? null : (
-      <View style={{ margin: 15, marginTop: 40, marginBottom: 30 }}>
+      <SafeAreaView
+        style={{ margin: 15, marginTop: 40, marginBottom: 30 }}
+      >
         {children}
-      </View>
+      </SafeAreaView>
     );
 
   return (

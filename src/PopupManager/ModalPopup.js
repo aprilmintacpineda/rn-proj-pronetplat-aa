@@ -1,5 +1,6 @@
 import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
+import { SafeAreaView } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { Portal } from 'react-native-portalize';
 import { clearPopup } from 'fluxible/actions/popup';
@@ -26,7 +27,7 @@ function PopupManager () {
         adjustToContentHeight
         handlePosition
       >
-        {body}
+        <SafeAreaView>{body}</SafeAreaView>
       </Modalize>
     </Portal>
   );
