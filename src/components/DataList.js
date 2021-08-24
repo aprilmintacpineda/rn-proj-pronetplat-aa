@@ -95,7 +95,9 @@ function Body ({
             return (
               <View key={key}>
                 {row}
-                {index !== dataLen - 1 && <ItemSeparatorComponent />}
+                {index !== dataLen - 1 && ItemSeparatorComponent && (
+                  <ItemSeparatorComponent />
+                )}
               </View>
             );
           })
