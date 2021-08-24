@@ -2,6 +2,8 @@ import React from 'react';
 import Row from './Row';
 import DataFlatList from 'components/DataFlatList';
 import RNVectorIcon from 'components/RNVectorIcon';
+import Tabs from 'components/Tabs';
+import Tab from 'components/Tabs/Tab';
 
 const eventListeners = {
   changedEventCoverPicture: (
@@ -31,7 +33,7 @@ const eventListeners = {
       })
     );
   },
-  refreshEventsList: (_, { refreshData }) => {
+  eventCreated: (_, { refreshData }) => {
     refreshData();
   },
   editedEventData: (updatedEventData, { replaceData }) => {
@@ -85,12 +87,33 @@ function EventsList ({ navigation: { setOptions, navigate } }) {
   }, [setOptions, navigate]);
 
   return (
-    <DataFlatList
-      endpoint="/my-events"
-      RowComponent={Row}
-      listEmptyMessage="You don't have any events request yet. Create or join an event to get started."
-      eventListeners={eventListeners}
-    />
+    <Tabs>
+      <Tab label="Past events">
+        <DataFlatList
+          endpoint="/my-events"
+          RowComponent={Row}
+          params={{ schedule: 'past' }}
+          listEmptyMessage="You have no past events."
+        />
+      </Tab>
+      <Tab label="On-going">
+        <DataFlatList
+          endpoint="/my-events"
+          RowComponent={Row}
+          params={{ schedule: 'present' }}
+          listEmptyMessage="You have no on-going events."
+        />
+      </Tab>
+      <Tab label="Future events">
+        <DataFlatList
+          endpoint="/my-events"
+          RowComponent={Row}
+          params={{ schedule: 'future' }}
+          listEmptyMessage="You have no future events"
+          eventListeners={eventListeners}
+        />
+      </Tab>
+    </Tabs>
   );
 }
 

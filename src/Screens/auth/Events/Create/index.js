@@ -70,7 +70,7 @@ const formOptions = {
         'Event has been created. Please publish the event when you have finalized it.'
     });
 
-    emitEvent('refreshEventsList');
+    emitEvent('eventCreated');
     navigationRef.current.goBack();
   },
   endPoint: '/event',
