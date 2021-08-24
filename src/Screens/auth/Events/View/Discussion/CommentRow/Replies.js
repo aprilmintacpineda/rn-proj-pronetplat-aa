@@ -1,3 +1,4 @@
+import { store } from 'fluxible-js';
 import React from 'react';
 import { View } from 'react-native';
 import CommentRow from '.';
@@ -22,6 +23,16 @@ const eventListeners = {
   deletedReply: (reply, { replaceData }) => {
     replaceData(data =>
       data.filter(comment => comment.id !== reply.id)
+    );
+  },
+  repliedToComment: ({ reply }, { replaceData }) => {
+    replaceData(data =>
+      [
+        {
+          ...reply,
+          user: store.authUser
+        }
+      ].concat(data)
     );
   }
 };
