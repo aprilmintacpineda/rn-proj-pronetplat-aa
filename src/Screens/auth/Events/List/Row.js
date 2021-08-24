@@ -48,213 +48,214 @@ function MyEventRow (event) {
     <Surface
       style={{
         margin: 10,
-        padding: 0,
-        overflow: 'hidden'
+        padding: 0
       }}
     >
-      <TouchableRipple
-        to="ViewEvent"
-        params={event}
-        style={{ borderRadius: paperTheme.roundness }}
-      >
-        <View>
-          <CoverPicture {...event} />
-          <View style={{ padding: 10 }}>
-            <Title>{name}</Title>
-            {!isOrganizer ? null : status === 'published' ? (
-              <View
-                style={{
-                  marginTop: 10,
-                  marginBottom: 10,
-                  flexDirection: 'row',
-                  alignItems: 'flex-start'
-                }}
-              >
-                <RNVectorIcon
-                  provider="Ionicons"
-                  name="ios-checkmark-circle-outline"
-                  color={paperTheme.colors.error}
-                  size={20}
-                />
-                <View style={{ marginLeft: 5, flex: 1 }}>
-                  <Text>Already published</Text>
-                  <Caption>
-                    You can no longer edit this because it has
-                    already been published,
-                  </Caption>
+      <View style={{ overflow: 'hidden' }}>
+        <TouchableRipple
+          to="ViewEvent"
+          params={event}
+          style={{ borderRadius: paperTheme.roundness }}
+        >
+          <View>
+            <CoverPicture {...event} />
+            <View style={{ padding: 10 }}>
+              <Title>{name}</Title>
+              {!isOrganizer ? null : status === 'published' ? (
+                <View
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 10,
+                    flexDirection: 'row',
+                    alignItems: 'flex-start'
+                  }}
+                >
+                  <RNVectorIcon
+                    provider="Ionicons"
+                    name="ios-checkmark-circle-outline"
+                    color={paperTheme.colors.error}
+                    size={20}
+                  />
+                  <View style={{ marginLeft: 5, flex: 1 }}>
+                    <Text>Already published</Text>
+                    <Caption>
+                      You can no longer edit this because it has
+                      already been published,
+                    </Caption>
+                  </View>
                 </View>
-              </View>
-            ) : (
-              <View
-                style={{
-                  marginTop: 10,
-                  marginBottom: 10,
-                  flexDirection: 'row',
-                  alignItems: 'flex-start'
-                }}
-              >
-                <RNVectorIcon
-                  provider="Ionicons"
-                  name="ios-alert-circle-outline"
-                  color={paperTheme.colors.error}
-                  size={20}
-                />
-                <View style={{ marginLeft: 5, flex: 1 }}>
-                  <Text>Not yet published</Text>
-                  <Caption>
-                    You can still edit this because it has not been
-                    published yet.
-                  </Caption>
-                </View>
-              </View>
-            )}
-            {visibility === 'public' ? (
-              <View
-                style={{
-                  marginBottom: 10,
-                  flexDirection: 'row',
-                  alignItems: 'center'
-                }}
-              >
-                <RNVectorIcon
-                  provider="Ionicons"
-                  name="earth-outline"
-                  color={paperTheme.colors.primary}
-                  size={20}
-                />
-                <Text style={{ marginLeft: 5 }}>
-                  Anyone can view and join
-                </Text>
-              </View>
-            ) : (
-              <View
-                style={{
-                  marginBottom: 10,
-                  flexDirection: 'row',
-                  alignItems: 'center'
-                }}
-              >
-                <RNVectorIcon
-                  provider="Ionicons"
-                  name="lock-closed-outline"
-                  color={paperTheme.colors.primary}
-                  size={20}
-                />
-                <Text style={{ marginLeft: 5 }}>
-                  Only invited can view and join
-                </Text>
-              </View>
-            )}
-            <View
-              style={{
-                marginBottom: 10,
-                flexDirection: 'row',
-                alignItems: 'center'
-              }}
-            >
-              <RNVectorIcon
-                provider="Ionicons"
-                name="people-outline"
-                color={paperTheme.colors.primary}
-                size={20}
-              />
-              <Text style={{ marginLeft: 5 }}>
-                Limited to {Number(maxAttendees).toLocaleString()}{' '}
-                attendees
-              </Text>
-            </View>
-            <View
-              style={{
-                marginBottom: 10,
-                flexDirection: 'row'
-              }}
-            >
-              <RNVectorIcon
-                provider="Ionicons"
-                name="ios-location-outline"
-                color={paperTheme.colors.primary}
-                size={20}
-              />
-              <Text style={{ marginLeft: 5 }}>{address}</Text>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <RNVectorIcon
-                provider="Ionicons"
-                name="ios-time-outline"
-                color={paperTheme.colors.primary}
-                size={20}
-              />
-              {isSameDay(startDateTime, endDateTime) ? (
-                <>
-                  <Text style={{ marginLeft: 5, flex: 1 }}>
-                    On{' '}
-                    <Text style={{ fontWeight: 'bold' }}>
-                      {format(startDateTime, 'cccc, MMMM d, Y')}
-                    </Text>{' '}
-                    from{' '}
-                    <Text style={{ fontWeight: 'bold' }}>
-                      {format(startDateTime, 'p')}
-                    </Text>{' '}
-                    to{' '}
-                    <Text style={{ fontWeight: 'bold' }}>
-                      {format(endDateTime, 'p')}
-                    </Text>
-                  </Text>
-                </>
               ) : (
-                <>
-                  <Text style={{ marginLeft: 5, flex: 1 }}>
-                    From{' '}
-                    <Text style={{ fontWeight: 'bold' }}>
-                      {format(startDateTime, 'cccc, MMMM d, Y')}
-                    </Text>{' '}
-                    at{' '}
-                    <Text style={{ fontWeight: 'bold' }}>
-                      {format(startDateTime, 'p')}
-                    </Text>{' '}
-                    to{' '}
-                    <Text style={{ fontWeight: 'bold' }}>
-                      {format(endDateTime, 'cccc, MMMM d, Y')}
-                    </Text>{' '}
-                    at{' '}
-                    <Text style={{ fontWeight: 'bold' }}>
-                      {format(endDateTime, 'p')}
-                    </Text>{' '}
+                <View
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 10,
+                    flexDirection: 'row',
+                    alignItems: 'flex-start'
+                  }}
+                >
+                  <RNVectorIcon
+                    provider="Ionicons"
+                    name="ios-alert-circle-outline"
+                    color={paperTheme.colors.error}
+                    size={20}
+                  />
+                  <View style={{ marginLeft: 5, flex: 1 }}>
+                    <Text>Not yet published</Text>
+                    <Caption>
+                      You can still edit this because it has not been
+                      published yet.
+                    </Caption>
+                  </View>
+                </View>
+              )}
+              {visibility === 'public' ? (
+                <View
+                  style={{
+                    marginBottom: 10,
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                  }}
+                >
+                  <RNVectorIcon
+                    provider="Ionicons"
+                    name="earth-outline"
+                    color={paperTheme.colors.primary}
+                    size={20}
+                  />
+                  <Text style={{ marginLeft: 5 }}>
+                    Anyone can view and join
                   </Text>
-                </>
+                </View>
+              ) : (
+                <View
+                  style={{
+                    marginBottom: 10,
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                  }}
+                >
+                  <RNVectorIcon
+                    provider="Ionicons"
+                    name="lock-closed-outline"
+                    color={paperTheme.colors.primary}
+                    size={20}
+                  />
+                  <Text style={{ marginLeft: 5 }}>
+                    Only invited can view and join
+                  </Text>
+                </View>
+              )}
+              <View
+                style={{
+                  marginBottom: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center'
+                }}
+              >
+                <RNVectorIcon
+                  provider="Ionicons"
+                  name="people-outline"
+                  color={paperTheme.colors.primary}
+                  size={20}
+                />
+                <Text style={{ marginLeft: 5 }}>
+                  Limited to {Number(maxAttendees).toLocaleString()}{' '}
+                  attendees
+                </Text>
+              </View>
+              <View
+                style={{
+                  marginBottom: 10,
+                  flexDirection: 'row'
+                }}
+              >
+                <RNVectorIcon
+                  provider="Ionicons"
+                  name="ios-location-outline"
+                  color={paperTheme.colors.primary}
+                  size={20}
+                />
+                <Text style={{ marginLeft: 5 }}>{address}</Text>
+              </View>
+              <View style={{ flexDirection: 'row' }}>
+                <RNVectorIcon
+                  provider="Ionicons"
+                  name="ios-time-outline"
+                  color={paperTheme.colors.primary}
+                  size={20}
+                />
+                {isSameDay(startDateTime, endDateTime) ? (
+                  <>
+                    <Text style={{ marginLeft: 5, flex: 1 }}>
+                      On{' '}
+                      <Text style={{ fontWeight: 'bold' }}>
+                        {format(startDateTime, 'cccc, MMMM d, Y')}
+                      </Text>{' '}
+                      from{' '}
+                      <Text style={{ fontWeight: 'bold' }}>
+                        {format(startDateTime, 'p')}
+                      </Text>{' '}
+                      to{' '}
+                      <Text style={{ fontWeight: 'bold' }}>
+                        {format(endDateTime, 'p')}
+                      </Text>
+                    </Text>
+                  </>
+                ) : (
+                  <>
+                    <Text style={{ marginLeft: 5, flex: 1 }}>
+                      From{' '}
+                      <Text style={{ fontWeight: 'bold' }}>
+                        {format(startDateTime, 'cccc, MMMM d, Y')}
+                      </Text>{' '}
+                      at{' '}
+                      <Text style={{ fontWeight: 'bold' }}>
+                        {format(startDateTime, 'p')}
+                      </Text>{' '}
+                      to{' '}
+                      <Text style={{ fontWeight: 'bold' }}>
+                        {format(endDateTime, 'cccc, MMMM d, Y')}
+                      </Text>{' '}
+                      at{' '}
+                      <Text style={{ fontWeight: 'bold' }}>
+                        {format(endDateTime, 'p')}
+                      </Text>{' '}
+                    </Text>
+                  </>
+                )}
+              </View>
+              {isOrganizer && status === 'unpublished' && (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 10,
+                    borderTopWidth: 1,
+                    borderTopColor: '#ededed',
+                    paddingTop: 5
+                  }}
+                >
+                  <Button
+                    to="EditEvent"
+                    params={event}
+                    style={{ flex: 1 }}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    params={event}
+                    style={{ flex: 1 }}
+                    onPress={publish}
+                    loading={isPublishing}
+                  >
+                    Publish
+                  </Button>
+                </View>
               )}
             </View>
-            {isOrganizer && status === 'unpublished' && (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 10,
-                  borderTopWidth: 1,
-                  borderTopColor: '#ededed',
-                  paddingTop: 5
-                }}
-              >
-                <Button
-                  to="EditEvent"
-                  params={event}
-                  style={{ flex: 1 }}
-                >
-                  Edit
-                </Button>
-                <Button
-                  params={event}
-                  style={{ flex: 1 }}
-                  onPress={publish}
-                  loading={isPublishing}
-                >
-                  Publish
-                </Button>
-              </View>
-            )}
           </View>
-        </View>
-      </TouchableRipple>
+        </TouchableRipple>
+      </View>
     </Surface>
   );
 }
