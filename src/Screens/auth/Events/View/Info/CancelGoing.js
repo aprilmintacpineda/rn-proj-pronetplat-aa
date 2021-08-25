@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { emitEvent } from 'fluxible-js';
 import React from 'react';
-import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Button from 'components/Button';
 import { unknownErrorPopup } from 'fluxible/actions/popup';
@@ -33,7 +32,7 @@ function CancelGoing ({ event }) {
   }, [event, setParams]);
 
   return (
-    <View style={{ marginTop: 10 }}>
+    <>
       <Text>You are going to this event</Text>
       <Button
         mode="contained"
@@ -43,7 +42,7 @@ function CancelGoing ({ event }) {
       >
         Cancel
       </Button>
-    </View>
+    </>
   );
 }
 

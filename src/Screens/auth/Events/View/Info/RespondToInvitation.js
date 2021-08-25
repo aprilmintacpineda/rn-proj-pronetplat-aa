@@ -78,7 +78,7 @@ function RespondToInvitation ({ event }) {
   if (!invitationId) return null;
 
   return (
-    <View style={{ marginVertical: 10 }}>
+    <>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <UserAvatar size={30} user={inviter} />
         <Text style={{ marginLeft: 10 }}>
@@ -108,7 +108,7 @@ function RespondToInvitation ({ event }) {
           Reject
         </Button>
       </View>
-    </View>
+    </>
   );
 }
 

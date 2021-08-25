@@ -68,8 +68,8 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false />
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>RNGPDemos needs your location to show you places</string>
+	<string>$(PRODUCT_NAME) uses your location to show you events around you and to show you accurate results when searching for places.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>RNGPDemos needs your location to show you places</string>
+	<string>$(PRODUCT_NAME) uses your location to show you events around you and to show you accurate results when searching for places.</string>
 </dict>
 </plist>

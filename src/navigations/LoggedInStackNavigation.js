@@ -19,10 +19,11 @@ import ContactProfile from 'Screens/auth/Contact/Profile';
 import ContactDetailsForm from 'Screens/auth/ContactDetail/ContactDetailsForm';
 import ContactDetailsList from 'Screens/auth/ContactDetail/List';
 import ContactRequests from 'Screens/auth/ContactRequests';
+import BrowseEvents from 'Screens/auth/Events/Browse';
 import CreateEvent from 'Screens/auth/Events/Create';
 import EditEvent from 'Screens/auth/Events/Edit';
 import EventInvitations from 'Screens/auth/Events/Invitations';
-import EventsList from 'Screens/auth/Events/List';
+import MyEvents from 'Screens/auth/Events/Owned';
 import ViewEvent from 'Screens/auth/Events/View';
 import Notifications from 'Screens/auth/Notifications';
 import PrivacySettings from 'Screens/auth/PrivacySettings';
@@ -213,9 +214,17 @@ function LoggedInStackNavigation ({ navigation: { navigate } }) {
       />
       <Stack.Screen
         name="MyEvents"
-        component={EventsList}
+        component={MyEvents}
         options={{
           title: 'Your events',
+          ...modalConfiguration
+        }}
+      />
+      <Stack.Screen
+        name="BrowseEvents"
+        component={BrowseEvents}
+        options={{
+          title: 'Browse events',
           ...modalConfiguration
         }}
       />

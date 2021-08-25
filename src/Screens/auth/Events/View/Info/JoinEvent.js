@@ -41,16 +41,9 @@ function JoinEvent ({ event }) {
   }
 
   return (
-    <View style={{ marginTop: 10 }}>
-      <Button
-        mode="contained"
-        style={{ marginVertical: 10 }}
-        onPress={join}
-        loading={isJoining}
-      >
-        Join event
-      </Button>
-    </View>
+    <Button mode="contained" onPress={join} loading={isJoining}>
+      Join event
+    </Button>
   );
 }
 

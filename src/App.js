@@ -1,6 +1,7 @@
 import 'customAnimations';
 import 'setDefaults';
 
+import geolocation from '@react-native-community/geolocation';
 import messaging from '@react-native-firebase/messaging';
 import { NavigationContainer } from '@react-navigation/native';
 import { store, addEvent, updateStore } from 'fluxible-js';
@@ -32,6 +33,8 @@ import IndexStackNavigator from 'navigations/IndexStackNavigator';
 import PopupManager from 'PopupManager';
 import { displayNotification } from 'PopupManager/NotificationPopup';
 import { navigationTheme, paperTheme } from 'theme';
+
+geolocation.setRNConfiguration({ authorizationLevel: 'whenInUse' });
 
 export const navigationRef = React.createRef();
 

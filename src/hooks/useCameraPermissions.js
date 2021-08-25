@@ -8,41 +8,28 @@ const permissions = Platform.select({
   android: PERMISSIONS.ANDROID.CAMERA
 });
 
-function useCameraPermission ({ shouldAsk }) {
-  const [{ isAllowed, status }, setState] = React.useState({
-    isAllowed: false,
-    status: 'initial'
-  });
-
-  const isInitial = status === 'initial';
-  const isChecking = status === 'checking';
-  const isDoneChecking = status === 'checked';
+function useCameraPermission ({ shouldAsk = true } = {}) {
+  const [status, setStatus] = React.useState('initial');
 
   const askPermission = React.useCallback(async () => {
-    if (isAllowed || !shouldAsk) return;
-    const results = await request(permissions);
+    if (status !== 'initial') return;
 
-    setState({
-      isAllowed: results === 'granted',
-      status: 'checked'
-    });
-  }, [isAllowed, shouldAsk]);
+    setStatus('requesting');
+    const results = await request(permissions);
+    setStatus(results === 'granted' ? 'granted' : 'denied');
+  }, [status]);
 
   React.useEffect(() => {
-    if (isInitial) askPermission();
-  }, [isInitial, askPermission]);
+    if (status === 'initial' && shouldAsk) askPermission();
+  }, [status, askPermission, shouldAsk]);
 
   useAppStateEffect({
     onActive: askPermission
   });
 
   return {
-    isAllowed,
     askPermission,
-    status,
-    isInitial,
-    isChecking,
-    isDoneChecking
+    status
   };
 }
 

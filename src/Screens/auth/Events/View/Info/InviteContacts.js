@@ -90,11 +90,7 @@ function InviteContacts ({ event }) {
 
   return (
     <>
-      <Button
-        mode="contained"
-        style={{ marginVertical: 10 }}
-        onPress={openModal}
-      >
+      <Button mode="contained" onPress={openModal}>
         Invite your contacts
       </Button>
       <FullScreenModal isVisible={isVisible}>

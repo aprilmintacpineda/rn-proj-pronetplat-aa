@@ -61,52 +61,84 @@ function MyEventRow (event) {
             <CoverPicture {...event} />
             <View style={{ padding: 10 }}>
               <Title>{name}</Title>
-              {!isOrganizer ? null : status === 'published' ? (
-                <View
-                  style={{
-                    marginTop: 10,
-                    marginBottom: 10,
-                    flexDirection: 'row',
-                    alignItems: 'flex-start'
-                  }}
-                >
-                  <RNVectorIcon
-                    provider="Ionicons"
-                    name="ios-checkmark-circle-outline"
-                    color={paperTheme.colors.error}
-                    size={20}
-                  />
-                  <View style={{ marginLeft: 5, flex: 1 }}>
-                    <Text>Already published</Text>
-                    <Caption>
-                      You can no longer edit this because it has
-                      already been published,
-                    </Caption>
+              {!isOrganizer ? null : (
+                <>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginBottom: 10
+                    }}
+                  >
+                    <RNVectorIcon
+                      provider="Ionicons"
+                      name="ios-checkmark-circle-outline"
+                      color={paperTheme.colors.error}
+                      size={20}
+                    />
+                    <Text
+                      style={{
+                        marginLeft: 5,
+                        color: paperTheme.colors.error
+                      }}
+                    >
+                      You are an organizer
+                    </Text>
                   </View>
-                </View>
-              ) : (
-                <View
-                  style={{
-                    marginTop: 10,
-                    marginBottom: 10,
-                    flexDirection: 'row',
-                    alignItems: 'flex-start'
-                  }}
-                >
-                  <RNVectorIcon
-                    provider="Ionicons"
-                    name="ios-alert-circle-outline"
-                    color={paperTheme.colors.error}
-                    size={20}
-                  />
-                  <View style={{ marginLeft: 5, flex: 1 }}>
-                    <Text>Not yet published</Text>
-                    <Caption>
-                      You can still edit this because it has not been
-                      published yet.
-                    </Caption>
-                  </View>
-                </View>
+                  {status === 'published' ? (
+                    <View
+                      style={{
+                        marginBottom: 10,
+                        flexDirection: 'row',
+                        alignItems: 'flex-start'
+                      }}
+                    >
+                      <RNVectorIcon
+                        provider="Ionicons"
+                        name="ios-checkmark-circle-outline"
+                        color={paperTheme.colors.error}
+                        size={20}
+                      />
+                      <View style={{ marginLeft: 5, flex: 1 }}>
+                        <Text
+                          style={{ color: paperTheme.colors.error }}
+                        >
+                          Already published
+                        </Text>
+                        <Caption>
+                          You can no longer edit this because it has
+                          already been published,
+                        </Caption>
+                      </View>
+                    </View>
+                  ) : (
+                    <View
+                      style={{
+                        marginBottom: 10,
+                        flexDirection: 'row',
+                        alignItems: 'flex-start'
+                      }}
+                    >
+                      <RNVectorIcon
+                        provider="Ionicons"
+                        name="ios-alert-circle-outline"
+                        color={paperTheme.colors.error}
+                        size={20}
+                      />
+                      <View style={{ marginLeft: 5, flex: 1 }}>
+                        <Text
+                          style={{ color: paperTheme.colors.error }}
+                        >
+                          Not yet published
+                        </Text>
+                        <Caption>
+                          You can still edit this because it has not
+                          been published yet.
+                        </Caption>
+                      </View>
+                    </View>
+                  )}
+                </>
               )}
               {visibility === 'public' ? (
                 <View
@@ -186,41 +218,49 @@ function MyEventRow (event) {
                 />
                 {isSameDay(startDateTime, endDateTime) ? (
                   <>
-                    <Text style={{ marginLeft: 5, flex: 1 }}>
-                      On{' '}
-                      <Text style={{ fontWeight: 'bold' }}>
-                        {format(startDateTime, 'cccc, MMMM d, Y')}
-                      </Text>{' '}
-                      from{' '}
-                      <Text style={{ fontWeight: 'bold' }}>
-                        {format(startDateTime, 'p')}
-                      </Text>{' '}
-                      to{' '}
-                      <Text style={{ fontWeight: 'bold' }}>
-                        {format(endDateTime, 'p')}
+                    <View style={{ marginLeft: 5, flex: 1 }}>
+                      <Text>
+                        On{' '}
+                        <Text style={{ fontWeight: 'bold' }}>
+                          {format(startDateTime, 'cccc, MMMM d, Y')}
+                        </Text>{' '}
                       </Text>
-                    </Text>
+                      <Text>
+                        from{' '}
+                        <Text style={{ fontWeight: 'bold' }}>
+                          {format(startDateTime, 'p')}
+                        </Text>{' '}
+                        to{' '}
+                        <Text style={{ fontWeight: 'bold' }}>
+                          {format(endDateTime, 'p')}
+                        </Text>
+                      </Text>
+                    </View>
                   </>
                 ) : (
                   <>
-                    <Text style={{ marginLeft: 5, flex: 1 }}>
-                      From{' '}
-                      <Text style={{ fontWeight: 'bold' }}>
-                        {format(startDateTime, 'cccc, MMMM d, Y')}
-                      </Text>{' '}
-                      at{' '}
-                      <Text style={{ fontWeight: 'bold' }}>
-                        {format(startDateTime, 'p')}
-                      </Text>{' '}
-                      to{' '}
-                      <Text style={{ fontWeight: 'bold' }}>
-                        {format(endDateTime, 'cccc, MMMM d, Y')}
-                      </Text>{' '}
-                      at{' '}
-                      <Text style={{ fontWeight: 'bold' }}>
-                        {format(endDateTime, 'p')}
-                      </Text>{' '}
-                    </Text>
+                    <View style={{ marginLeft: 5, flex: 1 }}>
+                      <Text>
+                        From{' '}
+                        <Text style={{ fontWeight: 'bold' }}>
+                          {format(startDateTime, 'cccc, MMMM d, Y')}
+                        </Text>{' '}
+                        at{' '}
+                        <Text style={{ fontWeight: 'bold' }}>
+                          {format(startDateTime, 'p')}
+                        </Text>{' '}
+                      </Text>
+                      <Text>
+                        to{' '}
+                        <Text style={{ fontWeight: 'bold' }}>
+                          {format(endDateTime, 'cccc, MMMM d, Y')}
+                        </Text>{' '}
+                        at{' '}
+                        <Text style={{ fontWeight: 'bold' }}>
+                          {format(endDateTime, 'p')}
+                        </Text>{' '}
+                      </Text>
+                    </View>
                   </>
                 )}
               </View>

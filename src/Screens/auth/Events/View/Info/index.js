@@ -3,12 +3,7 @@ import { format, isPast, isSameDay } from 'date-fns';
 import React from 'react';
 import { Platform, ScrollView, View } from 'react-native';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
-import {
-  Divider,
-  Subheading,
-  Text,
-  Title
-} from 'react-native-paper';
+import { Divider, Text, Title } from 'react-native-paper';
 import {
   openSettings,
   PERMISSIONS,
@@ -36,7 +31,8 @@ function ViewEventInfo () {
     endDateTime: _endDateTime,
     description,
     isOrganizer,
-    status
+    status,
+    numGoing
   } = event;
 
   const addToCalendar = React.useCallback(async () => {
@@ -91,28 +87,61 @@ function ViewEventInfo () {
       <View style={{ padding: 10 }}>
         <Title>{name}</Title>
         {hasEventPast ? (
-          <Text
+          <View style={{ marginVertical: 10 }}>
+            <Text
+              style={{
+                marginVertical: 10,
+                color: paperTheme.colors.error,
+                fontWeight: 'bold'
+              }}
+            >
+              This event has past.
+            </Text>
+          </View>
+        ) : isOrganizer && status === 'published' ? (
+          <View style={{ marginVertical: 10 }}>
+            <InviteContacts event={event} />
+          </View>
+        ) : event.invitationId ? (
+          <View style={{ marginVertical: 10 }}>
+            <RespondToInvitation event={event} />
+          </View>
+        ) : event.isGoing ? (
+          <View style={{ marginVertical: 10 }}>
+            <CancelGoing event={event} />
+          </View>
+        ) : visibility === 'public' && status === 'published' ? (
+          <View style={{ marginVertical: 10 }}>
+            <JoinEvent event={event} />
+          </View>
+        ) : null}
+        {isOrganizer && (
+          <View
             style={{
-              marginVertical: 10,
-              color: paperTheme.colors.error,
-              fontWeight: 'bold'
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginBottom: 10
             }}
           >
-            This event has past.
-          </Text>
-        ) : isOrganizer && status === 'published' ? (
-          <InviteContacts event={event} />
-        ) : event.invitationId ? (
-          <RespondToInvitation event={event} />
-        ) : event.isGoing ? (
-          <CancelGoing event={event} />
-        ) : visibility === 'public' && status === 'published' ? (
-          <JoinEvent event={event} />
-        ) : null}
+            <RNVectorIcon
+              provider="Ionicons"
+              name="ios-checkmark-circle-outline"
+              color={paperTheme.colors.error}
+              size={20}
+            />
+            <Text
+              style={{
+                marginLeft: 5,
+                color: paperTheme.colors.error
+              }}
+            >
+              You are an organizer
+            </Text>
+          </View>
+        )}
         {visibility === 'public' ? (
           <View
             style={{
-              marginTop: 10,
               marginBottom: 10,
               flexDirection: 'row',
               alignItems: 'center'
@@ -131,7 +160,6 @@ function ViewEventInfo () {
         ) : (
           <View
             style={{
-              marginTop: 10,
               marginBottom: 10,
               flexDirection: 'row',
               alignItems: 'center'
@@ -161,10 +189,15 @@ function ViewEventInfo () {
             color={paperTheme.colors.primary}
             size={20}
           />
-          <Text style={{ marginLeft: 5 }}>
-            Limited to {Number(maxAttendees).toLocaleString()}{' '}
-            attendees
-          </Text>
+          <View style={{ marginLeft: 5 }}>
+            <Text>
+              {Number(numGoing).toLocaleString()} people going.
+            </Text>
+            <Text>
+              Max of {Number(maxAttendees).toLocaleString()}{' '}
+              attendees.
+            </Text>
+          </View>
         </View>
         <View
           style={{
@@ -193,13 +226,15 @@ function ViewEventInfo () {
             size={20}
           />
           <View style={{ marginLeft: 5, flex: 1 }}>
-            <Text style={{ marginBottom: 15 }}>
-              {isSameDay(startDateTime, endDateTime) ? (
-                <>
-                  On{' '}
+            {isSameDay(startDateTime, endDateTime) ? (
+              <>
+                <Text>
+                  {hasEventPast ? 'Last ' : 'On '}
                   <Text style={{ fontWeight: 'bold' }}>
                     {format(startDateTime, 'cccc, MMMM d, Y')}
                   </Text>{' '}
+                </Text>
+                <Text>
                   from{' '}
                   <Text style={{ fontWeight: 'bold' }}>
                     {format(startDateTime, 'p')}
@@ -208,10 +243,12 @@ function ViewEventInfo () {
                   <Text style={{ fontWeight: 'bold' }}>
                     {format(endDateTime, 'p')}
                   </Text>
-                </>
-              ) : (
-                <>
-                  From{' '}
+                </Text>
+              </>
+            ) : (
+              <>
+                <Text>
+                  {hasEventPast ? 'Last ' : 'From '}
                   <Text style={{ fontWeight: 'bold' }}>
                     {format(startDateTime, 'cccc, MMMM d, Y')}
                   </Text>{' '}
@@ -219,6 +256,8 @@ function ViewEventInfo () {
                   <Text style={{ fontWeight: 'bold' }}>
                     {format(startDateTime, 'p')}
                   </Text>{' '}
+                </Text>
+                <Text>
                   to{' '}
                   <Text style={{ fontWeight: 'bold' }}>
                     {format(endDateTime, 'cccc, MMMM d, Y')}
@@ -227,20 +266,20 @@ function ViewEventInfo () {
                   <Text style={{ fontWeight: 'bold' }}>
                     {format(endDateTime, 'p')}
                   </Text>{' '}
-                </>
-              )}{' '}
-            </Text>
+                </Text>
+              </>
+            )}
             {!hasEventPast && (
-              <TextLink onPress={addToCalendar}>
+              <TextLink
+                onPress={addToCalendar}
+                style={{ marginTop: 15 }}
+              >
                 Add to calendar
               </TextLink>
             )}
           </View>
         </View>
-        <Divider style={{ marginTop: 10, marginBottom: 5 }} />
-        <Subheading style={{ marginBottom: 5 }}>
-          Description
-        </Subheading>
+        <Divider style={{ marginVertical: 15 }} />
         <Text>{description}</Text>
       </View>
     </ScrollView>

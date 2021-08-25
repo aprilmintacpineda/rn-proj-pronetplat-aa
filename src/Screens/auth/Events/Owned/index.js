@@ -65,7 +65,7 @@ const eventListeners = {
   }
 };
 
-function EventsList ({ navigation: { setOptions, navigate } }) {
+function OwnedEvents ({ navigation: { setOptions, navigate } }) {
   React.useEffect(() => {
     setOptions({
       actions: [
@@ -88,7 +88,7 @@ function EventsList ({ navigation: { setOptions, navigate } }) {
 
   return (
     <Tabs>
-      <Tab label="Past events">
+      <Tab label="Past">
         <DataFlatList
           endpoint="/my-events"
           RowComponent={Row}
@@ -104,7 +104,7 @@ function EventsList ({ navigation: { setOptions, navigate } }) {
           listEmptyMessage="You have no on-going events."
         />
       </Tab>
-      <Tab label="Future events">
+      <Tab label="Upcoming">
         <DataFlatList
           endpoint="/my-events"
           RowComponent={Row}
@@ -117,4 +117,4 @@ function EventsList ({ navigation: { setOptions, navigate } }) {
   );
 }
 
-export default React.memo(EventsList);
+export default React.memo(OwnedEvents);

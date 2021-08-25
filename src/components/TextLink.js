@@ -8,6 +8,7 @@ function TextLink ({
   to,
   params = null,
   children,
+  style = null,
   textStyle = null,
   onPress = null,
   isExternal = false,
@@ -23,7 +24,7 @@ function TextLink ({
   }, [to, params, onPress, isExternal]);
 
   return (
-    <TouchableOpacity onPress={handlePress} {...props}>
+    <TouchableOpacity onPress={handlePress} {...props} style={style}>
       <Text
         style={[{ color: paperTheme.colors.primary }, textStyle]}
       >

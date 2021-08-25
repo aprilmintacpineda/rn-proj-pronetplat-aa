@@ -132,11 +132,26 @@ function Navigations () {
           drawerIcon: props => (
             <RNVectorIcon
               provider="MaterialCommunityIcons"
-              name="calendar-outline"
+              name="calendar-account"
               {...props}
             />
           ),
           to: 'MyEvents'
+        }}
+      />
+      <Drawer.Screen
+        name="BrowseEventsPlaceholder"
+        component={PlaceholderScreen}
+        options={{
+          drawerLabel: 'Browse Events',
+          drawerIcon: props => (
+            <RNVectorIcon
+              provider="MaterialCommunityIcons"
+              name="calendar-search"
+              {...props}
+            />
+          ),
+          to: 'BrowseEvents'
         }}
       />
       <Drawer.Screen
