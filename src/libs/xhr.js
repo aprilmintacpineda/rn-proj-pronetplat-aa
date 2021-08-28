@@ -32,28 +32,34 @@ export function xhrWithParams (url, params = {}, options) {
 
 export async function xhr (
   path,
-  { method = 'get', ...options } = {}
+  {
+    method = 'get',
+    headers,
+    deviceToken,
+    body: _body,
+    ...options
+  } = {}
 ) {
   const url = resolveUrl(path);
   const config = {
     ...options,
     method,
     headers: {
-      ...options.headers,
-      'device-token': store.deviceToken || options.deviceToken,
+      ...headers,
+      'device-token': deviceToken || store.deviceToken,
       'content-type': 'application/json'
     }
   };
 
-  const authToken = store.authToken || options.deviceToken;
+  const authToken = store.authToken || deviceToken;
 
   if (authToken)
     config.headers.Authorization = `Bearer ${authToken}`;
 
-  if (options.body) {
-    const body = Object.keys(options.body).reduce(
+  if (_body) {
+    const body = Object.keys(_body).reduce(
       (accumulator, current) => {
-        let value = options.body[current];
+        let value = _body[current];
         value = value === undefined ? '' : value;
 
         if (value.constructor === Date)
