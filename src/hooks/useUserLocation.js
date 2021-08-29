@@ -13,16 +13,13 @@ const permissions = Platform.select({
 
 function useUserLocation ({ shouldAsk = true } = {}) {
   const {
-    state: { status, currentPosition },
+    state: { status, coordinates },
     updateState
   } = useState({
     status: 'initial',
-    currentPosition: {
-      coordinates: {
-        lat: null,
-        lng: null
-      },
-      status: 'initial'
+    coordinates: {
+      lat: null,
+      lng: null
     }
   });
 
@@ -38,12 +35,9 @@ function useUserLocation ({ shouldAsk = true } = {}) {
       );
 
       updateState({
-        currentPosition: {
-          coordinates: {
-            lat: currentPosition.coords.latitude,
-            lng: currentPosition.coords.longitude
-          },
-          status: 'success'
+        coordinates: {
+          lat: currentPosition.coords.latitude,
+          lng: currentPosition.coords.longitude
         }
       });
     } catch (error) {
@@ -54,12 +48,7 @@ function useUserLocation ({ shouldAsk = true } = {}) {
           'We could not get your location, do you want to try again?',
         onConfirm: getCurrentPosition,
         onCancel: () => {
-          updateState(oldState => ({
-            currentPosition: {
-              ...oldState.currentPosition,
-              status: 'failed'
-            }
-          }));
+          updateState({ status: 'failed' });
         }
       });
     }
@@ -90,7 +79,7 @@ function useUserLocation ({ shouldAsk = true } = {}) {
     askPermission,
     getCurrentPosition,
     status,
-    currentPosition
+    coordinates
   };
 }
 
