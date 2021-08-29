@@ -444,9 +444,9 @@ PODS:
     - React-Core
   - react-native-background-timer (2.4.1):
     - React-Core
-  - react-native-config (1.4.3):
-    - react-native-config/App (= 1.4.3)
-  - react-native-config/App (1.4.3):
+  - react-native-config (1.4.4):
+    - react-native-config/App (= 1.4.4)
+  - react-native-config/App (1.4.4):
     - React-Core
   - react-native-geolocation (2.0.2):
     - React
@@ -926,7 +926,7 @@ SPEC CHECKSUMS:
   React-jsinspector: cc614ec18a9ca96fd275100c16d74d62ee11f0ae
   react-native-add-calendar-event: d7744f983d6770cc9e4f004db22bc4d4b4575f17
   react-native-background-timer: 17ea5e06803401a379ebf1f20505b793ac44d0fe
-  react-native-config: 387b1ea507bc50a2059e69149dac1342b9532f58
+  react-native-config: 72d948053a442779b3178fddd571e37f118ef606
   react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
   react-native-google-maps: 46dea4aa4acb7300beff508f64d9f8c84e9fb106
   react-native-google-places: af20064161354c55231e50d63bc332097d51cc56
