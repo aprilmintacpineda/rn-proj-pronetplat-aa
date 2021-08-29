@@ -48,10 +48,11 @@ function ResponsiveImage ({ uri, viewStyle, imageStyle }) {
           style={{
             flex: 1,
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            marginVertical: 10
           }}
         >
-          <Text style={{ marginBottom: 10 }}>
+          <Text style={{ marginVertical: 10 }}>
             Could not load image. Please try again.
           </Text>
           <IconButton icon={retryIcon} size={20} onPress={retry} />
