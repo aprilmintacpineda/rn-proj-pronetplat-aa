@@ -17,11 +17,7 @@ function CommentEdited ({ comment }) {
     <>
       <TextLink onPress={showEditHistory}>Edited</TextLink>
       {!isReply && <DotSeparator />}
-      <Modalize
-        ref={historyModalizeRef}
-        unmountOnClose
-        customRenderer
-      >
+      <Modalize ref={historyModalizeRef} customRenderer>
         <DataFlatList
           endpoint={`/event/comment/edit-history/${comment.id}`}
           RowComponent={EditHistoryRow}

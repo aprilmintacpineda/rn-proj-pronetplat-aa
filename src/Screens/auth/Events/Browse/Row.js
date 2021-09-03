@@ -18,7 +18,8 @@ function MyEventRow (event) {
     coverPicture,
     distance,
     numGoing,
-    isOrganizer
+    isOrganizer,
+    unit
   } = event;
 
   const startDateTime = new Date(_startDateTime);
@@ -147,7 +148,7 @@ function MyEventRow (event) {
                 <View style={{ marginLeft: 5 }}>
                   <Text>{address}</Text>
                   <Text style={{ marginTop: 5, fontWeight: 'bold' }}>
-                    {Math.ceil(distance)} km away
+                    {Math.ceil(distance)} {unit} away
                   </Text>
                 </View>
               </View>

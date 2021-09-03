@@ -9,6 +9,7 @@ import React from 'react';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { StatusBar, View } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
+import { KeyboardAccessoryNavigation } from 'react-native-keyboard-accessory';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import { Host } from 'react-native-portalize';
 import FullSafeAreaView from 'components/FullSafeAreaView';
@@ -222,6 +223,11 @@ function App () {
                 <IndexStackNavigator />
               </KeyboardAvoidingView>
             </PaperProvider>
+            <KeyboardAccessoryNavigation
+              nextHidden
+              previousHidden
+              androidAdjustResize
+            />
           </Host>
         </FullSafeAreaView>
       </NavigationContainer>

@@ -101,10 +101,8 @@ function TextInput ({
 }) {
   const hasError = Boolean(error);
 
-  const propsBasedOnType = propsBasedOnTypes[type] || {};
-
   const textInputProps = {
-    ...propsBasedOnType,
+    ...(propsBasedOnTypes[type] || {}),
     ..._textInputProps
   };
 

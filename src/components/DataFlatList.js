@@ -103,7 +103,7 @@ function Body ({
           {ListHeaderComponent}
           {isFirstFetch && (
             <LoadingPlaceHolder
-              isFetching={isFetching}
+              isFetching={isFetching || isRefreshing}
               isFirstFetch={isFirstFetch}
             />
           )}
@@ -113,7 +113,7 @@ function Body ({
         !isFirstFetch && (
           <>
             <LoadingPlaceHolder
-              isFetching={isFetching}
+              isFetching={isFetching || isRefreshing}
               isFirstFetch={isFirstFetch}
             />
             {ListFooterComponent}
@@ -128,7 +128,7 @@ function Body ({
         !isFetching && (
           <ListEmpty
             message={listEmptyMessage}
-            onRefresh={refreshData}
+            onRefresh={refreshData || isRefreshing}
             isRefreshing={isRefreshing}
           />
         )

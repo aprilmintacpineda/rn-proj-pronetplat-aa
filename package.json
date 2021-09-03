@@ -53,6 +53,7 @@
     "react-native-fs": "^2.18.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-google-places": "^3.1.2",
+    "react-native-keyboard-accessory": "^0.1.15",
     "react-native-maps": "^0.29.3",
     "react-native-mime-types": "^2.3.0",
     "react-native-modalize": "^2.0.8",

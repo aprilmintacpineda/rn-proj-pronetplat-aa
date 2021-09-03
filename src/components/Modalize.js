@@ -4,29 +4,24 @@ import { Modalize as RNModalize } from 'react-native-modalize';
 import { Portal } from 'react-native-paper';
 
 function Modalize (
-  { children, unmountOnClose, customRenderer, ...modalizeProps },
+  { children, customRenderer, ...modalizeProps },
   modalizeRef
 ) {
-  const [isOpen, setIsOpen] = React.useState(false);
-
   const onOpen = React.useCallback(() => {
     Keyboard.dismiss();
-    setIsOpen(true);
   }, []);
 
   const onClose = React.useCallback(() => {
     Keyboard.dismiss();
-    setIsOpen(false);
   }, []);
 
-  const contents =
-    unmountOnClose && !isOpen ? null : (
-      <SafeAreaView
-        style={{ margin: 15, marginTop: 40, marginBottom: 30 }}
-      >
-        {children}
-      </SafeAreaView>
-    );
+  const contents = (
+    <SafeAreaView
+      style={{ margin: 15, marginTop: 40, marginBottom: 30 }}
+    >
+      {children}
+    </SafeAreaView>
+  );
 
   return (
     <Portal>
@@ -44,6 +39,7 @@ function Modalize (
             customRenderer
           )
         }
+        keyboardAvoidingOffset={45}
       >
         {contents}
       </RNModalize>

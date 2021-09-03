@@ -5,20 +5,23 @@ function KeyboardAvoidingView ({ children }) {
   const [paddingBottom, setPaddingBottom] = React.useState(0);
 
   React.useEffect(() => {
-    function keyboardWillShow (ev) {
-      setPaddingBottom(ev.endCoordinates.height);
-    }
+    const removeWillShowListener = Keyboard.addListener(
+      'keyboardWillShow',
+      ev => {
+        setPaddingBottom(ev.endCoordinates.height);
+      }
+    );
 
-    function keyboardWillHide () {
-      setPaddingBottom(0);
-    }
-
-    Keyboard.addListener('keyboardWillShow', keyboardWillShow);
-    Keyboard.addListener('keyboardWillHide', keyboardWillHide);
+    const removeWillHideListener = Keyboard.addListener(
+      'keyboardWillHide',
+      () => {
+        setPaddingBottom(0);
+      }
+    );
 
     return () => {
-      Keyboard.removeListener('keyboardWillShow', keyboardWillShow);
-      Keyboard.removeListener('keyboardWillHide', keyboardWillHide);
+      removeWillShowListener();
+      removeWillHideListener();
     };
   }, []);
 
