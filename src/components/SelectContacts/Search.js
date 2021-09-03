@@ -36,6 +36,7 @@ function Search ({ searchParams, setSearchParams, onClose }) {
       placeholder="Search your contacts"
       onChangeText={onChangeText}
       onSubmitEditing={startSearch}
+      maxLength={255}
       value={searchStr}
       style={{
         backgroundColor: paperTheme.colors.accent,
