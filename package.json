@@ -53,7 +53,7 @@
     "react-native-fs": "^2.18.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-google-places": "^3.1.2",
-    "react-native-maps": "^0.28.0",
+    "react-native-maps": "^0.29.3",
     "react-native-mime-types": "^2.3.0",
     "react-native-modalize": "^2.0.8",
     "react-native-paper": "^4.9.2",
@@ -74,9 +74,9 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
-    "@babel/eslint-parser": "^7.15.0",
-    "@babel/runtime": "^7.15.3",
+    "@babel/core": "^7.15.4",
+    "@babel/eslint-parser": "^7.15.4",
+    "@babel/runtime": "^7.15.4",
     "@react-native-community/eslint-config": "^3.0.0",
     "babel-jest": "^27.1.0",
     "babel-plugin-module-resolver": "^4.0.0",
