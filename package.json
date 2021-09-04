@@ -19,6 +19,7 @@
     "update-pods": "cli-confirm \"Proceed?\" && rm -rf node_modules ios/Pods ios/Podfile.lock && yarn && cd ios && pod install --repo-update && cd .."
   },
   "dependencies": {
+    "@react-native-community/eslint-config": "^3.0.1",
     "@react-native-community/geolocation": "^2.0.2",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "^6.0.2",
@@ -78,7 +79,6 @@
     "@babel/core": "^7.15.5",
     "@babel/eslint-parser": "^7.15.4",
     "@babel/runtime": "^7.15.4",
-    "@react-native-community/eslint-config": "^3.0.0",
     "babel-jest": "^27.1.0",
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-optional-require": "^0.3.1",
