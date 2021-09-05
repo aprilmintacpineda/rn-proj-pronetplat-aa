@@ -129,7 +129,7 @@ function TextInput ({
           onChangeText={onChangeText}
           disabled={disabled}
           maxLength={maxLength}
-          value={value}
+          value={String(value || '')}
           {...textInputProps}
         />
         {!disabled && onPress && (
