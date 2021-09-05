@@ -179,8 +179,7 @@ function App () {
 
   React.useEffect(() => {
     const unsubscribeCallback = addEvent('websocketEvent', data => {
-      if (!store.authUser || !store.initComplete || store.reAuth)
-        return;
+      if (!store.authUser || !store.initComplete) return;
 
       const handler = webSocketEventHandlers[data.type];
       if (handler) handler(data);

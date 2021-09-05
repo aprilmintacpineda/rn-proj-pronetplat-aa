@@ -107,7 +107,9 @@ async function onInitComplete () {
 
     updateStore({
       initComplete: true,
-      reAuth: true,
+      authUser: null,
+      authToken: null,
+      sendingContactRequests: [],
       lastStoreInit: Date.now()
     });
 

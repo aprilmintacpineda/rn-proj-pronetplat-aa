@@ -7,23 +7,6 @@ export function login ({ userData, authToken }) {
   updateStore({ authUser: userData, authToken });
 }
 
-export function reAuth ({ userData, authToken }) {
-  logLogin('reAuth');
-
-  if (store.authUser.id !== userData.id) {
-    updateStore({
-      authUser: userData,
-      authToken,
-      sendingContactRequests: []
-    });
-  } else {
-    updateStore({
-      authUser: userData,
-      authToken
-    });
-  }
-}
-
 export function logout () {
   logLogout();
 
