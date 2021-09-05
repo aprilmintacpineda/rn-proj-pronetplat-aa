@@ -107,6 +107,14 @@ const webSocketEventHandlers = {
             name: 'ViewEvent',
             params: event
           },
+          removedAsOrganizerFromEvent: {
+            name: 'ViewEvent',
+            params: event
+          },
+          contactPublishedAnEvent: {
+            name: 'ViewEvent',
+            params: event
+          },
           eventInvitation: {
             name: 'EventInvitations'
           }

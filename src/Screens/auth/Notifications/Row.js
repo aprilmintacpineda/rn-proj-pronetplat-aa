@@ -129,6 +129,7 @@ function NotificationRow (notification) {
       );
     case 'addedAsOrganizerToEvent':
     case 'removedAsOrganizerFromEvent':
+    case 'contactPublishedAnEvent':
       return (
         <TouchableRipple to="ViewEvent" params={event}>
           <NotificationBody {...notification} />
