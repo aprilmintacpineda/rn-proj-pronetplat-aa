@@ -66,7 +66,7 @@ export function connectWebSocket () {
   webSocket.onerror = restartConnection;
 
   webSocket.onmessage = async ({ data }) => {
-    console.log('websocketEvent', data);
+    console.log('webSocket.onmessage', data);
 
     if (data === 'pong') {
       schedulePing();
