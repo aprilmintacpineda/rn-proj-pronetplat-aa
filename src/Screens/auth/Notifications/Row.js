@@ -1,17 +1,14 @@
 import Color from 'color';
 import React from 'react';
 import { View } from 'react-native';
-import { Paragraph, Text } from 'react-native-paper';
+import { Paragraph } from 'react-native-paper';
 import Caption from 'components/Caption';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TimeAgo from 'components/TimeAgo';
 import TouchableRipple from 'components/TouchableRipple';
 import UserAvatar from 'components/UserAvatar';
-import {
-  getFullName,
-  getPersonalPronoun,
-  personalPronouns
-} from 'libs/user';
+import { replacePlaceholders } from 'libs/strings';
+import { getFullName, getPersonalPronoun } from 'libs/user';
 import { paperTheme, navigationTheme } from 'theme';
 
 const { error, primary } = paperTheme.colors;
@@ -78,61 +75,10 @@ function NotificationBody (notification) {
       break;
   }
 
-  const notificationBody = React.useMemo(() => {
-    const texts = [];
-
-    let currentText = '';
-    const words = body.split(' ');
-    const wordsLastIndex = words.length - 1;
-
-    words.forEach((word, index) => {
-      const isLastWord = wordsLastIndex === index;
-      const hasDotAtEnd = isLastWord && word.endsWith('.');
-      const replacer =
-        replacers[hasDotAtEnd ? word.replace('.', '') : word];
-
-      if (replacer) {
-        if (currentText) {
-          texts.push(
-            <Text key={`${index}-${word}-${currentText}`}>
-              {currentText}{' '}
-            </Text>
-          );
-
-          currentText = '';
-        }
-
-        const value = replacer(notification);
-
-        texts.push(
-          <Text
-            key={`${index}-${word}-${value}`}
-            style={
-              !personalPronouns.includes(value)
-                ? { fontWeight: 'bold' }
-                : null
-            }
-          >
-            {value}
-          </Text>
-        );
-
-        if (hasDotAtEnd) currentText += '.';
-      } else {
-        currentText += ` ${word}`;
-      }
-
-      if (isLastWord) {
-        texts.push(
-          <Text key={`${index}-${currentText}-${word}`}>
-            {currentText}
-          </Text>
-        );
-      }
-    });
-
-    return texts;
-  }, [body, notification]);
+  const notificationBody = React.useMemo(
+    () => replacePlaceholders(body, replacers, notification),
+    [body, notification]
+  );
 
   return (
     <View

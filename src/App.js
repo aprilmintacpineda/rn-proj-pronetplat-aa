@@ -25,6 +25,7 @@ import { initStore } from 'fluxible/store/init';
 import useAppStateEffect from 'hooks/useAppStateEffect';
 import useHasInternet from 'hooks/useHasInternet';
 import { appMounted, logScreenView } from 'libs/logging';
+import { replacePlaceholders } from 'libs/strings';
 import {
   getFullName,
   getInitials,
@@ -39,12 +40,26 @@ geolocation.setRNConfiguration({ authorizationLevel: 'whenInUse' });
 
 export const navigationRef = React.createRef();
 
+const replacers = {
+  '{fullname}': ({ sender }) => getFullName(sender),
+  '{genderPossessiveLowercase}': ({ sender }) =>
+    getPersonalPronoun(sender).possessive.lowercase,
+  '{eventName}': ({ payload: { event } }) => event.name,
+  '{userFullNamePossessive}': ({ sender, payload: { user } }) => {
+    return user?.id === sender.id
+      ? getPersonalPronoun(sender).possessive.lowercase
+      : `${getFullName(sender)}'s`;
+  }
+};
+
 const webSocketEventHandlers = {
-  notification: ({
-    sender,
-    trigger,
-    payload: { event, title, body, user }
-  }) => {
+  notification: notification => {
+    const {
+      sender,
+      trigger,
+      payload: { event, title, body }
+    } = notification;
+
     switch (trigger) {
       case 'contactRequestCancelled':
         decrementContactRequestsCount();
@@ -66,23 +81,9 @@ const webSocketEventHandlers = {
     )
       incrementNotificationsCount();
 
-    const fullname = getFullName(sender);
-
     displayNotification({
-      title: title.replace(/{fullname}/gim, fullname),
-      body: body
-        .replace(/{fullname}/gim, fullname)
-        .replace(
-          /{genderPossessiveLowercase}/gim,
-          getPersonalPronoun(sender).possessive.lowercase
-        )
-        .replace(/{eventName}/gim, event?.name || '')
-        .replace(
-          /{userFullNamePossessive}/gim,
-          user?.id === sender.id
-            ? getPersonalPronoun(sender).possessive.lowercase
-            : `${getFullName(sender)}'s`
-        ),
+      title: replacePlaceholders(title, replacers, notification),
+      body: replacePlaceholders(body, replacers, notification),
       avatarUri: sender.profilePicture,
       avatarLabel: getInitials(sender),
       onPress: () => {

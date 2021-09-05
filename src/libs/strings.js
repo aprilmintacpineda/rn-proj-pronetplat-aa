@@ -1,4 +1,6 @@
 import React from 'react';
+import { Text } from 'react-native-paper';
+import { personalPronouns } from './user';
 import TextLink from 'components/TextLink';
 
 export function capitalize (value) {
@@ -63,4 +65,60 @@ export function renderLinks (messageBody) {
   body.push(messageBody.slice(startingIndex));
 
   return body;
+}
+
+export function replacePlaceholders (str, replacers, data) {
+  const texts = [];
+
+  let currentText = '';
+  const words = str.split(' ');
+  const wordsLastIndex = words.length - 1;
+
+  words.forEach((word, index) => {
+    const isLastWord = wordsLastIndex === index;
+    const hasDotAtEnd = isLastWord && word.endsWith('.');
+    const replacer =
+      replacers[hasDotAtEnd ? word.replace('.', '') : word];
+
+    if (replacer) {
+      if (currentText) {
+        texts.push(
+          <Text key={`${index}-${word}-${currentText}`}>
+            {currentText}{' '}
+          </Text>
+        );
+
+        currentText = '';
+      }
+
+      const value = replacer(data);
+
+      texts.push(
+        <Text
+          key={`${index}-${word}-${value}`}
+          style={
+            !personalPronouns.includes(value)
+              ? { fontWeight: 'bold' }
+              : null
+          }
+        >
+          {value}
+        </Text>
+      );
+
+      if (hasDotAtEnd) currentText += '.';
+    } else {
+      currentText += ` ${word}`;
+    }
+
+    if (isLastWord) {
+      texts.push(
+        <Text key={`${index}-${currentText}-${word}`}>
+          {currentText}
+        </Text>
+      );
+    }
+  });
+
+  return texts;
 }
