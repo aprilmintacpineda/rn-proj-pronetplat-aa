@@ -189,48 +189,48 @@ function App () {
     return unsubscribeCallback;
   }, []);
 
-  if (!initComplete) return null;
-
   return (
     <>
       <StatusBar
         barStyle="light-content"
         backgroundColor={paperTheme.colors.accent}
       />
-      <NavigationContainer
-        ref={navigationRef}
-        theme={navigationTheme}
-        onReady={logScreenView}
-        onStateChange={logScreenView}
-      >
-        <FullSafeAreaView>
-          <Host>
-            <PopupManager />
-            <PaperProvider theme={paperTheme}>
-              <KeyboardAvoidingView>
-                {!hasInternet ? (
-                  <View
-                    style={{
-                      backgroundColor: paperTheme.colors.error,
-                      padding: 3
-                    }}
-                  >
-                    <Text style={{ color: '#fff' }}>
-                      No internet connection.
-                    </Text>
-                  </View>
-                ) : null}
-                <IndexStackNavigator />
-              </KeyboardAvoidingView>
-            </PaperProvider>
-            <KeyboardAccessoryNavigation
-              nextHidden
-              previousHidden
-              androidAdjustResize
-            />
-          </Host>
-        </FullSafeAreaView>
-      </NavigationContainer>
+      {initComplete && (
+        <NavigationContainer
+          ref={navigationRef}
+          theme={navigationTheme}
+          onReady={logScreenView}
+          onStateChange={logScreenView}
+        >
+          <FullSafeAreaView>
+            <Host>
+              <PopupManager />
+              <PaperProvider theme={paperTheme}>
+                <KeyboardAvoidingView>
+                  {!hasInternet ? (
+                    <View
+                      style={{
+                        backgroundColor: paperTheme.colors.error,
+                        padding: 3
+                      }}
+                    >
+                      <Text style={{ color: '#fff' }}>
+                        No internet connection.
+                      </Text>
+                    </View>
+                  ) : null}
+                  <IndexStackNavigator />
+                </KeyboardAvoidingView>
+              </PaperProvider>
+              <KeyboardAccessoryNavigation
+                nextHidden
+                previousHidden
+                androidAdjustResize
+              />
+            </Host>
+          </FullSafeAreaView>
+        </NavigationContainer>
+      )}
     </>
   );
 }
