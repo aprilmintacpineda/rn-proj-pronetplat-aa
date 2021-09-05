@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Linking } from 'react-native';
+import { Linking } from 'react-native';
 import { Text } from 'react-native-paper';
 import { navigationRef } from 'App';
 import { paperTheme } from 'theme';
@@ -9,10 +9,9 @@ function TextLink ({
   params = null,
   children,
   style = null,
-  textStyle = null,
   onPress = null,
   isExternal = false,
-  ...props
+  ...textProps
 }) {
   const handlePress = React.useCallback(() => {
     if (to) {
@@ -24,13 +23,13 @@ function TextLink ({
   }, [to, params, onPress, isExternal]);
 
   return (
-    <TouchableOpacity onPress={handlePress} {...props} style={style}>
-      <Text
-        style={[{ color: paperTheme.colors.primary }, textStyle]}
-      >
-        {children}
-      </Text>
-    </TouchableOpacity>
+    <Text
+      style={[{ color: paperTheme.colors.primary }, style]}
+      onPress={handlePress}
+      {...textProps}
+    >
+      {children}
+    </Text>
   );
 }
 
