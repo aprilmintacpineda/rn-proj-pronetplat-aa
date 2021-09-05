@@ -11,14 +11,8 @@ const formOptions = {
   initialFormContext: {
     onSave: null
   },
-  onSubmit: ({
-    formValues: { maxDistance, ...formValues },
-    formContext: { onSave }
-  }) => {
-    onSave({
-      maxDistance: isNaN(maxDistance) ? null : maxDistance,
-      ...formValues
-    });
+  onSubmit: ({ formValues, formContext: { onSave } }) => {
+    onSave(formValues);
   },
   ignoreResponse: true
 };

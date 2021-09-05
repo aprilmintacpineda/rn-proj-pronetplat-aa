@@ -5,7 +5,9 @@ import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
 
 const unitOptions = ['kilometers', 'miles'];
-const maxDistanceOptions = [25, 50, 100, 150, 200, 250, 300, 'any'];
+const maxDistanceOptions = [
+  25, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500
+];
 
 function FilterForm ({ onSave, unit, maxDistance, search }) {
   const { setForm } = React.useContext(FormContext);
