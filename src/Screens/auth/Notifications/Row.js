@@ -21,7 +21,10 @@ const replacers = {
   '{fullname}': ({ user }) => getFullName(user),
   '{genderPossessiveLowercase}': ({ user }) =>
     getPersonalPronoun(user).possessive.lowercase,
-  '{eventName}': ({ event }) => event.name,
+  '{eventName}': ({ event }) => {
+    console.log('eventName replacer', event.name);
+    return event.name;
+  },
   '{userFullNamePossessive}': ({ user, payload: { userId } }) => {
     return userId === user.id
       ? getPersonalPronoun(user).possessive.lowercase
@@ -86,7 +89,10 @@ function NotificationBody (notification) {
     const wordsLastIndex = words.length - 1;
 
     words.forEach((word, index) => {
-      const replacer = replacers[word];
+      const isLastWord = wordsLastIndex === index;
+      const hasDotAtEnd = isLastWord && word.endsWith('.');
+      const replacer =
+        replacers[hasDotAtEnd ? word.replace('.', '') : word];
 
       if (replacer) {
         if (currentText) {
@@ -113,14 +119,18 @@ function NotificationBody (notification) {
             {value}
           </Text>
         );
-      } else if (wordsLastIndex === index) {
-        texts.push(
-          <Text key={`${index}-${currentText}-${word}`}>
-            {currentText} {word}
-          </Text>
-        );
+
+        if (hasDotAtEnd) currentText += '.';
       } else {
         currentText += ` ${word}`;
+      }
+
+      if (isLastWord) {
+        texts.push(
+          <Text key={`${index}-${currentText}-${word}`}>
+            {currentText}
+          </Text>
+        );
       }
     });
 
