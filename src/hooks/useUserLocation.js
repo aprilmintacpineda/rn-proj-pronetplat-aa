@@ -6,7 +6,7 @@ import useAppStateEffect from './useAppStateEffect';
 import useState from './useState';
 import { showConfirmDialog } from 'fluxible/actions/popup';
 
-const permissions = Platform.select({
+const permission = Platform.select({
   ios: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
   android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
 });
@@ -43,21 +43,23 @@ function useUserLocation ({ shouldAsk = true } = {}) {
     } catch (error) {
       console.log(error);
 
-      showConfirmDialog({
-        message:
-          'We could not get your location, do you want to try again?',
-        onConfirm: getCurrentPosition,
-        onCancel: () => {
-          updateState({ status: 'failed' });
-        }
-      });
+      if (!error.PERMISSION_DENIED) {
+        showConfirmDialog({
+          message:
+            'We could not get your location, do you want to try again?',
+          onConfirm: getCurrentPosition,
+          onCancel: () => {
+            updateState({ status: 'failed' });
+          }
+        });
+      }
     }
   }, [updateState]);
 
   const askPermission = React.useCallback(async () => {
     if (status !== 'initial') return;
     updateState({ status: 'requesting' });
-    const results = await request(permissions);
+    const results = await request(permission);
 
     if (results === 'granted') {
       updateState({ status: 'granted' });
