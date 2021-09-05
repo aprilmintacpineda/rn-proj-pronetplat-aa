@@ -1,15 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { View, ScrollView } from 'react-native';
 import { Headline, Subheading } from 'react-native-paper';
 import { FormContext } from 'components/FormWithContext';
 import SubmitButton from 'components/FormWithContext/SubmitButton';
 import TextInput from 'components/FormWithContext/TextInput';
 
 function SendResetCodeForm ({ onResetCodeSent }) {
-  const { isSubmitSuccess, formValues } = React.useContext(
-    FormContext
-  );
+  const { isSubmitSuccess, formValues } =
+    React.useContext(FormContext);
   const { email } = formValues;
 
   React.useEffect(() => {

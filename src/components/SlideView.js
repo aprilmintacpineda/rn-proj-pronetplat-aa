@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { View, ScrollView } from 'react-native';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 
 function SlideView ({ scrollEnabled = false, children, page = 1 }) {
