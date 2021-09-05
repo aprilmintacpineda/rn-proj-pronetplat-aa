@@ -291,6 +291,7 @@ function MyEventRow (event) {
                     to="EditEvent"
                     params={event}
                     style={{ flex: 1 }}
+                    disabled={isPublishing}
                   >
                     Edit
                   </Button>
