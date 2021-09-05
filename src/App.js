@@ -43,7 +43,7 @@ const webSocketEventHandlers = {
   notification: ({
     sender,
     trigger,
-    payload: { event, title: _title, body: _body, user }
+    payload: { event, title, body, user }
   }) => {
     switch (trigger) {
       case 'contactRequestCancelled':
@@ -69,19 +69,19 @@ const webSocketEventHandlers = {
     const fullname = getFullName(sender);
 
     displayNotification({
-      title: _title.replace(/{fullname}/gim, fullname),
-      body: _body
+      title: title.replace(/{fullname}/gim, fullname),
+      body: body
         .replace(/{fullname}/gim, fullname)
         .replace(
           /{genderPossessiveLowercase}/gim,
           getPersonalPronoun(sender).possessive.lowercase
         )
-        .replace(/{eventName}/gim, event.name || '')
+        .replace(/{eventName}/gim, event?.name || '')
         .replace(
           /{userFullNamePossessive}/gim,
-          user.id === sender.id
-            ? getPersonalPronoun(user).possessive.lowercase
-            : `${getFullName(user)}'s`
+          user?.id === sender.id
+            ? getPersonalPronoun(sender).possessive.lowercase
+            : `${getFullName(sender)}'s`
         ),
       avatarUri: sender.profilePicture,
       avatarLabel: getInitials(sender),
@@ -177,16 +177,15 @@ function App () {
     if (initComplete) RNBootSplash.hide();
   }, [initComplete]);
 
-  React.useEffect(() => {
-    const unsubscribeCallback = addEvent('websocketEvent', data => {
-      if (!store.authUser || !store.initComplete) return;
-
-      const handler = webSocketEventHandlers[data.type];
-      if (handler) handler(data);
-    });
-
-    return unsubscribeCallback;
-  }, []);
+  React.useEffect(
+    () =>
+      addEvent('websocketEvent', data => {
+        if (!store.authUser || !store.initComplete) return;
+        const handler = webSocketEventHandlers[data.type];
+        if (handler) handler(data);
+      }),
+    []
+  );
 
   return (
     <>
