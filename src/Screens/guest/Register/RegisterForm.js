@@ -20,7 +20,7 @@ function RegisterForm () {
       <View style={{ margin: 20 }}>
         <TextInput field="email" type="email" />
         <PasswordStrength value={password} />
-        <TextInput field="password" type="password" />
+        <TextInput field="password" type="password" maxLength={30} />
         <TextInput field="retypePassword" type="password" />
         <Checkbox
           value={hasAgreed}
