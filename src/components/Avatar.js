@@ -106,7 +106,7 @@ function Avatar ({
         opacity: hidden ? 0 : 1
       }}
     >
-      <Text style={{ fontSize: Math.floor(size * 0.4) }}>
+      <Text style={{ fontSize: Math.floor(size * 0.3) }}>
         {label}
       </Text>
       <Badge
