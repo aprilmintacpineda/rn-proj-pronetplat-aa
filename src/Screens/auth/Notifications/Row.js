@@ -21,10 +21,7 @@ const replacers = {
   '{fullname}': ({ user }) => getFullName(user),
   '{genderPossessiveLowercase}': ({ user }) =>
     getPersonalPronoun(user).possessive.lowercase,
-  '{eventName}': ({ event }) => {
-    console.log('eventName replacer', event.name);
-    return event.name;
-  },
+  '{eventName}': ({ event }) => event.name,
   '{userFullNamePossessive}': ({ user, payload: { userId } }) => {
     return userId === user.id
       ? getPersonalPronoun(user).possessive.lowercase
