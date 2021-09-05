@@ -123,6 +123,9 @@ function ContactProfile ({ contact }) {
         method: 'post'
       });
 
+      if (data?.receivedContactRequest)
+        decrementContactRequestsCount();
+
       emitEvent('refreshContactList');
     } catch (error) {
       console.log(error);
@@ -134,7 +137,7 @@ function ContactProfile ({ contact }) {
     } finally {
       refreshData();
     }
-  }, [contact.id, refreshData]);
+  }, [contact.id, refreshData, data]);
 
   const blockUser = React.useCallback(() => {
     const personalPronoun = getPersonalPronoun(contact);
