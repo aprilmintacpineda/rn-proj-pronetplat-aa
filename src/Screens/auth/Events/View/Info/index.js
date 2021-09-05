@@ -13,6 +13,7 @@ import CancelGoing from './CancelGoing';
 import InviteContacts from './InviteContacts';
 import JoinEvent from './JoinEvent';
 import RespondToInvitation from './RespondToInvitation';
+import Caption from 'components/Caption';
 import ResponsiveImageView from 'components/ResponsiveImageView';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TextLink from 'components/TextLink';
@@ -32,7 +33,8 @@ function ViewEventInfo () {
     description,
     isOrganizer,
     status,
-    numGoing
+    numGoing,
+    placeName
   } = event;
 
   const addToCalendar = React.useCallback(async () => {
@@ -212,7 +214,16 @@ function ViewEventInfo () {
             size={20}
           />
           <View style={{ marginLeft: 5, flex: 1 }}>
-            <Text style={{ marginBottom: 15 }}>{address}</Text>
+            {placeName && (
+              <Text style={{ fontWeight: 'bold' }}>{placeName}</Text>
+            )}
+            {placeName ? (
+              <Caption style={{ marginBottom: 10 }}>
+                {address}
+              </Caption>
+            ) : (
+              <Text style={{ marginBottom: 10 }}>{address}</Text>
+            )}
             <TextLink isExternal to={directionsUrl}>
               Get directions.
             </TextLink>
@@ -272,7 +283,7 @@ function ViewEventInfo () {
             {!hasEventPast && (
               <TextLink
                 onPress={addToCalendar}
-                style={{ marginTop: 15 }}
+                style={{ marginTop: 10 }}
               >
                 Add to calendar
               </TextLink>

@@ -17,6 +17,7 @@ function MyEventRow (event) {
   const {
     id,
     name,
+    placeName,
     address,
     startDateTime: _startDateTime,
     endDateTime: _endDateTime,
@@ -207,7 +208,18 @@ function MyEventRow (event) {
                   color={paperTheme.colors.primary}
                   size={20}
                 />
-                <Text style={{ marginLeft: 5 }}>{address}</Text>
+                <View style={{ marginLeft: 5 }}>
+                  {placeName && (
+                    <Text style={{ fontWeight: 'bold' }}>
+                      {placeName}
+                    </Text>
+                  )}
+                  {placeName ? (
+                    <Caption>{address}</Caption>
+                  ) : (
+                    <Text>{address}</Text>
+                  )}
+                </View>
               </View>
               <View style={{ flexDirection: 'row' }}>
                 <RNVectorIcon

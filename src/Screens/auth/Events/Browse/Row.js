@@ -2,6 +2,7 @@ import { format, isPast, isSameDay } from 'date-fns';
 import React from 'react';
 import { View } from 'react-native';
 import { Text, Title } from 'react-native-paper';
+import Caption from 'components/Caption';
 import ResponsiveImageView from 'components/ResponsiveImageView';
 import RNVectorIcon from 'components/RNVectorIcon';
 import Surface from 'components/Surface';
@@ -11,6 +12,7 @@ import { paperTheme } from 'theme';
 function MyEventRow (event) {
   const {
     name,
+    placeName,
     address,
     startDateTime: _startDateTime,
     endDateTime: _endDateTime,
@@ -146,8 +148,19 @@ function MyEventRow (event) {
                   size={20}
                 />
                 <View style={{ marginLeft: 5 }}>
-                  <Text>{address}</Text>
-                  <Text style={{ marginTop: 5, fontWeight: 'bold' }}>
+                  {placeName && (
+                    <Text style={{ fontWeight: 'bold' }}>
+                      {placeName}
+                    </Text>
+                  )}
+                  {placeName ? (
+                    <Caption>{address}</Caption>
+                  ) : (
+                    <Text>{address}</Text>
+                  )}
+                  <Text
+                    style={{ marginTop: 10, fontWeight: 'bold' }}
+                  >
                     {Math.ceil(distance)} {unit} away
                   </Text>
                 </View>
