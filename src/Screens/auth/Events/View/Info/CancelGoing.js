@@ -1,16 +1,19 @@
 import { useNavigation } from '@react-navigation/native';
 import { emitEvent } from 'fluxible-js';
 import React from 'react';
-import { Text } from 'react-native-paper';
 import Button from 'components/Button';
-import { unknownErrorPopup } from 'fluxible/actions/popup';
+import {
+  showConfirmDialog,
+  unknownErrorPopup
+} from 'fluxible/actions/popup';
 import { xhr } from 'libs/xhr';
+import { paperTheme } from 'theme';
 
 function CancelGoing ({ event }) {
   const [isCancelling, setIsCancelling] = React.useState(false);
   const { setParams } = useNavigation();
 
-  const cancelGoing = React.useCallback(async () => {
+  const confirmCancelGoing = React.useCallback(async () => {
     try {
       setIsCancelling(true);
 
@@ -31,18 +34,23 @@ function CancelGoing ({ event }) {
     }
   }, [event, setParams]);
 
+  const cancelGoing = React.useCallback(() => {
+    showConfirmDialog({
+      message: `Are you sure you are not going to ${event.name} anymore?`,
+      onConfirm: confirmCancelGoing,
+      isDestructive: true
+    });
+  }, [event, confirmCancelGoing]);
+
   return (
-    <>
-      <Text>You are going to this event</Text>
-      <Button
-        mode="contained"
-        style={{ marginVertical: 10 }}
-        onPress={cancelGoing}
-        loading={isCancelling}
-      >
-        Cancel
-      </Button>
-    </>
+    <Button
+      mode="outlined"
+      onPress={cancelGoing}
+      loading={isCancelling}
+      color={paperTheme.colors.error}
+    >
+      Cancel Going
+    </Button>
   );
 }
 

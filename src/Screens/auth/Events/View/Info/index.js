@@ -100,23 +100,26 @@ function ViewEventInfo () {
               This event has past.
             </Text>
           </View>
-        ) : isOrganizer && status === 'published' ? (
-          <View style={{ marginVertical: 10 }}>
-            <InviteContacts event={event} />
-          </View>
-        ) : event.invitationId ? (
-          <View style={{ marginVertical: 10 }}>
-            <RespondToInvitation event={event} />
-          </View>
-        ) : event.isGoing ? (
-          <View style={{ marginVertical: 10 }}>
-            <CancelGoing event={event} />
-          </View>
-        ) : visibility === 'public' && status === 'published' ? (
-          <View style={{ marginVertical: 10 }}>
-            <JoinEvent event={event} />
-          </View>
-        ) : null}
+        ) : (
+          <>
+            {event.isGoing || event.isOrganizer ? (
+              <View style={{ marginVertical: 10 }}>
+                <View style={{ marginBottom: 5 }}>
+                  <InviteContacts event={event} />
+                </View>
+                <CancelGoing event={event} />
+              </View>
+            ) : event.invitationId ? (
+              <View style={{ marginVertical: 10 }}>
+                <RespondToInvitation event={event} />
+              </View>
+            ) : visibility === 'public' && status === 'published' ? (
+              <View style={{ marginVertical: 10 }}>
+                <JoinEvent event={event} />
+              </View>
+            ) : null}
+          </>
+        )}
         {isOrganizer && (
           <View
             style={{
