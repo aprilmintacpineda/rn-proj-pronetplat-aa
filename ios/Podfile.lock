@@ -518,7 +518,7 @@ PODS:
     - React-perflogger (= 0.64.2)
   - ReactNativeCameraKit (11.2.1):
     - React-Core
-  - RNBootSplash (3.2.4):
+  - RNBootSplash (3.2.5):
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
@@ -929,7 +929,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: a9904c6d0218fb9f8b19d6dd88607225927668f9
   ReactCommon: 149906e01aa51142707a10665185db879898e966
   ReactNativeCameraKit: 00837d477b2a21db904f1e4ce728d6eed6218c5e
-  RNBootSplash: 4844706cbb56a3270556c9b94e59dedadccd47e4
+  RNBootSplash: 75faf048f66eebe1650e91afdb8c2205fefc1870
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNDeviceInfo: 7b82d1467b87f7e74d1c7ba9439a9a57d0c68ee9
   RNFBAnalytics: ae8f44a8b706379d8af6b14b0c4d2f8c13ff1fa9
