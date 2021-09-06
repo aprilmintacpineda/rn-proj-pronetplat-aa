@@ -65,6 +65,10 @@ const eventListeners = {
   }
 };
 
+const pastParams = { schedule: 'past' };
+const presentParams = { schedule: 'present' };
+const futureParams = { schedule: 'future' };
+
 function OwnedEvents ({ navigation: { setOptions, navigate } }) {
   React.useEffect(() => {
     setOptions({
@@ -92,7 +96,7 @@ function OwnedEvents ({ navigation: { setOptions, navigate } }) {
         <DataFlatList
           endpoint="/my-events"
           RowComponent={Row}
-          params={{ schedule: 'past' }}
+          params={pastParams}
           listEmptyMessage="You have no past events."
         />
       </Tab>
@@ -100,7 +104,7 @@ function OwnedEvents ({ navigation: { setOptions, navigate } }) {
         <DataFlatList
           endpoint="/my-events"
           RowComponent={Row}
-          params={{ schedule: 'present' }}
+          params={presentParams}
           listEmptyMessage="You have no on-going events."
         />
       </Tab>
@@ -108,7 +112,7 @@ function OwnedEvents ({ navigation: { setOptions, navigate } }) {
         <DataFlatList
           endpoint="/my-events"
           RowComponent={Row}
-          params={{ schedule: 'future' }}
+          params={futureParams}
           listEmptyMessage="You have no future events"
           eventListeners={eventListeners}
         />

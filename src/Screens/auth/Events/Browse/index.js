@@ -71,6 +71,31 @@ function BrowseEvents ({ navigation: { setOptions } }) {
     [updateState]
   );
 
+  const params = React.useMemo(() => {
+    const globalParams = {
+      lat: coordinates.lat,
+      lng: coordinates.lng,
+      unit,
+      maxDistance,
+      search
+    };
+
+    return {
+      past: {
+        schedule: 'past',
+        ...globalParams
+      },
+      present: {
+        schedule: 'present',
+        ...globalParams
+      },
+      future: {
+        schedule: 'future',
+        ...globalParams
+      }
+    };
+  }, [coordinates, unit, maxDistance, search]);
+
   if (status === 'initial') return null;
 
   return (
@@ -80,34 +105,16 @@ function BrowseEvents ({ navigation: { setOptions } }) {
           <DataFlatList
             endpoint="/browse-events"
             RowComponent={Row}
-            params={{
-              schedule: 'past',
-              lat: coordinates.lat,
-              lng: coordinates.lng,
-              unit,
-              maxDistance,
-              search
-            }}
+            params={params.past}
             listEmptyMessage="There are no past events."
-            otherRowProps={{
-              unit,
-              maxDistance,
-              search
-            }}
+            otherRowProps={state}
           />
         </Tab>
         <Tab label="On-going">
           <DataFlatList
             endpoint="/browse-events"
             RowComponent={Row}
-            params={{
-              schedule: 'present',
-              lat: coordinates.lat,
-              lng: coordinates.lng,
-              unit,
-              maxDistance,
-              search
-            }}
+            params={params.present}
             listEmptyMessage="There are no on-going events."
             otherRowProps={state}
           />
@@ -116,14 +123,7 @@ function BrowseEvents ({ navigation: { setOptions } }) {
           <DataFlatList
             endpoint="/browse-events"
             RowComponent={Row}
-            params={{
-              schedule: 'future',
-              lat: coordinates.lat,
-              lng: coordinates.lng,
-              unit,
-              maxDistance,
-              search
-            }}
+            params={params.future}
             listEmptyMessage="There are no future events"
             eventListeners={eventListeners}
             otherRowProps={state}
