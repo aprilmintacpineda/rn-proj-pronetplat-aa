@@ -107,7 +107,7 @@ function ViewEventInfo () {
                 <View style={{ marginBottom: 5 }}>
                   <InviteContacts event={event} />
                 </View>
-                <CancelGoing event={event} />
+                {!event.isOrganizer && <CancelGoing event={event} />}
               </View>
             ) : event.invitationId ? (
               <View style={{ marginVertical: 10 }}>
