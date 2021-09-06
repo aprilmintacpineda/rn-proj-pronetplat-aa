@@ -1,5 +1,5 @@
 import { useRoute } from '@react-navigation/native';
-import { addEvent } from 'fluxible-js';
+import { addEvents } from 'fluxible-js';
 import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
@@ -13,17 +13,15 @@ function ChatMessageInput () {
   );
 
   React.useEffect(() => {
-    const removeListener = addEvent(
+    return addEvents(
       [
         'websocketEvent-blockedByUser',
         'websocketEvent-userDisconected'
       ],
       ({ sender }) => {
-        if (sender.id === contact.id) setIsConnected(true);
+        if (sender.id === contact.id) setIsConnected(false);
       }
     );
-
-    return removeListener;
   }, [contact]);
 
   if (isConnected) return <InputBox />;
