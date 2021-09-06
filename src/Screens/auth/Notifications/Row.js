@@ -130,6 +130,8 @@ function NotificationRow (notification) {
     case 'addedAsOrganizerToEvent':
     case 'removedAsOrganizerFromEvent':
     case 'contactPublishedAnEvent':
+    case 'eventInvitationAccepted':
+    case 'eventInvitationRejected':
       return (
         <TouchableRipple to="ViewEvent" params={event}>
           <NotificationBody {...notification} />
