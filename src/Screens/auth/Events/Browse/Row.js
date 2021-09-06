@@ -21,6 +21,7 @@ function MyEventRow (event) {
     distance,
     numGoing,
     isOrganizer,
+    isGoing,
     unit
   } = event;
 
@@ -51,7 +52,7 @@ function MyEventRow (event) {
             />
             <View style={{ padding: 10 }}>
               <Title>{name}</Title>
-              {isOrganizer && (
+              {isOrganizer ? (
                 <View
                   style={{
                     flexDirection: 'row',
@@ -74,7 +75,30 @@ function MyEventRow (event) {
                     You are an organizer
                   </Text>
                 </View>
-              )}
+              ) : isGoing ? (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginBottom: 10
+                  }}
+                >
+                  <RNVectorIcon
+                    provider="Ionicons"
+                    name="ios-checkmark-circle-outline"
+                    color={paperTheme.colors.error}
+                    size={20}
+                  />
+                  <Text
+                    style={{
+                      marginLeft: 5,
+                      color: paperTheme.colors.error
+                    }}
+                  >
+                    You are going to this event.
+                  </Text>
+                </View>
+              ) : null}
               <View
                 style={{
                   marginBottom: 10,
