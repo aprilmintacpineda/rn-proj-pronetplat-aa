@@ -121,15 +121,9 @@ export async function uploadFileToSignedUrl ({ signedUrl, file }) {
 }
 
 export async function waitForPicture (url) {
-  // this wait time was derived from the time for
-  // profilePictureUploaded function to complete
-  // processing the new profile picture
-  await sleep(2);
   let isSuccess = false;
 
   do {
-    // this will wait for total of 3 seconds for
-    // the first time
     await sleep(1);
 
     try {
