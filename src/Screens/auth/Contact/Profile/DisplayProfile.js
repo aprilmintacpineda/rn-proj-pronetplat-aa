@@ -69,7 +69,7 @@ function ContactProfile ({ contact }) {
         [
           'websocketEvent-blockedByUser',
           'websocketEvent-unblockedByUser',
-          'websocketEvent-userDisconected'
+          'websocketEvent-userDisconnected'
         ],
         ({ sender }) => {
           if (sender.id === contact.id) refreshData();
@@ -282,7 +282,7 @@ function ContactProfile ({ contact }) {
         method: 'post'
       });
 
-      emitEvent('refreshContactList');
+      emitEvent('userDisconnected', contact.id);
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -307,8 +307,6 @@ function ContactProfile ({ contact }) {
         ...data,
         isCloseFriend: true
       });
-
-      emitEvent('refreshContactList');
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
@@ -333,8 +331,6 @@ function ContactProfile ({ contact }) {
         ...data,
         isCloseFriend: false
       });
-
-      emitEvent('refreshContactList');
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();

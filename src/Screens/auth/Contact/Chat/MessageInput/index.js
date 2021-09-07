@@ -16,7 +16,7 @@ function ChatMessageInput () {
     return addEvents(
       [
         'websocketEvent-blockedByUser',
-        'websocketEvent-userDisconected'
+        'websocketEvent-userDisconnected'
       ],
       ({ sender }) => {
         if (sender.id === contact.id) setIsConnected(false);

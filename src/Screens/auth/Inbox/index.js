@@ -159,7 +159,7 @@ const eventListeners = {
       }, 10000);
     }
   },
-  'websocketEvent-userDisconected': (
+  'websocketEvent-userDisconnected': (
     { sender },
     { replaceData }
   ) => {
@@ -226,6 +226,21 @@ const eventListeners = {
     );
   },
   blockedUser: (contactId, { replaceData }) => {
+    replaceData(data =>
+      data.map(inbox => {
+        if (inbox.contactId !== contactId) return inbox;
+
+        return {
+          ...inbox,
+          contact: {
+            ...inbox.contact,
+            isConnected: false
+          }
+        };
+      })
+    );
+  },
+  userDisconnected: (contactId, { replaceData }) => {
     replaceData(data =>
       data.map(inbox => {
         if (inbox.contactId !== contactId) return inbox;

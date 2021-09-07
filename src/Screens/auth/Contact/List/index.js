@@ -12,7 +12,7 @@ const eventListeners = {
   'websocketEvent-contactRequestAccepted': () => {
     refreshScreen('ContactList');
   },
-  'websocketEvent-userDisconected': (
+  'websocketEvent-userDisconnected': (
     { sender },
     { replaceData }
   ) => {
@@ -26,6 +26,11 @@ const eventListeners = {
     );
   },
   blockedUser: (contactId, { replaceData }) => {
+    replaceData(data =>
+      data.filter(contact => contact.id !== contactId)
+    );
+  },
+  userDisconnected: (contactId, { replaceData }) => {
     replaceData(data =>
       data.filter(contact => contact.id !== contactId)
     );
