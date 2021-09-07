@@ -1,4 +1,5 @@
 import { emitEvent, store } from 'fluxible-js';
+import { Platform } from 'react-native';
 import BackgroundTimer from 'react-native-background-timer';
 import config from 'react-native-config';
 
@@ -66,7 +67,7 @@ export function connectWebSocket () {
   webSocket.onerror = restartConnection;
 
   webSocket.onmessage = async ({ data }) => {
-    console.log('webSocket.onmessage', data);
+    console.log(`webSocket.onmessage ${Platform.OS}`, data);
 
     if (data === 'pong') {
       schedulePing();
