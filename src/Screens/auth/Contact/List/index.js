@@ -24,6 +24,11 @@ const eventListeners = {
     replaceData(data =>
       data.filter(contact => contact.id !== sender.id)
     );
+  },
+  blockedUser: (contactId, { replaceData }) => {
+    replaceData(data =>
+      data.filter(contact => contact.id !== contactId)
+    );
   }
 };
 

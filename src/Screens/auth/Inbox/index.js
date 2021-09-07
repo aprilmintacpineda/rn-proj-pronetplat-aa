@@ -224,6 +224,21 @@ const eventListeners = {
         };
       })
     );
+  },
+  blockedUser: (contactId, { replaceData }) => {
+    replaceData(data =>
+      data.map(inbox => {
+        if (inbox.contactId !== contactId) return inbox;
+
+        return {
+          ...inbox,
+          contact: {
+            ...inbox.contact,
+            isConnected: false
+          }
+        };
+      })
+    );
   }
 };
 

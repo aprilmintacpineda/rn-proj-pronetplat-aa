@@ -71,6 +71,7 @@ function SentContactRequestRow ({
       });
 
       emitEvent('cancelledContactRequest', recipient.id);
+      emitEvent('blockedUser', recipient.id);
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();

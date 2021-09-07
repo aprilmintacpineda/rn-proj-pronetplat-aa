@@ -81,6 +81,7 @@ function ReceivedContactRequestRow ({ sender, createdAt, index }) {
 
       decrementContactRequestsCount();
       emitEvent('respondedToContactRequest', sender.id);
+      emitEvent('blockedUser', sender.id);
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();

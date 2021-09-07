@@ -126,7 +126,7 @@ function ContactProfile ({ contact }) {
       if (data?.receivedContactRequest)
         decrementContactRequestsCount();
 
-      emitEvent('refreshContactList');
+      emitEvent('blockedUser', contact.id);
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();
