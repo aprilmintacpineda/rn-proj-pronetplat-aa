@@ -239,6 +239,7 @@ function ContactProfile ({ contact }) {
       decrementContactRequestsCount();
       emitEvent('respondedToContactRequest', contact.id);
       emitEvent('refreshContactList');
+      emitEvent('contactRequestAccepted', contact.id);
     } catch (error) {
       console.log(error);
       showRequestFailedPopup();

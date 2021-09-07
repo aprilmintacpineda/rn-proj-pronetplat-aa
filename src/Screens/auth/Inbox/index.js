@@ -209,6 +209,21 @@ const eventListeners = {
         };
       })
     );
+  },
+  contactRequestAccepted: (contactId, { replaceData }) => {
+    replaceData(data =>
+      data.map(inbox => {
+        if (inbox.contactId !== contactId) return inbox;
+
+        return {
+          ...inbox,
+          contact: {
+            ...inbox.contact,
+            isConnected: true
+          }
+        };
+      })
+    );
   }
 };
 
