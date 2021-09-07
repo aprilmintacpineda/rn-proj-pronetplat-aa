@@ -8,6 +8,22 @@ import { refreshScreen } from 'fluxible/actions/screensToRefresh';
 const eventListeners = {
   refreshContactList: () => {
     refreshScreen('ContactList');
+  },
+  'websocketEvent-contactRequestAccepted': () => {
+    refreshScreen('ContactList');
+  },
+  'websocketEvent-userDisconected': (
+    { sender },
+    { replaceData }
+  ) => {
+    replaceData(data =>
+      data.filter(contact => contact.id !== sender.id)
+    );
+  },
+  'websocketEvent-blockedByUser': ({ sender }, { replaceData }) => {
+    replaceData(data =>
+      data.filter(contact => contact.id !== sender.id)
+    );
   }
 };
 
