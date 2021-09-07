@@ -158,6 +158,57 @@ const eventListeners = {
         );
       }, 10000);
     }
+  },
+  'websocketEvent-userDisconected': (
+    { sender },
+    { replaceData }
+  ) => {
+    replaceData(data =>
+      data.map(inbox => {
+        if (inbox.contactId !== sender.id) return inbox;
+
+        return {
+          ...inbox,
+          contact: {
+            ...inbox.contact,
+            isConnected: false
+          }
+        };
+      })
+    );
+  },
+  'websocketEvent-contactRequestAccepted': (
+    { sender },
+    { replaceData }
+  ) => {
+    replaceData(data =>
+      data.map(inbox => {
+        if (inbox.contactId !== sender.id) return inbox;
+
+        return {
+          ...inbox,
+          contact: {
+            ...inbox.contact,
+            isConnected: true
+          }
+        };
+      })
+    );
+  },
+  'websocketEvent-blockedByUser': ({ sender }, { replaceData }) => {
+    replaceData(data =>
+      data.map(inbox => {
+        if (inbox.contactId !== sender.id) return inbox;
+
+        return {
+          ...inbox,
+          contact: {
+            ...inbox.contact,
+            isConnected: false
+          }
+        };
+      })
+    );
   }
 };
 
