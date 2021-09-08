@@ -34,7 +34,9 @@ function ViewEventInfo () {
     isOrganizer,
     status,
     numGoing,
-    placeName
+    placeName,
+    isGoing,
+    invitationId
   } = event;
 
   const addToCalendar = React.useCallback(async () => {
@@ -102,14 +104,14 @@ function ViewEventInfo () {
           </View>
         ) : (
           <>
-            {event.isGoing || event.isOrganizer ? (
+            {isGoing || isOrganizer ? (
               <View style={{ marginVertical: 10 }}>
                 <View style={{ marginBottom: 5 }}>
                   <InviteContacts event={event} />
                 </View>
-                {!event.isOrganizer && <CancelGoing event={event} />}
+                {!isOrganizer && <CancelGoing event={event} />}
               </View>
-            ) : event.invitationId ? (
+            ) : invitationId ? (
               <View style={{ marginVertical: 10 }}>
                 <RespondToInvitation event={event} />
               </View>
@@ -144,25 +146,7 @@ function ViewEventInfo () {
             </Text>
           </View>
         )}
-        {visibility === 'public' ? (
-          <View
-            style={{
-              marginBottom: 10,
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}
-          >
-            <RNVectorIcon
-              provider="Ionicons"
-              name="earth-outline"
-              color={paperTheme.colors.primary}
-              size={20}
-            />
-            <Text style={{ marginLeft: 5 }}>
-              Anyone can view and join
-            </Text>
-          </View>
-        ) : (
+        {visibility !== 'public' && (
           <View
             style={{
               marginBottom: 10,
@@ -177,7 +161,7 @@ function ViewEventInfo () {
               size={20}
             />
             <Text style={{ marginLeft: 5 }}>
-              Only invited can view and join
+              Only invited users can join
             </Text>
           </View>
         )}
