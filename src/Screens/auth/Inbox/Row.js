@@ -4,10 +4,12 @@ import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Animatable from 'components/Animatable';
 import Caption from 'components/Caption';
+import RNVectorIcon from 'components/RNVectorIcon';
 import TouchableRipple from 'components/TouchableRipple';
 import UserAvatar from 'components/UserAvatar';
 import { formatDate } from 'libs/time';
 import { getFullName } from 'libs/user';
+import { paperTheme } from 'theme';
 
 function mapStates ({ authUser }) {
   return { authUser };
@@ -52,17 +54,43 @@ function InboxRow ({ index, ...inbox }) {
                 lastMessage.messageBody
               )}
             </Text>
-            <Caption
-              style={{ fontStyle: isTyping ? 'italic' : 'normal' }}
-            >
-              {isTyping
-                ? `${contact.firstName} is typing...`
-                : lastMessage.senderId === authUser.id
-                ? lastMessage.seenAt
-                  ? `Seen ${formatDate(lastMessage.seenAt)}`
-                  : `Sent ${formatDate(lastMessage.createdAt)}`
-                : `Received ${formatDate(lastMessage.createdAt)}`}
-            </Caption>
+            {isTyping ? (
+              <Caption style={{ fontStyle: 'italic' }}>
+                {`${contact.firstName} is typing...`}
+              </Caption>
+            ) : (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center'
+                }}
+              >
+                <RNVectorIcon
+                  provider={
+                    lastMessage.senderId === authUser.id &&
+                    lastMessage.seenAt
+                      ? 'Ionicons'
+                      : 'Feather'
+                  }
+                  name={
+                    lastMessage.senderId === authUser.id
+                      ? lastMessage.seenAt
+                        ? 'ios-checkmark'
+                        : 'arrow-up-right'
+                      : 'arrow-down-left'
+                  }
+                  color={paperTheme.colors.caption}
+                  size={15}
+                />
+                <Caption style={{ marginLeft: 5 }}>
+                  {lastMessage.senderId === authUser.id
+                    ? lastMessage.seenAt
+                      ? formatDate(lastMessage.seenAt)
+                      : formatDate(lastMessage.createdAt)
+                    : formatDate(lastMessage.createdAt)}
+                </Caption>
+              </View>
+            )}
           </View>
         </View>
       </TouchableRipple>
