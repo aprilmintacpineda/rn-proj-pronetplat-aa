@@ -330,7 +330,7 @@ function ChatMessage ({ index, ...chatMessage }) {
                     >
                       <RNVectorIcon
                         provider="Ionicons"
-                        name="ios-checkmark-done-outline"
+                        name="ios-checkmark"
                         color={paperTheme.colors.caption}
                         size={15}
                       />
