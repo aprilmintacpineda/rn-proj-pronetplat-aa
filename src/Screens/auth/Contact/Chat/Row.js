@@ -183,9 +183,27 @@ function ChatMessage ({ index, ...chatMessage }) {
                         marginBottom: -30
                       }}
                     >
-                      <Caption style={{ marginBottom: 5 }}>
-                        {formatDate(replyTo.createdAt)}
-                      </Caption>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'flex-end'
+                        }}
+                      >
+                        <RNVectorIcon
+                          provider="Feather"
+                          name={
+                            replyTo.recipientId === authUser.id
+                              ? 'arrow-down-left'
+                              : 'arrow-up-right'
+                          }
+                          color={paperTheme.colors.caption}
+                          size={15}
+                        />
+                        <Caption style={{ marginLeft: 5 }}>
+                          {formatDate(replyTo.createdAt)}
+                        </Caption>
+                      </View>
                       <Text
                         style={{
                           color: paperTheme.colors.caption
@@ -235,12 +253,22 @@ function ChatMessage ({ index, ...chatMessage }) {
                       : roundness
                   }}
                 >
+                  <Text
+                    selectable
+                    style={{
+                      color: isReceived
+                        ? paperTheme.colors.text
+                        : '#fff'
+                    }}
+                  >
+                    {body}
+                  </Text>
                   {isError ? (
                     <View
                       style={{
                         flexDirection: 'row',
                         alignItems: 'center',
-                        marginBottom: 5
+                        marginTop: 5
                       }}
                     >
                       <RNVectorIcon
@@ -258,7 +286,7 @@ function ChatMessage ({ index, ...chatMessage }) {
                       style={{
                         flexDirection: 'row',
                         alignItems: 'center',
-                        marginBottom: 5
+                        marginTop: 5
                       }}
                     >
                       <ActivityIndicator
@@ -274,7 +302,7 @@ function ChatMessage ({ index, ...chatMessage }) {
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'flex-end',
-                        marginBottom: 5
+                        marginTop: 5
                       }}
                     >
                       <RNVectorIcon
@@ -292,57 +320,25 @@ function ChatMessage ({ index, ...chatMessage }) {
                       </Caption>
                     </View>
                   )}
-                  <Text
-                    selectable
-                    style={{
-                      color: isReceived
-                        ? paperTheme.colors.text
-                        : '#fff'
-                    }}
-                  >
-                    {body}
-                  </Text>
-                  {!isReceived ? (
-                    seenAt ? (
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          justifyContent: 'flex-end',
-                          marginTop: 5
-                        }}
-                      >
-                        <RNVectorIcon
-                          provider="Ionicons"
-                          name="ios-checkmark-done-outline"
-                          color={paperTheme.colors.caption}
-                          size={15}
-                        />
-                        <Caption style={{ marginLeft: 5 }}>
-                          {formatDate(seenAt)}
-                        </Caption>
-                      </View>
-                    ) : createdAt ? (
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          justifyContent: 'flex-end',
-                          marginTop: 5
-                        }}
-                      >
-                        <RNVectorIcon
-                          provider="Ionicons"
-                          name="ios-checkmark"
-                          color={paperTheme.colors.caption}
-                          size={15}
-                        />
-                        <Caption style={{ marginLeft: 5 }}>
-                          Sent
-                        </Caption>
-                      </View>
-                    ) : null
-                  ) : null}
+                  {!isReceived && seenAt && (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end'
+                      }}
+                    >
+                      <RNVectorIcon
+                        provider="Ionicons"
+                        name="ios-checkmark-done-outline"
+                        color={paperTheme.colors.caption}
+                        size={15}
+                      />
+                      <Caption style={{ marginLeft: 5 }}>
+                        {formatDate(seenAt)}
+                      </Caption>
+                    </View>
+                  )}
                 </View>
               </View>
             </View>
