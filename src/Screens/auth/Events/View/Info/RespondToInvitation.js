@@ -8,6 +8,7 @@ import UserAvatar from 'components/UserAvatar';
 import { unknownErrorPopup } from 'fluxible/actions/popup';
 import { getFullName } from 'libs/user';
 import { xhr } from 'libs/xhr';
+import { paperTheme } from 'theme';
 
 function RespondToInvitation ({ event }) {
   const { id, inviter, invitationId } = event;
@@ -104,6 +105,7 @@ function RespondToInvitation ({ event }) {
           onPress={reject}
           disabled={action !== null}
           loading={action === 'reject'}
+          color={paperTheme.colors.error}
         >
           Reject
         </Button>
