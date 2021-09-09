@@ -18,6 +18,7 @@ import ResponsiveImageView from 'components/ResponsiveImageView';
 import RNVectorIcon from 'components/RNVectorIcon';
 import TextLink from 'components/TextLink';
 import { showErrorPopup } from 'fluxible/actions/popup';
+import { renderLinks } from 'libs/strings';
 import { paperTheme } from 'theme';
 
 function ViewEventInfo () {
@@ -71,6 +72,11 @@ function ViewEventInfo () {
       notes: description
     });
   }, [name, _startDateTime, _endDateTime, address, description]);
+
+  const renderedDescription = React.useMemo(
+    () => renderLinks(description),
+    [description]
+  );
 
   const startDateTime = new Date(_startDateTime);
   const endDateTime = new Date(_endDateTime);
@@ -278,7 +284,7 @@ function ViewEventInfo () {
           </View>
         </View>
         <Divider style={{ marginVertical: 15 }} />
-        <Text>{description}</Text>
+        <Text>{renderedDescription}</Text>
       </View>
     </ScrollView>
   );
