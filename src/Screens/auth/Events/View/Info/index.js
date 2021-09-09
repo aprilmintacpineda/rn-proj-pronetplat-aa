@@ -1,5 +1,6 @@
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import { format, isPast, isSameDay } from 'date-fns';
+import { addEvent } from 'fluxible-js';
 import React from 'react';
 import { Platform, ScrollView, View } from 'react-native';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
@@ -23,6 +24,7 @@ import { paperTheme } from 'theme';
 
 function ViewEventInfo () {
   const { params: event } = useRoute();
+  const { setParams } = useNavigation();
   const {
     name,
     coverPicture,
@@ -77,6 +79,20 @@ function ViewEventInfo () {
     () => renderLinks(description),
     [description]
   );
+
+  React.useEffect(() => {
+    return addEvent(
+      'websocketEvent-eventInvitationCancelled',
+      ({ payload: { event: _event } }) => {
+        if (_event.id === event.id) {
+          setParams({
+            ...event,
+            invitationId: null
+          });
+        }
+      }
+    );
+  }, [event, setParams]);
 
   const startDateTime = new Date(_startDateTime);
   const endDateTime = new Date(_endDateTime);

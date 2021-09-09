@@ -11,6 +11,21 @@ const receivedEventListeners = {
     replaceData(data =>
       data.filter(invitation => invitation.id !== invitationId)
     );
+  },
+  'websocketEvent-eventInvitationCancelled': (
+    { sender, payload: { event } },
+    { replaceData }
+  ) => {
+    replaceData(data =>
+      data.filter(
+        invitation =>
+          invitation.event.id !== event.id &&
+          sender.id !== invitation.inviter.id
+      )
+    );
+  },
+  'websocketEvent-eventInvitation': (_, { refreshData }) => {
+    refreshData();
   }
 };
 
