@@ -90,7 +90,7 @@ function InviteContacts ({ event }) {
 
   return (
     <>
-      <Button mode="contained" onPress={openModal}>
+      <Button mode="outlined" onPress={openModal}>
         Invite your contacts
       </Button>
       <FullScreenModal isVisible={isVisible}>
