@@ -90,7 +90,14 @@ function InviteContacts ({ event }) {
 
   return (
     <>
-      <Button mode="outlined" onPress={openModal}>
+      <Button
+        mode={
+          event.isGoing || event.isOrganizer
+            ? 'contained'
+            : 'outlined'
+        }
+        onPress={openModal}
+      >
         Invite your contacts
       </Button>
       <FullScreenModal isVisible={isVisible}>

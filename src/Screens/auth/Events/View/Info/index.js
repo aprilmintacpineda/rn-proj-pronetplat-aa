@@ -108,9 +108,8 @@ function ViewEventInfo () {
         ) : (
           <>
             {visibility === 'public' &&
-              !isGoing &&
-              !isOrganizer &&
-              !invitationId && (
+              !invitationId &&
+              status === 'published' && (
                 <View style={{ marginBottom: 5 }}>
                   <InviteContacts event={event} />
                 </View>
@@ -123,7 +122,9 @@ function ViewEventInfo () {
               <View style={{ marginBottom: 5 }}>
                 <RespondToInvitation event={event} />
               </View>
-            ) : visibility === 'public' && status === 'published' ? (
+            ) : visibility === 'public' &&
+              status === 'published' &&
+              !isOrganizer ? (
               <View style={{ marginBottom: 5 }}>
                 <JoinEvent event={event} />
               </View>
