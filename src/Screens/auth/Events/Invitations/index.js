@@ -1,3 +1,4 @@
+import { store, updateStore } from 'fluxible-js';
 import React from 'react';
 import ReceivedRow from './ReceivedRow';
 import SentRow from './SentRow';
@@ -53,6 +54,17 @@ const sentEventListeners = {
   }
 };
 
+function onEmpty () {
+  if (!store.authUser.eventInvitationsCount) return;
+
+  updateStore({
+    authUser: {
+      ...store.authUser,
+      eventInvitationsCount: 0
+    }
+  });
+}
+
 function EventInvitations () {
   return (
     <Tabs>
@@ -63,6 +75,7 @@ function EventInvitations () {
           LoadingPlaceHolder={ContactsLoadingPlaceholder}
           eventListeners={receivedEventListeners}
           listEmptyMessage="You haven't received event invitations yet."
+          onEmpty={onEmpty}
         />
       </Tab>
       <Tab label="Sent">
