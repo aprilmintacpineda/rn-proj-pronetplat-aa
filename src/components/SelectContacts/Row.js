@@ -23,6 +23,7 @@ function SearchUserRow ({
   onSelect,
   resolveIsSelected,
   resolveIsLoading,
+  renderSelectedWidget,
   ...user
 }) {
   const fullName = getFullName(user);
@@ -54,13 +55,17 @@ function SearchUserRow ({
           {resolveIsSelected && (
             <View style={{ justifyContent: 'center' }}>
               {isSelected ? (
-                <RNVectorIcon
-                  provider="Ionicons"
-                  name="ios-checkmark-outline"
-                  size={20}
-                  style={{ padding: 5 }}
-                  color={paperTheme.colors.primary}
-                />
+                renderSelectedWidget ? (
+                  renderSelectedWidget(user)
+                ) : (
+                  <RNVectorIcon
+                    provider="Ionicons"
+                    name="ios-checkmark-outline"
+                    size={20}
+                    style={{ padding: 5 }}
+                    color={paperTheme.colors.primary}
+                  />
+                )
               ) : (
                 <IconButton
                   icon={addIcon}

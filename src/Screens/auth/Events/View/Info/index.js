@@ -81,17 +81,40 @@ function ViewEventInfo () {
   );
 
   React.useEffect(() => {
-    return addEvent(
-      'websocketEvent-eventInvitationCancelled',
-      ({ payload: { event: _event } }) => {
-        if (_event.id === event.id) {
-          setParams({
-            ...event,
-            invitationId: null
-          });
+    const unsubscribeListeners = [
+      addEvent(
+        'websocketEvent-eventInvitationCancelled',
+        ({ payload: { event: _event } }) => {
+          if (_event.id === event.id) {
+            setParams({
+              ...event,
+              invitationId: null
+            });
+          }
         }
-      }
-    );
+      ),
+      addEvent(
+        'websocketEvent-eventInvitation',
+        ({
+          sender,
+          payload: { event: _event, eventInvitation }
+        }) => {
+          if (_event.id === event.id) {
+            setParams({
+              ...event,
+              invitationId: eventInvitation.id,
+              inviter: sender
+            });
+          }
+        }
+      )
+    ];
+
+    return () => {
+      unsubscribeListeners.forEach(unsubscribeListener => {
+        unsubscribeListener();
+      });
+    };
   }, [event, setParams]);
 
   const startDateTime = new Date(_startDateTime);

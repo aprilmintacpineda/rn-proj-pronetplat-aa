@@ -34,6 +34,22 @@ const sentEventListeners = {
     replaceData(data =>
       data.filter(invitation => invitation.id !== invitationId)
     );
+  },
+  'websocketEvent-eventInvitationRejected': (
+    { payload: { eventInvitation } },
+    { replaceData }
+  ) => {
+    replaceData(data =>
+      data.filter(invitation => invitation.id !== eventInvitation.id)
+    );
+  },
+  'websocketEvent-eventInvitationAccepted': (
+    { payload: { eventInvitation } },
+    { replaceData }
+  ) => {
+    replaceData(data =>
+      data.filter(invitation => invitation.id !== eventInvitation.id)
+    );
   }
 };
 
