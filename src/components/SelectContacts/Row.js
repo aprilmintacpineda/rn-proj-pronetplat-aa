@@ -46,7 +46,7 @@ function SearchUserRow ({
           }}
         >
           <UserAvatar user={user} />
-          <View style={{ flex: 1, marginLeft: 10 }}>
+          <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
             <Text numberOfLines={1} style={{ fontSize: 18 }}>
               {fullName}
             </Text>
