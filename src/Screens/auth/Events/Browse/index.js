@@ -12,7 +12,17 @@ import useUserLocation from 'hooks/useUserLocation';
 
 const eventListeners = {
   cancelledGoing: (id, { replaceData }) => {
-    replaceData(data => data.filter(event => event.id !== id));
+    replaceData(data =>
+      data.map(event => {
+        if (event.id !== id) return event;
+
+        return {
+          ...event,
+          isGoing: false,
+          numGoing: event.numGoing - 1
+        };
+      })
+    );
   },
   joinedEvent: (id, { replaceData }) => {
     replaceData(data =>
@@ -21,7 +31,8 @@ const eventListeners = {
 
         return {
           ...event,
-          isGoing: true
+          isGoing: true,
+          numGoing: event.numGoing + 1
         };
       })
     );
