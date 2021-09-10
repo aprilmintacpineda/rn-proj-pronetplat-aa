@@ -11,7 +11,7 @@ import { xhr } from 'libs/xhr';
 import { paperTheme } from 'theme';
 
 function RespondToInvitation ({ event }) {
-  const { id, inviter, invitationId } = event;
+  const { inviter, invitationId } = event;
   const [action, setAction] = React.useState(null);
   const { setParams } = useNavigation();
 
@@ -19,7 +19,7 @@ function RespondToInvitation ({ event }) {
     try {
       setAction('accept');
 
-      await xhr(`/events/accept-invitation/${id}`, {
+      await xhr(`/events/accept-invitation/${invitationId}`, {
         method: 'post'
       });
 
@@ -44,13 +44,13 @@ function RespondToInvitation ({ event }) {
       setAction(null);
       unknownErrorPopup();
     }
-  }, [id, invitationId, event, setParams]);
+  }, [invitationId, event, setParams]);
 
   const reject = React.useCallback(async () => {
     try {
       setAction('reject');
 
-      await xhr(`/events/reject-invitation/${id}`, {
+      await xhr(`/events/reject-invitation/${invitationId}`, {
         method: 'post'
       });
 
@@ -74,7 +74,7 @@ function RespondToInvitation ({ event }) {
       setAction(null);
       unknownErrorPopup();
     }
-  }, [invitationId, event, setParams, id]);
+  }, [invitationId, event, setParams]);
 
   if (!invitationId) return null;
 
