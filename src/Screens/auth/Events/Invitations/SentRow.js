@@ -22,7 +22,7 @@ function removeIcon (props) {
   );
 }
 
-function ReceivedEventInvitationRow ({
+function SentEventInvitationRow ({
   index,
   id,
   invitee,
@@ -36,11 +36,8 @@ function ReceivedEventInvitationRow ({
     try {
       setIsRemoving(true);
 
-      await xhr(`/events/cancel-invitation/${event.id}`, {
-        method: 'delete',
-        body: {
-          contactId: invitee.id
-        }
+      await xhr(`/events/cancel-invitation/${id}`, {
+        method: 'delete'
       });
 
       emitEvent('cancelledInvitation', id);
@@ -49,7 +46,7 @@ function ReceivedEventInvitationRow ({
       unknownErrorPopup();
       setIsRemoving(false);
     }
-  }, [event, invitee, id]);
+  }, [id]);
 
   return (
     <Animatable animation="fadeInFromRight" delay={delay}>
@@ -106,4 +103,4 @@ function ReceivedEventInvitationRow ({
   );
 }
 
-export default React.memo(ReceivedEventInvitationRow);
+export default React.memo(SentEventInvitationRow);
