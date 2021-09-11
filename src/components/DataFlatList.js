@@ -20,7 +20,6 @@ function Body ({
   inverted = false,
   disableRefresh = false,
   otherRowProps,
-  onEmpty = null,
   ...flatListProps
 }) {
   const {
@@ -85,11 +84,6 @@ function Body ({
       }
     );
   }, [data, eventListeners, replaceData, refreshData]);
-
-  React.useEffect(() => {
-    if (!onEmpty || !data || data.length) return;
-    onEmpty();
-  }, [data, onEmpty]);
 
   if (isError) return <UnknownErrorView onRefresh={refreshData} />;
 

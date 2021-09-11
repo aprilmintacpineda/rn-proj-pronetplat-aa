@@ -141,7 +141,7 @@ function useDataFetch ({
   ]);
 
   React.useEffect(() => {
-    if (isSuccess && onSuccess) onSuccess();
+    if (isSuccess && onSuccess) onSuccess(data);
     if (isError && onError) onError();
     if (isFetchDone && onFetchDone)
       onFetchDone({ isSuccess, isError });
@@ -151,7 +151,8 @@ function useDataFetch ({
     isFetchDone,
     onFetchDone,
     onError,
-    onSuccess
+    onSuccess,
+    data
   ]);
 
   return {

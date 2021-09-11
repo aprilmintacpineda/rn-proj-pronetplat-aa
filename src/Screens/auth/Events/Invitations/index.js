@@ -54,13 +54,17 @@ const sentEventListeners = {
   }
 };
 
-function onEmpty () {
+function resetEventInvitationsCount (data) {
   if (!store.authUser.eventInvitationsCount) return;
+  const len = data.length;
 
   updateStore({
     authUser: {
       ...store.authUser,
-      eventInvitationsCount: 0
+      eventInvitationsCount:
+        len > store.authUser.eventInvitationsCount
+          ? store.authUser.eventInvitationsCount
+          : len
     }
   });
 }
@@ -75,7 +79,7 @@ function EventInvitations () {
           LoadingPlaceHolder={ContactsLoadingPlaceholder}
           eventListeners={receivedEventListeners}
           listEmptyMessage="You haven't received event invitations yet."
-          onEmpty={onEmpty}
+          onSuccess={resetEventInvitationsCount}
         />
       </Tab>
       <Tab label="Sent">
