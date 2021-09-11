@@ -8,10 +8,26 @@ import Tabs from 'components/Tabs';
 import Tab from 'components/Tabs/Tab';
 
 const receivedEventListeners = {
-  respondedToEventInvitation: (invitationId, { replaceData }) => {
-    replaceData(data =>
-      data.filter(invitation => invitation.id !== invitationId)
-    );
+  respondedToEventInvitation: (eventId, { data, replaceData }) => {
+    let removedData = 0;
+
+    const newData = data.filter(invitation => {
+      const shouldKeep = invitation.event.id !== eventId;
+      if (!shouldKeep) removedData++;
+      return shouldKeep;
+    });
+
+    replaceData(newData);
+
+    updateStore({
+      authUser: {
+        ...store.authUser,
+        eventInvitationsCount: Math.max(
+          store.authUser.eventInvitationsCount - removedData,
+          0
+        )
+      }
+    });
   },
   'websocketEvent-eventInvitationCancelled': (
     { sender, payload: { event } },
@@ -55,16 +71,18 @@ const sentEventListeners = {
 };
 
 function resetEventInvitationsCount (data) {
-  if (!store.authUser.eventInvitationsCount) return;
+  const { eventInvitationsCount } = store.authUser;
+  if (!eventInvitationsCount) return;
+
   const len = data.length;
 
   updateStore({
     authUser: {
       ...store.authUser,
       eventInvitationsCount:
-        len > store.authUser.eventInvitationsCount
-          ? store.authUser.eventInvitationsCount
-          : len
+        len < 20 && eventInvitationsCount > len
+          ? len
+          : eventInvitationsCount
     }
   });
 }

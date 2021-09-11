@@ -38,7 +38,7 @@ function RespondToInvitation ({ event }) {
         }
       });
 
-      emitEvent('respondedToEventInvitation', invitationId);
+      emitEvent('respondedToEventInvitation', event.id);
     } catch (error) {
       console.log(error);
       setAction(null);
@@ -68,7 +68,7 @@ function RespondToInvitation ({ event }) {
         }
       });
 
-      emitEvent('respondedToEventInvitation', invitationId);
+      emitEvent('respondedToEventInvitation', event.id);
     } catch (error) {
       console.log(error);
       setAction(null);
