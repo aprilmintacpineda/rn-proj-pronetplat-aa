@@ -8,11 +8,11 @@ import Tabs from 'components/Tabs';
 import Tab from 'components/Tabs/Tab';
 
 const receivedEventListeners = {
-  respondedToEventInvitation: (eventId, { data, replaceData }) => {
+  acceptedEventInvitation: (event, { data, replaceData }) => {
     let removedData = 0;
 
     const newData = data.filter(invitation => {
-      const shouldKeep = invitation.event.id !== eventId;
+      const shouldKeep = invitation.event.id !== event.id;
       if (!shouldKeep) removedData++;
       return shouldKeep;
     });
@@ -28,6 +28,11 @@ const receivedEventListeners = {
         )
       }
     });
+  },
+  rejectedEventInvitation: (event, { replaceData }) => {
+    replaceData(data =>
+      data.filter(invitation => invitation.id !== event.invitationId)
+    );
   },
   'websocketEvent-eventInvitationCancelled': (
     { sender, payload: { event } },
