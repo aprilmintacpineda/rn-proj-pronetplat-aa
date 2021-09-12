@@ -41,6 +41,7 @@ function mapStates ({ authUser }) {
 }
 
 function EventCommentInput () {
+  const textInputRef = React.useRef(null);
   const { params: event } = useRoute();
   const { authUser } = useFluxibleStore(mapStates);
   const {
@@ -155,6 +156,7 @@ function EventCommentInput () {
     const unsubscribeCallbacks = [
       addEvent('replyToComment', replyTo => {
         updateState({ replyTo });
+        textInputRef.current.focus();
       }),
       addEvent('editComment', comment => {
         updateState({
@@ -253,6 +255,7 @@ function EventCommentInput () {
               }}
             >
               <TextInput
+                ref={textInputRef}
                 style={{
                   borderWidth: 0,
                   padding: 0,

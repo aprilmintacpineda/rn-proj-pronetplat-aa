@@ -46,6 +46,7 @@ function ChatMessageInputBox () {
   const isTypingSendTimeout = React.useRef(null);
   const isTypingResetTimeout = React.useRef(null);
   const lastSentTime = React.useRef(null);
+  const textInputRef = React.useRef(null);
 
   const send = React.useCallback(() => {
     if (!messageBody) return;
@@ -93,6 +94,7 @@ function ChatMessageInputBox () {
       ),
       addEvent('replyToChatMessage', replyTo => {
         updateState({ replyTo });
+        textInputRef.current.focus();
       })
     ];
 
@@ -206,6 +208,7 @@ function ChatMessageInputBox () {
               }}
             >
               <TextInput
+                ref={textInputRef}
                 style={{
                   borderWidth: 0,
                   padding: 0,
