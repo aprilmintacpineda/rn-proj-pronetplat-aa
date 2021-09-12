@@ -1,4 +1,5 @@
 import Color from 'color';
+import { store } from 'fluxible-js';
 import React from 'react';
 import { View } from 'react-native';
 import { Paragraph } from 'react-native-paper';
@@ -19,9 +20,18 @@ const replacers = {
   '{genderPossessiveLowercase}': ({ user }) =>
     getPersonalPronoun(user).possessive.lowercase,
   '{eventName}': ({ event }) => event.name,
-  '{userFullNamePossessive}': ({ user, payload: { userId } }) => {
+  '{userFullNamePossessive}': notif => {
+    console.log(notif);
+
+    const {
+      user,
+      payload: { userId }
+    } = notif;
+
     return userId === user.id
       ? getPersonalPronoun(user).possessive.lowercase
+      : userId === store.authUser.id
+      ? 'your'
       : `${getFullName(user)}'s`;
   }
 };

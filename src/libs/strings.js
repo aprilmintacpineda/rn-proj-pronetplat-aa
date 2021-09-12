@@ -97,9 +97,9 @@ export function replacePlaceholders (str, replacers, data) {
         <Text
           key={`${index}-${word}-${value}`}
           style={
-            !personalPronouns.includes(value)
-              ? { fontWeight: 'bold' }
-              : null
+            personalPronouns.includes(value) || value === 'your'
+              ? null
+              : { fontWeight: 'bold' }
           }
         >
           {value}

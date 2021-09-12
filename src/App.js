@@ -45,11 +45,12 @@ const replacers = {
   '{genderPossessiveLowercase}': ({ sender }) =>
     getPersonalPronoun(sender).possessive.lowercase,
   '{eventName}': ({ payload: { event } }) => event.name,
-  '{userFullNamePossessive}': ({ sender, payload: { user } }) => {
-    return user?.id === sender.id
+  '{userFullNamePossessive}': ({ sender, payload: { user } }) =>
+    user.id === sender.id
       ? getPersonalPronoun(sender).possessive.lowercase
-      : `${getFullName(sender)}'s`;
-  }
+      : user.id === store.authUser.id
+      ? 'your'
+      : `${getFullName(user)}'s`
 };
 
 const webSocketEventHandlers = {
