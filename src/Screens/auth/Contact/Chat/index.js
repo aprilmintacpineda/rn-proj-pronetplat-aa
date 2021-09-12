@@ -72,7 +72,7 @@ function ContactChat ({ route: { params: contact } }) {
   }, [contact]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
       <DataFlatList
         disableRefresh
         inverted
@@ -81,8 +81,9 @@ function ContactChat ({ route: { params: contact } }) {
         RowComponent={Row}
         listEmptyMessage="No chat messages yet."
         eventListeners={eventListeners}
-      />
-      <MessageInput />
+      >
+        <MessageInput />
+      </DataFlatList>
     </View>
   );
 }

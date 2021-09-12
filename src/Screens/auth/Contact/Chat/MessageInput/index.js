@@ -4,6 +4,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import InputBox from './InputBox';
+import { DataFetchContext } from 'components/DataFetch';
 import { getPersonalPronoun } from 'libs/user';
 
 function ChatMessageInput () {
@@ -11,6 +12,8 @@ function ChatMessageInput () {
   const [isConnected, setIsConnected] = React.useState(
     contact.isConnected
   );
+
+  const { isFirstFetch } = React.useContext(DataFetchContext);
 
   React.useEffect(() => {
     const unsubscribeCallbacks = [
@@ -38,7 +41,10 @@ function ChatMessageInput () {
     };
   }, [contact]);
 
-  if (isConnected) return <InputBox />;
+  if (isConnected) {
+    if (isFirstFetch) return null;
+    return <InputBox />;
+  }
 
   return (
     <View
