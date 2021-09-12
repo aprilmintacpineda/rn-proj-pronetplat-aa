@@ -118,6 +118,10 @@ const webSocketEventHandlers = {
           },
           eventInvitation: {
             name: 'EventInvitations'
+          },
+          replyOnComment: {
+            name: 'ViewEvent',
+            params: event
           }
         };
 

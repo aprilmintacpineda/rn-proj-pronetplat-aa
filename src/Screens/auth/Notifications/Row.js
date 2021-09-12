@@ -142,6 +142,7 @@ function NotificationRow (notification) {
     case 'contactPublishedAnEvent':
     case 'eventInvitationAccepted':
     case 'eventInvitationRejected':
+    case 'replyOnComment':
       return (
         <TouchableRipple to="ViewEvent" params={event}>
           <NotificationBody {...notification} />
