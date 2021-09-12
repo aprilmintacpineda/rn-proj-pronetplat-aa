@@ -139,7 +139,8 @@ const webSocketEventHandlers = {
       }
     });
   },
-  chatMessageReceived: ({ sender }) => {
+  chatMessageReceived: notification => {
+    const { sender } = notification;
     const currentRoute = navigationRef.current.getCurrentRoute();
 
     if (
@@ -158,7 +159,11 @@ const webSocketEventHandlers = {
 
     displayNotification({
       title: 'New message',
-      body: `${getFullName(sender)} sent you a message.`,
+      body: replacePlaceholders(
+        '{fullname} sent you a message',
+        replacers,
+        notification
+      ),
       avatarUri: sender.profilePicture,
       avatarLabel: getInitials(sender),
       onPress: () => {
