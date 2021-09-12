@@ -37,8 +37,7 @@ function FormWithContext ({
       previousFormValues,
       isTouched,
       targetId,
-      originalFormValues,
-      endPointPathParams
+      originalFormValues
     },
     updateState
   } = useState(() => {
@@ -62,8 +61,7 @@ function FormWithContext ({
       status: 'initial',
       isTouched: false,
       responseData: null,
-      targetId: null,
-      endPointPathParams: null
+      targetId: null
     };
   });
 
@@ -165,13 +163,6 @@ function FormWithContext ({
     [updateState]
   );
 
-  const setEndPointPathParams = React.useCallback(
-    endPointPathParams => {
-      updateState({ endPointPathParams });
-    },
-    [updateState]
-  );
-
   const validateForm = React.useCallback(() => {
     let hasError = false;
     const newFormErrors = {};
@@ -243,12 +234,6 @@ function FormWithContext ({
             method = 'post';
           }
 
-          if (endPointPathParams) {
-            Object.keys(endPointPathParams).map(key => {
-              finalEndpoint.replace(key, endPointPathParams[key]);
-            });
-          }
-
           const response = await xhr(finalEndpoint, {
             body,
             method
@@ -281,7 +266,7 @@ function FormWithContext ({
           };
         });
       } catch (error) {
-        console.error('FormwithContext confirmSubmit', error);
+        console.error('FormwithContext submitHandler', error);
         showRequestFailedPopup(formErrorMessages[error.status]);
 
         if (onSubmitError) {
@@ -316,8 +301,7 @@ function FormWithContext ({
       resetOnSuccess,
       targetId,
       formErrorMessages,
-      formDidChange,
-      endPointPathParams
+      formDidChange
     ]
   );
 
@@ -402,8 +386,7 @@ function FormWithContext ({
         isTouched,
         stayDisabledOnSuccess,
         setUpdateMode,
-        isValidationFailed,
-        setEndPointPathParams
+        isValidationFailed
       }}
     >
       {children}
