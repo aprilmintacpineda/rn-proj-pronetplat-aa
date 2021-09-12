@@ -57,17 +57,21 @@ function ViewEventDiscussion () {
   const { params: event } = useRoute();
 
   return (
-    <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-      <View style={{ flex: 1 }}>
-        <DataFlatList
-          ItemSeparatorComponent={null}
-          endpoint={`/event/comments/${event.id}`}
-          RowComponent={CommentRow}
-          listEmptyMessage="There are no comments yet."
-          eventListeners={eventListeners}
-        />
-      </View>
-      <CommentInput />
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'column-reverse'
+      }}
+    >
+      <DataFlatList
+        ItemSeparatorComponent={null}
+        endpoint={`/event/comments/${event.id}`}
+        RowComponent={CommentRow}
+        listEmptyMessage="There are no comments yet."
+        eventListeners={eventListeners}
+      >
+        <CommentInput />
+      </DataFlatList>
     </View>
   );
 }

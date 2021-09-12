@@ -5,6 +5,7 @@ import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import { Platform, TextInput, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Caption from 'components/Caption';
+import { DataFetchContext } from 'components/DataFetch';
 import IconButton from 'components/IconButton';
 import RNVectorIcon from 'components/RNVectorIcon';
 import {
@@ -43,6 +44,7 @@ function mapStates ({ authUser }) {
 function EventCommentInput () {
   const textInputRef = React.useRef(null);
   const { params: event } = useRoute();
+  const { isFirstFetch } = React.useContext(DataFetchContext);
   const { authUser } = useFluxibleStore(mapStates);
   const {
     state: { status, commentBody, replyTo, comment },
@@ -172,6 +174,8 @@ function EventCommentInput () {
       });
     };
   }, [updateState]);
+
+  if (isFirstFetch) return null;
 
   const isPosting = status === 'posting';
 
