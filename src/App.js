@@ -2,7 +2,6 @@ import 'customAnimations';
 import 'setDefaults';
 
 import geolocation from '@react-native-community/geolocation';
-import messaging from '@react-native-firebase/messaging';
 import { NavigationContainer } from '@react-navigation/native';
 import { store, addEvent, updateStore } from 'fluxible-js';
 import React from 'react';
@@ -22,7 +21,6 @@ import {
   incrementNotificationsCount
 } from 'fluxible/actions/user';
 import { initStore } from 'fluxible/store/init';
-import useAppStateEffect from 'hooks/useAppStateEffect';
 import useHasInternet from 'hooks/useHasInternet';
 import { appMounted, logScreenView } from 'libs/logging';
 import { replacePlaceholders } from 'libs/strings';
@@ -181,19 +179,7 @@ function App () {
   const { initComplete } = useFluxibleStore(mapStates);
   const hasInternet = useHasInternet();
 
-  const updateDeviceToken = React.useCallback(async () => {
-    updateStore({ deviceToken: await messaging().getToken() });
-  }, []);
-
-  useAppStateEffect({
-    onActive: updateDeviceToken
-  });
-
   React.useEffect(() => {
-    messaging().onTokenRefresh(deviceToken => {
-      updateStore({ deviceToken });
-    });
-
     appMounted();
     initStore();
   }, []);

@@ -1,3 +1,4 @@
+import messaging from '@react-native-firebase/messaging';
 import { store } from 'fluxible-js';
 import config from 'react-native-config';
 import { logEvent } from './logging';
@@ -21,7 +22,6 @@ export async function xhr (
   {
     method = 'get',
     headers,
-    deviceToken,
     body: _body,
     params = null,
     ...options
@@ -47,15 +47,13 @@ export async function xhr (
     method,
     headers: {
       ...headers,
-      'device-token': deviceToken || store.deviceToken || '',
+      'device-token': await messaging().getToken(),
       'content-type': 'application/json'
     }
   };
 
-  const authToken = store.authToken || deviceToken;
-
-  if (authToken)
-    config.headers.Authorization = `Bearer ${authToken}`;
+  if (store.authToken)
+    config.headers.Authorization = `Bearer ${store.authToken}`;
 
   if (_body) {
     const body = Object.keys(_body).reduce(

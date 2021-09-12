@@ -1,5 +1,4 @@
 import { fetch as checkInternet } from '@react-native-community/netinfo';
-import messaging from '@react-native-firebase/messaging';
 import { initializeStore, store, updateStore } from 'fluxible-js';
 import config from 'react-native-config';
 import { getFirstInstallTime } from 'react-native-device-info';
@@ -22,7 +21,6 @@ export function getInitialStore () {
     authUser: null,
     authToken: null,
     initComplete: false,
-    deviceToken: null,
     toasts: [],
     sendingContactRequests: [],
     screensToRefresh: []
@@ -54,22 +52,19 @@ export function restore ({
 }
 
 async function onInitComplete () {
-  const [deviceToken, firstInstallTime] = await Promise.all([
-    messaging().getToken(),
-    getFirstInstallTime()
-  ]);
+  const firstInstallTime = await getFirstInstallTime();
 
   if (
     !store.lastStoreInit ||
     firstInstallTime > store.lastStoreInit ||
     !store.authToken ||
+    !store.authUser ||
     !hasCompletedSetup(store.authUser) ||
     !store.authUser.emailVerifiedAt
   ) {
     updateStore({
       ...getInitialStore(),
       initComplete: true,
-      deviceToken,
       lastStoreInit: Date.now()
     });
 
@@ -78,7 +73,6 @@ async function onInitComplete () {
 
   if (!(await hasInternet())) {
     updateStore({
-      deviceToken,
       initComplete: true,
       lastStoreInit: Date.now()
     });
@@ -88,8 +82,7 @@ async function onInitComplete () {
 
   try {
     const response = await xhr('/validate-auth', {
-      method: 'post',
-      deviceToken
+      method: 'post'
     });
 
     const { userData, authToken } = await response.json();
