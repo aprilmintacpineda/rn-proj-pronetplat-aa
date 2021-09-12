@@ -1,6 +1,6 @@
 import React from 'react';
 import useState from './useState';
-import { xhrWithParams } from 'libs/xhr';
+import { xhr } from 'libs/xhr';
 
 function useDataFetch ({
   endpoint,
@@ -56,9 +56,11 @@ function useDataFetch ({
           data: isRefresh && clearData ? null : data
         }));
 
-        const response = await xhrWithParams(endpoint, {
-          ...params,
-          nextToken: isRefresh ? null : nextToken
+        const response = await xhr(endpoint, {
+          params: {
+            ...params,
+            nextToken: isRefresh ? null : nextToken
+          }
         });
 
         const {

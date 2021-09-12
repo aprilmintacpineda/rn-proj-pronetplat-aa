@@ -16,20 +16,6 @@ function resolveUrl (path = '') {
   return `${cleanAPiBaseUrl}/${cleanPath}`;
 }
 
-export function xhrWithParams (url, params = {}, options) {
-  const searchParams = new URLSearchParams();
-
-  Object.keys(params).forEach(field => {
-    const value = params[field];
-    if (value) searchParams.append(field, encodeURIComponent(value));
-  });
-
-  const search = searchParams.toString();
-  const cleanPath = clean(url);
-
-  return xhr(`/${cleanPath}${search ? `?${search}` : ''}`, options);
-}
-
 export async function xhr (
   path,
   {
@@ -37,10 +23,25 @@ export async function xhr (
     headers,
     deviceToken,
     body: _body,
+    params = null,
     ...options
   } = {}
 ) {
-  const url = resolveUrl(path);
+  let url = resolveUrl(path);
+
+  if (params) {
+    const searchParams = new URLSearchParams();
+
+    Object.keys(params).forEach(field => {
+      const value = params[field];
+      if (value)
+        searchParams.append(field, encodeURIComponent(value));
+    });
+
+    const search = searchParams.toString();
+    if (search) url = `${url}?${searchParams.toString()}`;
+  }
+
   const config = {
     ...options,
     method,
