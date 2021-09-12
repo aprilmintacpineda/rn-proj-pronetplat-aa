@@ -16,28 +16,28 @@ const { error, primary } = paperTheme.colors;
 const { background: backgroundColor } = navigationTheme.colors;
 
 const replacers = {
-  '{fullname}': ({ user }) => getFullName(user),
-  '{genderPossessiveLowercase}': ({ user }) =>
-    getPersonalPronoun(user).possessive.lowercase,
-  '{eventName}': ({ event }) => event.name,
-  '{userFullNamePossessive}': notif => {
-    console.log(notif);
-
-    const {
-      user,
-      payload: { userId }
-    } = notif;
-
-    return userId === user.id
-      ? getPersonalPronoun(user).possessive.lowercase
-      : userId === store.authUser.id
+  '{fullname}': ({ actor }) => getFullName(actor),
+  '{genderPossessiveLowercase}': ({ actor }) =>
+    getPersonalPronoun(actor).possessive.lowercase,
+  '{eventName}': ({ payload: { event } }) => event.name,
+  '{userFullNamePossessive}': ({ actor, payload: { user } }) => {
+    return user.id === actor.id
+      ? getPersonalPronoun(actor).possessive.lowercase
+      : user.id === store.authUser.id
       ? 'your'
       : `${getFullName(user)}'s`;
+  },
+  '{userFullName}': ({ actor, payload: { user } }) => {
+    return user.id === actor.id
+      ? getPersonalPronoun(actor).possessive.lowercase
+      : user.id === store.authUser.id
+      ? 'you'
+      : `${getFullName(user)}`;
   }
 };
 
 function NotificationBody (notification) {
-  const { user, body, createdAt, type, seenAt } = notification;
+  const { actor, body, createdAt, type, seenAt } = notification;
   let icon = null;
 
   switch (type) {
@@ -101,7 +101,7 @@ function NotificationBody (notification) {
       }}
     >
       <View style={{ position: 'relative' }}>
-        <UserAvatar user={user} />
+        <UserAvatar user={actor} />
         <View
           style={{
             position: 'absolute',
@@ -125,7 +125,11 @@ function NotificationBody (notification) {
 }
 
 function NotificationRow (notification) {
-  const { type, user, event } = notification;
+  const {
+    type,
+    actor,
+    payload: { event }
+  } = notification;
 
   switch (type) {
     case 'contactRequestAccepted':
@@ -133,7 +137,7 @@ function NotificationRow (notification) {
     case 'contactRequestFollowUp':
     case 'contactRequestCancelled':
       return (
-        <TouchableRipple to="ContactProfile" params={user}>
+        <TouchableRipple to="ContactProfile" params={actor}>
           <NotificationBody {...notification} />
         </TouchableRipple>
       );
