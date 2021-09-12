@@ -24,7 +24,8 @@ function MyEventRow (event) {
     visibility,
     maxAttendees,
     status,
-    isOrganizer
+    isOrganizer,
+    isGoing
   } = event;
 
   const startDateTime = new Date(_startDateTime);
@@ -62,7 +63,7 @@ function MyEventRow (event) {
             <CoverPicture {...event} />
             <View style={{ padding: 10 }}>
               <Title>{name}</Title>
-              {!isOrganizer ? null : (
+              {isOrganizer ? (
                 <>
                   <View
                     style={{
@@ -140,7 +141,30 @@ function MyEventRow (event) {
                     </View>
                   )}
                 </>
-              )}
+              ) : isGoing ? (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginBottom: 10
+                  }}
+                >
+                  <RNVectorIcon
+                    provider="Ionicons"
+                    name="ios-checkmark-circle-outline"
+                    color={paperTheme.colors.error}
+                    size={20}
+                  />
+                  <Text
+                    style={{
+                      marginLeft: 5,
+                      color: paperTheme.colors.error
+                    }}
+                  >
+                    You are going to this event.
+                  </Text>
+                </View>
+              ) : null}
               {visibility === 'public' ? (
                 <View
                   style={{
