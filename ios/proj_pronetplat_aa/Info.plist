@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.3.5</string>
+	<string>1.4.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>40</string>
+	<string>41</string>
 	<key>FirebaseAutomaticScreenReportingEnabled</key>
 	<false />
 	<key>LSRequiresIPhoneOS</key>
@@ -38,7 +38,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME) uses your photo library to allow you to select a photo to upload, such as when changing profile picture.</string>
 	<key>NSCalendarsUsageDescription</key>
-  <string>$(PRODUCT_NAME) uses your calendar so that you can add events to your calendar</string>
+	<string>$(PRODUCT_NAME) uses your calendar so that you can add events to your calendar</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Ionicons.ttf</string>

@@ -859,7 +859,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = L5F8T576SB;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = proj_pronetplat_aa/Info.plist;
@@ -888,7 +888,7 @@
 				CODE_SIGN_ENTITLEMENTS = proj_pronetplat_aa/proj_pronetplat_aa.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = L5F8T576SB;
 				INFOPLIST_FILE = proj_pronetplat_aa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1087,7 +1087,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = L5F8T576SB;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = proj_pronetplat_aa/Info.plist;
@@ -1248,7 +1248,7 @@
 				CODE_SIGN_ENTITLEMENTS = proj_pronetplat_aa/proj_pronetplat_aa.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = L5F8T576SB;
 				INFOPLIST_FILE = proj_pronetplat_aa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
