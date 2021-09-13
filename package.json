@@ -15,7 +15,8 @@
     "patch-packages": "patch-package react-native-paper react-native-push-notification-popup rn-placeholder",
     "bundle-js": "react-native bundle --entry-file index.js --bundle-output ios/main.jsbundle",
     "postversion": "react-native-version",
-    "keystore-password": "node scripts/keystorePassword.js",
+    "setup-android": "node scripts/setupAndroid.js",
+    "setup-ios": "node scripts/setupIos.js",
     "update-pods": "cli-confirm \"Proceed?\" && rm -rf node_modules ios/Pods ios/Podfile.lock && yarn && cd ios && pod install --repo-update && cd .."
   },
   "dependencies": {

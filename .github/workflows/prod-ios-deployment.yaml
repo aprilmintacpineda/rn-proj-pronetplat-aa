@@ -70,6 +70,8 @@ jobs:
         run: |
           echo "${{ secrets.P8_AUTH_KEY }}" > ios/FastlaneDeploymentCI.p8
           echo "${{ secrets.GOOGLE_SERVICES_PLIST }}" > ios/proj_pronetplat_aa/GoogleService-Info.plist
+          cp ios/proj_pronetplat_aa/template.AppDelegate.m ios/proj_pronetplat_aa/AppDelegate.m
+          yarn setup-ios
 
       - name: Patch packages
         run: yarn patch-package
