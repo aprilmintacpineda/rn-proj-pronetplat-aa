@@ -44,9 +44,7 @@ platform :ios do
       workspace: workspace,
       scheme: scheme,
       configuration: configuration,
-      clean: true,
-      silent: true,
-      suppress_xcode_output: true
+      clean: true
     )
 
     upload_to_testflight(
