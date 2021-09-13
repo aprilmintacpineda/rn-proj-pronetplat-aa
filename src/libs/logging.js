@@ -1,5 +1,6 @@
 import analytics from '@react-native-firebase/analytics';
 import crashlytics from '@react-native-firebase/crashlytics';
+import messaging from '@react-native-firebase/messaging';
 import { navigationRef } from 'App';
 
 function getCurrentRoute () {
@@ -15,44 +16,75 @@ function getCurrentRoute () {
 }
 
 export async function logScreenView () {
-  const currentRouteName = getCurrentRoute();
-  crashlytics().log(`Navigated to ${currentRouteName}`);
+  try {
+    const currentRouteName = getCurrentRoute();
+    crashlytics().log(`Navigated to ${currentRouteName}`);
 
-  await analytics().logScreenView({
-    screen_name: currentRouteName,
-    screen_class: currentRouteName
-  });
+    await analytics().logScreenView({
+      screen_name: currentRouteName,
+      screen_class: currentRouteName
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function appMounted () {
-  crashlytics().log('App mounted');
-  await analytics().logAppOpen();
+  try {
+    const token = await messaging().getToken();
+
+    await Promise.all([
+      crashlytics().setUserId(token),
+      analytics().setUserId(token)
+    ]);
+
+    crashlytics().log('App mounted');
+    await analytics().logAppOpen();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function logEvent (eventName, params) {
-  const currentRouteName = getCurrentRoute();
+  try {
+    const currentRouteName = getCurrentRoute();
 
-  crashlytics().log(
-    `Event ${eventName} on route ${currentRouteName}`
-  );
+    crashlytics().log(
+      `Event ${eventName} on route ${currentRouteName}`
+    );
 
-  await analytics().logEvent(eventName, {
-    currentRouteName,
-    ...params
-  });
+    await analytics().logEvent(eventName, {
+      currentRouteName,
+      ...params
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function logLogin (method = 'login') {
-  crashlytics().log('User logged in');
-  await analytics().logLogin({ method });
+  try {
+    crashlytics().log('User logged in');
+    await analytics().logLogin({ method });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function logRegister () {
-  crashlytics().log('User registered in');
-  await analytics().logSignUp({ method: 'embedded' });
+  try {
+    crashlytics().log('User registered in');
+    await analytics().logSignUp({ method: 'embedded' });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function logLogout () {
-  crashlytics().log('User logged out');
-  await analytics().logEvent('logout');
+  try {
+    crashlytics().log('User logged out');
+    await analytics().logEvent('logout');
+  } catch (error) {
+    console.log(error);
+  }
 }
