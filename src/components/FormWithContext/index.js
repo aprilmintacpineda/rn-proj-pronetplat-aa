@@ -266,7 +266,7 @@ function FormWithContext ({
           };
         });
       } catch (error) {
-        console.error('FormwithContext submitHandler', error);
+        console.log('FormwithContext submitHandler', error);
         showRequestFailedPopup(formErrorMessages[error.status]);
 
         if (onSubmitError) {
