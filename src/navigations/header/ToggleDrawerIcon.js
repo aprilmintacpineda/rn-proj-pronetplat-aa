@@ -12,7 +12,7 @@ function ToggleDrawerIcon (props) {
   const badge =
     authUser.receivedContactRequestsCount +
     authUser.notificationsCount +
-    (authUser.eventInvitationsCount || 0);
+    authUser.eventInvitationsCount;
 
   return (
     <RNVectorIcon

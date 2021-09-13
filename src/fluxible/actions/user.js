@@ -38,8 +38,7 @@ export function incrementEventInvitationsCount () {
   updateStore({
     authUser: {
       ...store.authUser,
-      eventInvitationsCount:
-        (store.authUser.eventInvitationsCount || 0) + 1
+      eventInvitationsCount: store.authUser.eventInvitationsCount + 1
     }
   });
 }
