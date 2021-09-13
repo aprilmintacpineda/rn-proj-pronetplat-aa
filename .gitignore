@@ -70,7 +70,9 @@ src/env.js
 notes
 
 # firebase
+*.GoogleService-Info.plist
 GoogleService-Info.plist
+*.google-services.json
 google-services.json
 
 .env
