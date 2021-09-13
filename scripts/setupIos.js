@@ -5,7 +5,7 @@ const path = require('path');
   try {
     const filePath = path.join(
       __dirname,
-      '../android/gradle.properties'
+      '../ios/proj_pronetplat_aa/AppDelegate.m'
     );
 
     let fileContents = await fs.readFile(filePath, 'utf-8');
