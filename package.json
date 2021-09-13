@@ -30,7 +30,6 @@
     "@react-navigation/drawer": "^6.1.4",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^6.0.7",
-    "color": "^4.0.1",
     "date-fns": "^2.23.0",
     "expo-image-picker": "^10.2.3",
     "fluxible-js": "^5.0.14",

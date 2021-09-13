@@ -1,4 +1,3 @@
-import color from 'color';
 import React from 'react';
 import { FlatList, View, Linking } from 'react-native';
 import { Text } from 'react-native-paper';
@@ -60,10 +59,6 @@ const menuList = [
   }
 ];
 
-const contentColor = color(paperTheme.colors.text)
-  .alpha(0.68)
-  .string();
-
 function renderItem ({ item }) {
   const { title, icon, to, onPress } = item;
 
@@ -76,11 +71,10 @@ function renderItem ({ item }) {
           padding: 15
         }}
       >
-        <RNVectorIcon size={25} color={contentColor} {...icon} />
+        <RNVectorIcon size={25} {...icon} />
         <Text
           style={{
             marginLeft: 32,
-            color: contentColor,
             ...paperTheme.fonts.medium
           }}
         >

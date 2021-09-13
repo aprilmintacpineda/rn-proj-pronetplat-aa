@@ -1,4 +1,3 @@
-import Color from 'color';
 import { store } from 'fluxible-js';
 import React from 'react';
 import { View } from 'react-native';
@@ -96,7 +95,7 @@ function NotificationBody (notification) {
         flexDirection: 'row',
         padding: 15,
         backgroundColor: !seenAt
-          ? Color(paperTheme.colors.primary).alpha(0.12).toString()
+          ? `${paperTheme.colors.primary}40`
           : undefined
       }}
     >
