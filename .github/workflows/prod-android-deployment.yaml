@@ -48,6 +48,7 @@ jobs:
       - name: Setup files
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          GOOGLE_API_KEY_ANDROID: ${{ secrets.GOOGLE_API_KEY_ANDROID }}
         run: |
           echo '${{ secrets.SERVICE_ACCOUNT }}' > android/service-account.json
           echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > android/app/google-services.json

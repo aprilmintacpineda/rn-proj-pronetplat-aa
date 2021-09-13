@@ -67,6 +67,8 @@ jobs:
           NODE_ENV=production pod install
 
       - name: Setup files
+        env:
+          GOOGLE_API_KEY_IOS: ${{ secrets.GOOGLE_API_KEY_IOS }}
         run: |
           echo "${{ secrets.P8_AUTH_KEY }}" > ios/FastlaneDeploymentCI.p8
           echo "${{ secrets.GOOGLE_SERVICES_PLIST }}" > ios/proj_pronetplat_aa/GoogleService-Info.plist
