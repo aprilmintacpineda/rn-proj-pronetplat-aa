@@ -68,6 +68,7 @@ jobs:
 
       - name: Build and deploy
         run: |
-          yarn jetify
           cd android
+          ./gradlew clean
+          yarn jetify
           bundle exec fastlane android preprod

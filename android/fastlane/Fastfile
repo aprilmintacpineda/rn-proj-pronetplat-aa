@@ -5,7 +5,7 @@ package_name = "com.aprmp.projpronetplataa"
 platform :android do
   desc "Build and deploy to internal track"
   lane :preprod do
-    gradle(task: "clean bundleProductionRelease")
+    gradle(task: "bundleProductionRelease")
 
     upload_to_play_store(
       package_name: package_name,
