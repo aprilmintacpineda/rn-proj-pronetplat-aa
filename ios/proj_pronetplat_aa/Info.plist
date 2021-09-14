@@ -29,7 +29,7 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true />
+		<false />
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) uses your camera to be able to scan QR codes of your contacts in the Scan Code screen.</string>
