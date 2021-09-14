@@ -24,13 +24,10 @@ function useAppStateEffect ({
     [onBackground, onActive]
   );
 
-  React.useEffect(() => {
-    AppState.addEventListener('change', onChangeListener);
-
-    return () => {
-      AppState.removeEventListener('change', onChangeListener);
-    };
-  }, [onChangeListener]);
+  React.useEffect(
+    () => AppState.addEventListener('change', onChangeListener),
+    [onChangeListener]
+  );
 
   return null;
 }
