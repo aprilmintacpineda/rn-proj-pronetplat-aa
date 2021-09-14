@@ -140,8 +140,8 @@ android {
         applicationId "com.aprmp.projpronetplataa"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 49
-        versionName "1.4.7"
+        versionCode 50
+        versionName "1.4.8"
         resValue "string", "build_config_package", "com.aprmp.projpronetplataa"
     }
     splits {
