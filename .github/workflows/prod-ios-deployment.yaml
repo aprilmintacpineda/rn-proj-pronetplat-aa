@@ -81,9 +81,9 @@ jobs:
       - name: Setup env
         run: |
           cp .env.example .env
-          echo 'STAGE=prod' > .env
-          echo 'WEBSOCKET_URL=wss://websocket.entrepic.com' > .env
-          echo 'API_BASE_URL=https://api.entrepic.com' > .env
+          echo 'STAGE=prod' >> .env
+          echo 'API_BASE_URL=https://api.entrepic.com' >> .env
+          echo 'WEBSOCKET_URL=wss://websocket.entrepic.com' >> .env
           cat .env
 
       # - name: Build and deploy
