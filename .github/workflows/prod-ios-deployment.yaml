@@ -84,8 +84,9 @@ jobs:
           echo 'STAGE=prod' > .env
           echo 'WEBSOCKET_URL=wss://websocket.entrepic.com' > .env
           echo 'API_BASE_URL=https://api.entrepic.com' > .env
+          cat .env
 
-      - name: Build and deploy
-        run: |
-          cd ios
-          bundle exec fastlane ios prod
+      # - name: Build and deploy
+      #   run: |
+      #     cd ios
+      #     bundle exec fastlane ios prod
