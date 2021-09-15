@@ -12,6 +12,7 @@ async function generateFile (filePath, placeholders) {
   });
 
   await fs.writeFile(filePath, fileContents);
+  console.log(`generated ${filePath}`);
 }
 
 (async () => {
