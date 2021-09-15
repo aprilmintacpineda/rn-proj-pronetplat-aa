@@ -1,26 +1,31 @@
 const fs = require('fs').promises;
 const path = require('path');
 
+async function generateFile (filePath, placeholders) {
+  let fileContents = await fs.readFile(filePath, 'utf-8');
+
+  placeholders.forEach(placeholder => {
+    fileContents = fileContents.replace(
+      new RegExp(`__${placeholder}__`, 'gim'),
+      process.env[placeholder]
+    );
+  });
+
+  await fs.writeFile(filePath, fileContents);
+}
+
 (async () => {
   try {
-    const filePath = path.join(
-      __dirname,
-      '../android/gradle.properties'
-    );
-
-    let fileContents = await fs.readFile(filePath, 'utf-8');
-
-    fileContents = fileContents.replace(
-      /__KEYSTORE_PASSWORD__/gim,
-      process.env.KEYSTORE_PASSWORD
-    );
-
-    fileContents = fileContents.replace(
-      /__GOOGLE_API_KEY_ANDROID__/gim,
-      process.env.GOOGLE_API_KEY_ANDROID
-    );
-
-    await fs.writeFile(filePath, fileContents);
+    await Promise.all([
+      generateFile(
+        path.join(__dirname, '../android/gradle.properties'),
+        ['KEYSTORE_PASSWORD', 'GOOGLE_API_KEY_ANDROID']
+      ),
+      generateFile(
+        path.join(__dirname, '../android/app/build.gradle'),
+        ['GOOGLE_API_KEY_ANDROID']
+      )
+    ]);
   } catch (error) {
     console.log(error);
     process.exit(1);

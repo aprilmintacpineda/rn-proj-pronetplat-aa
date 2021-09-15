@@ -55,6 +55,7 @@ jobs:
           echo "${{ secrets.ANDROID_SIGNING_KEY }}" > my-upload-key.keystore.b64
           base64 -d my-upload-key.keystore.b64 > android/app/my-upload-key.keystore
           cp android/template.gradle.properties android/gradle.properties
+          cp android/app/template.build.gradle android/app/build.gradle
           yarn setup-android
 
       - name: Patch packages
