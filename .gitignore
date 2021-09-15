@@ -42,9 +42,6 @@ buck-out/
 *.keystore
 !debug.keystore
 
-# gradle
-android/gradle.properties
-
 # fastlane
 */fastlane/report.xml
 */fastlane/Preview.html
@@ -61,9 +58,6 @@ vendor/
 # CocoaPods
 /ios/Pods/
 
-# ios
-ios/proj_pronetplat_aa/AppDelegate.m
-
 # others
 src/env.js
 .ignore_*
@@ -74,5 +68,10 @@ notes
 GoogleService-Info.plist
 *.google-services.json
 google-services.json
+
+# templated files
+android/gradle.properties
+android/app/build.gradle
+ios/proj_pronetplat_aa/AppDelegate.m
 
 .env
