@@ -140,8 +140,8 @@ android {
         applicationId "com.aprmp.projpronetplataa"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 50
-        versionName "1.4.8"
+        versionCode 51
+        versionName "1.4.12"
         resValue "string", "build_config_package", "com.aprmp.projpronetplataa"
         manifestPlaceholders = [googleAPiKey:"__GOOGLE_API_KEY_ANDROID__"]
     }
