@@ -14,7 +14,7 @@
     "bootsplash": "react-native generate-bootsplash assets/bootsplash_logo_original.png --background-color=28003A --logo-width=150 --flavor=main",
     "patch-packages": "patch-package react-native-paper react-native-push-notification-popup rn-placeholder",
     "bundle-js": "react-native bundle --entry-file index.js --bundle-output ios/main.jsbundle",
-    "postversion": "react-native-version",
+    "postversion": "react-native-version -d android/app/template.build.gradle",
     "setup-android": "node scripts/setupAndroid.js",
     "setup-ios": "node scripts/setupIos.js",
     "update-pods": "cli-confirm \"Proceed?\" && rm -rf node_modules ios/Pods ios/Podfile.lock && yarn && cd ios && pod install --repo-update && cd .."
