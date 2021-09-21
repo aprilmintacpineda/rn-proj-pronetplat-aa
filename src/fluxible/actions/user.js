@@ -1,3 +1,4 @@
+import messaging from '@react-native-firebase/messaging';
 import { store, updateStore } from 'fluxible-js';
 import { logLogin, logLogout } from 'libs/logging';
 import { xhr } from 'libs/xhr';
@@ -9,6 +10,8 @@ export function login ({ userData, authToken }) {
 
 export function logout () {
   logLogout();
+
+  messaging().deleteToken();
 
   xhr('/logout', {
     method: 'post',
