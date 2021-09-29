@@ -98,27 +98,15 @@ function Body ({
       onMomentumScrollEnd={onMomentumScrollEnd}
       onEndReachedThreshold={0.7}
       inverted={data?.length && inverted}
-      ListHeaderComponent={
-        <>
-          {ListHeaderComponent}
-          {isFirstFetch && (
-            <LoadingPlaceHolder
-              isFetching={isFetching || isRefreshing}
-              isFirstFetch={isFirstFetch}
-            />
-          )}
-        </>
-      }
+      ListHeaderComponent={ListHeaderComponent}
       ListFooterComponent={
-        !isFirstFetch && (
-          <>
-            <LoadingPlaceHolder
-              isFetching={isFetching || isRefreshing}
-              isFirstFetch={isFirstFetch}
-            />
-            {ListFooterComponent}
-          </>
-        )
+        <>
+          <LoadingPlaceHolder
+            isFetching={isFetching || isFirstFetch}
+            isFirstFetch={isFirstFetch}
+          />
+          {!isFirstFetch && ListFooterComponent}
+        </>
       }
       ItemSeparatorComponent={ItemSeparatorComponent}
       renderItem={renderRow}
@@ -128,7 +116,7 @@ function Body ({
         !isFetching && (
           <ListEmpty
             message={listEmptyMessage}
-            onRefresh={refreshData || isRefreshing}
+            onRefresh={refreshData}
             isRefreshing={isRefreshing}
           />
         )
